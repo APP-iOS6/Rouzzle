@@ -1,0 +1,12 @@
+disabled_rules:
+  - function_body_length
+  - identifier_name
+  - line_length
+  - trailing_whitespace
+
+file_length:
+  warning: 1000
+  error: 1500
+cyclomatic_complexity:
+  warning: 50
+  error: 100
