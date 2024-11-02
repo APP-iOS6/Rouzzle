@@ -11,8 +11,10 @@
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
 		BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */; };
+		BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187062CD600D200FF4180 /* RoutineUser.swift */; };
+		BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187082CD6010B00FF4180 /* LoginView.swift */; };
+		BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870A2CD6011100FF4180 /* LoginViewModel.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
-		BDD719E12CD4A8AA00AE0977 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
 		FB2A5A672CD5F67000CB981A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A662CD5F67000CB981A /* Factory */; };
@@ -32,9 +34,12 @@
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleButton.swift; sourceTree = "<group>"; };
+		BD1187062CD600D200FF4180 /* RoutineUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineUser.swift; sourceTree = "<group>"; };
+		BD1187082CD6010B00FF4180 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BD11870A2CD6011100FF4180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		BD11870D2CD6017900FF4180 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
 		BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -87,6 +92,73 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		BD1186FF2CD6006C00FF4180 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */,
+				BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BD1187002CD6009600FF4180 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BD1187012CD6009E00FF4180 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				BD1187022CD600AF00FF4180 /* Login */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		BD1187022CD600AF00FF4180 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BD1187032CD600B400FF4180 /* Model */,
+				BD1187052CD600C200FF4180 /* View */,
+				BD1187042CD600BA00FF4180 /* ViewModel */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BD1187032CD600B400FF4180 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BD1187062CD600D200FF4180 /* RoutineUser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BD1187042CD600BA00FF4180 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BD11870A2CD6011100FF4180 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BD1187052CD600C200FF4180 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD1187082CD6010B00FF4180 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD11870C2CD6016B00FF4180 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BD11870D2CD6017900FF4180 /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		BDD719C22CD4A89800AE0977 = {
 			isa = PBXGroup;
 			children = (
@@ -106,12 +178,12 @@
 		BDD719DF2CD4A8AA00AE0977 /* Rouzzle */ = {
 			isa = PBXGroup;
 			children = (
-				FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */,
-				BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */,
-				BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */,
-				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
 				BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */,
+				BD1187002CD6009600FF4180 /* App */,
+				BD1187012CD6009E00FF4180 /* Features */,
+				BD11870C2CD6016B00FF4180 /* Services */,
 				BD1186EF2CD5521C00FF4180 /* Utils */,
+				BD1186FF2CD6006C00FF4180 /* Resources */,
 			);
 			path = Rouzzle;
 			sourceTree = "<group>";
@@ -230,9 +302,11 @@
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
-				BDD719E12CD4A8AA00AE0977 /* ContentView.swift in Sources */,
+				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,
+				BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

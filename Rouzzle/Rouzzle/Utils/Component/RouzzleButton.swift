@@ -8,16 +8,17 @@
 import SwiftUI
 /// 모든 버튼 유형
 enum ButtonType: String {
-    case 데이터통합 = "데이터 통합"
-    case 공유하기 = "공유하기"
-    case 동의하고시작하기 = "동의하고 시작하기"
-    case 다음 = "다음"
-    case 저장 = "저장"
-    case 탈퇴하기 = "탈퇴하기"
+    case dataIntegration = "데이터 통합"
+    case share = "공유하기"
+    case agreeAndStart = "동의하고 시작하기"
+    case next = "다음"
+    case save = "저장"
+    case withdraw = "탈퇴하기"
     
     var title: String {
         return self.rawValue
     }
+    
     var buttonFont: Font {
         switch self {
         default:
@@ -27,7 +28,7 @@ enum ButtonType: String {
     
     var buttonColor: Color {
         switch self {
-        case .데이터통합, .공유하기, .동의하고시작하기, .다음, .저장, .탈퇴하기:
+        default:
             return Color.red
         }
     }
