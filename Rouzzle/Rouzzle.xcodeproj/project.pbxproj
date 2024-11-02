@@ -11,6 +11,16 @@
 		BDD719E12CD4A8AA00AE0977 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
+		FB2A5A672CD5F67000CB981A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A662CD5F67000CB981A /* Factory */; };
+		FB2A5A6A2CD5F69A00CB981A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A692CD5F69A00CB981A /* GoogleSignIn */; };
+		FB2A5A6C2CD5F69A00CB981A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A6B2CD5F69A00CB981A /* GoogleSignInSwift */; };
+		FB2A5A6F2CD5F6CD00CB981A /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A6E2CD5F6CD00CB981A /* KakaoSDKAuth */; };
+		FB2A5A722CD5F75200CB981A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A712CD5F75200CB981A /* FirebaseAuth */; };
+		FB2A5A742CD5F75200CB981A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A732CD5F75200CB981A /* FirebaseFirestore */; };
+		FB2A5A762CD5F75200CB981A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A752CD5F75200CB981A /* FirebaseMessaging */; };
+		FB2A5A782CD5F75200CB981A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A772CD5F75200CB981A /* FirebaseStorage */; };
+		FB2A5A7A2CD5F8A100CB981A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A792CD5F8A100CB981A /* FirebaseCore */; };
+		FB2A5A7C2CD5F96600CB981A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +29,7 @@
 		BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
 		BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +37,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2A5A6C2CD5F69A00CB981A /* GoogleSignInSwift in Frameworks */,
+				FB2A5A722CD5F75200CB981A /* FirebaseAuth in Frameworks */,
+				FB2A5A762CD5F75200CB981A /* FirebaseMessaging in Frameworks */,
+				FB2A5A672CD5F67000CB981A /* Factory in Frameworks */,
+				FB2A5A6A2CD5F69A00CB981A /* GoogleSignIn in Frameworks */,
+				FB2A5A782CD5F75200CB981A /* FirebaseStorage in Frameworks */,
+				FB2A5A6F2CD5F6CD00CB981A /* KakaoSDKAuth in Frameworks */,
+				FB2A5A7A2CD5F8A100CB981A /* FirebaseCore in Frameworks */,
+				FB2A5A742CD5F75200CB981A /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +71,7 @@
 		BDD719DF2CD4A8AA00AE0977 /* Rouzzle */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */,
 				BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */,
 				BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */,
 				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
@@ -77,6 +98,15 @@
 			);
 			name = Rouzzle;
 			packageProductDependencies = (
+				FB2A5A662CD5F67000CB981A /* Factory */,
+				FB2A5A692CD5F69A00CB981A /* GoogleSignIn */,
+				FB2A5A6B2CD5F69A00CB981A /* GoogleSignInSwift */,
+				FB2A5A6E2CD5F6CD00CB981A /* KakaoSDKAuth */,
+				FB2A5A712CD5F75200CB981A /* FirebaseAuth */,
+				FB2A5A732CD5F75200CB981A /* FirebaseFirestore */,
+				FB2A5A752CD5F75200CB981A /* FirebaseMessaging */,
+				FB2A5A772CD5F75200CB981A /* FirebaseStorage */,
+				FB2A5A792CD5F8A100CB981A /* FirebaseCore */,
 			);
 			productName = Rouzzle;
 			productReference = BDD719CB2CD4A89800AE0977 /* Rouzzle.app */;
@@ -106,6 +136,12 @@
 			);
 			mainGroup = BDD719C22CD4A89800AE0977;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FB2A5A652CD5F67000CB981A /* XCRemoteSwiftPackageReference "Factory" */,
+				FB2A5A682CD5F69A00CB981A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				FB2A5A6D2CD5F6CD00CB981A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BDD719CC2CD4A89800AE0977 /* Products */;
 			projectDirPath = "";
@@ -123,6 +159,7 @@
 			files = (
 				BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */,
 				BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */,
+				FB2A5A7C2CD5F96600CB981A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +400,89 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FB2A5A652CD5F67000CB981A /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+		FB2A5A682CD5F69A00CB981A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		FB2A5A6D2CD5F6CD00CB981A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.23.0;
+			};
+		};
+		FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FB2A5A662CD5F67000CB981A /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A652CD5F67000CB981A /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		FB2A5A692CD5F69A00CB981A /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A682CD5F69A00CB981A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		FB2A5A6B2CD5F69A00CB981A /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A682CD5F69A00CB981A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		FB2A5A6E2CD5F6CD00CB981A /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A6D2CD5F6CD00CB981A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		FB2A5A712CD5F75200CB981A /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		FB2A5A732CD5F75200CB981A /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		FB2A5A752CD5F75200CB981A /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		FB2A5A772CD5F75200CB981A /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		FB2A5A792CD5F8A100CB981A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BDD719C32CD4A89800AE0977 /* Project object */;
 }
