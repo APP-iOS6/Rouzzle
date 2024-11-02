@@ -1,0 +1,50 @@
+//
+//  RouzzleButton.swift
+//  Rouzzle
+//
+//  Created by 김정원 on 11/2/24.
+//
+
+import SwiftUI
+/// 모든 버튼 유형
+enum ButtonType: String {
+    case 데이터통합 = "데이터 통합"
+    case 공유하기 = "공유하기"
+    case 동의하고시작하기 = "동의하고 시작하기"
+    case 다음 = "다음"
+    case 저장 = "저장"
+    case 탈퇴하기 = "탈퇴하기"
+    
+    var title: String {
+        return self.rawValue
+    }
+    var buttonFont: Font {
+        switch self {
+        default:
+            return Font.system(size: 16.0)
+        }
+    }
+    
+    var buttonColor: Color {
+        switch self {
+        case .데이터통합, .공유하기, .동의하고시작하기, .다음, .저장, .탈퇴하기:
+            return Color.red
+        }
+    }
+}
+
+/// 버튼은 type 만을 넘겨주고 동일하게 사용할 수 있도록
+struct RouzzleButton: View {
+    let buttonType: ButtonType
+    let action: () -> Void
+    var body: some View {
+        Button(action: action) {
+            Text("\(buttonType.title)")
+                .foregroundColor(buttonType.buttonColor)
+                .font(buttonType.buttonFont)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48, alignment: .center)
+        }
+    }
+    
+}
