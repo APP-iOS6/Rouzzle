@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var inputText = ""
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            TextEditorWithDismissableKeyboard(text: $inputText, height: 100, backgroundColor: .white)
+    
+            Text("입력한 내용: \(inputText)")
+                .padding()
         }
         .padding()
     }

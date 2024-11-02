@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
+		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
+		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
+		BD1186F92CD553D900FF4180 /* TextFieldWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F82CD553D900FF4180 /* TextFieldWithButton.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E12CD4A8AA00AE0977 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
@@ -14,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
+		BD1186F82CD553D900FF4180 /* TextFieldWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithButton.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +40,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD1186EF2CD5521C00FF4180 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BD1186F72CD553BB00FF4180 /* Component */,
+				BD1186F22CD5527D00FF4180 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		BD1186F22CD5527D00FF4180 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BD1186F02CD5527400FF4180 /* Array+Extension.swift */,
+				BD1186F32CD5530D00FF4180 /* View+Extension.swift */,
+				BD1186F52CD5531400FF4180 /* Font+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BD1186F72CD553BB00FF4180 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				BD1186F82CD553D900FF4180 /* TextFieldWithButton.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		BDD719C22CD4A89800AE0977 = {
 			isa = PBXGroup;
 			children = (
@@ -55,6 +90,7 @@
 				BDD719DD2CD4A8AA00AE0977 /* ContentView.swift */,
 				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
 				BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */,
+				BD1186EF2CD5521C00FF4180 /* Utils */,
 			);
 			path = Rouzzle;
 			sourceTree = "<group>";
@@ -154,6 +190,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
+				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
+				BD1186F92CD553D900FF4180 /* TextFieldWithButton.swift in Sources */,
 				BDD719E12CD4A8AA00AE0977 /* ContentView.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,
 			);
