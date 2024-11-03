@@ -36,6 +36,7 @@
 		FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A9D2CD7D1A500CB981A /* AppSceneDelegate.swift */; };
 		FB2A5AA02CD7D7E800CB981A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */; };
 		FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */; };
+		FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AA82CD7F1F200CB981A /* sha256.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,8 @@
 		FB2A5A9B2CD7CDE000CB981A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		FB2A5A9D2CD7D1A500CB981A /* AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegate.swift; sourceTree = "<group>"; };
 		FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomNonceString.swift; sourceTree = "<group>"; };
+		FB2A5AA72CD7F19E00CB981A /* Rouzzle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rouzzle.entitlements; sourceTree = "<group>"; };
+		FB2A5AA82CD7F1F200CB981A /* sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sha256.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +205,7 @@
 		BDD719DF2CD4A8AA00AE0977 /* Rouzzle */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5AA72CD7F19E00CB981A /* Rouzzle.entitlements */,
 				FB2A5A912CD7A31200CB981A /* Info.plist */,
 				FB2A5A9B2CD7CDE000CB981A /* Config.xcconfig */,
 				BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */,
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */,
+				FB2A5AA82CD7F1F200CB981A /* sha256.swift */,
 			);
 			path = Function;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
@@ -497,6 +503,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Rouzzle/Rouzzle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
@@ -528,6 +535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Rouzzle/Rouzzle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
