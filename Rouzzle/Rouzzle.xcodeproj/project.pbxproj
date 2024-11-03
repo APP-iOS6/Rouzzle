@@ -32,6 +32,10 @@
 		FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A952CD7B48A00CB981A /* Container.swift */; };
 		FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A972CD7B60300CB981A /* AuthService.swift */; };
 		FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A992CD7BF9200CB981A /* LoadState.swift */; };
+		FB2A5A9C2CD7CDE000CB981A /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FB2A5A9B2CD7CDE000CB981A /* Config.xcconfig */; };
+		FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A9D2CD7D1A500CB981A /* AppSceneDelegate.swift */; };
+		FB2A5AA02CD7D7E800CB981A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */; };
+		FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,9 @@
 		FB2A5A952CD7B48A00CB981A /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		FB2A5A972CD7B60300CB981A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		FB2A5A992CD7BF9200CB981A /* LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadState.swift; sourceTree = "<group>"; };
+		FB2A5A9B2CD7CDE000CB981A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		FB2A5A9D2CD7D1A500CB981A /* AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegate.swift; sourceTree = "<group>"; };
+		FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomNonceString.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +75,7 @@
 				FB2A5A782CD5F75200CB981A /* FirebaseStorage in Frameworks */,
 				FB2A5A6F2CD5F6CD00CB981A /* KakaoSDKAuth in Frameworks */,
 				FB2A5A7A2CD5F8A100CB981A /* FirebaseCore in Frameworks */,
+				FB2A5AA02CD7D7E800CB981A /* KakaoSDKUser in Frameworks */,
 				FB2A5A742CD5F75200CB981A /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +86,7 @@
 		BD1186EF2CD5521C00FF4180 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5AA12CD7E64F00CB981A /* Function */,
 				FB2A5A922CD7B22000CB981A /* Modifier */,
 				BD1186F72CD553BB00FF4180 /* Component */,
 				BD1186F22CD5527D00FF4180 /* Extensions */,
@@ -117,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
+				FB2A5A9D2CD7D1A500CB981A /* AppSceneDelegate.swift */,
 				FB2A5A952CD7B48A00CB981A /* Container.swift */,
 			);
 			path = App;
@@ -193,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				FB2A5A912CD7A31200CB981A /* Info.plist */,
+				FB2A5A9B2CD7CDE000CB981A /* Config.xcconfig */,
 				BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */,
 				BD1187002CD6009600FF4180 /* App */,
 				BD1187012CD6009E00FF4180 /* Features */,
@@ -217,6 +228,14 @@
 				FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */,
 			);
 			path = Modifier;
+			sourceTree = "<group>";
+		};
+		FB2A5AA12CD7E64F00CB981A /* Function */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */,
+			);
+			path = Function;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +265,7 @@
 				FB2A5A752CD5F75200CB981A /* FirebaseMessaging */,
 				FB2A5A772CD5F75200CB981A /* FirebaseStorage */,
 				FB2A5A792CD5F8A100CB981A /* FirebaseCore */,
+				FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */,
 			);
 			productName = Rouzzle;
 			productReference = BDD719CB2CD4A89800AE0977 /* Rouzzle.app */;
@@ -296,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2A5A9C2CD7CDE000CB981A /* Config.xcconfig in Resources */,
 				BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */,
 				BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */,
 				FB2A5A7C2CD5F96600CB981A /* GoogleService-Info.plist in Resources */,
@@ -331,6 +352,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
+				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
+				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
@@ -470,6 +493,7 @@
 		};
 		BDD719DA2CD4A89A00AE0977 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB2A5A9B2CD7CDE000CB981A /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -633,6 +657,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2A5A6D2CD5F6CD00CB981A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -17,7 +17,7 @@ struct LoginView: View {
             
             // MARK: 카카오 로그인 버튼
             Button {
-                
+                viewModel.send(.kakao)
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
