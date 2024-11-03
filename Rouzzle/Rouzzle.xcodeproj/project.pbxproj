@@ -14,6 +14,9 @@
 		BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187062CD600D200FF4180 /* RoutineUser.swift */; };
 		BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187082CD6010B00FF4180 /* LoginView.swift */; };
 		BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870A2CD6011100FF4180 /* LoginViewModel.swift */; };
+		BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870E2CD7952C00FF4180 /* Color+Extension.swift */; };
+		BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187102CD7967600FF4180 /* RouzzleTextField.swift */; };
+		BD1187132CD7990200FF4180 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD1187122CD7990200FF4180 /* Storyboard.storyboard */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -38,6 +41,9 @@
 		BD1187082CD6010B00FF4180 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BD11870A2CD6011100FF4180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BD11870D2CD6017900FF4180 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		BD11870E2CD7952C00FF4180 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		BD1187102CD7967600FF4180 /* RouzzleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleTextField.swift; sourceTree = "<group>"; };
+		BD1187122CD7990200FF4180 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -80,6 +86,7 @@
 				BD1186F02CD5527400FF4180 /* Array+Extension.swift */,
 				BD1186F32CD5530D00FF4180 /* View+Extension.swift */,
 				BD1186F52CD5531400FF4180 /* Font+Extension.swift */,
+				BD11870E2CD7952C00FF4180 /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -88,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */,
+				BD1187102CD7967600FF4180 /* RouzzleTextField.swift */,
+				BD1187122CD7990200FF4180 /* Storyboard.storyboard */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -266,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */,
+				BD1187132CD7990200FF4180 /* Storyboard.storyboard in Resources */,
 				BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */,
 				FB2A5A7C2CD5F96600CB981A /* GoogleService-Info.plist in Resources */,
 			);
@@ -300,6 +310,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
+				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
+				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
