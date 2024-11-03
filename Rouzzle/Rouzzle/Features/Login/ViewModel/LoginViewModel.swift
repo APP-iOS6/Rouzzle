@@ -15,6 +15,8 @@ class LoginViewModel {
     @ObservationIgnored
     @Injected(\.authService) private var authService
     
+    @ObservationIgnored
+    private var currentNonce: String?
     var loadState: LoadState = .none
     
     enum Action {
@@ -33,11 +35,22 @@ class LoginViewModel {
         case .kakao:
             kakaoLogin()
         case let .appleLogin(request):
-            print(request)
-            return
+            let nonce = randomNonceString()
+            currentNonce = nonce
+            request.requestedScopes = [.fullName, .email]
+            request.nonce = sha256(nonce)
         case let .appleLoginCompletion(result):
-            print(result)
-            return
+            switch result {
+            case let .success(authorization):
+                guard let nonce = currentNonce else {
+                    self.loadState = .none
+                    return
+                }
+                appleLogin(authorization, nonce: nonce)
+            case .failure(_):
+                self.loadState = .none
+                print("애플 로그인 실패함")
+            }
         }
     }
     
@@ -59,6 +72,20 @@ class LoginViewModel {
     func kakaoLogin() {
         Task {
             switch await authService.signInWithKakao() {
+            case let .success(uid):
+                self.loadState = .completed
+                print(uid)
+            case let .failure(error):
+                self.loadState = .failed
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    @MainActor
+    func appleLogin(_ authorization: ASAuthorization, nonce: String) {
+        Task {
+            switch await authService.signInWithApple(authorization, nonce: nonce) {
             case let .success(uid):
                 self.loadState = .completed
                 print(uid)
