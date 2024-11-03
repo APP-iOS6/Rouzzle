@@ -11,10 +11,12 @@ import FirebaseAuth
 import GoogleSignIn
 import KakaoSDKAuth
 import KakaoSDKUser
+import AuthenticationServices
 
 protocol AuthServiceType {
     func signInWithGoogle() async -> Result<String, Error>
     func signInWithKakao() async -> Result<String, Error>
+    func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error>
 }
 
 // MARK: 구글 로그인 구현
@@ -148,7 +150,31 @@ extension AuthService {
             }
         }
     }
-    
+}
+
+extension AuthService {
+    @MainActor
+    func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error> {
+        guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
+            return (.failure(AuthError.tokenError))
+        }
+        
+        guard let appleIDToken = appleIdCredential.identityToken else {
+            return (.failure(AuthError.tokenError))
+        }
+        
+        guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            return (.failure(AuthError.tokenError))
+        }
+        
+        let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
+        
+        do {
+            return try await authenticationUserWithFirebase(credential: credential)
+        } catch {
+            return .failure(AuthError.invalidate)
+        }
+    }
 }
 
 // MARK: 소셜 로그인으로 부처 credential을 받아 FirebaseAuth 로그인 하는 Extension
