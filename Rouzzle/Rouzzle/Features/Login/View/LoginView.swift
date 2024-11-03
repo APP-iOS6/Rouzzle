@@ -9,6 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 struct LoginView: View {
+    private let viewModel: LoginViewModel = LoginViewModel()
     var body: some View {
         VStack(alignment: .center, spacing: 17) {
             
@@ -52,7 +53,7 @@ struct LoginView: View {
             
             // MARK: 구글 로그인 버튼
             Button {
-                
+                viewModel.send(.google)
             } label: {
                 HStack {
                     Image(.googlelogo)
