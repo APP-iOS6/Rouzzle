@@ -12,4 +12,8 @@ extension Color {
     static func fromRGB(r: Double, g: Double, b: Double, opacity: Double = 1) -> Color {
         return Color(red: r/255, green: g/255, blue: b/255, opacity: opacity)
     }
+    
+    static var subHeadlineFontColor: Color {
+        return .fromRGB(r: 155, g: 155, b: 155)
+    }
 }

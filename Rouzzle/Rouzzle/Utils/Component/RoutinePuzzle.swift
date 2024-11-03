@@ -7,7 +7,16 @@
 
 import SwiftUI
 
+struct RoutinePuzzleInfo {
+    var mainImage: String
+    var routineTitle: String
+    var routineStartTime: String
+    var isCompleted: Bool
+    var cyclePeriod: String
+}
+
 struct RoutinePuzzle: View {
+    private(set) var info: RoutinePuzzleInfo
     var body: some View {
         VStack {
             GeometryReader { proxy in
@@ -18,23 +27,23 @@ struct RoutinePuzzle: View {
                         .frame(width: proxy.size.width)
                     
                     HStack {
-                        Image(systemName: "sun.max.fill")
+                        Image(systemName: "\(info.mainImage)")
                             .font(.title)
-                            .padding(.horizontal)
-                        VStack(alignment: .leading,spacing: 5) {
-                            Text("아침 루틴")
+                            .padding(.horizontal, 10)
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(info.routineTitle)
                                 .font(.title3)
                                 .bold()
                             HStack {
                                 Image(systemName: "clock")
-                                Text("06:30")
+                                Text(info.routineStartTime)
                             }
-                            .foregroundStyle(.secondary)
-                            Text("매일")
-                                .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.subHeadlineFontColor)
+                            Text(info.cyclePeriod)
+                                .foregroundStyle(Color.subHeadlineFontColor)
                         }
                         Spacer()
-                        Image(systemName: "circle.dotted")
+                        Image(systemName: info.isCompleted ? "checkmark.circle" : "circle.dotted")
                             .foregroundStyle(Color.fromRGB(r: 85, g: 138, b: 36))
                             .font(.title)
                     }
@@ -42,11 +51,10 @@ struct RoutinePuzzle: View {
                     .offset(y: -5)
                 }
             }
-            .padding()
         }
     }
 }
 
 #Preview {
-    RoutinePuzzle()
+    RoutinePuzzle(info: RoutinePuzzleInfo(mainImage: "sun.max.fill", routineTitle: "아침 루틴", routineStartTime: "06:30", isCompleted: true, cyclePeriod: "매일"))
 }
