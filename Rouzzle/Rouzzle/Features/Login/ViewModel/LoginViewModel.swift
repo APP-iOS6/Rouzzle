@@ -47,9 +47,9 @@ class LoginViewModel {
                     return
                 }
                 appleLogin(authorization, nonce: nonce)
-            case .failure(_):
+            case let .failure(error):
                 self.loadState = .none
-                print("애플 로그인 실패함")
+                print("애플 로그인 실패함 \(error.localizedDescription)")
             }
         }
     }

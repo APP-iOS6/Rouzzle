@@ -43,9 +43,9 @@ struct LoginView: View {
             }
             .overlay {
                 SignInWithAppleButton(.continue) { request in
-                    print(request)
+                    viewModel.send(.appleLogin(request))
                 } onCompletion: { result in
-                    print(result)
+                    viewModel.send(.appleLoginCompletion(result))
                 }
                 .blendMode(.overlay)
             }
