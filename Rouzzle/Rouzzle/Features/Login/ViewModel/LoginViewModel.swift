@@ -31,7 +31,7 @@ class LoginViewModel {
         case .google:
             googleLogin()
         case .kakao:
-            return
+            kakaoLogin()
         case let .appleLogin(request):
             print(request)
             return
@@ -45,6 +45,20 @@ class LoginViewModel {
     func googleLogin() {
         Task {
             switch await authService.signInWithGoogle() {
+            case let .success(uid):
+                self.loadState = .completed
+                print(uid)
+            case let .failure(error):
+                self.loadState = .failed
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    @MainActor
+    func kakaoLogin() {
+        Task {
+            switch await authService.signInWithKakao() {
             case let .success(uid):
                 self.loadState = .completed
                 print(uid)
