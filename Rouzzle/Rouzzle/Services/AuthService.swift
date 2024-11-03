@@ -30,10 +30,33 @@ class AuthService: AuthServiceType {
         }
         
         do {
-            return .success("")
+            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+            let user = userAuthentication.user
+            
+            guard let idToken = user.idToken?.tokenString else {
+                return .failure(AuthError.tokenError)
+            }
+            
+            // accessToken 생성
+            let accessToken = user.accessToken.tokenString
+            
+            // creential 생성
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+            
+            return try await authenticationUserWithFirebase(credential: credential)
         } catch {
-            return .failure(error)
+            return .failure(AuthError.invalidate)
         }
     }
 }
 
+extension AuthService {
+    private func authenticationUserWithFirebase(credential: AuthCredential) async throws -> Result<String, Error> {
+        do {
+            let result = try await Auth.auth().signIn(with: credential)
+            return .success(result.user.uid)
+        } catch {
+            throw AuthError.signInError
+        }
+    }
+}
