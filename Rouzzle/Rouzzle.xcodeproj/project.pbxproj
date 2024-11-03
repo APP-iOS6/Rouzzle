@@ -31,6 +31,7 @@
 		FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */; };
 		FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A952CD7B48A00CB981A /* Container.swift */; };
 		FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A972CD7B60300CB981A /* AuthService.swift */; };
+		FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A992CD7BF9200CB981A /* LoadState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpButtonModifier.swift; sourceTree = "<group>"; };
 		FB2A5A952CD7B48A00CB981A /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		FB2A5A972CD7B60300CB981A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		FB2A5A992CD7BF9200CB981A /* LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */,
+				FB2A5A992CD7BF9200CB981A /* LoadState.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
+				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
