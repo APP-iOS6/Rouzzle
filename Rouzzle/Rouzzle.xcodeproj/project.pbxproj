@@ -27,6 +27,10 @@
 		FB2A5A782CD5F75200CB981A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A772CD5F75200CB981A /* FirebaseStorage */; };
 		FB2A5A7A2CD5F8A100CB981A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A792CD5F8A100CB981A /* FirebaseCore */; };
 		FB2A5A7C2CD5F96600CB981A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */; };
+		FB2A5A902CD7A2C400CB981A /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */; };
+		FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */; };
+		FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A952CD7B48A00CB981A /* Container.swift */; };
+		FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5A972CD7B60300CB981A /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,12 +41,16 @@
 		BD1187062CD600D200FF4180 /* RoutineUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineUser.swift; sourceTree = "<group>"; };
 		BD1187082CD6010B00FF4180 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BD11870A2CD6011100FF4180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		BD11870D2CD6017900FF4180 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
 		BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		FB2A5A912CD7A31200CB981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpButtonModifier.swift; sourceTree = "<group>"; };
+		FB2A5A952CD7B48A00CB981A /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		FB2A5A972CD7B60300CB981A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,7 @@
 		BD1186EF2CD5521C00FF4180 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5A922CD7B22000CB981A /* Modifier */,
 				BD1186F72CD553BB00FF4180 /* Component */,
 				BD1186F22CD5527D00FF4180 /* Extensions */,
 			);
@@ -105,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
+				FB2A5A952CD7B48A00CB981A /* Container.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -154,7 +164,8 @@
 		BD11870C2CD6016B00FF4180 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BD11870D2CD6017900FF4180 /* AuthService.swift */,
+				FB2A5A8E2CD7A2B300CB981A /* ServiceError */,
+				FB2A5A972CD7B60300CB981A /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -178,6 +189,7 @@
 		BDD719DF2CD4A8AA00AE0977 /* Rouzzle */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5A912CD7A31200CB981A /* Info.plist */,
 				BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */,
 				BD1187002CD6009600FF4180 /* App */,
 				BD1187012CD6009E00FF4180 /* Features */,
@@ -186,6 +198,22 @@
 				BD1186FF2CD6006C00FF4180 /* Resources */,
 			);
 			path = Rouzzle;
+			sourceTree = "<group>";
+		};
+		FB2A5A8E2CD7A2B300CB981A /* ServiceError */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */,
+			);
+			path = ServiceError;
+			sourceTree = "<group>";
+		};
+		FB2A5A922CD7B22000CB981A /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */,
+			);
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,9 +330,13 @@
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
+				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
+				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
+				FB2A5A902CD7A2C400CB981A /* AuthError.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,
 				BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */,
 			);
@@ -443,6 +475,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rouzzle/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -473,6 +506,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rouzzle/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
