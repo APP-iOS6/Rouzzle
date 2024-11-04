@@ -51,6 +51,12 @@ struct RoutineListView: View {
             }
             .padding()
             
+            Image(.requestRoutine)
+                .resizable()
+                .frame(maxWidth: .infinity)
+                .aspectRatio(contentMode: .fit)
+                .padding(.horizontal)
+            
             Spacer()
            // Text("Hello, World!")
         }
