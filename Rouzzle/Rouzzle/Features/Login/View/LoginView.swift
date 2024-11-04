@@ -9,10 +9,18 @@ import SwiftUI
 import AuthenticationServices
 
 struct LoginView: View {
-    
+    @Environment(AuthStore.self) private var authStore
     private let viewModel: LoginViewModel = LoginViewModel()
     var body: some View {
         VStack(alignment: .center, spacing: 17) {
+            
+            Spacer()
+            
+            Image(.loginlogo)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: 30)
+                .padding(.horizontal, 64)
             
             Spacer()
             
@@ -65,10 +73,16 @@ struct LoginView: View {
                 }
             }
             .modifier(SignUpButtonModifier())
+            .padding(.bottom, 32)
         }
         .overlay {
             if viewModel.loadState == .loading {
                 ProgressView()
+            }
+        }
+        .onChange(of: viewModel.loadState) { _, newValue in
+            if newValue == .completed {
+                authStore.login()
             }
         }
         .padding()
@@ -77,4 +91,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environment(AuthStore())
 }
