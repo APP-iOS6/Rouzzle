@@ -68,6 +68,7 @@ class AuthStore {
         authState = .authenticated
     }
     
+    /// 로그아웃 함수
     func logOut() {
         do {
             isLoggedIn = false
@@ -77,5 +78,4 @@ class AuthStore {
             authState = .login
         }
     }
-    
 }
