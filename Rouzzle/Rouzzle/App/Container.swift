@@ -13,4 +13,8 @@ extension Container {
     var authService: Factory<AuthServiceType> {
         Factory(self) { AuthService() }
     }
+    
+    var userService: Factory<UserServiceType> {
+        Factory(self) { UserService() }
+    }
 }
