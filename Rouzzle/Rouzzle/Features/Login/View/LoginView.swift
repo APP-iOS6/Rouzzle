@@ -9,6 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 struct LoginView: View {
+    
     private let viewModel: LoginViewModel = LoginViewModel()
     var body: some View {
         VStack(alignment: .center, spacing: 17) {
@@ -65,8 +66,12 @@ struct LoginView: View {
             }
             .modifier(SignUpButtonModifier())
         }
-        .padding(.horizontal)
-        .padding(.vertical, 32)
+        .overlay {
+            if viewModel.loadState == .loading {
+                ProgressView()
+            }
+        }
+        .padding()
     }
 }
 
