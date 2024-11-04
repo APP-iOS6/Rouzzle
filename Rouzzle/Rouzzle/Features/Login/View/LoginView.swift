@@ -73,6 +73,15 @@ struct LoginView: View {
                 }
             }
             .modifier(SignUpButtonModifier())
+            
+            Button {
+                authStore.login()
+            } label: {
+                Text("그냥 사용해 보기")
+                    .foregroundStyle(.gray)
+                    .underline()
+            }
+            .padding(.top, 12)
             .padding(.bottom, 32)
         }
         .overlay {
