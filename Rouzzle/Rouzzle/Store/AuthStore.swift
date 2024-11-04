@@ -68,4 +68,14 @@ class AuthStore {
         authState = .authenticated
     }
     
+    func logOut() {
+        do {
+            isLoggedIn = false
+            try Auth.auth().signOut()
+            authState = .login
+        } catch {
+            authState = .login
+        }
+    }
+    
 }

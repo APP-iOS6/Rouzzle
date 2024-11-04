@@ -54,6 +54,10 @@
 		FB2A5AB12CD909E400CB981A /* Halo Dek.otf in Resources */ = {isa = PBXBuildFile; fileRef = FB2A5AB02CD909E400CB981A /* Halo Dek.otf */; };
 		FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */; };
 		FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */; };
+		FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABB2CD92C1700CB981A /* SignUpView.swift */; };
+		FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */; };
+		FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABF2CD92C6C00CB981A /* UserService.swift */; };
+		FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +101,10 @@
 		FB2A5AB02CD909E400CB981A /* Halo Dek.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Halo Dek.otf"; sourceTree = "<group>"; };
 		FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
 		FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getDeviceUUID.swift; sourceTree = "<group>"; };
+		FB2A5ABB2CD92C1700CB981A /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		FB2A5ABF2CD92C6C00CB981A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTextFieldModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +187,7 @@
 			children = (
 				FB2A5AAC2CD9096B00CB981A /* Launch */,
 				BD1187022CD600AF00FF4180 /* Login */,
+				FB2A5AB72CD92BB100CB981A /* SignUp */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -222,6 +231,7 @@
 			children = (
 				FB2A5A8E2CD7A2B300CB981A /* ServiceError */,
 				FB2A5A972CD7B60300CB981A /* AuthService.swift */,
+				FB2A5ABF2CD92C6C00CB981A /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -288,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */,
+				FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -316,6 +327,31 @@
 				FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		FB2A5AB72CD92BB100CB981A /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5AB82CD92BE800CB981A /* View */,
+				FB2A5ABA2CD92BF300CB981A /* ViewModel */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		FB2A5AB82CD92BE800CB981A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5ABB2CD92C1700CB981A /* SignUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FB2A5ABA2CD92BF300CB981A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,8 +480,11 @@
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
+				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
+				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
+				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
@@ -458,6 +497,7 @@
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
+				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
