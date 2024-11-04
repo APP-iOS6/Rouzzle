@@ -27,8 +27,8 @@
 		BD15452E2CD856490098AD7B /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545232CD856490098AD7B /* Pretendard-Light.otf */; };
 		BD15452F2CD856490098AD7B /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545212CD856490098AD7B /* Pretendard-ExtraBold.otf */; };
 		BD1545302CD856490098AD7B /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545272CD856490098AD7B /* Pretendard-Thin.otf */; };
-		BD1545C32CD928BF0098AD7B /* PuzzlePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545C22CD928BF0098AD7B /* PuzzlePoint.swift */; };
 		BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545C42CD928FA0098AD7B /* ComponentView.swift */; };
+		BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -75,8 +75,8 @@
 		BD1545252CD856490098AD7B /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		BD1545262CD856490098AD7B /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		BD1545272CD856490098AD7B /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
-		BD1545C22CD928BF0098AD7B /* PuzzlePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzlePoint.swift; sourceTree = "<group>"; };
 		BD1545C42CD928FA0098AD7B /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
+		BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -147,7 +147,6 @@
 				FB2A5A992CD7BF9200CB981A /* LoadState.swift */,
 				BD1187102CD7967600FF4180 /* RouzzleTextField.swift */,
 				BD1545162CD7BEF40098AD7B /* RoutinePuzzle.swift */,
-				BD1545C22CD928BF0098AD7B /* PuzzlePoint.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -175,6 +174,7 @@
 		BD1187012CD6009E00FF4180 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				BD1545C62CD92F040098AD7B /* RoutineList */,
 				BD1187022CD600AF00FF4180 /* Login */,
 			);
 			path = Features;
@@ -237,6 +237,22 @@
 				BD1545272CD856490098AD7B /* Pretendard-Thin.otf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		BD1545C62CD92F040098AD7B /* RoutineList */ = {
+			isa = PBXGroup;
+			children = (
+				BD1545C72CD92F390098AD7B /* View */,
+			);
+			path = RoutineList;
+			sourceTree = "<group>";
+		};
+		BD1545C72CD92F390098AD7B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BDD719C22CD4A89800AE0977 = {
@@ -431,12 +447,12 @@
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
+				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
-				BD1545C32CD928BF0098AD7B /* PuzzlePoint.swift in Sources */,
 				FB2A5A902CD7A2C400CB981A /* AuthError.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,
 				BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */,
