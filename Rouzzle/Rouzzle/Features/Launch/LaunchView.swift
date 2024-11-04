@@ -19,8 +19,10 @@ struct LaunchView: View {
                     .font(.haloDek48)
                     .tracking(12)
                     .foregroundStyle(.button)
+                    .transition(.opacity)
             case .login:
-                EmptyView()
+                LoginView()
+                    .transition(.opacity)
             case .signup:
                 EmptyView()
             case .authenticated:
@@ -28,6 +30,9 @@ struct LaunchView: View {
             }
         }
         .animation(.smooth, value: authStore.authState)
+        .onAppear {
+            authStore.autoLogin()
+        }
     }
 }
 

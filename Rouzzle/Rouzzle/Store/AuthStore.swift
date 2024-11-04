@@ -32,8 +32,10 @@ class AuthStore {
     func autoLogin() {
         // isLoggedIn이 false라면 함수 실행을 멈춤
         guard isLoggedIn else {
+            authState = .login
             return
         }
+        
         print("자동 로그인 함수 불림")
         performLogin()
     }
