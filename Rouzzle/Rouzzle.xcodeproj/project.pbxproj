@@ -50,6 +50,10 @@
 		FB2A5AA02CD7D7E800CB981A /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */; };
 		FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */; };
 		FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AA82CD7F1F200CB981A /* sha256.swift */; };
+		FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AAE2CD909A500CB981A /* LaunchView.swift */; };
+		FB2A5AB12CD909E400CB981A /* Halo Dek.otf in Resources */ = {isa = PBXBuildFile; fileRef = FB2A5AB02CD909E400CB981A /* Halo Dek.otf */; };
+		FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */; };
+		FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +93,10 @@
 		FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomNonceString.swift; sourceTree = "<group>"; };
 		FB2A5AA72CD7F19E00CB981A /* Rouzzle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rouzzle.entitlements; sourceTree = "<group>"; };
 		FB2A5AA82CD7F1F200CB981A /* sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sha256.swift; sourceTree = "<group>"; };
+		FB2A5AAE2CD909A500CB981A /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		FB2A5AB02CD909E400CB981A /* Halo Dek.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Halo Dek.otf"; sourceTree = "<group>"; };
+		FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
+		FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getDeviceUUID.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +177,7 @@
 		BD1187012CD6009E00FF4180 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5AAC2CD9096B00CB981A /* Launch */,
 				BD1187022CD600AF00FF4180 /* Login */,
 			);
 			path = Features;
@@ -220,6 +229,7 @@
 		BD15451E2CD856010098AD7B /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				FB2A5AB02CD909E400CB981A /* Halo Dek.otf */,
 				BD15451F2CD856490098AD7B /* Pretendard-Black.otf */,
 				BD1545202CD856490098AD7B /* Pretendard-Bold.otf */,
 				BD1545212CD856490098AD7B /* Pretendard-ExtraBold.otf */,
@@ -258,6 +268,7 @@
 				BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */,
 				BD1187002CD6009600FF4180 /* App */,
 				BD1187012CD6009E00FF4180 /* Features */,
+				FB2A5AB22CD90A5C00CB981A /* Store */,
 				BD11870C2CD6016B00FF4180 /* Services */,
 				BD1186EF2CD5521C00FF4180 /* Utils */,
 				BD1186FF2CD6006C00FF4180 /* Resources */,
@@ -286,8 +297,25 @@
 			children = (
 				FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */,
 				FB2A5AA82CD7F1F200CB981A /* sha256.swift */,
+				FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */,
 			);
 			path = Function;
+			sourceTree = "<group>";
+		};
+		FB2A5AAC2CD9096B00CB981A /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5AAE2CD909A500CB981A /* LaunchView.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		FB2A5AB22CD90A5C00CB981A /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +407,7 @@
 				BD15452E2CD856490098AD7B /* Pretendard-Light.otf in Resources */,
 				BD15452F2CD856490098AD7B /* Pretendard-ExtraBold.otf in Resources */,
 				BD1545302CD856490098AD7B /* Pretendard-Thin.otf in Resources */,
+				FB2A5AB12CD909E400CB981A /* Halo Dek.otf in Resources */,
 				BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */,
 				FB2A5A7C2CD5F96600CB981A /* GoogleService-Info.plist in Resources */,
 			);
@@ -413,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
+				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
@@ -422,7 +452,9 @@
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
+				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
