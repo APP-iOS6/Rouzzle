@@ -22,7 +22,7 @@ enum RoutineStatus {
 }
 
 struct RoutineStatusPuzzle: View {
-   
+    
     var status: RoutineStatus
     var emojiText: String = "💪🏻"
     var routineTitle: String = "운동 루틴"
@@ -34,44 +34,40 @@ struct RoutineStatusPuzzle: View {
     
     var body: some View {
         VStack {
-            GeometryReader { proxy in
-                ZStack {
-                    status.image
-                        .resizable()
-                        .aspectRatio(370/137, contentMode: .fit)
-                        .frame(width: proxy.size.width)
-                    
-                    HStack {
-                        Text("\(emojiText)")
-                            .font(.bold40)
-                            .padding(.horizontal, 10)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(routineTitle)
-                                .font(.semibold20)
-                                .bold()
-                            
-                            Text(inProgressStr)
-                                .font(.regular14)
-                                .foregroundStyle(Color.subHeadlineFontColor)
-                        }
-                        Spacer()
-                        VStack(alignment: .trailing) {
-                            HStack {
-                                Image(systemName: isAlram ? "bell" : "bell.slash")
-                                Text(routineStartTime)
-                            }
-                            .font(.regular16)
-                            Text(repeatDay)
-                                .font(.regular14)
-                        }
-                        .foregroundStyle(Color.subHeadlineFontColor)
-
+            ZStack {
+                status.image
+                    .resizable()
+                    .frame(width: 370, height: 137) // fix 추후 수정예정
+                HStack {
+                    Text("\(emojiText)")
+                        .font(.bold40)
+                        .padding(.horizontal, 10)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(routineTitle)
+                            .font(.semibold20)
+                            .bold()
+                        
+                        Text(inProgressStr)
+                            .font(.regular14)
+                            .foregroundStyle(Color.subHeadlineFontColor)
                     }
-                    .padding(.horizontal, 20)
-                    .offset(y: -5)
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Image(systemName: isAlram ? "bell" : "bell.slash")
+                            Text(routineStartTime)
+                        }
+                        .font(.regular16)
+                        Text(repeatDay)
+                            .font(.regular14)
+                    }
+                    .foregroundStyle(Color.subHeadlineFontColor)
+                    
                 }
-                .opacity(status == .pending ? 1 : 0.6)
+                .padding(.horizontal, 20)
+                .offset(y: -5)
             }
+            .opacity(status == .pending ? 1 : 0.6)
         }
     }
 }
