@@ -70,6 +70,8 @@
 		FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */; };
 		FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABF2CD92C6C00CB981A /* UserService.swift */; };
 		FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */; };
+		FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */; };
+		FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ACC2CDA137200CB981A /* ChipModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +130,8 @@
 		FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FB2A5ABF2CD92C6C00CB981A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTextFieldModifier.swift; sourceTree = "<group>"; };
+		FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheet.swift; sourceTree = "<group>"; };
+		FB2A5ACC2CDA137200CB981A /* ChipModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +304,7 @@
 			children = (
 				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
 				BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */,
+				FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 			children = (
 				FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */,
 				FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */,
+				FB2A5ACC2CDA137200CB981A /* ChipModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
 				BD15465D2CD9AA880098AD7B /* SocialView.swift in Sources */,
+				FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
@@ -624,6 +631,7 @@
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
+				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
