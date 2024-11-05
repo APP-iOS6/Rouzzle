@@ -27,12 +27,8 @@ struct LaunchView: View {
                 SignUpView()
                     .transition(.opacity)
             case .authenticated:
-                Text("로그인 됨")
-                Button {
-                    authStore.logOut()
-                } label: {
-                    Text("로그아웃")
-                }
+                ContentView()
+                    .transition(.opacity)
             }
         }
         .animation(.smooth, value: authStore.authState)

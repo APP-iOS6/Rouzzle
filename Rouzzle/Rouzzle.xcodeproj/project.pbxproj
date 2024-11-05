@@ -31,6 +31,12 @@
 		BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */; };
 		BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */; };
 		BD1545CD2CD93AA00098AD7B /* NavigationBackButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */; };
+		BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546502CD9A7AA0098AD7B /* ContentView.swift */; };
+		BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546542CD9AA090098AD7B /* StatisticView.swift */; };
+		BD1546592CD9AA630098AD7B /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546582CD9AA630098AD7B /* RecommendView.swift */; };
+		BD15465D2CD9AA880098AD7B /* SocialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15465C2CD9AA880098AD7B /* SocialView.swift */; };
+		BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546602CD9AAD50098AD7B /* MyPageView.swift */; };
+		BD1546642CD9AE530098AD7B /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = BD1546632CD9AE530098AD7B /* RiveRuntime */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -89,6 +95,11 @@
 		BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineView.swift; sourceTree = "<group>"; };
 		BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackButtonModifier.swift; sourceTree = "<group>"; };
+		BD1546502CD9A7AA0098AD7B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BD1546542CD9AA090098AD7B /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
+		BD1546582CD9AA630098AD7B /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
+		BD15465C2CD9AA880098AD7B /* SocialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialView.swift; sourceTree = "<group>"; };
+		BD1546602CD9AAD50098AD7B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -123,6 +134,7 @@
 				FB2A5A6C2CD5F69A00CB981A /* GoogleSignInSwift in Frameworks */,
 				FB2A5A722CD5F75200CB981A /* FirebaseAuth in Frameworks */,
 				FB2A5A762CD5F75200CB981A /* FirebaseMessaging in Frameworks */,
+				BD1546642CD9AE530098AD7B /* RiveRuntime in Frameworks */,
 				FB2A5A672CD5F67000CB981A /* Factory in Frameworks */,
 				FB2A5A6A2CD5F69A00CB981A /* GoogleSignIn in Frameworks */,
 				FB2A5A782CD5F75200CB981A /* FirebaseStorage in Frameworks */,
@@ -188,6 +200,7 @@
 				BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */,
 				FB2A5A9D2CD7D1A500CB981A /* AppSceneDelegate.swift */,
 				FB2A5A952CD7B48A00CB981A /* Container.swift */,
+				BD1546502CD9A7AA0098AD7B /* ContentView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -195,6 +208,10 @@
 		BD1187012CD6009E00FF4180 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				BD15465E2CD9AAB90098AD7B /* MyPage */,
+				BD15465A2CD9AA740098AD7B /* Social */,
+				BD1546562CD9AA470098AD7B /* Recommend */,
+				BD1546522CD9A9BA0098AD7B /* Statistic */,
 				FB2A5AAC2CD9096B00CB981A /* Launch */,
 				BD1545C62CD92F040098AD7B /* Routine */,
 				BD1187022CD600AF00FF4180 /* Login */,
@@ -277,6 +294,70 @@
 			children = (
 				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
 				BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD1546522CD9A9BA0098AD7B /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				BD1546532CD9A9F10098AD7B /* View */,
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		BD1546532CD9A9F10098AD7B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD1546542CD9AA090098AD7B /* StatisticView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD1546562CD9AA470098AD7B /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				BD1546572CD9AA570098AD7B /* View */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+		BD1546572CD9AA570098AD7B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD1546582CD9AA630098AD7B /* RecommendView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD15465A2CD9AA740098AD7B /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				BD15465B2CD9AA7D0098AD7B /* View */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		BD15465B2CD9AA7D0098AD7B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD15465C2CD9AA880098AD7B /* SocialView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD15465E2CD9AAB90098AD7B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				BD15465F2CD9AACA0098AD7B /* View */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		BD15465F2CD9AACA0098AD7B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD1546602CD9AAD50098AD7B /* MyPageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -410,6 +491,7 @@
 				FB2A5A772CD5F75200CB981A /* FirebaseStorage */,
 				FB2A5A792CD5F8A100CB981A /* FirebaseCore */,
 				FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */,
+				BD1546632CD9AE530098AD7B /* RiveRuntime */,
 			);
 			productName = Rouzzle;
 			productReference = BDD719CB2CD4A89800AE0977 /* Rouzzle.app */;
@@ -444,6 +526,7 @@
 				FB2A5A682CD5F69A00CB981A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				FB2A5A6D2CD5F6CD00CB981A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				BD1546622CD9AE530098AD7B /* XCRemoteSwiftPackageReference "rive-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BDD719CC2CD4A89800AE0977 /* Products */;
@@ -507,14 +590,18 @@
 			files = (
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
+				BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
+				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
+				BD15465D2CD9AA880098AD7B /* SocialView.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
+				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
@@ -534,6 +621,7 @@
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
 				FB2A5A902CD7A2C400CB981A /* AuthError.swift in Sources */,
 				BD1545CD2CD93AA00098AD7B /* NavigationBackButtonModifier.swift in Sources */,
+				BD1546592CD9AA630098AD7B /* RecommendView.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,
 				BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */,
 			);
@@ -750,6 +838,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BD1546622CD9AE530098AD7B /* XCRemoteSwiftPackageReference "rive-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rive-app/rive-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.2;
+			};
+		};
 		FB2A5A652CD5F67000CB981A /* XCRemoteSwiftPackageReference "Factory" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Factory";
@@ -785,6 +881,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BD1546632CD9AE530098AD7B /* RiveRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD1546622CD9AE530098AD7B /* XCRemoteSwiftPackageReference "rive-ios" */;
+			productName = RiveRuntime;
+		};
 		FB2A5A662CD5F67000CB981A /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB2A5A652CD5F67000CB981A /* XCRemoteSwiftPackageReference "Factory" */;
