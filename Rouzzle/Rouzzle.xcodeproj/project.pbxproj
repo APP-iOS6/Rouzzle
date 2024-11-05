@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B5BDA942CDA69F20034DED6 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
 		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			children = (
 				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
 				BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */,
+				4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */,
 				FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */,
 			);
 			path = View;
@@ -632,6 +635,7 @@
 			files = (
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
+				4B5BDA942CDA69F20034DED6 /* RoutineSetTimeView.swift in Sources */,
 				BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
