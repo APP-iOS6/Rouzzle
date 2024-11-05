@@ -15,6 +15,7 @@ struct NewTaskSheet: View {
     }
     
     @State private var sheetType: SheetType = .task
+    @State private var emoji: String = ""
     @State private var text: String = ""
     @State private var hour: Int = 0
     @State private var min: Int = 0
@@ -36,69 +37,20 @@ struct NewTaskSheet: View {
      }
     @FocusState var focusField: SheetType?
     @Binding var detents: Set<PresentationDetent>
+    /// 모델링을 안해서 나중에 할일 모델 action에 넣어주면 됨
+    let action: () -> Void
     
     var body: some View {
         VStack {
             switch sheetType {
             case .task:
-                HStack {
-                    TextField("추가할 할 일을 입력해 주세요.", text: $text)
-                        .focused($focusField, equals: .task)
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "arrow.up")
-                            .bold()
-                            .padding(8)
-                            .foregroundStyle(.white)
-                            .background(.accent)
-                            .clipShape(.circle)
-                    }
+                TaskInputView(text: $text, emoji: $emoji, focusField: _focusField) {
+                    /// 할일 모델 만들어서 action에 전달
+                    action()
                 }
-                HStack {
-                    if hour == 0 && min == 0 && second == 0 {
-                        Button {
-                            withAnimation {
-                                focusField = nil
-                                detents = [.fraction(0.3)]
-                            }
-                            sheetType = .time
-                        } label: {
-                            HStack {
-                                Image(systemName: "gauge.with.needle")
-                                    .tint(.gray)
-                                Text("지속 시간 없음")
-                                    .foregroundStyle(.gray)
-                            }
-                        }
-                    } else {
-                        Image(systemName: "gauge.with.needle")
-                            .tint(.accent)
-                        HStack {
-                            Button {
-                                withAnimation {
-                                    focusField = nil
-                                    detents = [.fraction(0.3)]
-                                }
-                                sheetType = .time
-                            } label: {
-                                Text(" \(formattedTime)")
-                            }
-                            
-                            Button {
-                                withAnimation {
-                                    self.hour = 0
-                                    self.min = 0
-                                    self.second = 0
-                                }
-                            } label: {
-                                Image(systemName: "xmark")
-                            }
-                        }
-                    }
-                    Spacer()
-                }
+                
+                TimeSelectionView(detents: $detents, sheetType: $sheetType, hour: $hour, min: $min, second: $second, focusField: _focusField)
+                
             case .time:
                 CustomTimePickerView(
                     hour: hour,
@@ -128,6 +80,108 @@ struct NewTaskSheet: View {
             focusField = .task
         }
         .padding()
+    }
+}
+
+struct TaskInputView: View {
+    @Binding var text: String
+    @Binding var emoji: String
+    @FocusState var focusField: NewTaskSheet.SheetType?
+    var onAddTask: () -> Void
+    var body: some View {
+        HStack {
+            EmojiButton(emojiButtonType: .keyboard) { emoji in
+                self.emoji = emoji
+            }
+            
+            TextField("추가할 할 일을 입력해 주세요.", text: $text)
+                .focused($focusField, equals: .task)
+            
+            Button(action: onAddTask) {
+                Image(systemName: "arrow.up")
+                    .bold()
+                    .padding(8)
+                    .foregroundColor(.white)
+                    .background(Color.accentColor)
+                    .clipShape(Circle())
+            }
+        }
+        .padding(.bottom, 8)
+    }
+}
+
+struct TimeSelectionView: View {
+    @Binding var detents: Set<PresentationDetent>
+    @Binding var sheetType: NewTaskSheet.SheetType
+    @Binding var hour: Int
+    @Binding var min: Int
+    @Binding var second: Int
+    @FocusState var focusField: NewTaskSheet.SheetType?
+    
+    var formattedTime: String {
+        var components: [String] = []
+        
+        if hour > 0 {
+            components.append("\(hour)시간")
+        }
+        if min > 0 {
+            components.append("\(min)분")
+        }
+        if second > 0 {
+            components.append("\(second)초")
+        }
+        
+        return components.joined(separator: " ")
+    }
+    
+    var body: some View {
+        HStack {
+            if hour == 0 && min == 0 && second == 0 {
+                Button {
+                    withAnimation {
+                        focusField = nil
+                        detents = [.fraction(0.3)]
+                        sheetType = .time
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "gauge.with.needle")
+                            .tint(.gray)
+                        Text("지속 시간 없음")
+                            .foregroundColor(.gray)
+                    }
+                }
+            } else {
+                HStack {
+                    Image(systemName: "gauge.with.needle")
+                        .foregroundColor(.accentColor)
+                    HStack {
+                        Button {
+                            withAnimation {
+                                focusField = nil
+                                detents = [.fraction(0.3)]
+                                sheetType = .time
+                            }
+                        } label: {
+                            Text(" \(formattedTime)")
+                        }
+                        
+                        Button {
+                            withAnimation {
+                                self.hour = 0
+                                self.min = 0
+                                self.second = 0
+                            }
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                    .modifier(ChipModifier())
+                }
+            }
+            Spacer()
+        }
+        .padding(.bottom, 16)
     }
 }
 
@@ -203,5 +257,7 @@ struct CustomTimePickerView: View {
 }
 
 #Preview {
-    NewTaskSheet(detents: .constant([.fraction(0.12)]))
+    NewTaskSheet(detents: .constant([.fraction(0.12)])) {
+        
+    }
 }
