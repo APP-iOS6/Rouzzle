@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseCore
+import FirebaseFirestore
 import FirebaseAuth
 import GoogleSignIn
 import KakaoSDKAuth
@@ -14,13 +15,26 @@ import KakaoSDKUser
 import AuthenticationServices
 
 protocol AuthServiceType {
+    func checkFirstUser(_ userUid: String) async -> Result<Bool, Error>
     func signInWithGoogle() async -> Result<String, Error>
     func signInWithKakao() async -> Result<String, Error>
     func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error>
 }
 
-// MARK: 구글 로그인 구현
 class AuthService: AuthServiceType {
+    /// FireStore에 이미 userUid로 된 유저 데이터가 있는지 확인하는 함수
+    func checkFirstUser(_ userUid: String) async -> Result<Bool, Error> {
+        do {
+            let result = try await Firestore.firestore().collection("User").document(userUid).getDocument().exists
+            return .success(result)
+        } catch {
+            return .failure(error)
+        }
+    }
+}
+
+// MARK: 구글 로그인 구현
+extension AuthService {
     @MainActor
     func signInWithGoogle() async -> Result<String, Error> {
         
@@ -152,6 +166,7 @@ extension AuthService {
     }
 }
 
+// MARK: 애플 로그인 구현
 extension AuthService {
     @MainActor
     func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error> {
