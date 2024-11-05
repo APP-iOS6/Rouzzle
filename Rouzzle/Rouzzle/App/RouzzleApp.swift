@@ -25,7 +25,7 @@ struct RouzzleApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            LaunchView()
                 .environment(authStore)
         }
     }

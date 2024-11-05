@@ -9,32 +9,28 @@ import SwiftUI
 import RiveRuntime
 
 struct SplashView: View {
-    @State private var isActive = false
+    @Environment(AuthStore.self) var authStore
     private let riveAnimation = RiveViewModel(fileName: "RouzzleSplash", stateMachineName: "State Machine 1")
     
     var body: some View {
-        if isActive {
-            OnboardingView()
-        } else {
-            ZStack {
-                Color("OnBoardingBackgroundColor")
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    Spacer()
+        ZStack {
+            Color("OnBoardingBackgroundColor")
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Spacer()
 
-                    riveAnimation.view()
-                        .frame(width: 300, height: 300)
-                        .offset(y: -50)
-                  
-                    Spacer()
-                }
+                riveAnimation.view()
+                    .frame(width: 300, height: 300)
+                    .offset(y: -50)
+              
+                Spacer()
             }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    withAnimation {
-                        isActive = true
-                    }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation {
+                    authStore.authState = .onboarding
                 }
             }
         }
