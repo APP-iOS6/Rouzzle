@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -150,6 +152,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9700427B2CD9DA2200777F43 /* RoutineStart */ = {
+			isa = PBXGroup;
+			children = (
+				9700427C2CD9DA2E00777F43 /* View */,
+			);
+			path = RoutineStart;
+			sourceTree = "<group>";
+		};
+		9700427C2CD9DA2E00777F43 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BD1186EF2CD5521C00FF4180 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +229,7 @@
 		BD1187012CD6009E00FF4180 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				9700427B2CD9DA2200777F43 /* RoutineStart */,
 				BD15465E2CD9AAB90098AD7B /* MyPage */,
 				BD15465A2CD9AA740098AD7B /* Social */,
 				BD1546562CD9AA470098AD7B /* Recommend */,
@@ -606,6 +625,7 @@
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
+				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
