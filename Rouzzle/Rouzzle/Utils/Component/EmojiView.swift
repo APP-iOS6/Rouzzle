@@ -34,7 +34,8 @@ struct EmojiButton: View {
     @State private var showSheet = false
     @State private var selectedEmoji: String?
     private(set) var emojiButtonType: EmojiButtonType
-    
+    var onEmojiSelected: (String) -> Void
+
     var body: some View {
         VStack {
             HStack(spacing: 15) {
@@ -62,11 +63,12 @@ struct EmojiButton: View {
 }
 
 #Preview {
-    EmojiButton(emojiButtonType: .keyboard)
+    EmojiButton(emojiButtonType: .keyboard, onEmojiSelected: { _ in})
 }
 
 struct EmojiListView: View {
-    var onEmojiSelected: (String) -> Void // 이모지 선택 클로저
+    @State private var selectedEmoji: String? 
+    var onEmojiSelected: (String) -> Void
     
     var body: some View {
         ScrollView {
