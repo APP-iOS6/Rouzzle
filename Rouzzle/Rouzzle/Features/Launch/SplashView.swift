@@ -14,7 +14,7 @@ struct SplashView: View {
     
     var body: some View {
         if isActive {
-//            OnboardingView()
+            OnboardingView()
         } else {
             ZStack {
                 Color("OnBoardingBackgroundColor")
@@ -22,11 +22,10 @@ struct SplashView: View {
                 
                 VStack {
                     Spacer()
-                    
-                    // 애니메이션 뷰를 화면 중앙보다 위로 올리기 위해 offset 추가
+
                     riveAnimation.view()
                         .frame(width: 300, height: 300)
-                        .offset(y: -50) // y 값을 음수로 설정하여 위로 이동
+                        .offset(y: -50)
                   
                     Spacer()
                 }
@@ -45,4 +44,3 @@ struct SplashView: View {
 #Preview {
     SplashView()
 }
-

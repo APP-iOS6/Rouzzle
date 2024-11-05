@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
 		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
+		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
+		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -76,6 +78,8 @@
 /* Begin PBXFileReference section */
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
+		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
+				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
 			);
 			path = RiveAnimation;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 			children = (
 				FB2A5AAE2CD909A500CB981A /* LaunchView.swift */,
 				23DBE7712CDA675C0029D4DA /* SplashView.swift */,
+				23DBE7782CDA6B310029D4DA /* OnboardingView.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -562,6 +568,7 @@
 			files = (
 				FB2A5A9C2CD7CDE000CB981A /* Config.xcconfig in Resources */,
 				BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */,
+				23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */,
 				BD1545282CD856490098AD7B /* Pretendard-Bold.otf in Resources */,
 				BD1545292CD856490098AD7B /* Pretendard-Medium.otf in Resources */,
 				BD15452A2CD856490098AD7B /* Pretendard-Black.otf in Resources */,
@@ -630,6 +637,7 @@
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
