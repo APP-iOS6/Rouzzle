@@ -18,7 +18,9 @@ struct ComponentView: View {
             .padding(.vertical)
         EmojiButton(emojiButtonType: .keyboard) { emoji in
             print(emoji) // 여기서 이모지 전달받습니다.
-        }        
+        }
+        TaskStatusPuzzle(taskStatus: .inProgress)
+            .padding()
     }
 }
 
