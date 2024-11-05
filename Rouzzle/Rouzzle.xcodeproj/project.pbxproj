@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4B5BDA942CDA69F20034DED6 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */; };
+		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
+		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -77,6 +79,8 @@
 
 /* Begin PBXFileReference section */
 		4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
+		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
+		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -158,6 +162,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9700427B2CD9DA2200777F43 /* RoutineStart */ = {
+			isa = PBXGroup;
+			children = (
+				9700427C2CD9DA2E00777F43 /* View */,
+				970042812CDA096300777F43 /* ViewModel */,
+			);
+			path = RoutineStart;
+			sourceTree = "<group>";
+		};
+		9700427C2CD9DA2E00777F43 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		970042812CDA096300777F43 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		BD1186EF2CD5521C00FF4180 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +249,7 @@
 		BD1187012CD6009E00FF4180 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				9700427B2CD9DA2200777F43 /* RoutineStart */,
 				BD15465E2CD9AAB90098AD7B /* MyPage */,
 				BD15465A2CD9AA740098AD7B /* Social */,
 				BD1546562CD9AA470098AD7B /* Recommend */,
@@ -620,6 +650,8 @@
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
+				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
+				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
@@ -627,6 +659,7 @@
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
+				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
