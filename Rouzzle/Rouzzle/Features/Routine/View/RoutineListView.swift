@@ -18,8 +18,7 @@ struct RoutineListView: View {
                             .foregroundColor(.black) // 텍스트를 검정색으로 설정
                     } icon: {
                         Image(systemName: "puzzlepiece.fill")
-                            .foregroundStyle(.button) // 아이콘에 버튼 색상 적용
-                    }
+                            .foregroundStyle(.button)                    }
                     .padding(10)
                     .background(
                         RoundedRectangle(cornerRadius: 20)
@@ -30,7 +29,6 @@ struct RoutineListView: View {
                     NavigationLink(destination: AddRoutineView()) {
                         Image(systemName: "plus")
                             .font(.title2)
-                            .foregroundStyle(.button)
                     }
                 }
                 .padding()
