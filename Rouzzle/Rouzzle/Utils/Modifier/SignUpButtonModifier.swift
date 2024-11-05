@@ -13,10 +13,14 @@ struct SignUpButtonModifier: ViewModifier {
         content
             .padding()
             .frame(maxWidth: .infinity, maxHeight: 60)
-            .overlay {
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.white)
+            )
+            .background(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color(uiColor: .systemGray5), lineWidth: 1)
-            }
+            )
             .padding(.horizontal)
     }
 }

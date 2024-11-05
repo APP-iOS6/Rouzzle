@@ -15,10 +15,10 @@ struct LaunchView: View {
         VStack {
             switch authStore.authState {
             case .splash:
-                Text("ROUZZLE")
-                    .font(.haloDek48)
-                    .tracking(12)
-                    .foregroundStyle(.accent)
+                SplashView()
+                    .transition(.opacity)
+            case .onboarding:
+                OnboardingView()
                     .transition(.opacity)
             case .login:
                 LoginView()
