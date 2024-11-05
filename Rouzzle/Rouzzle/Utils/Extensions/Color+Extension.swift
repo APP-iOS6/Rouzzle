@@ -14,6 +14,10 @@ extension Color {
     }
     
     static var subHeadlineFontColor: Color {
-        return .fromRGB(r: 155, g: 155, b: 155)
+        return .fromRGB(r: 153, g: 153, b: 153)
+    }
+    
+    static var themeColor: Color {
+        return .fromRGB(r: 193, g: 235, b: 96)
     }
 }
