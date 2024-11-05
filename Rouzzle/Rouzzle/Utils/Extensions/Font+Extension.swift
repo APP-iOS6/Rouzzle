@@ -78,4 +78,8 @@ extension Font {
     static var regular10: Font {
         return Font.custom("Pretendard-Regular", size: 10)
     }
+    
+    static var haloDek48: Font {
+        return Font.custom("Halo Dek", fixedSize: 48)
+    }
 }
