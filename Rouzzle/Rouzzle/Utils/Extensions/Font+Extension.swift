@@ -20,6 +20,7 @@ extension Font {
     
     static var bold50: Font {
         return Font.custom("Pretendard-Bold", size: 50)
+    }
     static var bold40: Font {
         return Font.custom("Pretendard-Bold", size: 40)
     }

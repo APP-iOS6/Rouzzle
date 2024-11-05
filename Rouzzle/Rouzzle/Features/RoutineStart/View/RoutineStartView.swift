@@ -93,14 +93,6 @@ struct RoutineStartView: View {
                     }
                 }
                 .padding(.top, 47)
-                
-                // MARK: 할일 리스트
-                ScrollView {
-                    Image(.routine) // 임시로 넣어둠
-                    
-                    Image(.routine) // 임시로 넣어둠
-                }
-                .padding(.top, 7)
             }
         }
         .padding(.horizontal, -16)
