@@ -14,7 +14,7 @@ struct RouzzleTextField: View {
     var body: some View {
         TextField(placeholder, text: $text)
             .padding()
-            .background(Color.fromRGB(r: 248, g: 247, b: 247))
+            .background(Color.white)
             .clipShape(.rect(cornerRadius: 12))
     }
 }
