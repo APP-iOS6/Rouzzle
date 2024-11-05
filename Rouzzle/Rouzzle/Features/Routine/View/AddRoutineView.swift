@@ -26,20 +26,8 @@ struct AddRoutineView: View {
         VStack {
             // 이모지 입력
             VStack {
-                Button(action: {
-                    // 이모지 키보드
-                }, label: {
-                    ZStack {
-                        Circle()
-                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
-                            .frame(width: 70, height: 70)
-                            .foregroundColor(Color("buttonColor"))
-                        
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .foregroundColor(Color("buttonColor"))
-                    }
-                })
+                EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in                    print("Selected Emoji: \(selectedEmoji)")
+                }
                 .padding(.vertical, 45)
             }
             
@@ -80,11 +68,22 @@ struct AddRoutineView: View {
                     Text("시작 시간")
                         .font(.headline)
                     Spacer()
-                    DatePicker("", selection: $startTime, displayedComponents: .hourAndMinute)
-                        .datePickerStyle(CompactDatePickerStyle())
-                        .labelsHidden()
-                        .cornerRadius(10)
-                        .accentColor(Color("buttonColor"))
+                    VStack {
+                        NavigationLink(destination: RoutineSetTimeView()) {
+                            HStack {
+                                Text("요일별 시간 설정")
+                                    .font(.caption)
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12))
+                            }
+                        }.foregroundColor(.gray)
+                        
+                        DatePicker("", selection: $startTime, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(CompactDatePickerStyle())
+                            .labelsHidden()
+                            .cornerRadius(10)
+                            .accentColor(Color("buttonColor"))
+                    }
                 }
             }
             .padding()
