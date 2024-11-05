@@ -17,7 +17,7 @@
 		BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870A2CD6011100FF4180 /* LoginViewModel.swift */; };
 		BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870E2CD7952C00FF4180 /* Color+Extension.swift */; };
 		BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187102CD7967600FF4180 /* RouzzleTextField.swift */; };
-		BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutinePuzzle.swift */; };
+		BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
 		BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15451C2CD7D0710098AD7B /* Date+Extension.swift */; };
 		BD1545282CD856490098AD7B /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545202CD856490098AD7B /* Pretendard-Bold.otf */; };
 		BD1545292CD856490098AD7B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545242CD856490098AD7B /* Pretendard-Medium.otf */; };
@@ -39,6 +39,7 @@
 		BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546602CD9AAD50098AD7B /* MyPageView.swift */; };
 		BD1546642CD9AE530098AD7B /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = BD1546632CD9AE530098AD7B /* RiveRuntime */; };
 		BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546652CD9D70D0098AD7B /* EmojiView.swift */; };
+		BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -70,6 +71,8 @@
 		FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */; };
 		FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABF2CD92C6C00CB981A /* UserService.swift */; };
 		FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */; };
+		FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */; };
+		FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ACC2CDA137200CB981A /* ChipModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,7 +86,7 @@
 		BD11870A2CD6011100FF4180 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BD11870E2CD7952C00FF4180 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		BD1187102CD7967600FF4180 /* RouzzleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleTextField.swift; sourceTree = "<group>"; };
-		BD1545162CD7BEF40098AD7B /* RoutinePuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePuzzle.swift; sourceTree = "<group>"; };
+		BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatusPuzzle.swift; sourceTree = "<group>"; };
 		BD15451C2CD7D0710098AD7B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		BD15451F2CD856490098AD7B /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		BD1545202CD856490098AD7B /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		BD15465C2CD9AA880098AD7B /* SocialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialView.swift; sourceTree = "<group>"; };
 		BD1546602CD9AAD50098AD7B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		BD1546652CD9D70D0098AD7B /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
+		BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusPuzzle.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 		FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FB2A5ABF2CD92C6C00CB981A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTextFieldModifier.swift; sourceTree = "<group>"; };
+		FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheet.swift; sourceTree = "<group>"; };
+		FB2A5ACC2CDA137200CB981A /* ChipModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +204,8 @@
 				BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */,
 				FB2A5A992CD7BF9200CB981A /* LoadState.swift */,
 				BD1187102CD7967600FF4180 /* RouzzleTextField.swift */,
-				BD1545162CD7BEF40098AD7B /* RoutinePuzzle.swift */,
+				BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */,
+				BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */,
 				BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */,
 				BD1546652CD9D70D0098AD7B /* EmojiView.swift */,
 			);
@@ -316,6 +323,7 @@
 			children = (
 				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
 				BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */,
+				FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -430,6 +438,7 @@
 			children = (
 				FB2A5A932CD7B23600CB981A /* SignUpButtonModifier.swift */,
 				FB2A5AC12CD933C500CB981A /* StrokeTextFieldModifier.swift */,
+				FB2A5ACC2CDA137200CB981A /* ChipModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -614,10 +623,12 @@
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
+				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
 				BD15465D2CD9AA880098AD7B /* SocialView.swift in Sources */,
+				FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
@@ -626,6 +637,7 @@
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
+				BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
@@ -640,6 +652,7 @@
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
+				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,

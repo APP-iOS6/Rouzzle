@@ -80,11 +80,11 @@ struct EmojiListView: View {
                                 if let emoji = UnicodeScalar(code)?.properties.isEmoji == true ? String(UnicodeScalar(code)!) : nil {
                                     onEmojiSelected(emoji) // 이모지를 상위 뷰로 전달
                                 }
-                            }) {
+                            }, label: {
                                 if let emoji = UnicodeScalar(code)?.properties.isEmoji == true ? String(UnicodeScalar(code)!) : nil {
                                     Text(emoji).font(.system(size: 55))
                                 }
-                            }
+                            })
                         }
                     }
                 }
