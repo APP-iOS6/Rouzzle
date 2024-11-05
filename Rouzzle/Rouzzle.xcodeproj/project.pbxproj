@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
+		97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */; };
+		97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -18,7 +20,6 @@
 		BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870A2CD6011100FF4180 /* LoginViewModel.swift */; };
 		BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870E2CD7952C00FF4180 /* Color+Extension.swift */; };
 		BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187102CD7967600FF4180 /* RouzzleTextField.swift */; };
-		BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
 		BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15451C2CD7D0710098AD7B /* Date+Extension.swift */; };
 		BD1545282CD856490098AD7B /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545202CD856490098AD7B /* Pretendard-Bold.otf */; };
 		BD1545292CD856490098AD7B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545242CD856490098AD7B /* Pretendard-Medium.otf */; };
@@ -79,6 +80,7 @@
 /* Begin PBXFileReference section */
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
 		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
+		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				BD1186F52CD5531400FF4180 /* Font+Extension.swift */,
 				BD11870E2CD7952C00FF4180 /* Color+Extension.swift */,
 				BD15451C2CD7D0710098AD7B /* Date+Extension.swift */,
+				97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -630,11 +633,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
+				97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
@@ -646,9 +651,7 @@
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
-				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
-				BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,

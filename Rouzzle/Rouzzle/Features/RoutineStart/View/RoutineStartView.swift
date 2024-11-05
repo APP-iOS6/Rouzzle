@@ -9,15 +9,17 @@ import SwiftUI
 
 struct RoutineStartView: View {
     private var viewModel: RoutineStartViewModel = RoutineStartViewModel()
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack(alignment: .top) {
             // MARK: 배경(그라데이션 + 흰색 RoundedRectangle)
             LinearGradient(
-                colors: viewModel.timerState == .running ? [.white, .themeColor] : [.white, .subHeadlineFontColor],
+                colors: viewModel.isRunning ? [.white, .themeColor] : [.white, .subHeadlineFontColor],
                 startPoint: .top,
                 endPoint: .center
             )
+            .transition(.opacity)
             .ignoresSafeArea(edges: .top)
             
             RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -27,34 +29,41 @@ struct RoutineStartView: View {
                 .ignoresSafeArea(edges: .bottom)
             
             VStack(spacing: 0) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.semibold24)
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 20)
+                
                 Text("💊 유산균 먹기")
                     .font(.bold24)
+                    .padding(.top, 10)
                 
                 Text("5분")
                     .font(.regular14)
                     .foregroundStyle(Color.subHeadlineFontColor)
-                    .padding(.top, 19)
+                    .padding(.top, 10)
                 
                 // MARK: 퍼즐 모양 타이머
                 ZStack {
                     Image(.puzzleTimer)
                     
-                    Text(viewModel.timeString(from: viewModel.timeRemaining))
+                    Text(viewModel.timeRemaining.toTimeString())
                         .font(.bold54)
-                        .foregroundStyle(viewModel.timerState == .running ? .primary : Color.subHeadlineFontColor)
-                        .onAppear {
-                            viewModel.startTimer()
-                        }
+                        .foregroundStyle(viewModel.isRunning ? .primary : Color.subHeadlineFontColor)
                 }
-                .padding(.top, 31)
+                .padding(.top, 30)
                 
                 // MARK: 버튼 3개(일시정지, 체크, 건너뛰기)
                 HStack(spacing: 0) {
                     // 일시정지 버튼
                     Button {
-                        viewModel.toggleTimer()
+                        viewModel.isRunning.toggle()
                     } label: {
-                        Image(systemName: viewModel.timerState == .running ? "pause.circle.fill" : "play.circle.fill")
+                        Image(systemName: viewModel.isRunning ? "pause.circle.fill" : "play.circle.fill")
                             .font(.bold50)
                             .foregroundStyle(Color.themeColor)
                             .background(
@@ -92,16 +101,16 @@ struct RoutineStartView: View {
                             )
                     }
                 }
-                .padding(.top, 47)
+                .padding(.top, 30)
             }
         }
-        .padding(.horizontal, -16)
-        .customNavigationBar(title: "")
+        .animation(.smooth, value: viewModel.isRunning)
+        .onAppear {
+            viewModel.startTimer()
+        }
     }
 }
 
 #Preview {
-    NavigationStack {
-        RoutineStartView()
-    }
+    RoutineStartView()
 }
