@@ -21,7 +21,6 @@ struct NavigationBackButtonModifier: ViewModifier {
                     }, label: {
                         Image(systemName: "chevron.backward")
                             .font(.semibold20)
-                            .foregroundStyle(.button)
                     })
                 }
                 ToolbarItem(placement: .principal) { // 중앙에 타이틀을 추가

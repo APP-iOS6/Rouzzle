@@ -33,8 +33,6 @@ struct RouzzleButton: View {
             }
             .frame(width: proxy.size.width )
         }
-
-        
     }
 }
 #Preview("dd") {

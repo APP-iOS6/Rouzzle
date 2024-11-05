@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ComponentView: View {
+    @State var text: String = ""
     var body: some View {
+        RouzzleTextField(text: $text, placeholder: "제목")
         RouzzleButton(buttonType: .save, action: {})
+        EmojiButton(emojiButtonType: .routineEmoji)
     }
 }
 
