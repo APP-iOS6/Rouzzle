@@ -10,18 +10,26 @@ import SwiftUI
 struct AddRoutineView: View {
     @State private var title: String = ""
     @State private var selectedDays: Set<String> = []
-    @State private var isDaily: Bool = false
+    @State private var isDaily: Bool = true
     @State private var startTime: Date = Date()
     @State private var isNotificationEnabled: Bool = false
     @State private var isOneAlarm: Bool = false
-    
     @State private var selectedMinute: Int = 5
     @State private var selectedCount: Int = 3
+    @State private var times: [String: Date] = [
+        "월": Date(),
+        "화": Date(),
+        "수": Date(),
+        "목": Date(),
+        "금": Date(),
+        "토": Date(),
+        "일": Date()
+    ]
+    
     let minutes = [1, 3, 5, 7, 10]
     let counts = [1, 2, 3, 4, 5]
-    
     var daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
-
+    
     var body: some View {
         VStack {
             // 이모지 입력
@@ -69,14 +77,17 @@ struct AddRoutineView: View {
                         .font(.headline)
                     Spacer()
                     VStack {
-                        NavigationLink(destination: RoutineSetTimeView()) {
-                            HStack {
-                                Text("요일별 시간 설정")
-                                    .font(.caption)
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 12))
+                        if let firstSelectedDay = selectedDays.first {
+                            NavigationLink(destination: RoutineSetTimeView(selectedDays: Array(selectedDays))) {
+                                HStack {
+                                    Text("요일별 시간 설정")
+                                        .font(.caption)
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 12))
+                                }
                             }
-                        }.foregroundColor(.gray)
+                            .foregroundColor(.gray)
+                        }
                         
                         DatePicker("", selection: $startTime, displayedComponents: .hourAndMinute)
                             .datePickerStyle(CompactDatePickerStyle())

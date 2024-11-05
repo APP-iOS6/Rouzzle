@@ -8,53 +8,71 @@
 import SwiftUI
 
 struct RoutineSetTimeView: View {
-    @State private var selectedTime: Date = Date()
-    @State private var times: [String: Date] = [
-        "월요일": Date(),
-        "화요일": Date(),
-        "수요일": Date(),
-        "목요일": Date(),
-        "금요일": Date()
-    ]
+    let selectedDays: [String]
+    @State private var times: [String: Date]
     @State private var selectedDay: String?
+    
+    init(selectedDays: [String]) {
+        self.selectedDays = selectedDays
+        _times = State(initialValue: selectedDays.reduce(into: [:]) { result, day in
+            result[day] = Date()
+        })
+    }
 
     var body: some View {
         VStack {
-            DatePicker("", selection: $selectedTime, displayedComponents: .hourAndMinute)
+            // DatePicker for the selected day
+            if let selectedDay = selectedDay {
+                DatePicker("", selection: Binding(
+                    get: { times[selectedDay] ?? Date() },
+                    set: { times[selectedDay] = $0 }
+                ), displayedComponents: .hourAndMinute)
                 .datePickerStyle(WheelDatePickerStyle())
                 .labelsHidden()
-                .frame(height: 150)
-                .onChange(of: selectedTime) { newTime in
-                    if let day = selectedDay {
-                        times[day] = newTime
-                    }
-                }
+                .frame(height: 260)
+            } else {
+                // Placeholder when no day is selected
+                Text("요일을 선택하세요")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .frame(height: 260)
+            }
+            
+            // List of days and times
+            VStack(alignment: .leading, spacing: 10) {
+                Text("요일별 시간 설정")
+                    .font(.headline)
+                    .padding(.horizontal)
 
-            List {
-                Section(header: Text("요일별 시간 설정")) {
-                    ForEach(times.keys.sorted(), id: \.self) { day in
+                List {
+                    ForEach(selectedDays, id: \.self) { day in
                         HStack {
                             Text(day)
                             Spacer()
-                            Button(action: {
-                                selectedDay = day
-                                selectedTime = times[day] ?? Date()
-                            }, label: {
-                                Text(times[day]!, style: .time)
-                                    .foregroundColor(.primary)
-                            })
+                            Text(times[day]!, style: .time)
+                                .foregroundColor(.primary)
+                        }
+                        .contentShape(Rectangle()) // Make the entire row tappable
+                        .onTapGesture {
+                            selectedDay = day
                         }
                     }
                 }
+                .listStyle(PlainListStyle())
             }
-            .listStyle(PlainListStyle())
-            
-            RouzzleButton(buttonType: .save, action: {})
+
+            // Save button
+            RouzzleButton(buttonType: .save, action: {
+                // Handle save action
+                print("Selected times: \(times)")
+            })
+            .padding()
         }
+        .padding()
         .customNavigationBar(title: "시작 시간 설정")
     }
 }
 
 #Preview {
-    RoutineSetTimeView()
+    RoutineSetTimeView(selectedDays: ["월요일", "화요일", "수요일", "목요일", "금요일"])
 }
