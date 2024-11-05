@@ -38,7 +38,7 @@ class AuthStore {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             // isLoggedIn이 false라면 onboarding으로 이동
             guard self.isLoggedIn else {
-                self.authState = .onboarding
+                self.authState = .login
                 return
             }
             

@@ -19,20 +19,19 @@ struct SplashView: View {
             
             VStack {
                 Spacer()
-
+                
                 riveAnimation.view()
                     .frame(width: 300, height: 300)
                     .offset(y: -50)
-              
+                
                 Spacer()
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                withAnimation {
-                    authStore.authState = .onboarding
-                }
+            withAnimation {
+                authStore.autoLogin()
             }
+            
         }
     }
 }
