@@ -102,6 +102,20 @@ struct RoutineStartView: View {
                     }
                 }
                 .padding(.top, 30)
+                
+                // MARK: 할일 리스트
+                ScrollView {
+                    VStack(spacing: 10) {
+                        TaskStatusPuzzle(taskStatus: .inProgress)
+                        
+                        TaskStatusPuzzle(taskStatus: .pending)
+                            .shadow(color: .black.opacity(0.1), radius: 2)
+                        
+                        TaskStatusPuzzle(taskStatus: .completed)
+                    }
+                    .padding(.horizontal, 16)
+                }
+                .padding(.top, 7)
             }
         }
         .animation(.smooth, value: viewModel.isRunning)
