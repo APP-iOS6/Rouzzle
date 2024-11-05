@@ -18,7 +18,7 @@ struct LaunchView: View {
                 Text("ROUZZLE")
                     .font(.haloDek48)
                     .tracking(12)
-                    .foregroundStyle(.button)
+                    .foregroundStyle(.accent)
                     .transition(.opacity)
             case .login:
                 LoginView()

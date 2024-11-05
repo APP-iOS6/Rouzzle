@@ -26,7 +26,7 @@ struct RouzzleButton: View {
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 61)
-                .background(.button)
+                .background(.accent)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .padding(.horizontal)

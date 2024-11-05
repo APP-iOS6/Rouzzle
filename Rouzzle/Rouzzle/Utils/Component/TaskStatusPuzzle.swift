@@ -46,6 +46,13 @@ struct TaskStatusPuzzle: View {
                     .font(.semibold16)
                     .lineLimit(1)
                     .padding(.horizontal, 7)
+                    .overlay {
+                        taskStatus == .completed ?
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundStyle(.gray)
+                        : nil
+                    }
                 Spacer()
                 Text("\(timeIntervel)")
                     .font(.regular14)
@@ -59,5 +66,5 @@ struct TaskStatusPuzzle: View {
 }
 
 #Preview {
-    TaskStatusPuzzle(taskStatus: .inProgress)
+    TaskStatusPuzzle(taskStatus: .completed)
 }

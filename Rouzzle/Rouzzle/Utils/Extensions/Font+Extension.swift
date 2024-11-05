@@ -8,7 +8,12 @@
 import SwiftUI
 
 extension Font {
+    
     /// Bold Fonts
+    static var bold40: Font {
+        return Font.custom("Pretendard-Bold", size: 40)
+    }
+    
     static var bold24: Font {
         return Font.custom("Pretendard-Bold", size: 24)
     }
