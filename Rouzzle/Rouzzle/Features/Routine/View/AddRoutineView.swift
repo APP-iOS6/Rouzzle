@@ -12,13 +12,20 @@ struct AddRoutineView: View {
     @State private var selectedDays: Set<String> = []
     @State private var isDaily: Bool = false
     @State private var startTime: Date = Date()
+    @State private var isNotificationEnabled: Bool = false
+    @State private var isOneAlarm: Bool = false
+    
+    @State private var selectedMinute: Int = 5
+    @State private var selectedCount: Int = 3
+    let minutes = [1, 3, 5, 7, 10]
+    let counts = [1, 2, 3, 4, 5]
     
     var daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
 
     var body: some View {
         VStack {
+            // 이모지 입력
             VStack {
-                // 이모지 입력
                 Button(action: {
                     // 이모지 키보드
                 }, label: {
@@ -40,7 +47,7 @@ struct AddRoutineView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // 제목 입력 필드
                 RouzzleTextField(text: $title, placeholder: "제목을 입력해주세요")
-                    .accentColor(Color("buttonClolr"))
+                    .accentColor(Color("buttonColor"))
                 
                 // 반복 요일 섹션
                 HStack {
@@ -49,18 +56,14 @@ struct AddRoutineView: View {
                     Spacer()
                     // 매일 체크박스
                     HStack {
-                        Button(action: {
-                            isDaily.toggle()
-                            selectedDays = isDaily ? Set(daysOfWeek) : []
-                        }, label: {
-                            Image(systemName: isDaily ? "checkmark.square" : "square")
-                        })
-                        .buttonStyle(PlainButtonStyle())
+                        CheckBoxView(isChecked: $isDaily)
                         Text("매일")
                             .font(.body)
+                            .foregroundColor(isDaily ? .black : .gray)
                     }
-                    .foregroundColor(.gray)
-                    
+                    .onChange(of: isDaily) {
+                        selectedDays = isDaily ? Set(daysOfWeek) : []
+                    }
                 }
                 
                 // 요일 선택 버튼
@@ -71,7 +74,7 @@ struct AddRoutineView: View {
                 }
                 
                 Divider()
-                    .padding(.vertical, 10)
+                    .padding(.vertical, 2)
                 
                 HStack {
                     Text("시작 시간")
@@ -80,16 +83,72 @@ struct AddRoutineView: View {
                     DatePicker("", selection: $startTime, displayedComponents: .hourAndMinute)
                         .datePickerStyle(CompactDatePickerStyle())
                         .labelsHidden()
-                        .frame(width: 100, height: 40)
-                        .background(Color(.systemGray6))
                         .cornerRadius(10)
+                        .accentColor(Color("buttonColor"))
                 }
-                
-//                Spacer()
             }
             .padding()
             .background(Color.fromRGB(r: 248, g: 247, b: 247))
             .cornerRadius(20)
+            
+            // 두 번째 네모칸(알림설정)
+            VStack(alignment: .leading, spacing: 20) {
+                // 알림 설정 제목 및 스위치
+                HStack {
+                    Text("루틴 시작 알림")
+                        .font(.headline)
+                    Spacer()
+                    Toggle(isOn: $isNotificationEnabled) {
+                        Text("")
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: Color("buttonColor")))
+                }
+                
+                // 알림 On일 때 활성화
+                if isNotificationEnabled {
+                    Divider() // 구분선
+                    
+                    // 알림 빈도 설정
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("알림 빈도")
+                            .font(.headline)
+                        
+                        HStack(spacing: 10) {
+                            // 분 선택 Picker
+                            CustomPicker(
+                                label: "분",
+                                selection: $selectedMinute,
+                                options: minutes.map { "\($0)분" },
+                                isDisabled: isOneAlarm
+                            )
+                            
+                            Text("마다")
+                                .foregroundColor(isOneAlarm ? .gray : .primary)
+                            
+                            // 횟수 선택 Picker
+                            CustomPicker(
+                                label: "횟수",
+                                selection: $selectedCount,
+                                options: counts.map { "\($0)회" },
+                                isDisabled: isOneAlarm
+                            )
+                            
+                            Spacer()
+                            
+                            // 알람 체크박스
+                            HStack {
+                                CheckBoxView(isChecked: $isOneAlarm)
+                                Text("1회만")
+                                    .foregroundColor(isOneAlarm ? .black : .gray)
+                            }
+                        }
+                    }
+                }
+            }
+            .padding()
+            .background(Color.fromRGB(r: 248, g: 247, b: 247))
+            .cornerRadius(20)
+
             Spacer()
         }
         .customNavigationBar(title: "루틴 등록")
@@ -117,8 +176,44 @@ struct AddRoutineView: View {
         }
 }
 
+// CustomPicker 뷰
+struct CustomPicker: View {
+    let label: String
+    @Binding var selection: Int
+    let options: [String]
+    let isDisabled: Bool
+    
+    var body: some View {
+        Picker(label, selection: $selection) {
+            ForEach(Array(options.enumerated()), id: \.offset) { index, option in
+                Text(option).tag(index)
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .frame(height: 40)
+        .background(Color.white)
+        .cornerRadius(10)
+        .accentColor(Color("buttonColor"))
+        .disabled(isDisabled)
+    }
+}
+
+// 체크박스
+struct CheckBoxView: View {
+    @Binding var isChecked: Bool
+    
+    var body: some View {
+        Button(action: {
+            isChecked.toggle()
+        }, label: {
+            Image(systemName: isChecked ? "checkmark.square" : "square")
+                .foregroundColor(isChecked ? .black : .gray)
+        })
+    }
+}
+
 #Preview {
     NavigationStack {
         AddRoutineView()
     }
-}
+} 
