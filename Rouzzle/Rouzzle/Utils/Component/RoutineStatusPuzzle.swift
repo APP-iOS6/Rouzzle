@@ -48,7 +48,9 @@ struct RoutineStatusPuzzle: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(routineTitle)
                         .font(.semibold20)
+                        .foregroundStyle(.black)
                         .bold()
+                        .strikethrough(status == .completed)
                     
                     Text(inProgressStr)
                         .font(.regular14)

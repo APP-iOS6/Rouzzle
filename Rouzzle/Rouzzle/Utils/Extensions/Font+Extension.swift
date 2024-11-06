@@ -51,7 +51,7 @@ extension Font {
     }
     
     static var semibold18: Font {
-        return Font.custom("Pretendard-SemiBold", size: 16)
+        return Font.custom("Pretendard-SemiBold", size: 18)
     }
     
     static var semibold16: Font {
