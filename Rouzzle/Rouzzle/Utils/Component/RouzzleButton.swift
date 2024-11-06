@@ -9,7 +9,7 @@ import SwiftUI
 /// 모든 버튼 유형
 enum ButtonType: String {
     case start = "시작하기"
-    case addTask = "할일 추가"
+    case addTask = "할 일 추가"
     case refreshRecommendations = "추천 새로고침"
     case save = "저장하기"
     case complete = "완료"
