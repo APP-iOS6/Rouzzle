@@ -19,14 +19,12 @@ struct RecommendTaskByTime: View {
             
             Text(category.description)
                 .font(.bold20)
+                .padding()
         }
-        .padding()
+        .frame(width: 370)
     }
 }
 
 #Preview {
-    VStack(spacing: 16) {
         RecommendTaskByTime(category: .morning)
-    }
-    .padding()
 }

@@ -12,7 +12,7 @@ struct AddTaskView: View {
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -88,11 +88,9 @@ struct AddTaskView: View {
                 .padding(.top, 10)
                 
                 HStack(spacing: 14) {
-                    ForEach(["아침", "오후", "저녁", "휴식"], id: \.self) { time in
-                        NavigationLink {
-                            // 세트 추천으로 이동
-                        } label: {
-                            Text(time)
+                    ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
+                        NavigationLink(destination: TimeBasedRecommendSetView(category: category)) {
+                            Text(category.rawValue)
                                 .font(.semibold16)
                                 .foregroundStyle(.black)
                                 .frame(width: 82, height: 67)
