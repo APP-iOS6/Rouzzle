@@ -10,6 +10,12 @@
 		4B5BDA942CDA69F20034DED6 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
+		97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */; };
+		97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
+		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
+		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
+		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
+		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -19,7 +25,6 @@
 		BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870A2CD6011100FF4180 /* LoginViewModel.swift */; };
 		BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD11870E2CD7952C00FF4180 /* Color+Extension.swift */; };
 		BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1187102CD7967600FF4180 /* RouzzleTextField.swift */; };
-		BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
 		BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15451C2CD7D0710098AD7B /* Date+Extension.swift */; };
 		BD1545282CD856490098AD7B /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545202CD856490098AD7B /* Pretendard-Bold.otf */; };
 		BD1545292CD856490098AD7B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD1545242CD856490098AD7B /* Pretendard-Medium.otf */; };
@@ -81,6 +86,11 @@
 		4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
 		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
+		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
+		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -162,29 +172,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9700427B2CD9DA2200777F43 /* RoutineStart */ = {
+		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
+            isa = PBXGroup;
+            children = (
+				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
+				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
+            );
+			path = RiveAnimation;
+            sourceTree = "<group>";
+        };
+        9700427B2CD9DA2200777F43 /* RoutineStart */ = {
+            isa = PBXGroup;
+            children = (
+                9700427C2CD9DA2E00777F43 /* View */,
+                970042812CDA096300777F43 /* ViewModel */,
+            );
+            path = RoutineStart;
+            sourceTree = "<group>";
+        };
+        9700427C2CD9DA2E00777F43 /* View */ = {
+            isa = PBXGroup;
+            children = (
+                9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
+            );
+            path = View;
+            sourceTree = "<group>";
+        };
+        970042812CDA096300777F43 /* ViewModel */ = {
+            isa = PBXGroup;
+            children = (
+                9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */,
+            );
+            path = ViewModel;
+            sourceTree = "<group>";
+        };
+		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				9700427C2CD9DA2E00777F43 /* View */,
-				970042812CDA096300777F43 /* ViewModel */,
+				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
+				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
 			);
-			path = RoutineStart;
-			sourceTree = "<group>";
-		};
-		9700427C2CD9DA2E00777F43 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		970042812CDA096300777F43 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */,
-			);
-			path = ViewModel;
+			path = RiveAnimation;
 			sourceTree = "<group>";
 		};
 		BD1186EF2CD5521C00FF4180 /* Utils */ = {
@@ -206,6 +234,7 @@
 				BD1186F52CD5531400FF4180 /* Font+Extension.swift */,
 				BD11870E2CD7952C00FF4180 /* Color+Extension.swift */,
 				BD15451C2CD7D0710098AD7B /* Date+Extension.swift */,
+				97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -228,6 +257,7 @@
 		BD1186FF2CD6006C00FF4180 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				23DBE7752CDA6A060029D4DA /* RiveAnimation */,
 				BD15451E2CD856010098AD7B /* Font */,
 				FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */,
 				BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */,
@@ -471,6 +501,8 @@
 			isa = PBXGroup;
 			children = (
 				FB2A5AAE2CD909A500CB981A /* LaunchView.swift */,
+				23DBE7712CDA675C0029D4DA /* SplashView.swift */,
+				23DBE7782CDA6B310029D4DA /* OnboardingView.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -590,6 +622,7 @@
 			files = (
 				FB2A5A9C2CD7CDE000CB981A /* Config.xcconfig in Resources */,
 				BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */,
+				23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */,
 				BD1545282CD856490098AD7B /* Pretendard-Bold.otf in Resources */,
 				BD1545292CD856490098AD7B /* Pretendard-Medium.otf in Resources */,
 				BD15452A2CD856490098AD7B /* Pretendard-Black.otf in Resources */,
@@ -597,6 +630,7 @@
 				BD15452C2CD856490098AD7B /* Pretendard-ExtraLight.otf in Resources */,
 				BD15452D2CD856490098AD7B /* Pretendard-SemiBold.otf in Resources */,
 				BD15452E2CD856490098AD7B /* Pretendard-Light.otf in Resources */,
+				23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */,
 				BD15452F2CD856490098AD7B /* Pretendard-ExtraBold.otf in Resources */,
 				BD1545302CD856490098AD7B /* Pretendard-Thin.otf in Resources */,
 				FB2A5AB12CD909E400CB981A /* Halo Dek.otf in Resources */,
@@ -633,12 +667,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* RoutineSetTimeView.swift in Sources */,
 				BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
+				97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
@@ -649,10 +685,9 @@
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
+				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
-				BD1545172CD7BEF40098AD7B /* RoutinePuzzle.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
-				BD1545172CD7BEF40098AD7B /* RoutineStatusPuzzle.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
@@ -662,6 +697,7 @@
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
