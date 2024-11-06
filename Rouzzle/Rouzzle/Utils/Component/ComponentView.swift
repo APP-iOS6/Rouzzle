@@ -12,18 +12,25 @@ struct ComponentView: View {
     @State private var emojiText = ""
 
     var body: some View {
-        
-        RouzzleTextField(text: $text, placeholder: "제목")
-        
-        RouzzleButton(buttonType: .save, action: {})
-            .padding(.vertical)
-        EmojiButton(emojiButtonType: .keyboard) { emoji in
-            print(emoji) // 여기서 이모지 전달받습니다.
+        VStack {
+            RouzzleTextField(text: $text, placeholder: "제목")
+            
+            RouzzleButton(buttonType: .save, action: {})
+                .padding(.vertical)
+            
+            EmojiButton(emojiButtonType: .keyboard) { emoji in
+                print(emoji) // 여기서 이모지 전달받습니다.
+            }
+            
+            TaskStatusPuzzle(taskStatus: .pending)
+            
+            RoutineStatusPuzzle(status: .pending)
+            
+            RecommendTask(isPlus: false)
+            Spacer()
         }
-        TaskStatusPuzzle(taskStatus: .inProgress)
-            .padding()
-        RoutineStatusPuzzle(status: .completed)
-            .padding()
+        .padding()
+        
     }
 }
 
