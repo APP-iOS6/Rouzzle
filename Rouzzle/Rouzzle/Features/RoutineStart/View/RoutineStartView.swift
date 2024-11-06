@@ -45,6 +45,9 @@ struct RoutineStartView: View {
                     // MARK: 퍼즐 모양 타이머
                     ZStack {
                         Image(.puzzleTimer)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(.horizontal, 16)
                         
                         Text(viewModel.timeRemaining.toTimeString())
                             .font(.bold54)
