@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoutineSetTimeView: View {
+    let allDays = ["월", "화", "수", "목", "금", "토", "일"]
     let selectedDays: [String]
     @State private var times: [String: Date]
     @State private var selectedDay: String?
@@ -16,8 +17,10 @@ struct RoutineSetTimeView: View {
     
     init(selectedDays: [String]) {
         self.selectedDays = selectedDays
-        _times = State(initialValue: selectedDays.reduce(into: [:]) { result, day in
-            result[day] = Date()
+        // 기본 시간은 오전 8시 30분으로 설정
+        let defaultTime = Calendar.current.date(bySettingHour: 8, minute: 30, second: 0, of: Date())!
+        _times = State(initialValue: allDays.reduce(into: [:]) { result, day in
+            result[day] = selectedDays.contains(day) ? Date() : defaultTime
         })
     }
     
@@ -33,7 +36,7 @@ struct RoutineSetTimeView: View {
                 },
                 set: { newValue in
                     for day in selectedDays {
-                        times[day] = newValue // 모든 요일의 시간을 동일하게 설정
+                        times[day] = newValue
                     }
                 }
             ), displayedComponents: .hourAndMinute)
@@ -56,31 +59,34 @@ struct RoutineSetTimeView: View {
             
             // 개별 요일 시간 설정 리스트
             VStack(alignment: .leading, spacing: 8) {
-                ForEach(selectedDays.sorted(), id: \.self) { day in
+                ForEach(allDays, id: \.self) { day in
                     HStack {
                         Text("\(day)요일")
-                            .foregroundColor(isCustomTimePerDayEnabled ? .primary : .gray)
+                            .strikethrough(!selectedDays.contains(day), color: .gray)
+                            .foregroundColor(selectedDays.contains(day) ? (isCustomTimePerDayEnabled ? .primary : .gray) : .gray)
                             .font(.semibold18)
                             .padding(.leading, 6)
                         Spacer()
-                        Text(times[day]!, style: .time)
-                            .foregroundColor(isCustomTimePerDayEnabled ? .primary : .gray)
-                            .font(.regular18)
+                        if let time = times[day] {
+                            Text(time, style: .time)
+                                .strikethrough(!selectedDays.contains(day), color: .gray)
+                                .foregroundColor(selectedDays.contains(day) ? (isCustomTimePerDayEnabled ? .primary : .gray) : .gray)
+                                .font(.regular18)
+                        }
                         Image(systemName: "chevron.right")
-                            .foregroundColor(isCustomTimePerDayEnabled ? .primary : .gray)
+                            .foregroundColor(selectedDays.contains(day) && isCustomTimePerDayEnabled ? .primary : .gray)
                     }
                     .padding(.vertical, 10)
-                    
+                    .background(selectedDay == day && selectedDays.contains(day) && isCustomTimePerDayEnabled ? Color(.systemGray5) : Color.clear)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        if isCustomTimePerDayEnabled {
+                        if isCustomTimePerDayEnabled && selectedDays.contains(day) {
                             selectedDay = day
                             showSheet = true
                         }
                     }
-                    .disabled(!isCustomTimePerDayEnabled)
+                    .disabled(!selectedDays.contains(day) || !isCustomTimePerDayEnabled)
                     Divider()
-                    
                 }
             }
             .padding(.horizontal, 3)

@@ -35,7 +35,8 @@ struct AddRoutineView: View {
         VStack {
             // 이모지 입력
             VStack {
-                EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in                    print("Selected Emoji: \(selectedEmoji)")
+                EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in
+                    print("Selected Emoji: \(selectedEmoji)")
                 }
                 .padding(.vertical, 45)
             }
@@ -49,13 +50,13 @@ struct AddRoutineView: View {
                 // 반복 요일 섹션
                 HStack {
                     Text("반복 요일")
-                        .font(.headline)
+                        .font(.semibold18)
                     Spacer()
                     // 매일 체크박스
                     HStack {
                         Image(systemName: isDaily ? "checkmark.square" : "square")
                         Text("매일")
-                            .font(.body)
+                            .font(.regular16)
                     }
                     .foregroundColor(isDaily ? .black : .gray)
                     .onTapGesture {
@@ -76,26 +77,22 @@ struct AddRoutineView: View {
                 
                 HStack {
                     Text("시작 시간")
-                        .font(.headline)
+                        .font(.semibold18)
                     Spacer()
                     VStack {
-                        if selectedDays.first != nil {
-                            NavigationLink(destination: RoutineSetTimeView(selectedDays: Array(selectedDays))) {
-                                HStack {
-                                    Text("요일별 시간 설정")
-                                        .font(.caption)
-                                    Image(systemName: "chevron.right")
-                                        .font(.system(size: 12))
-                                }
-                            }
+                        Text("(요일별 다름)")
+                            .font(.regular12)
                             .foregroundColor(.gray)
-                        }
                         
-                        DatePicker("", selection: $startTime, displayedComponents: .hourAndMinute)
-                            .datePickerStyle(CompactDatePickerStyle())
-                            .labelsHidden()
-                            .cornerRadius(10)
-                            .accentColor(Color("AccentColor"))
+                        NavigationLink(destination: RoutineSetTimeView(selectedDays: Array(selectedDays))) {
+                            HStack {
+                                Text(startTime, style: .time)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color.white)
+                                    .cornerRadius(8)
+                            }
+                        }
                     }
                 }
             }
@@ -108,7 +105,7 @@ struct AddRoutineView: View {
                 // 알림 설정 제목 및 스위치
                 HStack {
                     Text("루틴 시작 알림")
-                        .font(.headline)
+                        .font(.semibold18)
                     Spacer()
                     Toggle(isOn: $isNotificationEnabled) {
                         Text("")
@@ -151,7 +148,7 @@ struct AddRoutineView: View {
                             HStack {
                                 Image(systemName: isOneAlarm ? "checkmark.square" : "square")
                                 Text("1회만")
-                                    .font(.body)
+                                    .font(.regular16)
                             }
                             .foregroundColor(isOneAlarm ? .black : .gray)
                             .onTapGesture {
@@ -164,7 +161,7 @@ struct AddRoutineView: View {
             .padding()
             .background(Color.fromRGB(r: 248, g: 247, b: 247))
             .cornerRadius(20)
-
+            
             Spacer()
             RouzzleButton(buttonType: .complete, action: {
                 print("루틴 등록 버튼")
@@ -177,24 +174,24 @@ struct AddRoutineView: View {
     
     // 요일 선택 버튼
     private func dayButton(for day: String) -> some View {
-            ZStack {
-                Image(selectedDays.contains(day) ? "dayButtonOn" : "dayButtonOff")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                
-                Text(day)
-                    .font(.caption)
-                    .foregroundColor(selectedDays.contains(day) ? .black : .gray)
-            }
-            .onTapGesture {
-                if selectedDays.contains(day) {
-                    selectedDays.remove(day)
-                } else {
-                    selectedDays.insert(day)
-                }
-                isDaily = selectedDays.count == daysOfWeek.count
-            }
+        ZStack {
+            Image(selectedDays.contains(day) ? "dayButtonOn" : "dayButtonOff")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            
+            Text(day)
+                .font(.regular16)
+                .foregroundColor(selectedDays.contains(day) ? .black : .gray)
         }
+        .onTapGesture {
+            if selectedDays.contains(day) {
+                selectedDays.remove(day)
+            } else {
+                selectedDays.insert(day)
+            }
+            isDaily = selectedDays.count == daysOfWeek.count
+        }
+    }
 }
 
 // CustomPicker 뷰
@@ -223,4 +220,4 @@ struct CustomPicker: View {
     NavigationStack {
         AddRoutineView()
     }
-} 
+}
