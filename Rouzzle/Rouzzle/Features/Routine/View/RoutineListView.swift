@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RoutineListView: View {
-    @State var isTimerView: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -49,17 +48,19 @@ struct RoutineListView: View {
                 }
                 .padding()
                 
-                RoutineStatusPuzzle(status: .pending)
-                    .padding(.horizontal)
-                    .onTapGesture {
-                        isTimerView.toggle()
-                    }
+                NavigationLink {
+                    AddTaskView()
+                } label: {
+                    RoutineStatusPuzzle(status: .pending)
+                        .padding(.horizontal)
+                }
                 
-                RoutineStatusPuzzle(status: .completed, emojiText: "☀️", routineTitle: "점심 루틴")
-                    .padding(.horizontal)
-                    .onTapGesture {
-                        isTimerView.toggle()
-                    }
+                NavigationLink {
+                    AddTaskView()
+                } label: {
+                    RoutineStatusPuzzle(status: .completed, emojiText: "☀️", routineTitle: "점심 루틴")
+                        .padding(.horizontal)
+                }
                 
                 Image(.requestRoutine)
                     .resizable()
@@ -70,8 +71,6 @@ struct RoutineListView: View {
                 Spacer()
                 
                 // Text("Hello, World!")
-            }
-            .fullScreenCover(isPresented: $isTimerView) { RoutineStartView()
             }
         }
     }

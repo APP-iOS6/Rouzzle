@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AddTaskView: View {
     @State var isShowingAddTaskSheet: Bool = false
-    
+    @State var isShowingTimerView: Bool = false
+    @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -18,10 +20,14 @@ struct AddTaskView: View {
                     .foregroundStyle(Color.subHeadlineFontColor)
                     .padding(.top, 10)
                 
-                Image(.routineStart)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.top, 5)
+                Button {
+                    isShowingTimerView.toggle()
+                } label: {
+                    Image(.routineStart)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                .padding(.top, 5)
                 
                 // 할일 리스트
                 VStack(spacing: 10) {
@@ -109,6 +115,15 @@ struct AddTaskView: View {
                             .font(.semibold20)
                     }
                 }
+            }
+            .fullScreenCover(isPresented: $isShowingTimerView) {
+                RoutineStartView()
+            }
+            .sheet(isPresented: $isShowingAddTaskSheet) {
+                NewTaskSheet(detents: $detents) {
+                    // 할 일 추가 버튼 로직
+                }
+                .presentationDetents(detents)
             }
         }
     }
