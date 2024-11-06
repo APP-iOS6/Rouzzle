@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
+		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
+		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
+		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		4B5BDA942CDA69F20034DED6 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
 		97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */; };
 		97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
-		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
-		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
-		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
-		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -47,6 +47,7 @@
 		BD1546642CD9AE530098AD7B /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = BD1546632CD9AE530098AD7B /* RiveRuntime */; };
 		BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546652CD9D70D0098AD7B /* EmojiView.swift */; };
 		BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */; };
+		BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912EF72CDB3857007B8503 /* RecommendTask.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -83,14 +84,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
-		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
-		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
-		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
+		4B5BDA932CDA69F20034DED6 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
+		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
+		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
+		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 		BD1546602CD9AAD50098AD7B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		BD1546652CD9D70D0098AD7B /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusPuzzle.swift; sourceTree = "<group>"; };
+		BD912EF72CDB3857007B8503 /* RecommendTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTask.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -173,46 +175,37 @@
 
 /* Begin PBXGroup section */
 		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
-            isa = PBXGroup;
-            children = (
-				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
-				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
-            );
-			path = RiveAnimation;
-            sourceTree = "<group>";
-        };
-        9700427B2CD9DA2200777F43 /* RoutineStart */ = {
-            isa = PBXGroup;
-            children = (
-                9700427C2CD9DA2E00777F43 /* View */,
-                970042812CDA096300777F43 /* ViewModel */,
-            );
-            path = RoutineStart;
-            sourceTree = "<group>";
-        };
-        9700427C2CD9DA2E00777F43 /* View */ = {
-            isa = PBXGroup;
-            children = (
-                9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
-            );
-            path = View;
-            sourceTree = "<group>";
-        };
-        970042812CDA096300777F43 /* ViewModel */ = {
-            isa = PBXGroup;
-            children = (
-                9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */,
-            );
-            path = ViewModel;
-            sourceTree = "<group>";
-        };
-		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
 			isa = PBXGroup;
 			children = (
 				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
 				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
 			);
 			path = RiveAnimation;
+			sourceTree = "<group>";
+		};
+		9700427B2CD9DA2200777F43 /* RoutineStart */ = {
+			isa = PBXGroup;
+			children = (
+				9700427C2CD9DA2E00777F43 /* View */,
+				970042812CDA096300777F43 /* ViewModel */,
+			);
+			path = RoutineStart;
+			sourceTree = "<group>";
+		};
+		9700427C2CD9DA2E00777F43 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		970042812CDA096300777F43 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BD1186EF2CD5521C00FF4180 /* Utils */ = {
@@ -247,6 +240,7 @@
 				FB2A5A992CD7BF9200CB981A /* LoadState.swift */,
 				BD1187102CD7967600FF4180 /* RouzzleTextField.swift */,
 				BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */,
+				BD912EF72CDB3857007B8503 /* RecommendTask.swift */,
 				BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */,
 				BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */,
 				BD1546652CD9D70D0098AD7B /* EmojiView.swift */,
@@ -701,6 +695,7 @@
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
+				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
