@@ -10,7 +10,7 @@ import SwiftUI
 struct AddRoutineView: View {
     @State private var title: String = ""
     @State private var selectedDays: Set<String> = []
-    @State private var isDaily: Bool = false
+    @State private var isDaily: Bool = true
     @State private var startTime: Date = Date()
     @State private var isNotificationEnabled: Bool = false
     @State private var isOneAlarm: Bool = false
@@ -60,6 +60,7 @@ struct AddRoutineView: View {
                     .foregroundColor(isDaily ? .black : .gray)
                     .onTapGesture {
                         isDaily.toggle()
+                        selectedDays = isDaily ? Set(daysOfWeek) : []
                     }
                 }
                 
