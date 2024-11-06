@@ -12,6 +12,7 @@ struct RoutineSetTimeView: View {
     @State private var times: [String: Date]
     @State private var selectedDay: String?
     @State private var showSheet = false
+    @State private var isCustomTimePerDayEnabled = false
     
     init(selectedDays: [String]) {
         self.selectedDays = selectedDays
@@ -41,35 +42,59 @@ struct RoutineSetTimeView: View {
             .frame(height: 200)
             .padding(.top, 20)
             
-            VStack(alignment: .leading, spacing: 10) {
+            // 요일별 설정 체크박스
+            HStack {
+                Spacer()
+                Image(systemName: isCustomTimePerDayEnabled ? "checkmark.square" : "square")
+                Text("요일별 설정")
+                    .font(.regular14)
+            }
+            .foregroundColor(isCustomTimePerDayEnabled ? .black : .gray)
+            .onTapGesture {
+                isCustomTimePerDayEnabled.toggle()
+            }
+            
+            // 개별 요일 시간 설정 리스트
+            VStack(alignment: .leading, spacing: 8) {
                 ForEach(selectedDays.sorted(), id: \.self) { day in
                     HStack {
-                        Text(day)
-                            .font(.headline)
+                        Text("\(day)요일")
+                            .foregroundColor(isCustomTimePerDayEnabled ? .primary : .gray)
+                            .font(.semibold18)
+                            .padding(.leading, 6)
                         Spacer()
                         Text(times[day]!, style: .time)
-                            .foregroundColor(.primary)
+                            .foregroundColor(isCustomTimePerDayEnabled ? .primary : .gray)
+                            .font(.regular18)
                         Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
+                            .foregroundColor(isCustomTimePerDayEnabled ? .primary : .gray)
                     }
                     .padding(.vertical, 10)
+                    
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        selectedDay = day
-                        showSheet = true
+                        if isCustomTimePerDayEnabled {
+                            selectedDay = day
+                            showSheet = true
+                        }
                     }
+                    .disabled(!isCustomTimePerDayEnabled)
                     Divider()
+                    
                 }
-                .listStyle(PlainListStyle())
             }
-            .padding(.top, 20)
+            .padding(.horizontal, 3)
+            .padding(.top, 10)
+            
             Spacer()
-            // 저장하기
+            
+            // 저장하기 버튼
             RouzzleButton(buttonType: .save, action: {
                 print("Selected times: \(times)")
             })
+            .padding(.bottom, 15)
         }
-        .customNavigationBar(title: "요일별 시간 설정")
+        .customNavigationBar(title: "시간 설정")
         .sheet(isPresented: $showSheet) {
             if let selectedDay = selectedDay, let bindingTime = Binding($times[selectedDay]) {
                 DayTimePickerSheet(selectedDay: selectedDay, time: bindingTime)
@@ -87,19 +112,24 @@ struct DayTimePickerSheet: View {
     
     var body: some View {
         VStack {
-            Text("\(selectedDay) 시간 설정")
-                .font(.headline)
-                .padding(.top, 20)
+            Text("\(selectedDay)요일 시간 설정")
+                .font(.regular20)
+                .padding(.top, 60)
             
             DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
                 .datePickerStyle(WheelDatePickerStyle())
                 .labelsHidden()
                 .frame(height: 260)
+            
+            Button("닫기") {
+                dismiss()
+            }
+            .padding(.top, 20)
         }
         .padding(.top, 10)
     }
 }
 
 #Preview {
-    RoutineSetTimeView(selectedDays: ["월요일", "화요일", "수요일", "목요일", "금요일"])
+    RoutineSetTimeView(selectedDays: ["월", "화", "수", "목", "금"])
 }

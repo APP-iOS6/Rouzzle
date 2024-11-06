@@ -10,7 +10,7 @@ import SwiftUI
 struct AddRoutineView: View {
     @State private var title: String = ""
     @State private var selectedDays: Set<String> = []
-    @State private var isDaily: Bool = true
+    @State private var isDaily: Bool = false
     @State private var startTime: Date = Date()
     @State private var isNotificationEnabled: Bool = false
     @State private var isOneAlarm: Bool = false
@@ -166,6 +166,10 @@ struct AddRoutineView: View {
             .cornerRadius(20)
 
             Spacer()
+            RouzzleButton(buttonType: .complete, action: {
+                print("루틴 등록 버튼")
+            })
+            .padding(.bottom, 15)
         }
         .customNavigationBar(title: "루틴 등록")
         .toolbar(.hidden, for: .tabBar)
