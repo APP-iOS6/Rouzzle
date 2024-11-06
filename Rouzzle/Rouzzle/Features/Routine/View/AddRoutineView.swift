@@ -168,6 +168,7 @@ struct AddRoutineView: View {
             Spacer()
         }
         .customNavigationBar(title: "루틴 등록")
+        .toolbar(.hidden, for: .tabBar)
     }
     
     // 요일 선택 버튼
