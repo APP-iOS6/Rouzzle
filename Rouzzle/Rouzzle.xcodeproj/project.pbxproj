@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */; };
+		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
+		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
+		23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */; };
 		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
 		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
 		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
@@ -90,6 +93,9 @@
 
 /* Begin PBXFileReference section */
 		23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleLogin.riv; sourceTree = "<group>"; };
+		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
+		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
+		23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskByTime.swift; sourceTree = "<group>"; };
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -184,6 +190,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23B7CC1A2CDC052200C4C44A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +211,7 @@
 		9700427B2CD9DA2200777F43 /* RoutineStart */ = {
 			isa = PBXGroup;
 			children = (
+				23B7CC1A2CDC052200C4C44A /* Model */,
 				9700427C2CD9DA2E00777F43 /* View */,
 				970042812CDA096300777F43 /* ViewModel */,
 			);
@@ -209,6 +224,7 @@
 				9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
 				9736FA782CDB41A0009C2E60 /* AddTaskView.swift */,
 				9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */,
+				23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,6 +270,7 @@
 				BD1187102CD7967600FF4180 /* RouzzleTextField.swift */,
 				BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */,
 				BD912EF72CDB3857007B8503 /* RecommendTask.swift */,
+				23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */,
 				BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */,
 				BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */,
 				BD1546652CD9D70D0098AD7B /* EmojiView.swift */,
@@ -686,6 +703,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
+				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
@@ -725,8 +743,10 @@
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
+				23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
+				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,

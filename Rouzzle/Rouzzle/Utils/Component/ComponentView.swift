@@ -27,6 +27,9 @@ struct ComponentView: View {
             RoutineStatusPuzzle(status: .pending)
             
             RecommendTask(isPlus: false)
+            
+            RecommendTaskByTime(category: .morning)
+            
             Spacer()
         }
         .padding()
