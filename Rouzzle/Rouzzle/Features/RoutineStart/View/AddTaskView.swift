@@ -10,6 +10,7 @@ import SwiftUI
 struct AddTaskView: View {
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
+    @State var isShowingRoutineSettingsSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
 
     var body: some View {
@@ -104,12 +105,12 @@ struct AddTaskView: View {
                 }
                 .padding(.top, 10)
             }
-            .padding(.bottom, 10)
+            .padding(.bottom, 30)
             .customNavigationBar(title: "☀️ 아침 루틴")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        // 루틴 수정, 삭제 시트
+                        isShowingRoutineSettingsSheet.toggle()
                     } label: {
                         Image(systemName: "ellipsis")
                             .font(.semibold20)
@@ -124,6 +125,10 @@ struct AddTaskView: View {
                     // 할 일 추가 버튼 로직
                 }
                 .presentationDetents(detents)
+            }
+            .sheet(isPresented: $isShowingRoutineSettingsSheet) {
+                RoutineSettingsSheet()
+                    .presentationDetents([.fraction(0.25)])
             }
         }
     }
