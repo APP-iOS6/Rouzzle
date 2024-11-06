@@ -49,6 +49,7 @@ struct RoutineStatusPuzzle: View {
                     Text(routineTitle)
                         .font(.semibold20)
                         .bold()
+                        .strikethrough(status == .completed)
                     
                     Text(inProgressStr)
                         .font(.regular14)
