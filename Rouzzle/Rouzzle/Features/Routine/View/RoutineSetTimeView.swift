@@ -21,7 +21,6 @@ struct RoutineSetTimeView: View {
 
     var body: some View {
         VStack {
-            // DatePicker for the selected day
             if let selectedDay = selectedDay {
                 DatePicker("", selection: Binding(
                     get: { times[selectedDay] ?? Date() },
@@ -31,14 +30,12 @@ struct RoutineSetTimeView: View {
                 .labelsHidden()
                 .frame(height: 260)
             } else {
-                // Placeholder when no day is selected
                 Text("요일을 선택하세요")
                     .font(.headline)
                     .foregroundColor(.gray)
                     .frame(height: 260)
             }
             
-            // List of days and times
             VStack(alignment: .leading, spacing: 10) {
                 Text("요일별 시간 설정")
                     .font(.headline)
@@ -52,7 +49,7 @@ struct RoutineSetTimeView: View {
                             Text(times[day]!, style: .time)
                                 .foregroundColor(.primary)
                         }
-                        .contentShape(Rectangle()) // Make the entire row tappable
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             selectedDay = day
                         }
@@ -61,14 +58,11 @@ struct RoutineSetTimeView: View {
                 .listStyle(PlainListStyle())
             }
 
-            // Save button
+            // 저장하기
             RouzzleButton(buttonType: .save, action: {
-                // Handle save action
                 print("Selected times: \(times)")
             })
-            .padding()
         }
-        .padding()
         .customNavigationBar(title: "시작 시간 설정")
     }
 }

@@ -10,12 +10,13 @@ import SwiftUI
 struct AddRoutineView: View {
     @State private var title: String = ""
     @State private var selectedDays: Set<String> = []
-    @State private var isDaily: Bool = true
+    @State private var isDaily: Bool = false
     @State private var startTime: Date = Date()
     @State private var isNotificationEnabled: Bool = false
     @State private var isOneAlarm: Bool = false
-    @State private var selectedMinute: Int = 5
-    @State private var selectedCount: Int = 3
+    @State private var selectedMinute: Int = 2
+    @State private var selectedCount: Int = 1
+    
     @State private var times: [String: Date] = [
         "월": Date(),
         "화": Date(),
@@ -28,7 +29,7 @@ struct AddRoutineView: View {
     
     let minutes = [1, 3, 5, 7, 10]
     let counts = [1, 2, 3, 4, 5]
-    var daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
+    let daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
     
     var body: some View {
         VStack {
@@ -43,7 +44,7 @@ struct AddRoutineView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // 제목 입력 필드
                 RouzzleTextField(text: $title, placeholder: "제목을 입력해주세요")
-                    .accentColor(Color("buttonColor"))
+                    .accentColor(Color("AccentColor"))
                 
                 // 반복 요일 섹션
                 HStack {
@@ -52,13 +53,13 @@ struct AddRoutineView: View {
                     Spacer()
                     // 매일 체크박스
                     HStack {
-                        CheckBoxView(isChecked: $isDaily)
+                        Image(systemName: isDaily ? "checkmark.square" : "square")
                         Text("매일")
                             .font(.body)
-                            .foregroundColor(isDaily ? .black : .gray)
                     }
-                    .onChange(of: isDaily) {
-                        selectedDays = isDaily ? Set(daysOfWeek) : []
+                    .foregroundColor(isDaily ? .black : .gray)
+                    .onTapGesture {
+                        isDaily.toggle()
                     }
                 }
                 
@@ -93,7 +94,7 @@ struct AddRoutineView: View {
                             .datePickerStyle(CompactDatePickerStyle())
                             .labelsHidden()
                             .cornerRadius(10)
-                            .accentColor(Color("buttonColor"))
+                            .accentColor(Color("AccentColor"))
                     }
                 }
             }
@@ -111,7 +112,7 @@ struct AddRoutineView: View {
                     Toggle(isOn: $isNotificationEnabled) {
                         Text("")
                     }
-                    .toggleStyle(SwitchToggleStyle(tint: Color("buttonColor")))
+                    .toggleStyle(SwitchToggleStyle(tint: Color("AccentColor")))
                 }
                 
                 // 알림 On일 때 활성화
@@ -147,9 +148,13 @@ struct AddRoutineView: View {
                             
                             // 알람 체크박스
                             HStack {
-                                CheckBoxView(isChecked: $isOneAlarm)
+                                Image(systemName: isOneAlarm ? "checkmark.square" : "square")
                                 Text("1회만")
-                                    .foregroundColor(isOneAlarm ? .black : .gray)
+                                    .font(.body)
+                            }
+                            .foregroundColor(isOneAlarm ? .black : .gray)
+                            .onTapGesture {
+                                isOneAlarm.toggle()
                             }
                         }
                     }
@@ -203,22 +208,8 @@ struct CustomPicker: View {
         .frame(height: 40)
         .background(Color.white)
         .cornerRadius(10)
-        .accentColor(Color("buttonColor"))
+        .tint(.accent)
         .disabled(isDisabled)
-    }
-}
-
-// 체크박스
-struct CheckBoxView: View {
-    @Binding var isChecked: Bool
-    
-    var body: some View {
-        Button(action: {
-            isChecked.toggle()
-        }, label: {
-            Image(systemName: isChecked ? "checkmark.square" : "square")
-                .foregroundColor(isChecked ? .black : .gray)
-        })
     }
 }
 
