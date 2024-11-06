@@ -21,6 +21,7 @@ class AuthStore {
     
     enum AuthState {
         case splash
+        case onboarding
         case login
         case signup
         case authenticated
@@ -30,14 +31,20 @@ class AuthStore {
     
     ///  자동 로그인 함수
     func autoLogin() {
-        // isLoggedIn이 false라면 함수 실행을 멈춤
-        guard isLoggedIn else {
-            authState = .login
-            return
-        }
+        // 먼저 splash 상태로 시작
+        authState = .splash
         
-        print("자동 로그인 함수 불림")
-        performLogin()
+        // 3초 후에 로그인 상태 체크
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            // isLoggedIn이 false라면 onboarding으로 이동
+            guard self.isLoggedIn else {
+                self.authState = .onboarding
+                return
+            }
+            
+            print("자동 로그인 함수 불림")
+            self.performLogin()
+        }
     }
     
     /// 로그인 함수
