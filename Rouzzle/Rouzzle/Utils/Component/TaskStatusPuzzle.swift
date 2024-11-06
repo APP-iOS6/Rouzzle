@@ -41,6 +41,7 @@ struct TaskStatusPuzzle: View {
                 .resizable()
                 .frame(maxWidth: .infinity)
                 .aspectRatio(370/105, contentMode: .fit)
+                .shadow(color: taskStatus == .pending ? .black.opacity(0.1) : .clear, radius: 2)
             HStack {
                 Text("\(emojiText)")
                     .font(.bold40)
@@ -85,5 +86,5 @@ struct TaskStatusPuzzle: View {
 }
 
 #Preview {
-    TaskStatusPuzzle(taskStatus: .recommend)
+    TaskStatusPuzzle(taskStatus: .pending)
 }
