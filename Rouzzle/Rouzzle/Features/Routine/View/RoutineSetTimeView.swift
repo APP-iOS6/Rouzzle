@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoutineSetTimeView: View {
+    @Environment(\.dismiss) private var dismiss
     let allDays = ["월", "화", "수", "목", "금", "토", "일"]
     let selectedDays: [String]
     @State private var times: [String: Date]
@@ -63,21 +64,25 @@ struct RoutineSetTimeView: View {
                     HStack {
                         Text("\(day)요일")
                             .strikethrough(!selectedDays.contains(day), color: .gray)
-                            .foregroundColor(selectedDays.contains(day) ? (isCustomTimePerDayEnabled ? .primary : .gray) : .gray)
+                            .foregroundColor(selectedDays.contains(day) ? (isCustomTimePerDayEnabled ? .accent : .gray) : .gray)
                             .font(.semibold18)
                             .padding(.leading, 6)
                         Spacer()
                         if let time = times[day] {
                             Text(time, style: .time)
                                 .strikethrough(!selectedDays.contains(day), color: .gray)
-                                .foregroundColor(selectedDays.contains(day) ? (isCustomTimePerDayEnabled ? .primary : .gray) : .gray)
+                                .foregroundColor(selectedDays.contains(day) ? (isCustomTimePerDayEnabled ? .accent : .gray) : .gray)
                                 .font(.regular18)
                         }
                         Image(systemName: "chevron.right")
-                            .foregroundColor(selectedDays.contains(day) && isCustomTimePerDayEnabled ? .primary : .gray)
+                            .foregroundColor(selectedDays.contains(day) && isCustomTimePerDayEnabled ? .accent : .gray)
                     }
                     .padding(.vertical, 10)
-                    .background(selectedDay == day && selectedDays.contains(day) && isCustomTimePerDayEnabled ? Color(.systemGray5) : Color.clear)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8) // 모서리 둥글기를 설정
+                            .fill(selectedDay == day && isCustomTimePerDayEnabled ? Color(.systemGray5) : Color.clear)
+                    )
                     .contentShape(Rectangle())
                     .onTapGesture {
                         if isCustomTimePerDayEnabled && selectedDays.contains(day) {
@@ -97,6 +102,7 @@ struct RoutineSetTimeView: View {
             // 저장하기 버튼
             RouzzleButton(buttonType: .save, action: {
                 print("Selected times: \(times)")
+                dismiss()
             })
             .padding(.bottom, 15)
         }
