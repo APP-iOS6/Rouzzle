@@ -14,7 +14,7 @@ struct LoginView: View {
     private let viewModel: LoginViewModel = LoginViewModel()
     
     // Rive 애니메이션 추가
-    private let riveAnimation = RiveViewModel(fileName: "RouzzleSplash", stateMachineName: "State Machine 1")
+    private let riveAnimation = RiveViewModel(fileName: "RouzzleLogin", stateMachineName: "State Machine 1")
     
     var body: some View {
         GeometryReader { geometry in
