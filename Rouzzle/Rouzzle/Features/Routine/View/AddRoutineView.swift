@@ -78,7 +78,7 @@ struct AddRoutineView: View {
                         .font(.headline)
                     Spacer()
                     VStack {
-                        if let firstSelectedDay = selectedDays.first {
+                        if selectedDays.first != nil {
                             NavigationLink(destination: RoutineSetTimeView(selectedDays: Array(selectedDays))) {
                                 HStack {
                                     Text("요일별 시간 설정")
