@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoutineCompleteView: View {
+
     var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -37,7 +38,7 @@ struct RoutineCompleteView: View {
                 
                 Divider()
                     .frame(height: 60)
-                    
+                
                 VStack(spacing: 6) {
                     Text("누적일")
                         .font(.regular16)
@@ -58,18 +59,17 @@ struct RoutineCompleteView: View {
             ScrollView {
                 VStack(spacing: 18) {
                     ForEach(DummyTask.tasks) { task in
-                        
                         HStack(spacing: 20) {
-                            Text(task.emojiText)
+                            Text(task.emoji)
                                 .font(.bold30)
                             
                             Text(task.title)
                                 .font(.semibold16)
-                                .strikethrough()
+                                .strikethrough(task.taskStatus == .completed)
                             
                             Spacer()
                             
-                            Text("\(task.time)분")
+                            Text("\(task.timer / 60)분")
                                 .font(.regular14)
                                 .foregroundStyle(Color.subHeadlineFontColor)
                         }
@@ -79,8 +79,10 @@ struct RoutineCompleteView: View {
             }
             .padding(.top, 51)
             
-            RouzzleButton(buttonType: .complete) { }
-                .padding(.bottom)
+            RouzzleButton(buttonType: .complete) {
+                
+            }
+            .padding(.bottom)
         }
         .padding(.horizontal, 46)
     }

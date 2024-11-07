@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct RoutineStartView: View {
-    private var viewModel: RoutineStartViewModel = RoutineStartViewModel()
+    @State private var viewModel: RoutineStartViewModel = RoutineStartViewModel()
     @Environment(\.dismiss) private var dismiss
+    
     private var playBackgroundColor = Color.fromRGB(r: 252, g: 255, b: 240)
     private var pauseBackgroundColor = Color.fromRGB(r: 230, g: 235, b: 212)
     private var pausePuzzleTimerColor = Color.fromRGB(r: 191, g: 207, b: 154)
@@ -39,9 +40,11 @@ struct RoutineStartView: View {
                 .padding(.trailing, 20)
                 .padding(.top, 10)
                 
-                Text("💊 유산균 먹기")
-                    .font(.bold24)
-                    .padding(.top, 40)
+                if let inProgressTask = viewModel.inProgressTask {
+                    Text("\(inProgressTask.emoji) \(inProgressTask.title)")
+                        .font(.bold24)
+                        .padding(.top, 40)
+                }
                 
                 // MARK: 퍼즐 모양 타이머
                 ZStack {
@@ -55,9 +58,11 @@ struct RoutineStartView: View {
                             .font(.bold66)
                             .foregroundStyle(.white)
                         
-                        Text("5분")
-                            .font(.regular18)
-                            .foregroundStyle(viewModel.isRunning ? .accent : .white)
+                        if let inProgressTask = viewModel.inProgressTask {
+                            Text("\(inProgressTask.timer / 60)분")
+                                .font(.regular18)
+                                .foregroundStyle(viewModel.isRunning ? .accent : .white)
+                        }
                     }
                 }
                 .padding(.top, 35)
@@ -74,7 +79,7 @@ struct RoutineStartView: View {
                     
                     // 할일 완료 버튼
                     Button {
-                        // 할일 완료 로직
+                        viewModel.markTaskAsCompleted()
                     } label: {
                         Image(.checkIcon)
                             .frame(width: 72, height: 72)
@@ -82,7 +87,7 @@ struct RoutineStartView: View {
                     
                     // 건너뛰기 버튼
                     Button {
-                        // 건너뛰기 로직
+                        viewModel.skipTask()
                     } label: {
                         Image(.skipIcon)
                             .frame(width: 64, height: 64)
@@ -95,8 +100,15 @@ struct RoutineStartView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 60)
                 
-                TaskStatusRow(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기", showEditIcon: .constant(false))
+                if let nextTask = viewModel.nextPendingTask {
+                    TaskStatusRow(
+                        taskStatus: nextTask.taskStatus,
+                        emojiText: nextTask.emoji,
+                        title: nextTask.title,
+                        showEditIcon: .constant(false)
+                    )
                     .padding(.top, 18)
+                }
                 
                 Button {
                     isShowingTaskListSheet.toggle()
@@ -107,11 +119,13 @@ struct RoutineStartView: View {
                 .padding(.top, 50)
             }
             .padding(.horizontal)
-            
         }
         .sheet(isPresented: $isShowingTaskListSheet) {
             TaskListSheet(detents: $detents)
                 .presentationDetents(detents)
+        }
+        .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
+            RoutineCompleteView()
         }
         .animation(.smooth, value: viewModel.isRunning)
         .onAppear {

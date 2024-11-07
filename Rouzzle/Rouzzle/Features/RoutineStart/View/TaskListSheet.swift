@@ -27,7 +27,7 @@ struct TaskListSheet: View {
                         if showEditIcon {
                             // 순서 수정 버튼 눌렀을 때
                             TaskStatusRow(taskStatus: task.taskStatus,
-                                          emojiText: task.emojiText,
+                                          emojiText: task.emoji,
                                           title: task.title,
                                           showEditIcon: $showEditIcon)
                             .onDrag {
@@ -39,7 +39,7 @@ struct TaskListSheet: View {
                         } else {
                             // 순서 수정 버튼 안 눌렀을 때
                             TaskStatusRow(taskStatus: task.taskStatus,
-                                          emojiText: task.emojiText,
+                                          emojiText: task.emoji,
                                           title: task.title,
                                           showEditIcon: $showEditIcon)
                         }
@@ -106,22 +106,6 @@ struct DropViewDelegate: DropDelegate {
             items.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
         }
     }
-}
-
-// MARK: - 테스트용 더미 데이터
-struct DummyTask: Identifiable {
-    let id = UUID()
-    let taskStatus: TaskStatus
-    let emojiText: String
-    let title: String
-    let time: Int
-    
-    static var tasks = [
-        DummyTask(taskStatus: .completed, emojiText: "☕️", title: "커피/차 마시기", time: 10),
-        DummyTask(taskStatus: .inProgress, emojiText: "💊", title: "유산균 먹기", time: 5),
-        DummyTask(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기", time: 10),
-        DummyTask(taskStatus: .pending, emojiText: "👕", title: "옷 갈아입기", time: 5)
-    ]
 }
 
 #Preview {
