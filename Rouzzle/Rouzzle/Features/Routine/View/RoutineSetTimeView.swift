@@ -13,6 +13,7 @@ struct RoutineTimeSettingView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             // 중앙에 시간 크게 표시
             Text(selectedTime, style: .time)
                 .font(.system(size: 48, weight: .bold))
@@ -20,6 +21,7 @@ struct RoutineTimeSettingView: View {
                 .onTapGesture {
                     showTimePickerSheet = true // 시간 선택 피커 표시
                 }
+                .frame(maxWidth: 300, alignment: .center)
             
             // 요일별 시간 설정 버튼
             Button(action: {
@@ -40,7 +42,7 @@ struct RoutineTimeSettingView: View {
             RouzzleButton(buttonType: .complete, action: {
                 print("완료 버튼 눌림")
             })
-            .padding(.bottom, 30)
+            .padding()
         }
         .navigationTitle("시간 설정")
         .sheet(isPresented: $showTimePickerSheet) {
