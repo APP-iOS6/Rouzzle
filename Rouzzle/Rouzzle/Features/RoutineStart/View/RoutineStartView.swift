@@ -15,6 +15,7 @@ struct RoutineStartView: View {
     private var pausePuzzleTimerColor = Color.fromRGB(r: 191, g: 207, b: 154)
     
     @State var isShowingTaskListSheet: Bool = false
+    @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -106,18 +107,17 @@ struct RoutineStartView: View {
                 .padding(.top, 50)
             }
             .padding(.horizontal)
-
+            
         }
         .sheet(isPresented: $isShowingTaskListSheet) {
-            TaskListSheet()
-                .presentationDetents([.fraction(0.8)])
+            TaskListSheet(detents: $detents)
+                .presentationDetents(detents)
         }
         .animation(.smooth, value: viewModel.isRunning)
         .onAppear {
             viewModel.startTimer()
         }
     }
-    
 }
 
 #Preview {

@@ -10,6 +10,8 @@ import SwiftUI
 struct TaskListSheet: View {
     @State private var tasks = DummyTask.tasks
     @State private var draggedItem: DummyTask?
+    
+    @Binding var detents: Set<PresentationDetent>
     @State private var showEditIcon = false
     @Environment(\.dismiss) private var dismiss
     
@@ -43,7 +45,7 @@ struct TaskListSheet: View {
                         }
                     }
                 }
-                .padding(.horizontal)
+                .padding()
             }
             
             Spacer()
@@ -68,6 +70,15 @@ struct TaskListSheet: View {
                 .padding(.bottom, 30)
             }
         }
+        .onAppear {
+            updateDetents()
+        }
+    }
+    
+    private func updateDetents() {
+        // tasks의 개수에 따라 detents 값 조정
+        let fraction = min(0.5 + 0.1 * max(0, Double(tasks.count - 2)), 0.9)
+        detents = [.fraction(fraction)]
     }
 }
 
@@ -113,5 +124,5 @@ struct DummyTask: Identifiable {
 }
 
 #Preview {
-    TaskListSheet()
+    TaskListSheet(detents: .constant([.fraction(0.12)]))
 }
