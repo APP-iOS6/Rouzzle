@@ -14,8 +14,8 @@ extension Font {
         return Font.custom("Pretendard-Bold", size: 80)
     }
     
-    static var bold54: Font {
-        return Font.custom("Pretendard-Bold", size: 54)
+    static var bold66: Font {
+        return Font.custom("Pretendard-Bold", size: 66)
     }
     
     static var bold50: Font {
@@ -23,6 +23,10 @@ extension Font {
     }
     static var bold40: Font {
         return Font.custom("Pretendard-Bold", size: 40)
+    }
+    
+    static var bold30: Font {
+        return Font.custom("Pretendard-Bold", size: 30)
     }
     
     static var bold24: Font {

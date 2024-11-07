@@ -10,127 +10,107 @@ import SwiftUI
 struct RoutineStartView: View {
     private var viewModel: RoutineStartViewModel = RoutineStartViewModel()
     @Environment(\.dismiss) private var dismiss
+    private var playBackgroundColor = Color.fromRGB(r: 252, g: 255, b: 240)
+    private var pauseBackgroundColor = Color.fromRGB(r: 230, g: 235, b: 212)
+    private var pausePuzzleTimerColor = Color.fromRGB(r: 191, g: 207, b: 154)
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .top) {
-                // MARK: 그라데이션 배경
-                LinearGradient(
-                    colors: viewModel.isRunning ? [.white, .themeColor] : [.white, .subHeadlineFontColor],
-                    startPoint: .top,
-                    endPoint: .center
-                )
-                .transition(.opacity)
-                .ignoresSafeArea(edges: .top)
-                
-                VStack(spacing: 0) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.semibold24)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(.trailing, 20)
-                    
-                    Text("💊 유산균 먹기")
-                        .font(.bold24)
-                        .padding(.top, 10)
-                    
-                    Text("5분")
-                        .font(.regular14)
-                        .foregroundStyle(Color.subHeadlineFontColor)
-                        .padding(.top, 10)
-                    
-                    // MARK: 퍼즐 모양 타이머
-                    ZStack {
-                        Image(.puzzleTimer)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding(.horizontal, 16)
-                        
-                        Text(viewModel.timeRemaining.toTimeString())
-                            .font(.bold54)
-                            .foregroundStyle(viewModel.isRunning ? .primary : Color.subHeadlineFontColor)
-                    }
-                    .padding(.top, 30)
-                    
-                    // MARK: 흰색 사각형 + 버튼 3개(일시정지, 체크, 건너뛰기) + 할일 리스트
-                    ZStack(alignment: .top) {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(.white)
-                            .offset(y: geometry.size.height * 0.06)
-                            .ignoresSafeArea(edges: .bottom)
-                        
-                        VStack(spacing: 0) {
-                            HStack(spacing: 0) {
-                                // 일시정지 버튼
-                                Button {
-                                    viewModel.isRunning.toggle()
-                                } label: {
-                                    Image(systemName: viewModel.isRunning ? "pause.circle.fill" : "play.circle.fill")
-                                        .font(.bold50)
-                                        .foregroundStyle(Color.themeColor)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.white)
-                                                .frame(width: 65, height: 65)
-                                        )
-                                }
-                                
-                                // 할일 완료 버튼
-                                Button {
-                                    // 할일 완료 로직
-                                } label: {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .font(.bold80)
-                                        .foregroundStyle(Color.themeColor)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.white)
-                                                .frame(width: 100, height: 100)
-                                        )
-                                }
-                                
-                                // 건너뛰기 버튼
-                                Button {
-                                    // 건너뛰기 로직
-                                } label: {
-                                    Image(systemName: "forward.end.circle.fill")
-                                        .font(.bold50)
-                                        .foregroundStyle(Color.themeColor)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.white)
-                                                .frame(width: 65, height: 65)
-                                        )
-                                }
-                            }
-                            
-                            // 할일 리스트
-                            ScrollView {
-                                VStack(spacing: 10) {
-                                    TaskStatusPuzzle(taskStatus: .inProgress)
-                                    
-                                    TaskStatusPuzzle(taskStatus: .pending)
-                                        .shadow(color: .black.opacity(0.1), radius: 2)
-                                    
-                                    TaskStatusPuzzle(taskStatus: .completed)
-                                }
-                                .padding(.horizontal, 16)
-                            }
-                            .padding(.top, 7)
-                        }
-                    }
-                    .padding(.top, 30)
+        ZStack(alignment: .top) {
+            // MARK: 그라데이션 배경
+            LinearGradient(
+                colors: viewModel.isRunning ? [.white, playBackgroundColor] : [.white, pauseBackgroundColor],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .transition(.opacity)
+            .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.bold30)
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 20)
+                
+                Text("💊 유산균 먹기")
+                    .font(.bold24)
+                    .padding(.top, 40)
+                
+                // MARK: 퍼즐 모양 타이머
+                ZStack {
+                    Image(.puzzleTimer)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(viewModel.isRunning ? Color.themeColor : pausePuzzleTimerColor)
+                    
+                    VStack(spacing: 0) {
+                        Text(viewModel.timeRemaining.toTimeString())
+                            .font(.bold66)
+                            .foregroundStyle(.white)
+                        
+                        Text("5분")
+                            .font(.regular18)
+                            .foregroundStyle(viewModel.isRunning ? .accent : .white)
+                    }
+                }
+                .padding(.top, 35)
+                
+                // MARK: 버튼 3개(일시정지, 체크, 건너뛰기)
+                HStack(spacing: 14) {
+                    // 일시정지 버튼
+                    Button {
+                        viewModel.isRunning.toggle()
+                    } label: {
+                        Image(viewModel.isRunning ? .pauseIcon : .playIcon)
+                            .frame(width: 64, height: 64)
+                    }
+                    
+                    // 할일 완료 버튼
+                    Button {
+                        // 할일 완료 로직
+                    } label: {
+                        Image(.checkIcon)
+                            .frame(width: 72, height: 72)
+                    }
+                    
+                    // 건너뛰기 버튼
+                    Button {
+                        // 건너뛰기 로직
+                    } label: {
+                        Image(.skipIcon)
+                            .frame(width: 64, height: 64)
+                    }
+                }
+                .padding(.top, 30)
+                
+                Text("다음 할일")
+                    .font(.semibold16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 60)
+                
+                TaskStatusPuzzle(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기")
+                    .padding(.top, 18)
+                
+                Button {
+                    
+                } label: {
+                    Text("할일 전체 보기")
+                        .underline()
+                }
+                .padding(.top, 35)
             }
-            .animation(.smooth, value: viewModel.isRunning)
-            .onAppear {
-                viewModel.startTimer()
-            }
+            .padding(.horizontal)
+
+        }
+        .animation(.smooth, value: viewModel.isRunning)
+        .onAppear {
+            viewModel.startTimer()
         }
     }
+    
 }
 
 #Preview {
