@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 @Observable
-class NewTaskSheetViewModel {
+final class NewTaskSheetViewModel {
     
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
@@ -19,13 +19,17 @@ class NewTaskSheetViewModel {
         print("시트뷰모델")
     }
     
-    var emoji: String = ""
+    var emoji: String?
     var text: String = ""
     var hour: Int = 0
     var min: Int = 0
     var second: Int = 0
     var errorMessage: String?
     var sheetType: SheetType = .task
+    
+    func updateRoutineTask() {
+    
+    }
 }
 
 enum SheetType: Hashable {
