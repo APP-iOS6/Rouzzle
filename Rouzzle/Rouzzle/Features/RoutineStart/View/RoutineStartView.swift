@@ -14,6 +14,8 @@ struct RoutineStartView: View {
     private var pauseBackgroundColor = Color.fromRGB(r: 230, g: 235, b: 212)
     private var pausePuzzleTimerColor = Color.fromRGB(r: 191, g: 207, b: 154)
     
+    @State var isShowingTaskListSheet: Bool = false
+    
     var body: some View {
         ZStack(alignment: .top) {
             // MARK: 그라데이션 배경
@@ -95,7 +97,7 @@ struct RoutineStartView: View {
                     .padding(.top, 18)
                 
                 Button {
-                    
+                    isShowingTaskListSheet.toggle()
                 } label: {
                     Text("할일 전체 보기")
                         .underline()
@@ -104,6 +106,9 @@ struct RoutineStartView: View {
             }
             .padding(.horizontal)
 
+        }
+        .sheet(isPresented: $isShowingTaskListSheet) {
+            TaskListSheet()
         }
         .animation(.smooth, value: viewModel.isRunning)
         .onAppear {
