@@ -9,34 +9,37 @@ import SwiftUI
 
 struct EmojiPickerView: View {
     @Binding var selectedEmoji: String
+    @State private var selectedEmojiTemp: String = ""  // 임시 저장 변수
     @State private var viewModel: EmojiPickerViewModel?
     @AppStorage("recentEmojisData") private var recentEmojisData: String = "[]"
     @Environment(\.dismiss) private var dismiss
     var onEmojiSelected: (String) -> Void
     
-    init(selectedEmoji: String, onEmojiSelected: @escaping (String) -> Void) {
-        _selectedEmoji = .constant(selectedEmoji)  // 기본값 설정
+    init(selectedEmoji: Binding<String>, onEmojiSelected: @escaping (String) -> Void) {
+        _selectedEmoji = selectedEmoji
         self.onEmojiSelected = onEmojiSelected
+        self._selectedEmojiTemp = State(initialValue: selectedEmoji.wrappedValue) // 초기화
     }
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
                 if let viewModel = viewModel {
+                    // 선택된 이모지 표시
                     ZStack {
                         Circle()
                             .fill(Color(.systemGray6))
                             .frame(width: 62, height: 62)
                             .overlay(
                                 Circle()
-                                    .stroke(Color.blue.opacity(0.3), lineWidth: 2)
+                                    .stroke(Color.themeColor.opacity(0.8), lineWidth: 2)
                                     .scaleEffect(viewModel.isEmojiSelected ? 1.2 : 1.0)
                                     .opacity(viewModel.isEmojiSelected ? 0 : 1)
                                     .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true),
                                                value: viewModel.isEmojiSelected)
                             )
                         
-                        Text(selectedEmoji)
+                        Text(selectedEmojiTemp)  // 임시 변수 사용
                             .font(.system(size: 30))
                             .scaleEffect(viewModel.isEmojiSelected ? 1.2 : 1.0)
                             .animation(.spring(response: 0.3, dampingFraction: 0.6),
@@ -72,9 +75,8 @@ struct EmojiPickerView: View {
                             ForEach(viewModel.filteredEmojis, id: \.self) { emoji in
                                 Button(
                                     action: {
-                                        selectedEmoji = emoji
+                                        selectedEmojiTemp = emoji  // 임시 변수에 저장
                                         viewModel.selectEmoji(emoji)
-                                        saveRecentEmojis()
                                     },
                                     label: {
                                         Text(emoji)
@@ -101,6 +103,9 @@ struct EmojiPickerView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("완료") {
+                        selectedEmoji = selectedEmojiTemp  // 실제 선택된 이모지로 업데이트
+                        onEmojiSelected(selectedEmojiTemp) // 콜백 호출
+                        saveRecentEmojis()
                         dismiss()
                     }
                 }
@@ -124,11 +129,5 @@ struct EmojiPickerView: View {
            let jsonString = String(data: encodedData, encoding: .utf8) {
             recentEmojisData = jsonString
         }
-    }
-    
-    private func handleEmojiSelection(_ emoji: String) {
-        selectedEmoji = emoji
-        onEmojiSelected(emoji)
-        dismiss()
     }
 }

@@ -27,19 +27,19 @@ struct CategoryButton: View {
     var body: some View {
         Button(action: action) {
             Text(category.rawValue)
-                .font(.system(size: 14, weight: .medium))
+                .font(.regular14)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 6)
                 .background(
                     Capsule()
-                        .fill(isSelected ? Color.blue : Color.gray.opacity(0.2))
+                        .fill(isSelected ? Color.themeColor : Color.gray.opacity(0.2))
                 )
-                .foregroundColor(isSelected ? .white : .primary)
+                .foregroundColor(isSelected ? .basic : .basic)
         }
         .buttonStyle(PlainButtonStyle())
         
     }
-
+    
 }
 
 struct SearchBar: View {
@@ -53,6 +53,7 @@ struct SearchBar: View {
             
             TextField("이모지 검색", text: $text)
                 .padding(.trailing, 8)
+                .font(.regular12)
             
             if !text.isEmpty {
                 Button(

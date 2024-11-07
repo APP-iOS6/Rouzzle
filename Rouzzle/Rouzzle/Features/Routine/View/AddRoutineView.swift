@@ -17,6 +17,7 @@ struct AddRoutineView: View {
     @State private var isOneAlarm: Bool = false
     @State private var selectedMinute: Int = 2
     @State private var selectedCount: Int = 1
+    @State private var selectedEmoji: String? = "🧩"
     
     @State private var times: [String: Date] = [
         "월": Date(),
@@ -55,7 +56,10 @@ struct AddRoutineView: View {
                 ScrollView {
                     VStack(alignment: .center, spacing: 20) {
                         // 이모지 입력
-                        EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in
+                        EmojiButton(
+                            selectedEmoji: $selectedEmoji, // @State 변수를 Binding으로 전달
+                            emojiButtonType: .routineEmoji
+                        ) { selectedEmoji in
                             print("Selected Emoji: \(selectedEmoji)")
                         }
                         .frame(maxWidth: .infinity, minHeight: 90)
@@ -198,7 +202,7 @@ struct AddRoutineView: View {
             .toolbar(.hidden, for: .tabBar)
         }
     }
-
+    
     // 요일 선택 버튼
     private func dayButton(for day: String) -> some View {
         ZStack {

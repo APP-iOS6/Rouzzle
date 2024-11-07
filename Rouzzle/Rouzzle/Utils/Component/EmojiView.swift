@@ -35,21 +35,13 @@ struct EmojiButton: View {
     @Binding var selectedEmoji: String?
     private(set) var emojiButtonType: EmojiButtonType
     var onEmojiSelected: (String) -> Void
-    
-    // selectedEmoji가 optional binding이 아닌 경우를 위한 생성자
-    init(emojiButtonType: EmojiButtonType, onEmojiSelected: @escaping (String) -> Void) {
-        self._selectedEmoji = .constant(nil)
-        self.emojiButtonType = emojiButtonType
-        self.onEmojiSelected = onEmojiSelected
-    }
-    
-    // selectedEmoji가 binding으로 전달되는 경우를 위한 생성자
+
     init(selectedEmoji: Binding<String?>, emojiButtonType: EmojiButtonType, onEmojiSelected: @escaping (String) -> Void) {
         self._selectedEmoji = selectedEmoji
         self.emojiButtonType = emojiButtonType
         self.onEmojiSelected = onEmojiSelected
     }
-    
+
     var body: some View {
         VStack {
             HStack(spacing: 15) {
@@ -67,9 +59,11 @@ struct EmojiButton: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            // 여기를 수정
             EmojiPickerView(
-                selectedEmoji: selectedEmoji ?? "😊",  // String 타입으로 전달
+                selectedEmoji: Binding(
+                    get: { selectedEmoji ?? "🧩" },  // selectedEmoji가 nil일 때 "🧩"를 기본값으로 제공
+                    set: { selectedEmoji = $0 }
+                ),
                 onEmojiSelected: { emoji in
                     selectedEmoji = emoji
                     onEmojiSelected(emoji)
