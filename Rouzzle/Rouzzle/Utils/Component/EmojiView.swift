@@ -32,7 +32,7 @@ enum EmojiButtonType {
 
 struct EmojiButton: View {
     @State private var showSheet = false
-    @State private var selectedEmoji: String?
+    @State private(set) var selectedEmoji: String?
     private(set) var emojiButtonType: EmojiButtonType
     var onEmojiSelected: (String) -> Void
 
