@@ -114,12 +114,13 @@ struct DummyTask: Identifiable {
     let taskStatus: TaskStatus
     let emojiText: String
     let title: String
+    let time: Int
     
     static var tasks = [
-        DummyTask(taskStatus: .completed, emojiText: "☕️", title: "커피/차 마시기"),
-        DummyTask(taskStatus: .inProgress, emojiText: "💊", title: "유산균 먹기"),
-        DummyTask(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기"),
-        DummyTask(taskStatus: .pending, emojiText: "👕", title: "옷 갈아입기")
+        DummyTask(taskStatus: .completed, emojiText: "☕️", title: "커피/차 마시기", time: 10),
+        DummyTask(taskStatus: .inProgress, emojiText: "💊", title: "유산균 먹기", time: 5),
+        DummyTask(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기", time: 10),
+        DummyTask(taskStatus: .pending, emojiText: "👕", title: "옷 갈아입기", time: 5)
     ]
 }
 
