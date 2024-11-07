@@ -29,6 +29,15 @@ struct WeekSetTimeView: View {
     
     var body: some View {
         VStack {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.semibold24)
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.trailing, 20)
+            
             // 전체 선택 버튼
             Button(action: {
                 temporaryTime = allDaysTime // 현재 값을 임시 저장
@@ -40,6 +49,7 @@ struct WeekSetTimeView: View {
                     Image(systemName: "chevron.right")
                 }.font(.regular14)
             })
+            .padding(.top, 39)
 
             // 개별 요일 시간 설정 리스트
             VStack(alignment: .leading, spacing: 12) {
@@ -86,13 +96,11 @@ struct WeekSetTimeView: View {
                 print("Selected times: \(times)")
                 dismiss()
             })
-            .padding(.bottom, 15)
         }
-        .padding(.top, 70)
-        .customNavigationBar(title: "요일별 시간 설정")
+        .padding()
         // 요일별 시간 피커
         .sheet(isPresented: $showSheet) {
-            if let selectedDay = selectedDay, let bindingTime = Binding($times[selectedDay]) {
+            if let selectedDay = selectedDay {
                 ReusableTimePickerSheet(
                     time: $temporaryTime,
                     onConfirm: {

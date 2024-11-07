@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct RoutineTimeSettingView: View {
+struct RoutineSetTimeView: View {
+    @Environment(\.dismiss) private var dismiss
+    let selectedDays: [String]
     @State private var selectedTime: Date = Date() // 기본 시간 설정
     @State private var showTimePickerSheet = false
+    @State private var showWeekSetTimeView = false
     
     var body: some View {
         VStack {
@@ -25,7 +28,7 @@ struct RoutineTimeSettingView: View {
             
             // 요일별 시간 설정 버튼
             Button(action: {
-                // 요일별 시간 설정 화면으로 이동하는 코드 작성
+                showWeekSetTimeView = true
             }, label: {
                 HStack {
                     Text("요일별 시간 설정")
@@ -41,12 +44,16 @@ struct RoutineTimeSettingView: View {
             // 완료 버튼
             RouzzleButton(buttonType: .complete, action: {
                 print("완료 버튼 눌림")
+                dismiss()
             })
             .padding()
         }
-        .navigationTitle("시간 설정")
+        .customNavigationBar(title: "시간 설정")
         .sheet(isPresented: $showTimePickerSheet) {
             TimePickerSheet(time: $selectedTime)
+        }
+        .fullScreenCover(isPresented: $showWeekSetTimeView) {
+            WeekSetTimeView(selectedDays: selectedDays)
         }
     }
 }
@@ -84,5 +91,7 @@ struct TimePickerSheet: View {
 }
 
 #Preview {
-    RoutineTimeSettingView()
+    NavigationStack {
+        AddRoutineView()
+    }
 }

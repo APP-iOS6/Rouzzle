@@ -99,12 +99,13 @@ struct AddRoutineView: View {
                                     .font(.semibold18)
                                 Spacer()
                                 VStack {
+                                    // Todo: 요일별 값이 다를 때 띄우기
                                     Text("(요일별 다름)")
                                         .font(.regular12)
                                         .foregroundColor(.gray)
                                     
                                     NavigationLink {
-                                        WeekSetTimeView(selectedDays: Array(selectedDays))
+                                        RoutineSetTimeView(selectedDays: Array(selectedDays))
                                     } label: {
                                         HStack {
                                             Text(startTime, style: .time)
