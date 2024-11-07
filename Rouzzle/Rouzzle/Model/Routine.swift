@@ -22,7 +22,7 @@ struct Routine: Codable {
 struct RoutineTask: Codable {
     var title: String // 할일 제목
     var emoji: String // 이모지
-    var timer: TimeInterval // 타이머
+    var timer: Int // 타이머
 }
 
 enum Day: Int, Codable, CaseIterable {

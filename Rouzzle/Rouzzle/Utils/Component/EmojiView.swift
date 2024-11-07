@@ -56,6 +56,7 @@ struct EmojiButton: View {
             EmojiListView { emoji in
                 self.selectedEmoji = emoji
                 self.showSheet = false
+                onEmojiSelected(emoji)
             }
             .presentationDetents([.fraction(0.5)])
         }
