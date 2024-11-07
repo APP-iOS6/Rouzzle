@@ -32,9 +32,6 @@ struct LaunchView: View {
             }
         }
         .animation(.smooth, value: authStore.authState)
-        .onAppear {
-            authStore.autoLogin()
-        }
     }
 }
 
