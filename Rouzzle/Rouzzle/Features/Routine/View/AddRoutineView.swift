@@ -113,7 +113,7 @@ struct AddRoutineView: View {
                                             .cornerRadius(8)
                                     }
                                 }
-                                .disabled(selectedDays.isEmpty == false)
+                                .disabled(selectedDays.isEmpty)
                             }
                         }
                     }

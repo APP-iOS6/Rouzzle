@@ -16,6 +16,7 @@ struct WeekSetTimeView: View {
     @State private var showSheet = false
     @State private var showAllDaysPicker = false
     @State private var allDaysTime: Date = Date() // 전체 시간을 설정할 때 사용할 시간
+    @State private var temporaryTime: Date = Date() // 임시 시간을 저장할 변수
     
     init(selectedDays: [String]) {
         self.selectedDays = selectedDays
@@ -30,6 +31,7 @@ struct WeekSetTimeView: View {
         VStack {
             // 전체 선택 버튼
             Button(action: {
+                temporaryTime = allDaysTime // 현재 값을 임시 저장
                 showAllDaysPicker = true
             }, label: {
                 HStack {
@@ -67,6 +69,7 @@ struct WeekSetTimeView: View {
                     .onTapGesture {
                         if selectedDays.contains(day) {
                             selectedDay = day
+                            temporaryTime = times[day] ?? Date() // 현재 값을 임시 저장
                             showSheet = true
                         }
                     }
@@ -91,20 +94,22 @@ struct WeekSetTimeView: View {
         .sheet(isPresented: $showSheet) {
             if let selectedDay = selectedDay, let bindingTime = Binding($times[selectedDay]) {
                 ReusableTimePickerSheet(
-                    time: bindingTime,
-                    onConfirm: { dismiss() }
+                    time: $temporaryTime,
+                    onConfirm: {
+                        times[selectedDay] = temporaryTime
+                    }
                 )
             }
         }
         // 한 번에 시간 피커
         .sheet(isPresented: $showAllDaysPicker) {
             ReusableTimePickerSheet(
-                time: $allDaysTime,
+                time: $temporaryTime,
                 onConfirm: {
+                    allDaysTime = temporaryTime
                     for day in selectedDays {
                         times[day] = allDaysTime
                     }
-                    showAllDaysPicker = false
                 }
             )
         }
@@ -119,34 +124,27 @@ struct ReusableTimePickerSheet: View {
     
     var body: some View {
         VStack {
-            
             HStack {
-                Button {
+                Button("취소") {
                     dismiss()
-                } label: {
-                    Text("취소")
-                        .foregroundStyle(.basic)
                 }
                 
                 Spacer()
                 
-                Button {
+                Button("완료") {
                     onConfirm()
                     dismiss()
-                } label: {
-                    Text("완료")
-                        .foregroundStyle(.basic)
                 }
+                .foregroundColor(.accentColor)
             }
+            .padding()
             
-            HStack {
-                DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
-                    .datePickerStyle(WheelDatePickerStyle())
-                    .labelsHidden()
-                    .frame(height: 250)
-            }
+            DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
+                .datePickerStyle(WheelDatePickerStyle())
+                .labelsHidden()
+                .frame(height: 250)
         }
-        .presentationDetents([.fraction(0.3)])
+        .presentationDetents([.fraction(0.4)])
     }
 }
 
