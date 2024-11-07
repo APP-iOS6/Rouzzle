@@ -17,9 +17,8 @@ struct RoutineSetTimeView: View {
     var body: some View {
         VStack {
             Spacer()
-            // 중앙에 시간 크게 표시
             Text(selectedTime, style: .time)
-                .font(.system(size: 48, weight: .bold))
+                .font(.bold50)
                 .padding(.top, 100)
                 .onTapGesture {
                     showTimePickerSheet = true // 시간 선택 피커 표시
@@ -75,7 +74,7 @@ struct TimePickerSheet: View {
                 Button("완료") {
                     dismiss()
                 }
-                .foregroundColor(.green)
+                .foregroundColor(.accent)
                 .padding(.trailing, 16)
             }
             .padding(.vertical, 10)

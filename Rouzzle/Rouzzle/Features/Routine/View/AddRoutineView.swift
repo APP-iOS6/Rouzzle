@@ -133,7 +133,7 @@ struct AddRoutineView: View {
                                 Toggle(isOn: $isNotificationEnabled) {
                                     Text("")
                                 }
-                                .toggleStyle(SwitchToggleStyle(tint: Color("AccentColor")))
+                                .toggleStyle(SwitchToggleStyle(tint: Color(.accent)))
                             }
                             
                             // 알림 On일 때 활성화
