@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RoutineListView: View {
+    @State var isShowingAddRoutineSheet: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,7 +29,9 @@ struct RoutineListView: View {
                             .shadow(color: Color.gray.opacity(0.3), radius: 1)
                     )
                     Spacer()
-                    NavigationLink(destination: AddRoutineView()) {
+                    Button {
+                        isShowingAddRoutineSheet.toggle()
+                    } label: {
                         Image(systemName: "plus")
                             .font(.title2)
                     }
@@ -71,6 +75,9 @@ struct RoutineListView: View {
                 Spacer()
                 
                 // Text("Hello, World!")
+            }
+            .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
+                AddRoutineView()
             }
         }
     }

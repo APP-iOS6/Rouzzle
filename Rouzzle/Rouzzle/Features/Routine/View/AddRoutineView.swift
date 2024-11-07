@@ -34,15 +34,30 @@ struct AddRoutineView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            // 상단 바
+            HStack {
+                Spacer()
+                Text("루틴 등록")
+                    .padding(.leading, 40)
+                    .font(.regular18)
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.semibold24)
+                }
+                .frame(alignment: .trailing)
+                .padding(.trailing, 20)
+            }
+            
             ScrollView {
                 VStack(alignment: .center, spacing: 20) {
-                    VStack {
-                        // 이모지 입력
-                        EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in
-                            print("Selected Emoji: \(selectedEmoji)")
-                        }
-                        .padding(.vertical, 35)
+                    // 이모지 입력
+                    EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in
+                        print("Selected Emoji: \(selectedEmoji)")
                     }
+                    .frame(maxWidth: .infinity, minHeight: 90)
                     
                     // 첫번째 네모칸(제목, 요일, 시간)
                     VStack(alignment: .leading, spacing: 20) {
@@ -87,7 +102,9 @@ struct AddRoutineView: View {
                                     .font(.regular12)
                                     .foregroundColor(.gray)
                                 
-                                NavigationLink(destination: RoutineSetTimeView(selectedDays: Array(selectedDays))) {
+                                NavigationLink {
+                                    WeekSetTimeView(selectedDays: Array(selectedDays))
+                                } label: {
                                     HStack {
                                         Text(startTime, style: .time)
                                             .padding(.horizontal, 8)
@@ -96,6 +113,7 @@ struct AddRoutineView: View {
                                             .cornerRadius(8)
                                     }
                                 }
+                                .disabled(selectedDays.isEmpty == false)
                             }
                         }
                     }
@@ -134,7 +152,7 @@ struct AddRoutineView: View {
                                         isDisabled: isOneAlarm
                                     )
                                     
-                                    Text("마다")
+                                    Text("간격으로")
                                         .foregroundColor(isOneAlarm ? .gray : .primary)
                                     
                                     // 횟수 선택 Picker
@@ -165,19 +183,19 @@ struct AddRoutineView: View {
                     .background(Color.fromRGB(r: 248, g: 247, b: 247))
                     .cornerRadius(20)
                 }
-                .padding(.bottom, 140)
-                
-                RouzzleButton(buttonType: .complete, action: {
-                    print("루틴 등록 버튼")
-                    dismiss()
-                })
-                .padding(.bottom, 15)
+                .padding(.top, 20)
             }
+            
+            RouzzleButton(buttonType: .complete, action: {
+                print("루틴 등록 버튼")
+                dismiss()
+            })
+            .background(Color.white)
         }
-        .customNavigationBar(title: "루틴 등록")
+        .padding()
         .toolbar(.hidden, for: .tabBar)
     }
-    
+
     // 요일 선택 버튼
     private func dayButton(for day: String) -> some View {
         ZStack {
