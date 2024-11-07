@@ -58,6 +58,7 @@
 		BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */; };
 		BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912EF72CDB3857007B8503 /* RecommendTask.swift */; };
 		BD912F892CDD2B24007B8503 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F882CDD2B24007B8503 /* Item.swift */; };
+		BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -150,6 +151,7 @@
 		BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusPuzzle.swift; sourceTree = "<group>"; };
 		BD912EF72CDB3857007B8503 /* RecommendTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTask.swift; sourceTree = "<group>"; };
 		BD912F882CDD2B24007B8503 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			children = (
 				FB2A5A8E2CD7A2B300CB981A /* ServiceError */,
 				FB2A5A972CD7B60300CB981A /* AuthService.swift */,
+				BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */,
 				FB2A5ABF2CD92C6C00CB981A /* UserService.swift */,
 				FB4174EC2CDB59BF0084BC19 /* RoutineService.swift */,
 			);
@@ -776,6 +779,7 @@
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
+				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
