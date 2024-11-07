@@ -13,28 +13,29 @@ struct NewTaskSheet: View {
         case task
         case time
     }
-    
+    @Environment(\.dismiss) private var dismiss
     @State private var sheetType: SheetType = .task
     @State private var emoji: String = ""
     @State private var text: String = ""
     @State private var hour: Int = 0
     @State private var min: Int = 0
     @State private var second: Int = 0
+    @State private var errorMessage: String?
     var formattedTime: String {
-         var components: [String] = []
-         
-         if hour > 0 {
-             components.append("\(hour)시간")
-         }
-         if min > 0 {
-             components.append("\(min)분")
-         }
-         if second > 0 {
-             components.append("\(second)초")
-         }
-         
-         return components.joined(separator: " ")
-     }
+        var components: [String] = []
+        
+        if hour > 0 {
+            components.append("\(hour)시간")
+        }
+        if min > 0 {
+            components.append("\(min)분")
+        }
+        if second > 0 {
+            components.append("\(second)초")
+        }
+        
+        return components.joined(separator: " ")
+    }
     @FocusState var focusField: SheetType?
     @Binding var detents: Set<PresentationDetent>
     /// 모델링을 안해서 나중에 할일 모델 action에 넣어주면 됨
@@ -45,11 +46,33 @@ struct NewTaskSheet: View {
             switch sheetType {
             case .task:
                 TaskInputView(text: $text, emoji: $emoji, focusField: _focusField) {
-                    /// 할일 모델 만들어서 action에 전달
+                    print("\(emoji) \(text)")
+                    if text.isEmpty || emoji.isEmpty {
+                        withAnimation {
+                            errorMessage = "이모지와 할 일 모두 입력해 주세요."
+                        }
+                        return
+                    }
+                    print("d")
+                    let timer = (hour * 3600) + (min * 60) + second
+                    let RoutineTask = RoutineTask(title: text, emoji: emoji, timer: timer)
                     action()
+                    dismiss()
                 }
                 
-                TimeSelectionView(detents: $detents, sheetType: $sheetType, hour: $hour, min: $min, second: $second, focusField: _focusField)
+                TimeSelectionView(
+                    detents: $detents,
+                    sheetType: $sheetType,
+                    hour: $hour,
+                    min: $min,
+                    second: $second,
+                    errorMessage: $errorMessage,
+                    focusField: _focusField
+                )
+                if errorMessage != nil {
+                    Text(errorMessage ?? "")
+                        .foregroundStyle(.red)
+                }
                 
             case .time:
                 CustomTimePickerView(
@@ -116,6 +139,7 @@ struct TimeSelectionView: View {
     @Binding var hour: Int
     @Binding var min: Int
     @Binding var second: Int
+    @Binding var errorMessage: String?
     @FocusState var focusField: NewTaskSheet.SheetType?
     
     var formattedTime: String {
@@ -194,11 +218,11 @@ struct CustomTimePickerView: View {
     let comfirm: (Int, Int, Int) -> Void
     
     init(
-    hour: Int = 0,
-    min: Int = 0,
-    second: Int = 0,
-    cancel: @escaping () -> Void = {},
-    comfirm: @escaping (Int, Int, Int) -> Void = {_, _, _ in}
+        hour: Int = 0,
+        min: Int = 0,
+        second: Int = 0,
+        cancel: @escaping () -> Void = {},
+        comfirm: @escaping (Int, Int, Int) -> Void = {_, _, _ in}
     ) {
         self.hour = hour
         self.min = min
