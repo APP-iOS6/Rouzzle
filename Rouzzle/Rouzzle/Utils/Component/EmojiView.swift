@@ -32,7 +32,7 @@ enum EmojiButtonType {
 
 struct EmojiButton: View {
     @State private var showSheet = false
-    @State private var selectedEmoji: String?
+    @State private(set) var selectedEmoji: String?
     private(set) var emojiButtonType: EmojiButtonType
     var onEmojiSelected: (String) -> Void
 
@@ -56,6 +56,7 @@ struct EmojiButton: View {
             EmojiListView { emoji in
                 self.selectedEmoji = emoji
                 self.showSheet = false
+                onEmojiSelected(emoji)
             }
             .presentationDetents([.fraction(0.5)])
         }

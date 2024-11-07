@@ -102,4 +102,12 @@ extension Font {
     static var haloDek48: Font {
         return Font.custom("Halo Dek", fixedSize: 48)
     }
+    
+    static var light12: Font {
+        return Font.custom("Pretendard-Light", fixedSize: 12)
+    }
+    
+    static var light14: Font {
+        return Font.custom("Pretendard-Light", fixedSize: 14)
+    }
 }
