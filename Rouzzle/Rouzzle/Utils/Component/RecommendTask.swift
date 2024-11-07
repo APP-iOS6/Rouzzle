@@ -19,7 +19,7 @@ struct RecommendTask: View {
             Image(.recommendTask2)
                 .resizable()
                 .frame(maxWidth: .infinity)
-                .aspectRatio(370/164, contentMode: .fit)
+                .aspectRatio(370/164.24, contentMode: .fit)
                 .shadow(color: .black.opacity(0.1), radius: 2)
             
             VStack(alignment: .leading) {
@@ -32,13 +32,13 @@ struct RecommendTask: View {
                         .padding(.horizontal, 10)
                     
                     Text(timeInterval)
-                        .font(.regular14)
+                        .font(.regular12)
                         .foregroundStyle(Color.subHeadlineFontColor)
                     
                     Spacer()
                     
                     Button {
-                        // 버튼 액션
+                        isPlus.toggle()
                     } label: {
                         Image(systemName: isPlus ? "plus.circle.fill" : "circle.dotted")
                             .foregroundStyle(.accent)
@@ -48,8 +48,10 @@ struct RecommendTask: View {
                 .padding(.bottom, 3)
                 
                 Text(description)
-                    .font(.regular14)
+                    .font(.light14)
+                    .frame(maxWidth: .infinity, alignment: .leading) // 고정 너비 대신 maxWidth 사용
                     .lineSpacing(4)
+                    .multilineTextAlignment(.leading)
             }
             .padding()
         }

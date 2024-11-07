@@ -38,6 +38,7 @@ struct SignUpView: View {
                     await viewModel.uploadUserData()
                 }
             }
+            .padding(.horizontal)
         }
         .overlay {
             if viewModel.loadState == .loading {
