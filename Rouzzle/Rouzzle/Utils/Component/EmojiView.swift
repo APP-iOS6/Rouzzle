@@ -32,19 +32,33 @@ enum EmojiButtonType {
 
 struct EmojiButton: View {
     @State private var showSheet = false
-    @State private(set) var selectedEmoji: String?
+    @Binding var selectedEmoji: String?
     private(set) var emojiButtonType: EmojiButtonType
     var onEmojiSelected: (String) -> Void
-
+    
+    // selectedEmoji가 optional binding이 아닌 경우를 위한 생성자
+    init(emojiButtonType: EmojiButtonType, onEmojiSelected: @escaping (String) -> Void) {
+        self._selectedEmoji = .constant(nil)
+        self.emojiButtonType = emojiButtonType
+        self.onEmojiSelected = onEmojiSelected
+    }
+    
+    // selectedEmoji가 binding으로 전달되는 경우를 위한 생성자
+    init(selectedEmoji: Binding<String?>, emojiButtonType: EmojiButtonType, onEmojiSelected: @escaping (String) -> Void) {
+        self._selectedEmoji = selectedEmoji
+        self.emojiButtonType = emojiButtonType
+        self.onEmojiSelected = onEmojiSelected
+    }
+    
     var body: some View {
         VStack {
             HStack(spacing: 15) {
                 Button(action: {
-                    hideKeyboard() // 키보드 숨기기
+                    hideKeyboard()
                     showSheet.toggle()
                 }, label: {
                     if let emoji = selectedEmoji {
-                        Text(emoji) // 선택된 이모지를 표시
+                        Text(emoji)
                             .font(.system(size: emojiButtonType.fontSize))
                     } else {
                         emojiButtonType.view
@@ -53,59 +67,16 @@ struct EmojiButton: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            EmojiListView { emoji in
-                self.selectedEmoji = emoji
-                self.showSheet = false
-                onEmojiSelected(emoji)
-            }
-            .presentationDetents([.fraction(0.5)])
-        }
-    }
-}
-
-#Preview {
-    EmojiButton(emojiButtonType: .keyboard, onEmojiSelected: { _ in})
-}
-
-struct EmojiListView: View {
-    @State private var selectedEmoji: String? 
-    var onEmojiSelected: (String) -> Void
-    
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 15) {
-                ForEach(getEmojiList(), id: \.self) { row in
-                    HStack(spacing: 25) {
-                        ForEach(row, id: \.self) { code in
-                            Button(action: {
-                                if let emoji = UnicodeScalar(code)?.properties.isEmoji == true ? String(UnicodeScalar(code)!) : nil {
-                                    onEmojiSelected(emoji) // 이모지를 상위 뷰로 전달
-                                }
-                            }, label: {
-                                if let emoji = UnicodeScalar(code)?.properties.isEmoji == true ? String(UnicodeScalar(code)!) : nil {
-                                    Text(emoji).font(.system(size: 55))
-                                }
-                            })
-                        }
-                    }
+            // 여기를 수정
+            EmojiPickerView(
+                selectedEmoji: selectedEmoji ?? "😊",  // String 타입으로 전달
+                onEmojiSelected: { emoji in
+                    selectedEmoji = emoji
+                    onEmojiSelected(emoji)
+                    showSheet = false
                 }
-            }
-            .padding(.top)
+            )
         }
-        .background(Color.white)
-    }
-    
-    /// 유니코드 이모지 목록을 가져오는 함수
-    func getEmojiList() -> [[Int]] {
-        var emojis: [[Int]] = []
-        for i in stride(from: 0x1F601, to: 0x1F64F, by: 4) {
-            var row: [Int] = []
-            for j in i...i+3 {
-                row.append(j)
-            }
-            emojis.append(row)
-        }
-        return emojis
     }
 }
 
