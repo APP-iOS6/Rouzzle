@@ -95,6 +95,7 @@
 		FB4174ED2CDB59BF0084BC19 /* RoutineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174EC2CDB59BF0084BC19 /* RoutineService.swift */; };
 		FB4174F02CDBCD7F0084BC19 /* RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174EF2CDBCD7F0084BC19 /* RoutineStore.swift */; };
 		FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F12CDC3FF70084BC19 /* DBError.swift */; };
+		FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,6 +179,7 @@
 		FB4174EC2CDB59BF0084BC19 /* RoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineService.swift; sourceTree = "<group>"; };
 		FB4174EF2CDBCD7F0084BC19 /* RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStore.swift; sourceTree = "<group>"; };
 		FB4174F12CDC3FF70084BC19 /* DBError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBError.swift; sourceTree = "<group>"; };
+		FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheetViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1545C72CD92F390098AD7B /* View */,
+				FB4174F62CDCB6070084BC19 /* ViewModel */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -592,6 +595,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		FB4174F62CDCB6070084BC19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -748,6 +759,7 @@
 				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */,
+				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
