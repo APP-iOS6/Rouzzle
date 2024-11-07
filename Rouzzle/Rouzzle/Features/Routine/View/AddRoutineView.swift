@@ -133,7 +133,7 @@ struct AddRoutineView: View {
                                 Toggle(isOn: $isNotificationEnabled) {
                                     Text("")
                                 }
-                                .toggleStyle(SwitchToggleStyle(tint: Color("AccentColor")))
+                                .toggleStyle(SwitchToggleStyle(tint: Color(.accent)))
                             }
                             
                             // 알림 On일 때 활성화
@@ -188,7 +188,7 @@ struct AddRoutineView: View {
                     .padding(.top, 20)
                 }
                 
-                RouzzleButton(buttonType: .complete, action: {
+                RouzzleButton(buttonType: .save, action: {
                     print("루틴 등록 버튼")
                     dismiss()
                 })
