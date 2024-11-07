@@ -10,25 +10,37 @@ import SwiftUI
 struct TaskListSheet: View {
     @State private var tasks = DummyTask.tasks
     @State private var draggedItem: DummyTask?
+    @State private var showEditIcon = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 35) {
-            Text("할일 목록")
+            Text(showEditIcon ? "목록 수정" : "할일 목록")
                 .font(.semibold20)
                 .padding(.top, 30)
             
             ScrollView {
                 VStack(spacing: 20) {
                     ForEach(tasks) { task in
-                        TaskStatusRow(taskStatus: task.taskStatus,
-                                         emojiText: task.emojiText,
-                                         title: task.title)
-                        .onDrag {
-                            self.draggedItem = task
-                            return NSItemProvider()
+                        if showEditIcon {
+                            // 순서 수정 버튼 눌렀을 때
+                            TaskStatusRow(taskStatus: task.taskStatus,
+                                          emojiText: task.emojiText,
+                                          title: task.title,
+                                          showEditIcon: $showEditIcon)
+                            .onDrag {
+                                self.draggedItem = task
+                                return NSItemProvider()
+                            }
+                            .onDrop(of: [.text],
+                                    delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
+                        } else {
+                            // 순서 수정 버튼 안 눌렀을 때
+                            TaskStatusRow(taskStatus: task.taskStatus,
+                                          emojiText: task.emojiText,
+                                          title: task.title,
+                                          showEditIcon: $showEditIcon)
                         }
-                        .onDrop(of: [.text],
-                                delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
                     }
                 }
                 .padding(.horizontal)
@@ -36,27 +48,36 @@ struct TaskListSheet: View {
             
             Spacer()
             
-            Button {
-                
-            } label: {
-                Text("순서 수정")
-                    .underline()
-                    .font(.regular18)
+            if showEditIcon {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("완료")
+                        .underline()
+                        .font(.regular18)
+                }
+                .padding(.bottom, 20)
+            } else {
+                Button {
+                    showEditIcon.toggle()
+                } label: {
+                    Text("순서 수정")
+                        .underline()
+                        .font(.regular18)
+                }
+                .padding(.bottom, 30)
             }
-            .padding(.bottom, 10)
         }
     }
 }
 
 struct DropViewDelegate: DropDelegate {
-    
     let item: DummyTask
     @Binding var items: [DummyTask]
     @Binding var draggedItem: DummyTask?
     
-    // 드래그 할 때 아이템 우측 상단에 표시되는 이미지 설정 (이 매서드 아예 안쓰면 기본 값 copy : + 플러스 이미지)
     func dropUpdated(info: DropInfo) -> DropProposal? {
-        DropProposal(operation: .move) // move, cancel 은 이미지 안나옴. forbidden 는 ⛔︎ 이런 이미지 나옴
+        DropProposal(operation: .move)
     }
     
     func performDrop(info: DropInfo) -> Bool {
@@ -72,7 +93,7 @@ struct DropViewDelegate: DropDelegate {
         
         withAnimation {
             items.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
-        }   
+        }
     }
 }
 

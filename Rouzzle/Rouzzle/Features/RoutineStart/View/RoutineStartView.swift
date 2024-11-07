@@ -94,7 +94,7 @@ struct RoutineStartView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 60)
                 
-                TaskStatusRow(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기")
+                TaskStatusRow(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기", showEditIcon: .constant(false))
                     .padding(.top, 18)
                 
                 Button {

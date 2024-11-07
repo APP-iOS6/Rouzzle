@@ -92,6 +92,8 @@ struct TaskStatusRow: View {
     private(set) var title: String = "유산균 먹기"
     private(set) var timeInterval: String = "5분"
     
+    @Binding var showEditIcon: Bool // 리스트 수정일 때 보이는 아이콘
+    
     private var backgroundColor: Color {
         switch taskStatus {
         case .completed:
@@ -120,6 +122,12 @@ struct TaskStatusRow: View {
             Text(timeInterval)
                 .font(.regular14)
                 .foregroundStyle(Color.subHeadlineFontColor)
+            
+            if showEditIcon {
+                Image(.listEditIcon)
+                    .foregroundStyle(Color.subHeadlineFontColor)
+                    .padding(.leading, 10)
+            }
         }
         .opacity(taskStatus == .completed ? 0.5 : 1.0)
         .padding(.horizontal, 20)
@@ -141,5 +149,5 @@ struct TaskStatusRow: View {
 }
 
 #Preview("TaskStatusRow") {
-    TaskStatusRow(taskStatus: .pending)
+    TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false))
 }
