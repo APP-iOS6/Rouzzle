@@ -36,6 +36,7 @@ struct RoutineStartView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing, 20)
+                .padding(.top, 10)
                 
                 Text("💊 유산균 먹기")
                     .font(.bold24)
@@ -93,7 +94,7 @@ struct RoutineStartView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 60)
                 
-                TaskStatusPuzzle(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기")
+                TaskStatusRow(taskStatus: .pending, emojiText: "🧼", title: "설거지 하기")
                     .padding(.top, 18)
                 
                 Button {
@@ -102,13 +103,14 @@ struct RoutineStartView: View {
                     Text("할일 전체 보기")
                         .underline()
                 }
-                .padding(.top, 35)
+                .padding(.top, 50)
             }
             .padding(.horizontal)
 
         }
         .sheet(isPresented: $isShowingTaskListSheet) {
             TaskListSheet()
+                .presentationDetents([.fraction(0.8)])
         }
         .animation(.smooth, value: viewModel.isRunning)
         .onAppear {
