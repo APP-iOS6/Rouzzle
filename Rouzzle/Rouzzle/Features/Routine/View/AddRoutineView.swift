@@ -188,7 +188,7 @@ struct AddRoutineView: View {
                     .padding(.top, 20)
                 }
                 
-                RouzzleButton(buttonType: .complete, action: {
+                RouzzleButton(buttonType: .save, action: {
                     print("루틴 등록 버튼")
                     dismiss()
                 })
