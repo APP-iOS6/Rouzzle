@@ -72,7 +72,7 @@ struct DropViewDelegate: DropDelegate {
         
         withAnimation {
             items.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
-        }
+        }   
     }
 }
 
