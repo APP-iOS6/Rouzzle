@@ -55,7 +55,7 @@ struct NewTaskSheet: View {
                     }
                     print("d")
                     let timer = (hour * 3600) + (min * 60) + second
-                    let RoutineTask = RoutineTask(title: text, emoji: emoji, timer: timer)
+                    // let RoutineTask = RoutineTask(title: text, emoji: emoji, timer: timer)
                     action()
                     dismiss()
                 }
