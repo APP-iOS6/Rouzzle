@@ -11,7 +11,7 @@ import SwiftData
 @Model
 class RoutineItem: Identifiable {
     var id: UUID = UUID()
-    var documentId: String = ""
+    var documentId: String
     var title: String
     var emoji: String
     var repeatCount: Int?
