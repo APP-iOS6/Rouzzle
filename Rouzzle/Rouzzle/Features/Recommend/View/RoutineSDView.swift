@@ -78,6 +78,14 @@ struct RoutineDetailView: View {
                     Text(task.title)
                     Spacer()
                     Text("\(String(describing: task.timer))분")
+                    
+                    Toggle("완료", isOn: Binding(
+                        get: { task.isCompleted },
+                        set: { newValue in
+                            task.isCompleted = newValue
+                            saveChanges() // Save changes each time toggle is used
+                        }
+                    ))
                 }
             }
             .onDelete(perform: deleteTask)
@@ -106,6 +114,14 @@ struct RoutineDetailView: View {
             try modelContext.save()
         } catch {
             print("할 일 삭제 실패: \(error)")
+        }
+    }
+    
+    private func saveChanges() {
+        do {
+            try modelContext.save()
+        } catch {
+            print("상태 저장 실패: \(error)")
         }
     }
 }
