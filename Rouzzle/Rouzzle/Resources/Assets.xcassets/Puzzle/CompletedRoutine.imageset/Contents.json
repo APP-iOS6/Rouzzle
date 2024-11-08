@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "_CompletedRoutine.png",
+      "filename" : "CompletedRoutine.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "_CompletedRoutine@2x.png",
+      "filename" : "CompletedRoutine@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "_CompletedRoutine@3x.png",
+      "filename" : "CompletedRoutine@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

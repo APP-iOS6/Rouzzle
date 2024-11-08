@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "_PendingRoutine.png",
+      "filename" : "PendingTask.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "_PendingRoutine@2x.png",
+      "filename" : "PendingTask@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "_PendingRoutine@3x.png",
+      "filename" : "PendingTask@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
