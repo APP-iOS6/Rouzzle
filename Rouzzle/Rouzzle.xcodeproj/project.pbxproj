@@ -21,6 +21,8 @@
 		4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
+		9711587A2CDCAC03008854B0 /* TaskListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971158792CDCAC03008854B0 /* TaskListSheet.swift */; };
+		9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9711587B2CDCAC25008854B0 /* RoutineCompleteView.swift */; };
 		9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736FA782CDB41A0009C2E60 /* AddTaskView.swift */; };
 		9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */; };
 		97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */; };
@@ -113,6 +115,8 @@
 		4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
 		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
+		971158792CDCAC03008854B0 /* TaskListSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListSheet.swift; sourceTree = "<group>"; };
+		9711587B2CDCAC25008854B0 /* RoutineCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCompleteView.swift; sourceTree = "<group>"; };
 		9736FA782CDB41A0009C2E60 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSettingsSheet.swift; sourceTree = "<group>"; };
 		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -236,6 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				9700427D2CD9DA3900777F43 /* RoutineStartView.swift */,
+				971158792CDCAC03008854B0 /* TaskListSheet.swift */,
+				9711587B2CDCAC25008854B0 /* RoutineCompleteView.swift */,
 				9736FA782CDB41A0009C2E60 /* AddTaskView.swift */,
 				9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */,
 				23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */,
@@ -748,6 +754,7 @@
 				FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
 				BD15465D2CD9AA880098AD7B /* SocialView.swift in Sources */,
+				9711587A2CDCAC03008854B0 /* TaskListSheet.swift in Sources */,
 				FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
@@ -769,6 +776,7 @@
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
+				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
