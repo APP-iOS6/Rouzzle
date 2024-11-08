@@ -143,7 +143,7 @@ struct ReusableTimePickerSheet: View {
                     onConfirm()
                     dismiss()
                 }
-                .foregroundColor(.accentColor)
+                .foregroundColor(.accent)
             }
             .padding()
             

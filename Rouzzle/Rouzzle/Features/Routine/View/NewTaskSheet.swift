@@ -100,7 +100,7 @@ struct TaskInputView: View {
     var onAddTask: () -> Void
     var body: some View {
         HStack {
-            EmojiButton(selectedEmoji: emoji, emojiButtonType: .keyboard) { emoji in
+            EmojiButton(selectedEmoji: $emoji, emojiButtonType: .keyboard) { emoji in
                 self.emoji = emoji
                 focusField = .task
             }
