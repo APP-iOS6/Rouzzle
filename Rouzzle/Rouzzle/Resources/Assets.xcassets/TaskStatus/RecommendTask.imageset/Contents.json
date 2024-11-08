@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "_RecommendRoutine.png",
+      "filename" : "RecommendTask.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "_RecommendRoutine@2x.png",
+      "filename" : "RecommendTask@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "_RecommendRoutine@3x.png",
+      "filename" : "RecommendTask@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

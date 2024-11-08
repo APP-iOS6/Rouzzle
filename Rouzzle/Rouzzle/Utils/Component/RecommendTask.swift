@@ -16,7 +16,7 @@ struct RecommendTask: View {
 
     var body: some View {
         ZStack {
-            Image(.recommendTask2)
+            Image(.recommendTaskTimeSet)
                 .resizable()
                 .frame(maxWidth: .infinity)
                 .aspectRatio(370/164.24, contentMode: .fit)

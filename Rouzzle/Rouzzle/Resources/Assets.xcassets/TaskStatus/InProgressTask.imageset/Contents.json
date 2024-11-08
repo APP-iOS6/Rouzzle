@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "_InProgressRoutine.png",
+      "filename" : "InProgressTask.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "_InProgressRoutine@2x.png",
+      "filename" : "InProgressTask@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "_InProgressRoutine@3x.png",
+      "filename" : "InProgressTask@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

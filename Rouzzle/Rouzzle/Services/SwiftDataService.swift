@@ -48,5 +48,4 @@ enum SwiftDataService {
         context.delete(task)
         try context.save()
     }
-    
 }
