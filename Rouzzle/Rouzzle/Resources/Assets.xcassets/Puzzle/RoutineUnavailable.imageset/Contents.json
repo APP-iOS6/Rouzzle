@@ -1,8 +1,22 @@
 {
   "images" : [
     {
-      "filename" : "RoutineUnavailable.svg",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "RoutineUnavailable.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "RoutineUnavailable@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "RoutineUnavailable@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
