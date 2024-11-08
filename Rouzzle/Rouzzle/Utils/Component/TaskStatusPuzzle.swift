@@ -90,7 +90,7 @@ struct TaskStatusRow: View {
     private(set) var taskStatus: TaskStatus
     private(set) var emojiText: String = "💊"
     private(set) var title: String = "유산균 먹기"
-    private(set) var timeInterval: String = "5분"
+    private(set) var timeInterval: Int? = 60
     
     @Binding var showEditIcon: Bool // 리스트 수정일 때 보이는 아이콘
     @Binding var showDeleteIcon: Bool // 리스트 삭제할 때 보이는 버튼
@@ -124,9 +124,15 @@ struct TaskStatusRow: View {
             
             Spacer()
             
-            Text(timeInterval)
-                .font(.regular14)
-                .foregroundStyle(Color.subHeadlineFontColor)
+            if let timeInterval = timeInterval {
+                Text(timeInterval >= 60 ? "\(timeInterval / 60)분" : "\(timeInterval)초")
+                    .font(.regular14)
+                    .foregroundStyle(Color.subHeadlineFontColor)
+            } else {
+                Text("지속 시간 없음")
+                    .font(.regular14)
+                    .foregroundStyle(Color.subHeadlineFontColor)
+            }
             
             if showEditIcon {
                 Image(.listEditIcon)
@@ -165,7 +171,7 @@ struct TaskStatusRow: View {
                     taskStatus == .inProgress ? Color.themeColor.opacity(0.3) : Color.clear, // inProgress일 때만 테두리
                     lineWidth: taskStatus == .inProgress ? 2 : 0
                 )
-            )
+        )
         .shadow(color: .black.opacity(0.1), radius: 2)
     }
 }

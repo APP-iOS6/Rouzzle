@@ -10,13 +10,12 @@ import SwiftData
 
 @Model
 class RoutineItem: Identifiable {
-    var id: UUID = UUID()
-    var documentId: String = ""
+    @Attribute(.unique) var id: String
     var title: String
     var emoji: String
     var repeatCount: Int?
     var interval: Int?
-    var dayStartTime: [Int: Date]
+    var dayStartTime: [Int: String]
     var alarmIDs: [Int: String]?
     var userId: String
     
@@ -24,16 +23,16 @@ class RoutineItem: Identifiable {
     var taskList: [TaskList] = []
     
     init(
-        documentId: String = "",
+        id: String = "",
         title: String,
         emoji: String,
-        dayStartTime: [Int: Date],
+        dayStartTime: [Int: String],
         repeatCount: Int? = nil,
         interval: Int? = nil,
         alarmIDs: [Int: String]? = nil,
         userId: String = ""
     ) {
-        self.documentId = documentId
+        self.id = id
         self.title = title
         self.emoji = emoji
         self.dayStartTime = dayStartTime
@@ -44,13 +43,13 @@ class RoutineItem: Identifiable {
     }
     
     func toRoutine() -> Routine {
-        return Routine(documentId: documentId, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, dayStartTime: dayStartTime, userId: userId)
+        return Routine(documentId: id, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, dayStartTime: dayStartTime, userId: userId)
     }
 }
 
 @Model
 class TaskList: Identifiable {
-    var id = UUID()
+    @Attribute(.unique) var id = UUID()
     var title: String
     var emoji: String
     var timer: Int
@@ -62,11 +61,13 @@ class TaskList: Identifiable {
     init(
         title: String,
         emoji: String,
-        timer: Int
+        timer: Int,
+        isCompleted: Bool = false
     ) {
         self.title = title
         self.emoji = emoji
         self.timer = timer
+        self.isCompleted = isCompleted
     }
     
     func toRoutineTask() -> RoutineTask {

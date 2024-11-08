@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RoutineListView: View {
+    @Query private var routines: [RoutineItem]
+    @Environment(\.modelContext) private var modelContext
+
     @State var isShowingAddRoutineSheet: Bool = false
     
     var body: some View {
         NavigationStack {
             ZStack {
-                VStack {
+                ScrollView {
                     HStack {
                         Label {
                             Text("0")
@@ -55,18 +59,13 @@ struct RoutineListView: View {
                     }
                     .padding()
                     
-                    NavigationLink {
-                        AddTaskView()
-                    } label: {
-                        RoutineStatusPuzzle(status: .pending)
-                            .padding(.horizontal)
-                    }
-                    
-                    NavigationLink {
-                        AddTaskView()
-                    } label: {
-                        RoutineStatusPuzzle(status: .completed, emojiText: "☀️", routineTitle: "점심 루틴")
-                            .padding(.horizontal)
+                    ForEach(routines) { routine in
+                        NavigationLink {
+                            AddTaskView()
+                        } label: {
+                            RoutineStatusPuzzle(routineItem: routine)
+                                .padding(.horizontal)
+                        }
                     }
                     
                     Image(.requestRoutine)
@@ -76,8 +75,6 @@ struct RoutineListView: View {
                         .padding(.horizontal)
                     
                     Spacer()
-                    
-                    // Text("Hello, World!")
                 }
                 
                 FloatingButton(action: {

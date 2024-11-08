@@ -31,7 +31,7 @@ struct ComponentView: View {
                 
                 TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false), showDeleteIcon: .constant(false))
                 
-                RoutineStatusPuzzle(status: .pending)
+              //  RoutineStatusPuzzle(status: .pending)
                 
                 RecommendTaskByTime(category: .morning)
                 
