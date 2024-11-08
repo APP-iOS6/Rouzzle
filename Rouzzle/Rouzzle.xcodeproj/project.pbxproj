@@ -12,6 +12,13 @@
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
 		23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */; };
 		23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC212CDC134B00C4C44A /* DashedVerticalLine.swift */; };
+		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
+		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
+		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
+		23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */; };
+		23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD302CDD37DC000B3DD9 /* EmojiPickerViewModel.swift */; };
+		23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */; };
+		23D7BD372CDD3957000B3DD9 /* EmojiComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */; };
 		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
 		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
 		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
@@ -106,6 +113,12 @@
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
 		23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskByTime.swift; sourceTree = "<group>"; };
 		23B7CC212CDC134B00C4C44A /* DashedVerticalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedVerticalLine.swift; sourceTree = "<group>"; };
+		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
+		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
+		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
+		23D7BD302CDD37DC000B3DD9 /* EmojiPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerViewModel.swift; sourceTree = "<group>"; };
+		23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Emoji+Extension.swift"; sourceTree = "<group>"; };
+		23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiComponents.swift; sourceTree = "<group>"; };
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -200,6 +213,7 @@
 				FB2A5A782CD5F75200CB981A /* FirebaseStorage in Frameworks */,
 				FB2A5A6F2CD5F6CD00CB981A /* KakaoSDKAuth in Frameworks */,
 				FB2A5A7A2CD5F8A100CB981A /* FirebaseCore in Frameworks */,
+				23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */,
 				FB2A5AA02CD7D7E800CB981A /* KakaoSDKUser in Frameworks */,
 				FB2A5A742CD5F75200CB981A /* FirebaseFirestore in Frameworks */,
 			);
@@ -214,6 +228,42 @@
 				23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		23D7BD262CDD342F000B3DD9 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				23D7BD272CDD344B000B3DD9 /* Model */,
+				23D7BD282CDD3456000B3DD9 /* View */,
+				23D7BD292CDD3464000B3DD9 /* ViewModel */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
+		23D7BD272CDD344B000B3DD9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */,
+				23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23D7BD282CDD3456000B3DD9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */,
+				23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		23D7BD292CDD3464000B3DD9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23D7BD302CDD37DC000B3DD9 /* EmojiPickerViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
@@ -277,6 +327,7 @@
 				BD11870E2CD7952C00FF4180 /* Color+Extension.swift */,
 				BD15451C2CD7D0710098AD7B /* Date+Extension.swift */,
 				97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */,
+				23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -324,6 +375,7 @@
 		BD1187012CD6009E00FF4180 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				23D7BD262CDD342F000B3DD9 /* Emoji */,
 				9700427B2CD9DA2200777F43 /* RoutineStart */,
 				BD15465E2CD9AAB90098AD7B /* MyPage */,
 				BD15465A2CD9AA740098AD7B /* Social */,
@@ -638,6 +690,7 @@
 				FB2A5A792CD5F8A100CB981A /* FirebaseCore */,
 				FB2A5A9F2CD7D7E800CB981A /* KakaoSDKUser */,
 				BD1546632CD9AE530098AD7B /* RiveRuntime */,
+				23D7BD242CDD329E000B3DD9 /* EmojiPicker */,
 			);
 			productName = Rouzzle;
 			productReference = BDD719CB2CD4A89800AE0977 /* Rouzzle.app */;
@@ -673,6 +726,7 @@
 				FB2A5A6D2CD5F6CD00CB981A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				FB2A5A702CD5F75200CB981A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				BD1546622CD9AE530098AD7B /* XCRemoteSwiftPackageReference "rive-ios" */,
+				23D7BD232CDD329E000B3DD9 /* XCRemoteSwiftPackageReference "EmojiPicker" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BDD719CC2CD4A89800AE0977 /* Products */;
@@ -744,6 +798,8 @@
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
+				23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */,
+				23D7BD372CDD3957000B3DD9 /* EmojiComponents.swift in Sources */,
 				BD1546512CD9A7AA0098AD7B /* ContentView.swift in Sources */,
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */,
@@ -759,6 +815,7 @@
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
+				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
@@ -769,11 +826,13 @@
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
+				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
+				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,
@@ -781,6 +840,7 @@
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
+				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
@@ -1014,6 +1074,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		23D7BD232CDD329E000B3DD9 /* XCRemoteSwiftPackageReference "EmojiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kelvas09/EmojiPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 		BD1546622CD9AE530098AD7B /* XCRemoteSwiftPackageReference "rive-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rive-app/rive-ios";
@@ -1057,6 +1125,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		23D7BD242CDD329E000B3DD9 /* EmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23D7BD232CDD329E000B3DD9 /* XCRemoteSwiftPackageReference "EmojiPicker" */;
+			productName = EmojiPicker;
+		};
 		BD1546632CD9AE530098AD7B /* RiveRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BD1546622CD9AE530098AD7B /* XCRemoteSwiftPackageReference "rive-ios" */;
