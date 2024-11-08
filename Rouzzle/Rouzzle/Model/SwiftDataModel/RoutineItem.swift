@@ -19,7 +19,7 @@ final class RoutineItem {
     var dayStartTime: [Int: Date] // 각 요일 별 시작시간
     var alarmIDs: [Int: String] // 알람 id
     
-    init(title: String, taskList: [TaskList], repeatCount: Int, interval: Int, dayStartTime: [Int : Date], alarmIDs: [Int : String]) {
+    init(title: String, taskList: [TaskList], repeatCount: Int, interval: Int, dayStartTime: [Int: Date], alarmIDs: [Int: String]) {
         self.title = title
         self.taskList = taskList
         self.repeatCount = repeatCount

@@ -29,6 +29,8 @@ struct ComponentView: View {
                 
                 TaskStatusPuzzle(taskStatus: .pending)
                 
+                TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false))
+                
                 RoutineStatusPuzzle(status: .pending)
                 
                 RecommendTaskByTime(category: .morning)
@@ -37,6 +39,7 @@ struct ComponentView: View {
                 
                 RecommendTask(isPlus: false)
                 
+                FloatingButton(action: {})
             }
             .padding()
         }
