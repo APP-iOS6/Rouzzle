@@ -10,12 +10,9 @@ import SwiftData
 
 enum SwiftDataService {
     // 루틴 관련 메서드
-    static func addRoutine(title: String, emoji: String, dayStartTime: [Int: Date], context: ModelContext) throws {
-        guard !title.isEmpty else {
-            throw SwiftDataServiceError.invalidInput("루틴 제목이 비어 있습니다.")
-        }
-        let newRoutineItem = RoutineItem(title: title, emoji: emoji, dayStartTime: [1: .now])
-        context.insert(newRoutineItem)
+    static func addRoutine(_ routine: RoutineItem, context: ModelContext) throws {
+      
+        context.insert(routine)
         do {
             try context.save()
         } catch {
@@ -32,12 +29,8 @@ enum SwiftDataService {
     }
 
     // 할 일 관련 메서드
-    static func addTask(to routineItem: RoutineItem, title: String, emoji: String, timer: Int?, context: ModelContext) throws {
-        let newTask = TaskList(
-            title: title,
-            emoji: emoji
-        )
-        context.insert(newTask)
+    static func addTask(_ task: TaskList, context: ModelContext) throws {
+        context.insert(task)
         try context.save()
     }
 
@@ -45,4 +38,20 @@ enum SwiftDataService {
         context.delete(task)
         try context.save()
     }
+    
+    // 새로운 메서드: 루틴의 할 일을 함께 추가
+     static func addRoutineWithTasks(_ routine: RoutineItem, tasks: [TaskList], context: ModelContext) throws {
+         // Establish relationships
+         routine.taskList = tasks
+         for task in tasks {
+             task.routineItem = routine
+             context.insert(task)
+         }
+         do {
+             try context.save()
+         } catch {
+             throw SwiftDataServiceError.saveFailed(error)
+         }
+     }
+    
 }
