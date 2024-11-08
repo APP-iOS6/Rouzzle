@@ -35,6 +35,7 @@ enum SwiftDataService {
         guard !task.title.isEmpty, !task.emoji.isEmpty, task.timer > 0 else {
             throw SwiftDataServiceError.invalidInput("입력 값이 유효하지 않습니다.")
         }
+        task.routineItem = routineItem
         context.insert(task)
         do {
             try context.save()
@@ -47,4 +48,5 @@ enum SwiftDataService {
         context.delete(task)
         try context.save()
     }
+    
 }
