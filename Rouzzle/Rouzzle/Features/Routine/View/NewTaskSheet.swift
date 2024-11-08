@@ -39,6 +39,7 @@ struct NewTaskSheet: View {
                 TaskInputView(text: $vm.text, emoji: $vm.emoji, focusField: _focusField) {
                     if vm.text.isEmpty || vm.emoji?.isEmpty == nil {
                         withAnimation {
+                            detents = [.fraction(0.15)]
                             vm.errorMessage = "이모지와 할 일 모두 입력해 주세요."
                         }
                         return
