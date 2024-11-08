@@ -10,7 +10,8 @@ import SwiftData
 
 @Model
 class RoutineItem: Identifiable {
-    var id: String = UUID().uuidString
+    var id: UUID = UUID()
+    var documentId: String = ""
     var title: String
     var emoji: String
     var repeatCount: Int?
@@ -23,16 +24,15 @@ class RoutineItem: Identifiable {
     var taskList: [TaskList] = []
     
     init(
-        id: String,
+        documentId: String = "",
         title: String,
         emoji: String,
         dayStartTime: [Int: Date],
-        repeatCount: Int?,
-        interval: Int?,
-        alarmIDs: [Int: String]?,
-        userId: String
+        repeatCount: Int? = nil,
+        interval: Int? = nil,
+        alarmIDs: [Int: String]? = nil
     ) {
-        self.id = id
+        self.documentId = documentId
         self.title = title
         self.emoji = emoji
         self.dayStartTime = dayStartTime
