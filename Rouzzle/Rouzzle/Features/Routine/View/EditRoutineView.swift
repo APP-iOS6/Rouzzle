@@ -17,6 +17,7 @@ struct EditRoutineView: View {
     @State private var isOneAlarm: Bool = false
     @State private var selectedMinute: Int = 2
     @State private var selectedCount: Int = 1
+    @State private var emoji: String? = ""
     
     @State private var times: [String: Date] = [
         "월": Date(),
@@ -55,7 +56,7 @@ struct EditRoutineView: View {
                 ScrollView {
                     VStack(alignment: .center, spacing: 20) {
                         // 이모지 입력
-                        EmojiButton(emojiButtonType: .routineEmoji) { selectedEmoji in
+                        EmojiButton(selectedEmoji: $emoji, emojiButtonType: .routineEmoji) { selectedEmoji in
                             print("Selected Emoji: \(selectedEmoji)")
                         }
                         .frame(maxWidth: .infinity, minHeight: 90)

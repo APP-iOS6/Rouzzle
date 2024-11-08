@@ -15,7 +15,6 @@ class AddRoutineViewModel {
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
     
-    
     func uploadRoutine() {
         
     }
