@@ -108,6 +108,7 @@
 		FB4174F02CDBCD7F0084BC19 /* RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174EF2CDBCD7F0084BC19 /* RoutineStore.swift */; };
 		FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F12CDC3FF70084BC19 /* DBError.swift */; };
 		FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */; };
+		FB4174FC2CDDCABB0084BC19 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -203,6 +204,7 @@
 		FB4174EF2CDBCD7F0084BC19 /* RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStore.swift; sourceTree = "<group>"; };
 		FB4174F12CDC3FF70084BC19 /* DBError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBError.swift; sourceTree = "<group>"; };
 		FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheetViewModel.swift; sourceTree = "<group>"; };
+		FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -666,6 +668,7 @@
 			isa = PBXGroup;
 			children = (
 				FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */,
+				FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
+				FB4174FC2CDDCABB0084BC19 /* AddRoutineViewModel.swift in Sources */,
 				BD15465D2CD9AA880098AD7B /* SocialView.swift in Sources */,
 				9711587A2CDCAC03008854B0 /* TaskListSheet.swift in Sources */,
 				FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */,
