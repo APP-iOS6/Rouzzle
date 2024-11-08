@@ -61,11 +61,13 @@ class TaskList: Identifiable {
     init(
         title: String,
         emoji: String,
-        timer: Int
+        timer: Int,
+        isCompleted: Bool = false
     ) {
         self.title = title
         self.emoji = emoji
         self.timer = timer
+        self.isCompleted = isCompleted
     }
     
     func toRoutineTask() -> RoutineTask {
