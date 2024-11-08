@@ -30,7 +30,8 @@ class RoutineItem: Identifiable {
         dayStartTime: [Int: Date],
         repeatCount: Int? = nil,
         interval: Int? = nil,
-        alarmIDs: [Int: String]? = nil
+        alarmIDs: [Int: String]? = nil,
+        userId: String = ""
     ) {
         self.documentId = documentId
         self.title = title
@@ -43,7 +44,7 @@ class RoutineItem: Identifiable {
     }
     
     func toRoutine() -> Routine {
-        return Routine(documentId: id, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, dayStartTime: dayStartTime, userId: userId)
+        return Routine(documentId: documentId, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, dayStartTime: dayStartTime, userId: userId)
     }
 }
 
