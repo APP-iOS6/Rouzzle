@@ -1,8 +1,22 @@
 {
   "images" : [
     {
-      "filename" : "_RoutineStart.svg",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "RoutineStart.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "RoutineStart@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "RoutineStart@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
