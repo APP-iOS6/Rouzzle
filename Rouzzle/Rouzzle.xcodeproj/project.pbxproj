@@ -66,6 +66,7 @@
 		BD1546642CD9AE530098AD7B /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = BD1546632CD9AE530098AD7B /* RiveRuntime */; };
 		BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546652CD9D70D0098AD7B /* EmojiView.swift */; };
 		BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */; };
+		BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6301B32CDE3FD50000203C /* RoutineSDView.swift */; };
 		BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912EF72CDB3857007B8503 /* RecommendTask.swift */; };
 		BD912F892CDD2B24007B8503 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F882CDD2B24007B8503 /* Item.swift */; };
 		BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */; };
@@ -170,6 +171,7 @@
 		BD1546602CD9AAD50098AD7B /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		BD1546652CD9D70D0098AD7B /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusPuzzle.swift; sourceTree = "<group>"; };
+		BD6301B32CDE3FD50000203C /* RoutineSDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSDView.swift; sourceTree = "<group>"; };
 		BD912EF72CDB3857007B8503 /* RecommendTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTask.swift; sourceTree = "<group>"; };
 		BD912F882CDD2B24007B8503 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1546582CD9AA630098AD7B /* RecommendView.swift */,
+				BD6301B32CDE3FD50000203C /* RoutineSDView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
+				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
