@@ -9,6 +9,10 @@ import SwiftUI
 
 struct EditRoutineView: View {
     @Environment(\.dismiss) private var dismiss
+    
+    @State private var tasks = DummyTask.tasks
+    @State private var draggedItem: DummyTask?
+    
     @State private var title: String = ""
     @State private var selectedDays: Set<String> = []
     @State private var isDaily: Bool = false
@@ -17,7 +21,7 @@ struct EditRoutineView: View {
     @State private var isOneAlarm: Bool = false
     @State private var selectedMinute: Int = 2
     @State private var selectedCount: Int = 1
-    @State private var emoji: String? = ""
+    @State private var emoji: String? = "🧩"
     
     @State private var times: [String: Date] = [
         "월": Date(),
@@ -144,7 +148,7 @@ struct EditRoutineView: View {
                                 // 알림 빈도 설정
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text("알림 빈도")
-                                        .font(.headline)
+                                        .font(.semibold18)
                                     
                                     HStack(spacing: 10) {
                                         // 분 선택 Picker
@@ -185,6 +189,38 @@ struct EditRoutineView: View {
                         .padding()
                         .background(Color.fromRGB(r: 248, g: 247, b: 247))
                         .cornerRadius(20)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("목록 수정")
+                                    .font(.semibold18)
+                                Spacer()
+                                
+                                // 삭제 버튼
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            VStack(spacing: 20) {
+                                ForEach(tasks) { task in
+                                    TaskStatusRow(
+                                        taskStatus: task.taskStatus,
+                                        emojiText: task.emoji,
+                                        title: task.title,
+                                        showEditIcon: .constant(false)
+                                    )
+                                    .onDrag {
+                                        draggedItem = task
+                                        return NSItemProvider()
+                                    }
+                                    .onDrop(of: [.text],
+                                            delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
+                                }
+                            }
+                        }
                     }
                     .padding(.top, 20)
                 }
