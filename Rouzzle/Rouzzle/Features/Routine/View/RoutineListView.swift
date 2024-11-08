@@ -12,72 +12,81 @@ struct RoutineListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack {
-                    Label {
-                        Text("0")
-                            .font(.regular16)
-                            .foregroundColor(.black) // 텍스트를 검정색으로 설정
-                    } icon: {
-                        Image(systemName: "puzzlepiece.fill")
-                            .foregroundStyle(.accent)
+            ZStack {
+                VStack {
+                    HStack {
+                        Label {
+                            Text("0")
+                                .font(.regular16)
+                                .foregroundColor(.black) // 텍스트를 검정색으로 설정
+                        } icon: {
+                            Image(systemName: "puzzlepiece.fill")
+                                .foregroundStyle(.accent)
+                        }
+                        .padding(10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white)
+                                .shadow(color: Color.gray.opacity(0.3), radius: 1)
+                        )
+                        
+                        Spacer()
+                        
+                        Button {
+
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                                .font(.title)
+                        }
                     }
-                    .padding(10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white)
-                            .shadow(color: Color.gray.opacity(0.3), radius: 1)
-                    )
-                    Spacer()
-                    Button {
-                        isShowingAddRoutineSheet.toggle()
+                    .padding()
+                    
+                    Text("끊임없이 남탓하고, 사고하지 말라")
+                        .font(.bold18)
+                    
+                    ZStack {
+                        Image(.dailyChallenge)
+                            .resizable()
+                            .frame(maxWidth: .infinity)
+                            .aspectRatio(contentMode: .fit)
+                        Text("24일 루즐 챌린지")
+                            .font(.semibold18)
+                            .offset(y: -7)
+                    }
+                    .padding()
+                    
+                    NavigationLink {
+                        AddTaskView()
                     } label: {
-                        Image(systemName: "plus")
-                            .font(.title2)
+                        RoutineStatusPuzzle(status: .pending)
+                            .padding(.horizontal)
                     }
-                }
-                .padding()
-                
-                Text("끊임없이 남탓하고, 사고하지 말라")
-                    .font(.bold18)
-                
-                ZStack {
-                    Image(.dailyChallenge)
+                    
+                    NavigationLink {
+                        AddTaskView()
+                    } label: {
+                        RoutineStatusPuzzle(status: .completed, emojiText: "☀️", routineTitle: "점심 루틴")
+                            .padding(.horizontal)
+                    }
+                    
+                    Image(.requestRoutine)
                         .resizable()
                         .frame(maxWidth: .infinity)
                         .aspectRatio(contentMode: .fit)
-                    Text("24일 루즐 챌린지")
-                        .font(.semibold18)
-                        .offset(y: -7)
+                        .padding(.horizontal)
+                    
+                    Spacer()
+                    
+                    // Text("Hello, World!")
                 }
+                
+                FloatingButton(action: {
+                    isShowingAddRoutineSheet.toggle()
+                })
                 .padding()
-                
-                NavigationLink {
-                    AddTaskView()
-                } label: {
-                    RoutineStatusPuzzle(status: .pending)
-                        .padding(.horizontal)
+                .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
+                    AddRoutineView()
                 }
-                
-                NavigationLink {
-                    AddTaskView()
-                } label: {
-                    RoutineStatusPuzzle(status: .completed, emojiText: "☀️", routineTitle: "점심 루틴")
-                        .padding(.horizontal)
-                }
-                
-                Image(.requestRoutine)
-                    .resizable()
-                    .frame(maxWidth: .infinity)
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.horizontal)
-                
-                Spacer()
-                
-                // Text("Hello, World!")
-            }
-            .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
-                AddRoutineView()
             }
         }
     }
