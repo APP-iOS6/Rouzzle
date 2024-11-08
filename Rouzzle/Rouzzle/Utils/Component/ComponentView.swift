@@ -10,6 +10,7 @@ import SwiftUI
 struct ComponentView: View {
     @State var text: String = ""
     @State private var emojiText = ""
+    @State private var selectedEmoji: String? = "🧩"
     
     var body: some View {
         ScrollView {
@@ -19,11 +20,16 @@ struct ComponentView: View {
                 RouzzleButton(buttonType: .save, action: {})
                     .padding(.vertical)
                 
-                EmojiButton(emojiButtonType: .keyboard) { emoji in
-                    print(emoji) // 여기서 이모지 전달받습니다.
+                EmojiButton(
+                    selectedEmoji: $selectedEmoji,
+                    emojiButtonType: .keyboard
+                ) { emoji in
+                    print("Selected Emoji: \(emoji)")
                 }
                 
                 TaskStatusPuzzle(taskStatus: .pending)
+                
+                TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false))
                 
                 RoutineStatusPuzzle(status: .pending)
                 
@@ -33,6 +39,7 @@ struct ComponentView: View {
                 
                 RecommendTask(isPlus: false)
                 
+                FloatingButton(action: {})
             }
             .padding()
         }

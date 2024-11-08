@@ -39,6 +39,7 @@ struct NewTaskSheet: View {
                 TaskInputView(text: $vm.text, emoji: $vm.emoji, focusField: _focusField) {
                     if vm.text.isEmpty || vm.emoji?.isEmpty == nil {
                         withAnimation {
+                            detents = [.fraction(0.15)]
                             vm.errorMessage = "이모지와 할 일 모두 입력해 주세요."
                         }
                         return
@@ -100,13 +101,14 @@ struct TaskInputView: View {
     var onAddTask: () -> Void
     var body: some View {
         HStack {
-            EmojiButton(selectedEmoji: emoji, emojiButtonType: .keyboard) { emoji in
+            EmojiButton(selectedEmoji: $emoji, emojiButtonType: .keyboard) { emoji in
                 self.emoji = emoji
                 focusField = .task
             }
             
             TextField("추가할 할 일을 입력해 주세요.", text: $text)
                 .focused($focusField, equals: .task)
+                .font(.bold18)
             
             Button(action: onAddTask) {
                 Image(systemName: "arrow.up")
