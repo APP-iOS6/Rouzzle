@@ -66,6 +66,9 @@
 		BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546652CD9D70D0098AD7B /* EmojiView.swift */; };
 		BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */; };
 		BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912EF72CDB3857007B8503 /* RecommendTask.swift */; };
+		BD912F892CDD2B24007B8503 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F882CDD2B24007B8503 /* Item.swift */; };
+		BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */; };
+		BD912F8D2CDD32F5007B8503 /* SwiftDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8C2CDD32F5007B8503 /* SwiftDataError.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -165,6 +168,9 @@
 		BD1546652CD9D70D0098AD7B /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusPuzzle.swift; sourceTree = "<group>"; };
 		BD912EF72CDB3857007B8503 /* RecommendTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTask.swift; sourceTree = "<group>"; };
+		BD912F882CDD2B24007B8503 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
+		BD912F8C2CDD32F5007B8503 /* SwiftDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataError.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 			children = (
 				FB2A5A8E2CD7A2B300CB981A /* ServiceError */,
 				FB2A5A972CD7B60300CB981A /* AuthService.swift */,
+				BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */,
 				FB2A5ABF2CD92C6C00CB981A /* UserService.swift */,
 				FB4174EC2CDB59BF0084BC19 /* RoutineService.swift */,
 			);
@@ -576,6 +583,7 @@
 			children = (
 				FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */,
 				FB4174F12CDC3FF70084BC19 /* DBError.swift */,
+				BD912F8C2CDD32F5007B8503 /* SwiftDataError.swift */,
 			);
 			path = ServiceError;
 			sourceTree = "<group>";
@@ -649,6 +657,7 @@
 			children = (
 				FB4174E62CDB34B50084BC19 /* Routine.swift */,
 				FB4174E82CDB475F0084BC19 /* RoutineCompletion.swift */,
+				BD912F882CDD2B24007B8503 /* Item.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -791,12 +800,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD912F8D2CDD32F5007B8503 /* SwiftDataError.swift in Sources */,
 				FB4174ED2CDB59BF0084BC19 /* RoutineService.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
+				BD912F892CDD2B24007B8503 /* Item.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
 				23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */,
 				23D7BD372CDD3957000B3DD9 /* EmojiComponents.swift in Sources */,
@@ -839,6 +850,7 @@
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
+				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
