@@ -29,11 +29,11 @@ enum TaskStatus {
 }
 
 struct TaskStatusPuzzle: View {
-    // 앞으로 모델이 어떻게 될 지 몰라 하드코딩으로 넣었습니다.
-    private(set) var taskStatus: TaskStatus
-    private(set) var emojiText: String = "💊"
-    private(set) var title: String = "유산균 먹기"
-    private(set) var timeIntervel: String = "5분"
+    @Bindable var task: TaskList
+    
+    var taskStatus: TaskStatus {
+        task.isCompleted ? .completed : .pending
+    }
     
     var body: some View {
         ZStack {
@@ -42,19 +42,21 @@ struct TaskStatusPuzzle: View {
                 .frame(maxWidth: .infinity)
                 .aspectRatio(370/105, contentMode: .fit)
                 .shadow(color: taskStatus == .pending ? .black.opacity(0.1) : .clear, radius: 2)
+            
             HStack {
-                Text("\(emojiText)")
+                Text(task.emoji)
                     .font(.bold40)
                     .padding(.leading, 25)
+                
                 HStack(spacing: 10) {
-                    Text("\(title)")
+                    Text(task.title)
                         .font(.semibold18)
                         .lineLimit(1)
                     
                     if taskStatus == .recommend {
-                        Text("\(timeIntervel)")
+                        Text("\(task.timer)분")
                             .font(.regular12)
-                            .foregroundStyle(Color.subHeadlineFontColor)
+                            .foregroundColor(Color.subHeadlineFontColor)
                     }
                 }
                 .padding(.horizontal, 7)
@@ -62,24 +64,25 @@ struct TaskStatusPuzzle: View {
                     taskStatus == .completed ?
                     Rectangle()
                         .frame(height: 2)
-                        .foregroundStyle(.gray)
+                        .foregroundColor(.gray)
                     : nil
                 }
+                
                 Spacer()
+                
                 if taskStatus == .recommend {
                     Image(systemName: "plus")
-                        .foregroundStyle(Color.subHeadlineFontColor)
+                        .foregroundColor(Color.subHeadlineFontColor)
                         .font(.title2)
                         .padding(.trailing, 25)
-                    
                 } else {
-                    Text("\(timeIntervel)")
+                    Text("\(task.timer)분")
                         .font(.regular14)
-                        .foregroundStyle(Color.subHeadlineFontColor)
+                        .foregroundColor(Color.subHeadlineFontColor)
                         .padding(.trailing, 25)
                 }
             }
-            .offset(y: -10)
+            .offset(y: -5)
         }
         .opacity(taskStatus == .completed ? 0.7 : 1)
     }
@@ -148,10 +151,6 @@ struct TaskStatusRow: View {
         )
         .shadow(color: .black.opacity(0.1), radius: 2)
     }
-}
-
-#Preview {
-    TaskStatusPuzzle(taskStatus: .pending)
 }
 
 #Preview("TaskStatusRow") {

@@ -61,7 +61,7 @@ struct RoutineListView: View {
                     
                     ForEach(routines) { routine in
                         NavigationLink {
-                            AddTaskView()
+                            AddTaskView(routineItem: routine)
                         } label: {
                             RoutineStatusPuzzle(routineItem: routine)
                                 .padding(.horizontal)

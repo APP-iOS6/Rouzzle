@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddTaskView: View {
+    @Bindable var routineItem: RoutineItem
+    @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
@@ -30,14 +33,9 @@ struct AddTaskView: View {
                             .aspectRatio(contentMode: .fit)
                     }
                     .padding(.top, 5)
-                    
-                    // 할일 리스트
-                    VStack(spacing: 10) {
-                        TaskStatusPuzzle(taskStatus: .completed)
-                        
-                        TaskStatusPuzzle(taskStatus: .pending)
-                        
-                        TaskStatusPuzzle(taskStatus: .pending)
+                
+                    ForEach(routineItem.taskList) { task in
+                        TaskStatusPuzzle(task: task)
                     }
                     
                     HStack {
@@ -60,15 +58,6 @@ struct AddTaskView: View {
                         }
                     }
                     .padding(.top, 30)
-                    
-                    // 추천 할 일 리스트
-                    VStack(spacing: 10) {
-                        TaskStatusPuzzle(taskStatus: .recommend)
-                        
-                        TaskStatusPuzzle(taskStatus: .recommend)
-                        
-                        TaskStatusPuzzle(taskStatus: .recommend)
-                    }
                     
                     HStack(alignment: .bottom) {
                         Text("추천 세트")
@@ -133,8 +122,8 @@ struct AddTaskView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        AddTaskView()
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        AddTaskView()
+//    }
+//}

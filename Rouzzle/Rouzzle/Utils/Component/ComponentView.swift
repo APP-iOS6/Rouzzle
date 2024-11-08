@@ -27,7 +27,7 @@ struct ComponentView: View {
                     print("Selected Emoji: \(emoji)")
                 }
                 
-                TaskStatusPuzzle(taskStatus: .pending)
+                // TaskStatusPuzzle(taskStatus: .pending)
                 
                 TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false))
                 
