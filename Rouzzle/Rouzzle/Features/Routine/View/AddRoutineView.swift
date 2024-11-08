@@ -39,7 +39,7 @@ struct AddRoutineView: View {
                 HStack {
                     Spacer()
                     Text("루틴 등록")
-                        .padding(.leading, 40)
+                        .padding(.leading, 30)
                         .font(.regular18)
                     Spacer()
                     Button {
@@ -49,7 +49,6 @@ struct AddRoutineView: View {
                             .font(.semibold24)
                     }
                     .frame(alignment: .trailing)
-                    .padding(.trailing, 20)
                 }
                 
                 ScrollView {
@@ -87,7 +86,14 @@ struct AddRoutineView: View {
                             // 요일 선택 버튼
                             HStack(spacing: 15) {
                                 ForEach(daysOfWeek, id: \.self) { day in
-                                    dayButton(for: day)
+                                    DayButton(day: day, isSelected: selectedDays.contains(day)) {
+                                        if selectedDays.contains(day) {
+                                            selectedDays.remove(day)
+                                        } else {
+                                            selectedDays.insert(day)
+                                        }
+                                        isDaily = selectedDays.count == daysOfWeek.count
+                                    }
                                 }
                             }
                             
@@ -112,7 +118,7 @@ struct AddRoutineView: View {
                                                 .padding(.horizontal, 8)
                                                 .padding(.vertical, 4)
                                                 .background(Color.white)
-                                                .cornerRadius(8)
+                                                .clipShape(.rect(cornerRadius: 8))
                                         }
                                     }
                                     .disabled(selectedDays.isEmpty)
@@ -121,7 +127,7 @@ struct AddRoutineView: View {
                         }
                         .padding()
                         .background(Color.fromRGB(r: 248, g: 247, b: 247))
-                        .cornerRadius(20)
+                        .clipShape(.rect(cornerRadius: 20))
                         
                         // 두 번째 네모칸(알림설정)
                         VStack(alignment: .leading, spacing: 20) {
@@ -198,27 +204,6 @@ struct AddRoutineView: View {
             .toolbar(.hidden, for: .tabBar)
         }
     }
-
-    // 요일 선택 버튼
-    private func dayButton(for day: String) -> some View {
-        ZStack {
-            Image(selectedDays.contains(day) ? "dayButtonOn" : "dayButtonOff")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            
-            Text(day)
-                .font(.regular16)
-                .foregroundColor(selectedDays.contains(day) ? .black : .gray)
-        }
-        .onTapGesture {
-            if selectedDays.contains(day) {
-                selectedDays.remove(day)
-            } else {
-                selectedDays.insert(day)
-            }
-            isDaily = selectedDays.count == daysOfWeek.count
-        }
-    }
 }
 
 // CustomPicker 뷰
@@ -237,9 +222,34 @@ struct CustomPicker: View {
         .pickerStyle(MenuPickerStyle())
         .frame(height: 40)
         .background(Color.white)
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 10))
         .tint(.accent)
         .disabled(isDisabled)
+    }
+}
+
+struct DayButton: View {
+    let day: String
+    let isSelected: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                if isSelected {
+                    Circle()
+                        .strokeBorder(.stroke, lineWidth: 2)
+                        .background(Circle().fill(Color.background))
+                } else {
+                    Circle()
+                        .fill(Color.gray.opacity(0.1))
+                }
+                Text(day)
+                    .foregroundColor(isSelected ? .black : .gray)
+                    .font(.regular16)
+            }
+            .frame(width: 35, height: 35)
+        }
     }
 }
 
