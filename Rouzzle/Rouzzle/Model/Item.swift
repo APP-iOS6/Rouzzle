@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class RoutineItem: Identifiable {
+class RoutineItem: Identifiable {
     var id = UUID()
     var title: String
     var emoji: String
@@ -33,7 +33,7 @@ final class RoutineItem: Identifiable {
 }
 
 @Model
-final class TaskList: Identifiable {
+class TaskList: Identifiable {
     var id = UUID()
     var title: String
     var emoji: String

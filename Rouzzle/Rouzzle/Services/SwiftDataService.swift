@@ -8,27 +8,34 @@
 import Foundation
 import SwiftData
 
-enum DataService {
+enum SwiftDataService {
     // 루틴 관련 메서드
-    static func addRoutine(title: String, context: ModelContext) throws {
-        let newRoutineItem = RoutineItem(title: title)
+    static func addRoutine(title: String, emoji: String, dayStartTime: [Int: Date], context: ModelContext) throws {
+        guard !title.isEmpty else {
+            throw SwiftDataServiceError.invalidInput("루틴 제목이 비어 있습니다.")
+        }
+        let newRoutineItem = RoutineItem(title: title, emoji: emoji, dayStartTime: [1: .now])
         context.insert(newRoutineItem)
-        try context.save()
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.saveFailed(error)
+        }
     }
-
     static func deleteRoutine(routine: RoutineItem, context: ModelContext) throws {
         context.delete(routine)
-        try context.save()
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.deleteFailed(error)
+        }
     }
 
     // 할 일 관련 메서드
-    static func addTask(to routineItem: RoutineItem, title: String, emoji: String, timer: Int, context: ModelContext) throws {
+    static func addTask(to routineItem: RoutineItem, title: String, emoji: String, timer: Int?, context: ModelContext) throws {
         let newTask = TaskList(
             title: title,
-            emoji: emoji,
-            timer: timer,
-            isCompleted: false,
-            routineItem: routineItem
+            emoji: emoji
         )
         context.insert(newTask)
         try context.save()
