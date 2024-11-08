@@ -29,7 +29,7 @@ struct ComponentView: View {
                 
                 TaskStatusPuzzle(taskStatus: .pending)
                 
-                TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false))
+                TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false), showDeleteIcon: .constant(false))
                 
                 RoutineStatusPuzzle(status: .pending)
                 

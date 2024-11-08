@@ -29,7 +29,8 @@ struct TaskListSheet: View {
                             TaskStatusRow(taskStatus: task.taskStatus,
                                           emojiText: task.emoji,
                                           title: task.title,
-                                          showEditIcon: $showEditIcon)
+                                          showEditIcon: $showEditIcon,
+                                          showDeleteIcon: .constant(false))
                             .onDrag {
                                 self.draggedItem = task
                                 return NSItemProvider()
@@ -41,7 +42,8 @@ struct TaskListSheet: View {
                             TaskStatusRow(taskStatus: task.taskStatus,
                                           emojiText: task.emoji,
                                           title: task.title,
-                                          showEditIcon: $showEditIcon)
+                                          showEditIcon: $showEditIcon,
+                                          showDeleteIcon: .constant(false))
                         }
                     }
                 }

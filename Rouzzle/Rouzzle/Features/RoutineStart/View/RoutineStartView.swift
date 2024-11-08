@@ -105,7 +105,8 @@ struct RoutineStartView: View {
                         taskStatus: nextTask.taskStatus,
                         emojiText: nextTask.emoji,
                         title: nextTask.title,
-                        showEditIcon: .constant(false)
+                        showEditIcon: .constant(false),
+                        showDeleteIcon: .constant(false)
                     )
                     .padding(.top, 18)
                 }
