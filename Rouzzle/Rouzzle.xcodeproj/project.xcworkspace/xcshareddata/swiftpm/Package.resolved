@@ -1,5 +1,5 @@
 {
-  "originHash" : "dbb8ab0ae2af7a322fd0d3657077db1c0ad537b9eeca6c0e373d34fd4bd55b81",
+  "originHash" : "f67a8029abf7d244b7f41a0722ef1a47f58e4021e35e3a524e95f470d1bafd8e",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "c89ed571ae140f8eb1142735e6e23d7bb8c34cb2",
         "version" : "1.7.5"
+      }
+    },
+    {
+      "identity" : "emojipicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kelvas09/EmojiPicker",
+      "state" : {
+        "revision" : "d787591e2121b617209172ad6a8ebf2975f605ae",
+        "version" : "1.0.1"
       }
     },
     {
@@ -170,6 +179,15 @@
       "state" : {
         "revision" : "7b0fb824eb4446ea0b265cd043f0611b411b723d",
         "version" : "6.3.2"
+      }
+    },
+    {
+      "identity" : "smile",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onmyway133/Smile",
+      "state" : {
+        "revision" : "40604722a7a56f735124e069fcbb58307637744b",
+        "version" : "2.1.0"
       }
     },
     {
