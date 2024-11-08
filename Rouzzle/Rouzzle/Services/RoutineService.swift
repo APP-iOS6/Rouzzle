@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 protocol RoutineServiceType {
     /// 루틴 컬렉션에 루틴 데이터를 추가하는 함수
-    func addRoutine(_ routine: Routine) async -> Result<Void, DBError>
+    func addRoutine(_ routine: Routine) async -> Result<Routine, DBError>
     /// 루틴 컬렉션에 루틴 데이터를 삭제하는 함수
     func removeRoutine(_ routine: Routine) async -> Result<Void, DBError>
     /// 루틴에 할 일을 추가하거나 삭제하거나 업데이트하는 함수
@@ -22,11 +22,13 @@ class RoutineService: RoutineServiceType {
     
     private let db = Firestore.firestore()
     
-    func addRoutine(_ routine: Routine) async -> Result<Void, DBError> {
+    func addRoutine(_ routine: Routine) async -> Result<Routine, DBError> {
         do {
             let routineEncode = try Firestore.Encoder().encode(routine)
-            try await self.db.collection("Routine").addDocument(data: routineEncode)
-            return .success(())
+            let doc = try await self.db.collection("Routine").addDocument(data: routineEncode)
+            var routine = routine
+            routine.documentId = doc.documentID
+            return .success(routine)
         } catch {
             return .failure(DBError.firebaseError(error))
         }
