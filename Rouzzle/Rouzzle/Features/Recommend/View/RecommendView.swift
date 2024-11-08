@@ -13,15 +13,15 @@ struct RecommendView: View {
     
     var body: some View {
         VStack {
-            Button {
-                do {
-                    try SwiftDataService.addRoutine(title: "아침", emoji: "☀️", dayStartTime: [1: .now], context: modelContext)
-                } catch {
-                    print("실패")
-                }
-            } label: {
-                Text("모델 더미데이터 생성용")
-            }
+//            Button {
+//                do {
+//                    try SwiftDataService.addRoutine(title: "아침", emoji: "☀️", dayStartTime: [1: .now], context: modelContext)
+//                } catch {
+//                    print("실패")
+//                }
+//            } label: {
+//                Text("모델 더미데이터 생성용")
+//            }
             List {
                 ForEach(routines) { routine in
                     HStack {
