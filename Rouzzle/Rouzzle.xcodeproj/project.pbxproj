@@ -67,6 +67,7 @@
 		BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1546652CD9D70D0098AD7B /* EmojiView.swift */; };
 		BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */; };
 		BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6301B32CDE3FD50000203C /* RoutineSDView.swift */; };
+		BD6301B62CDE52E90000203C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6301B52CDE52E90000203C /* String+Extension.swift */; };
 		BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912EF72CDB3857007B8503 /* RecommendTask.swift */; };
 		BD912F892CDD2B24007B8503 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F882CDD2B24007B8503 /* Item.swift */; };
 		BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */; };
@@ -172,6 +173,7 @@
 		BD1546652CD9D70D0098AD7B /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatusPuzzle.swift; sourceTree = "<group>"; };
 		BD6301B32CDE3FD50000203C /* RoutineSDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSDView.swift; sourceTree = "<group>"; };
+		BD6301B52CDE52E90000203C /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		BD912EF72CDB3857007B8503 /* RecommendTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTask.swift; sourceTree = "<group>"; };
 		BD912F882CDD2B24007B8503 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				BD15451C2CD7D0710098AD7B /* Date+Extension.swift */,
 				97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */,
 				23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */,
+				BD6301B52CDE52E90000203C /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
 				23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */,
+				BD6301B62CDE52E90000203C /* String+Extension.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,

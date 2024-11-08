@@ -6,9 +6,8 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import SwiftData
+
 struct RoutineSDView: View {
     @Query private var routines: [RoutineItem]
     @Environment(\.modelContext) private var modelContext
@@ -18,19 +17,33 @@ struct RoutineSDView: View {
             VStack {
                 Button {
                     do {
-                        try SwiftDataService.addRoutine(RoutineItem(id: UUID().uuidString, title: "아침", emoji: "ㅇ", dayStartTime: [1: .now]), context: modelContext)
+                        try SwiftDataService.addRoutine(RoutineItem(id: UUID().uuidString, title: "운동 루틴", emoji: "💪🏻", dayStartTime: [1: "06:30", 2: "07:30"]), context: modelContext)
                     } catch {
                         print("실패")
                     }
                 } label: {
-                    Text("모델 더미데이터 생성용")
+                    Text("운동 루틴 생성 ")
                 }
+                Button {
+                    do {
+                        try SwiftDataService.addRoutine(RoutineItem(id: UUID().uuidString, title: "점심 루틴", emoji: "☀️", dayStartTime: [1: "12:30", 2: "05:00"]), context: modelContext)
+                    } catch {
+                        print("실패")
+                    }
+                } label: {
+                    Text("점심 루틴 생성 ")
+                }
+                
                 List {
                     ForEach(routines) { routine in
                         NavigationLink(destination: RoutineDetailView(routineItem: routine)) {
-                            VStack(alignment: .leading) {
+                            HStack {
+                                Text(routine.emoji)
                                 Text(routine.title)
                                     .font(.headline)
+                                Spacer()
+                                Text(routine.dayStartTime[2] ?? "00:00")
+                                
                             }
                         }
                     }

@@ -15,7 +15,7 @@ class RoutineItem: Identifiable {
     var emoji: String
     var repeatCount: Int?
     var interval: Int?
-    var dayStartTime: [Int: Date]
+    var dayStartTime: [Int: String]
     var alarmIDs: [Int: String]?
     var userId: String
     
@@ -26,7 +26,7 @@ class RoutineItem: Identifiable {
         id: String = "",
         title: String,
         emoji: String,
-        dayStartTime: [Int: Date],
+        dayStartTime: [Int: String],
         repeatCount: Int? = nil,
         interval: Int? = nil,
         alarmIDs: [Int: String]? = nil,

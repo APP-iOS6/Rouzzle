@@ -22,7 +22,7 @@ struct ContentView: View {
                     Image(systemName: "list.bullet.clipboard.fill")
                 }
             
-            RecommendView()
+            RoutineSDView()
                 .tabItem {
                     Text("추천")
                     Image(systemName: "star.fill")
