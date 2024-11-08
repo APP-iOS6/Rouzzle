@@ -10,7 +10,8 @@ import SwiftData
 
 @Model
 class RoutineItem: Identifiable {
-    var id = UUID()
+    var id: UUID = UUID()
+    var documentId: String = ""
     var title: String
     var emoji: String
     var repeatCount: Int?
@@ -22,13 +23,21 @@ class RoutineItem: Identifiable {
     var taskList: [TaskList] = []
 
     init(
+        documentId: String = "",
         title: String,
         emoji: String,
-        dayStartTime: [Int: Date]
+        dayStartTime: [Int: Date],
+        repeatCount: Int? = nil,
+        interval: Int? = nil,
+        alarmIDs: [Int: String]? = nil
     ) {
+        self.documentId = documentId
         self.title = title
         self.emoji = emoji
         self.dayStartTime = dayStartTime
+        self.repeatCount = repeatCount
+        self.interval = interval
+        self.alarmIDs = alarmIDs
     }
 }
 
@@ -37,7 +46,7 @@ class TaskList: Identifiable {
     var id = UUID()
     var title: String
     var emoji: String
-    var timer: Int?
+    var timer: Int
     var isCompleted: Bool = false
 
     @Relationship(inverse: \RoutineItem.taskList)
@@ -45,9 +54,11 @@ class TaskList: Identifiable {
 
     init(
         title: String,
-        emoji: String
+        emoji: String,
+        timer: Int
     ) {
         self.title = title
         self.emoji = emoji
+        self.timer = timer
     }
 }
