@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum RoutineStatus {
     case pending
@@ -23,17 +24,30 @@ enum RoutineStatus {
 
 struct RoutineStatusPuzzle: View {
     
-    var status: RoutineStatus
-    var emojiText: String = "💪🏻"
-    var routineTitle: String = "운동 루틴"
-    var inProgressStr: String = "3/5"
-    var repeatDay: String = "월  수  금"
-    var bellImage: Image = Image(systemName: "bell")
-    var routineStartTime: String = "06:30 AM"
-    @State var isAlram = false
+    @Bindable var routineItem: RoutineItem
+    @Environment(\.modelContext) private var modelContext
+        
+    var status: RoutineStatus {
+        return routineItem.taskList.filter {$0.isCompleted}.count == routineItem.taskList.count ? .completed : .pending
+    }
+    
+    var inProgressStr: String {
+        let completedTaskCount = routineItem.taskList.filter {$0.isCompleted}.count
+        if completedTaskCount == 0 {
+            return ""
+        }
+        return "\(completedTaskCount)/\(routineItem.taskList.count)"
+    }
+    
+    var alramImageName: String {
+        routineItem.alarmIDs == nil ? "bell.slash" : "bell"
+    }
+    
+    var isAlram: Bool {
+        routineItem.alarmIDs == nil ? false : true
+    }
     
     var body: some View {
-        
         ZStack {
             status.image
                 .resizable()
@@ -41,12 +55,12 @@ struct RoutineStatusPuzzle: View {
                 .aspectRatio(370/137, contentMode: .fit)
             
             HStack {
-                Text("\(emojiText)")
+                Text("\(routineItem.emoji)")
                     .font(.bold40)
                     .padding(.horizontal, 10)
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(routineTitle)
+                    Text(routineItem.title)
                         .font(.semibold20)
                         .foregroundStyle(.black)
                         .bold()
@@ -59,13 +73,14 @@ struct RoutineStatusPuzzle: View {
                 
                 Spacer()
                 
-                VStack(alignment: .trailing) {
-                    HStack {
+                VStack(alignment: .trailing, spacing: 5) {
+                    HStack(spacing: 5) {
                         Image(systemName: isAlram ? "bell" : "bell.slash")
-                        Text(routineStartTime)
+                        Text(routineItem.dayStartTime[1, default: ""].to12HourFormattedTime())
+                        Text(routineItem.dayStartTime[1, default: ""].to12HourPeriod())
                     }
                     .font(.regular16)
-                    Text(repeatDay)
+                    Text(convertDaysToStirng(days: routineItem.dayStartTime.keys.sorted()))
                         .font(.regular14)
                 }
                 .foregroundStyle(Color.subHeadlineFontColor)
@@ -76,8 +91,24 @@ struct RoutineStatusPuzzle: View {
         .opacity(status == .pending ? 1 : 0.6)
     }
     
+    func convertDaysToStirng(days: [Int]) -> String {
+        var str = ""
+        for day in days {
+            str += " \(dayOfWeek[day, default: ""])"
+        }
+        return str
+    }
+
 }
 
-#Preview {
-    RoutineStatusPuzzle(status: .pending)
+//#Preview("2") {
+//    RoutineStatusPuzzle2()
+//}
+
+struct RoutineItemSample {
+    var title: String = "운동 루틴"
+    var emoji: String = "💪🏻"
+    var dayStartTime: [Int: String]
+    var alarmsIDs: [Int: String]?
+    var taskList: [TaskList] = []
 }

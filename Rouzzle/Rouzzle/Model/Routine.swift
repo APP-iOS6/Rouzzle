@@ -15,7 +15,7 @@ struct Routine: Codable {
     var routineTask: [RoutineTask]
     var repeatCount: Int? // 예: 1, 3, 5
     var interval: Int? // 분 단위, 예: 1, 3, 5
-    var dayStartTime: [Int: Date] // 각 요일 별 시작시간
+    var dayStartTime: [Int: String] // 각 요일 별 시작시간
     var alarmIDs: [Int: String]? // 알람 id
     var userId: String // 루틴을 가지고 있는 유저의 uid
     
@@ -55,4 +55,5 @@ enum Day: Int, Codable, CaseIterable {
         let formatter = DateFormatter()
         return formatter.weekdaySymbols[self.rawValue - 1]
     }
+    
 }

@@ -28,7 +28,7 @@ struct RouzzleApp: App {
         let schema = Schema([
             RoutineItem.self, TaskList.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
