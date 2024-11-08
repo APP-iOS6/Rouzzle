@@ -107,7 +107,7 @@ class RoutineStartViewModel {
         
         if let nextPendingIndex = tasks[inProgressIndex...].firstIndex(where: { $0.taskStatus == .pending }) {
             tasks[nextPendingIndex].taskStatus = .inProgress
-            timeRemaining = tasks[nextPendingIndex].timer
+            timeRemaining = tasks[nextPendingIndex].timer ?? 0
         } else {
             isRoutineCompleted = true
         }
@@ -121,7 +121,7 @@ class RoutineStartViewModel {
         
         if let nextPendingIndex = tasks[(inProgressIndex + 1)...].firstIndex(where: { $0.taskStatus == .pending }) {
             tasks[nextPendingIndex].taskStatus = .inProgress
-            timeRemaining = tasks[nextPendingIndex].timer
+            timeRemaining = tasks[nextPendingIndex].timer ?? 0
         } else {
             isRoutineCompleted = true
         }
@@ -134,11 +134,12 @@ struct DummyTask: Identifiable {
     var taskStatus: TaskStatus
     let emoji: String
     let title: String
-    let timer: Int
+    let timer: Int?
     
     static var tasks = [
         DummyTask(taskStatus: .completed, emoji: "☕️", title: "커피/차 마시기", timer: 600),
         DummyTask(taskStatus: .inProgress, emoji: "💊", title: "유산균 먹기", timer: 10),
+        DummyTask(taskStatus: .pending, emoji: "🐱", title: "시간 없는 테스트 할일", timer: nil),
         DummyTask(taskStatus: .pending, emoji: "🧼", title: "설거지 하기", timer: 600),
         DummyTask(taskStatus: .pending, emoji: "👕", title: "옷 갈아입기", timer: 300)
     ]

@@ -69,7 +69,8 @@ struct RoutineCompleteView: View {
                             
                             Spacer()
                             
-                            Text("\(task.timer / 60)분")
+                            Text(task.timer == nil ? "없음" :
+                                (task.timer! < 60 ? "\(task.timer!)초" : "\(task.timer! / 60)분"))
                                 .font(.regular14)
                                 .foregroundStyle(Color.subHeadlineFontColor)
                         }

@@ -50,20 +50,28 @@ struct RoutineStartView: View {
                         .foregroundStyle(viewModel.puzzleTimerColor)
                     
                     VStack(spacing: 0) {
-                        if viewModel.timeRemaining >= 0 {
-                            Text(viewModel.timeRemaining.toTimeString())
+                        if (viewModel.inProgressTask?.timer) != nil {
+                            if viewModel.timeRemaining >= 0 {
+                                Text(viewModel.timeRemaining.toTimeString())
+                                    .font(.bold66)
+                                    .foregroundStyle(.white)
+                            } else {
+                                Text("+\(abs(viewModel.timeRemaining).toTimeString())")
+                                    .font(.bold66)
+                                    .foregroundStyle(viewModel.timerState == .paused ? .white : viewModel.overtimeTextColor)
+                            }
+                        } else {
+                            Text("Check!")
                                 .font(.bold66)
                                 .foregroundStyle(.white)
-                        } else {
-                            Text("+\(abs(viewModel.timeRemaining).toTimeString())")
-                                .font(.bold66)
-                                .foregroundStyle(viewModel.timerState == .paused ? .white : viewModel.overtimeTextColor)
                         }
                         
-                        if let inProgressTask = viewModel.inProgressTask {
-                            Text(viewModel.timeRemaining >= 60 ? "\(inProgressTask.timer / 60)분" : "\(inProgressTask.timer)초")
+                        if let timerValue = viewModel.inProgressTask?.timer {
+                            Text(viewModel.timeRemaining >= 60 ? "\(timerValue / 60)분" : "\(timerValue)초")
                                 .font(.regular18)
                                 .foregroundStyle(viewModel.timeTextColor)
+                        } else {
+                            Text("")
                         }
                     }
                 }
@@ -78,6 +86,7 @@ struct RoutineStartView: View {
                         Image(viewModel.timerState == .paused ? .playIcon : .pauseIcon)
                             .frame(width: 64, height: 64)
                     }
+                    .disabled(viewModel.inProgressTask?.timer == nil)
                     
                     // 할일 완료 버튼
                     Button {
@@ -109,10 +118,13 @@ struct RoutineStartView: View {
                         taskStatus: nextTask.taskStatus,
                         emojiText: nextTask.emoji,
                         title: nextTask.title,
+                        timeInterval: nextTask.timer ?? nil,
                         showEditIcon: .constant(false)
                     )
                     .padding(.top, 18)
                 }
+                
+                Spacer()
                 
                 Button {
                     isShowingTaskListSheet.toggle()
@@ -120,7 +132,7 @@ struct RoutineStartView: View {
                     Text("할일 전체 보기")
                         .underline()
                 }
-                .padding(.top, 50)
+                .padding(.bottom, 60)
             }
             .padding(.horizontal)
         }
