@@ -12,6 +12,8 @@ struct EditRoutineView: View {
     
     @State private var tasks = DummyTask.tasks
     @State private var draggedItem: DummyTask?
+    @State private var showEditIcon = true
+    @State private var showDeleteIcon = false
     
     @State private var title: String = ""
     @State private var selectedDays: Set<String> = []
@@ -190,37 +192,59 @@ struct EditRoutineView: View {
                         .background(Color.fromRGB(r: 248, g: 247, b: 247))
                         .cornerRadius(20)
                         
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 20) {
                             HStack {
                                 Text("목록 수정")
                                     .font(.semibold18)
+                                    .padding(.leading, 14)
+                                
                                 Spacer()
                                 
                                 // 삭제 버튼
                                 Button {
-                                    
+                                    showDeleteIcon.toggle()
                                 } label: {
-                                    Image(systemName: "trash")
+                                    // 삭제버튼 눌렸을 때, 목록이동이미지->삭제버튼
+                                    Image(systemName: showDeleteIcon ? "arrow.up.arrow.down" : "trash")
                                         .foregroundColor(.gray)
                                 }
+                                .padding(.trailing, 14)
                             }
+                            .padding(.top, 20)
                             VStack(spacing: 20) {
                                 ForEach(tasks) { task in
-                                    TaskStatusRow(
-                                        taskStatus: task.taskStatus,
-                                        emojiText: task.emoji,
-                                        title: task.title,
-                                        showEditIcon: .constant(false)
-                                    )
-                                    .onDrag {
-                                        draggedItem = task
-                                        return NSItemProvider()
+                                    if showDeleteIcon {
+                                        // 삭제
+                                        TaskStatusRow(
+                                            taskStatus: task.taskStatus,
+                                            emojiText: task.emoji,
+                                            title: task.title,
+                                            showEditIcon: .constant(false),
+                                            showDeleteIcon: $showDeleteIcon,
+                                            onDelete: {
+                                                tasks.removeAll { $0.id == task.id}
+                                            }
+                                        )
+                                        // 순서 수정
+                                    } else {
+                                        TaskStatusRow(
+                                            taskStatus: task.taskStatus,
+                                            emojiText: task.emoji,
+                                            title: task.title,
+                                            showEditIcon: .constant(true),
+                                            showDeleteIcon: $showDeleteIcon
+                                        )
+                                        .onDrag {
+                                            draggedItem = task
+                                            return NSItemProvider()
+                                        }
+                                        .onDrop(of: [.text],
+                                                delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
                                     }
-                                    .onDrop(of: [.text],
-                                            delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
                                 }
                             }
                         }
+                        Spacer(minLength: 100)
                     }
                     .padding(.top, 20)
                 }
