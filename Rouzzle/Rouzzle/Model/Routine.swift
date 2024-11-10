@@ -21,6 +21,7 @@ struct Routine: Codable {
     
     func toRoutineItem() -> RoutineItem {
         return RoutineItem(
+            id: documentId ?? "",
             title: title,
             emoji: emoji,
             dayStartTime: dayStartTime,
