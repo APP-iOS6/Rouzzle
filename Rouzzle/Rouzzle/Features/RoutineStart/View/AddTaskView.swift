@@ -37,6 +37,7 @@ struct AddTaskView: View {
                     ForEach(routineItem.taskList) { task in
                         TaskStatusPuzzle(task: task)
                     }
+                    .id(routineItem)
                     
                     HStack {
                         Text("추천 할 일")
@@ -60,13 +61,13 @@ struct AddTaskView: View {
                     .padding(.top, 30)
                     
                     VStack(spacing: 10) {
-                        TaskRecommendPuzzle(){ task in
+                        TaskRecommendPuzzle { task in
                             addTaskToRoutine(task)
                         }
-                        TaskRecommendPuzzle(){ task in
+                        TaskRecommendPuzzle { task in
                             addTaskToRoutine(task)
                         }
-                        TaskRecommendPuzzle(){ task in
+                        TaskRecommendPuzzle { task in
                             addTaskToRoutine(task)
                         }
                     }

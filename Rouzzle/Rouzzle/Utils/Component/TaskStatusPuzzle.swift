@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 enum TaskStatus {
     case pending
@@ -94,7 +95,7 @@ let recommendTodoTask: [RecommendTodoTask] = [
 ]
 
 struct TaskRecommendPuzzle: View {
-    var task = recommendTodoTask.randomElement()!
+    var recommendTask = recommendTodoTask.randomElement()!
     var onAddTap: (RecommendTodoTask) -> Void
     var body: some View {
         ZStack {
@@ -104,16 +105,16 @@ struct TaskRecommendPuzzle: View {
                 .aspectRatio(370/105, contentMode: .fit)
             
             HStack {
-                Text(task.emoji)
+                Text(recommendTask.emoji)
                     .font(.bold40)
                     .padding(.leading, 25)
                 
                 HStack(spacing: 10) {
-                    Text(task.title)
+                    Text(recommendTask.title)
                         .font(.semibold18)
                         .lineLimit(1)
                     
-                    Text("\(task.timer)분")
+                    Text("\(recommendTask.timer)분")
                         .font(.regular12)
                         .foregroundColor(Color.subHeadlineFontColor)
                     
@@ -127,7 +128,7 @@ struct TaskRecommendPuzzle: View {
                     .font(.title2)
                     .padding(.trailing, 25)
                     .onTapGesture {
-                        onAddTap(task)
+                        onAddTap(recommendTask)
                     }
                 
             }
