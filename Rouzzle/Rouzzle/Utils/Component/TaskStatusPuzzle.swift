@@ -12,7 +12,6 @@ enum TaskStatus {
     case pending
     case inProgress
     case completed
-    case recommend
     
     var image: Image {
         switch self {
@@ -22,10 +21,13 @@ enum TaskStatus {
             Image(.inProgressTask)
         case .completed:
             Image(.completedTask)
-        case .recommend:
-            Image(.recommendTask)
         }
     }
+}
+struct RecommendTodoTask {
+    let emoji: String
+    let title: String
+    let timer: Int // 분 단위
 }
 
 struct TaskStatusPuzzle: View {
@@ -52,12 +54,6 @@ struct TaskStatusPuzzle: View {
                     Text(task.title)
                         .font(.semibold18)
                         .lineLimit(1)
-                    
-                    if taskStatus == .recommend {
-                        Text("\(task.timer)분")
-                            .font(.regular12)
-                            .foregroundColor(Color.subHeadlineFontColor)
-                    }
                 }
                 .padding(.horizontal, 7)
                 .overlay {
@@ -70,21 +66,73 @@ struct TaskStatusPuzzle: View {
                 
                 Spacer()
                 
-                if taskStatus == .recommend {
-                    Image(systemName: "plus")
-                        .foregroundColor(Color.subHeadlineFontColor)
-                        .font(.title2)
-                        .padding(.trailing, 25)
-                } else {
-                    Text("\(task.timer)분")
-                        .font(.regular14)
-                        .foregroundColor(Color.subHeadlineFontColor)
-                        .padding(.trailing, 25)
-                }
+                Text("\(task.timer)분")
+                    .font(.regular14)
+                    .foregroundColor(Color.subHeadlineFontColor)
+                    .padding(.trailing, 25)
+                
             }
             .offset(y: -5)
         }
         .opacity(taskStatus == .completed ? 0.7 : 1)
+    }
+}
+
+let recommendTodoTask: [RecommendTodoTask] = [
+    RecommendTodoTask(emoji: "🧘", title: "명상하기", timer: 10),
+    RecommendTodoTask(emoji: "🏋️‍♂️", title: "가벼운 운동하기", timer: 15),
+    RecommendTodoTask(emoji: "🍵", title: "차 한 잔 마시기", timer: 5),
+    RecommendTodoTask(emoji: "📖", title: "책 읽기", timer: 20),
+    RecommendTodoTask(emoji: "🌞", title: "산책하기", timer: 15),
+    RecommendTodoTask(emoji: "📝", title: "점심 계획 세우기", timer: 5),
+    RecommendTodoTask(emoji: "🎧", title: "좋아하는 음악 듣기", timer: 15),
+    RecommendTodoTask(emoji: "🍽", title: "요리하기", timer: 30),
+    RecommendTodoTask(emoji: "🛋", title: "휴식하기", timer: 20),
+    RecommendTodoTask(emoji: "📓", title: "오늘 하루 정리하기", timer: 10),
+    RecommendTodoTask(emoji: "🛀", title: "반신욕하기", timer: 20),
+    RecommendTodoTask(emoji: "🌙", title: "수면 준비하기", timer: 15)
+]
+
+struct TaskRecommendPuzzle: View {
+    var task = recommendTodoTask.randomElement()!
+    var onAddTap: (RecommendTodoTask) -> Void
+    var body: some View {
+        ZStack {
+            Image(.recommendTask)
+                .resizable()
+                .frame(maxWidth: .infinity)
+                .aspectRatio(370/105, contentMode: .fit)
+            
+            HStack {
+                Text(task.emoji)
+                    .font(.bold40)
+                    .padding(.leading, 25)
+                
+                HStack(spacing: 10) {
+                    Text(task.title)
+                        .font(.semibold18)
+                        .lineLimit(1)
+                    
+                    Text("\(task.timer)분")
+                        .font(.regular12)
+                        .foregroundColor(Color.subHeadlineFontColor)
+                    
+                }
+                .padding(.horizontal, 7)
+                
+                Spacer()
+                
+                Image(systemName: "plus")
+                    .foregroundColor(Color.subHeadlineFontColor)
+                    .font(.title2)
+                    .padding(.trailing, 25)
+                    .onTapGesture {
+                        onAddTap(task)
+                    }
+                
+            }
+            .offset(y: -5)
+        }
     }
 }
 
@@ -105,10 +153,7 @@ struct TaskStatusRow: View {
             return Color.fromRGB(r: 252, g: 255, b: 240)
         case .pending:
             return .white
-        default:
-            return .white
         }
-        
     }
     
     var body: some View {

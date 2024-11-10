@@ -59,6 +59,18 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 30)
                     
+                    VStack(spacing: 10) {
+                        TaskRecommendPuzzle(){ task in
+                            addTaskToRoutine(task)
+                        }
+                        TaskRecommendPuzzle(){ task in
+                            addTaskToRoutine(task)
+                        }
+                        TaskRecommendPuzzle(){ task in
+                            addTaskToRoutine(task)
+                        }
+                    }
+                    
                     HStack(alignment: .bottom) {
                         Text("추천 세트")
                             .font(.bold18)
@@ -118,6 +130,14 @@ struct AddTaskView: View {
                 isShowingAddTaskSheet.toggle()
             }
             .padding()
+        }
+    }
+    // Task를 추가하는 함수
+    private func addTaskToRoutine(_ task: RecommendTodoTask) {
+        do {
+            try SwiftDataService.addTask(to: routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
+        } catch {
+            print("할일 추가 실패")
         }
     }
 }
