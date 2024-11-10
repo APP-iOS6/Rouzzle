@@ -93,6 +93,11 @@ struct TaskStatusRow: View {
     private(set) var timeInterval: Int? = 60
     
     @Binding var showEditIcon: Bool // 리스트 수정일 때 보이는 아이콘
+    @Binding var showDeleteIcon: Bool // 리스트 삭제할 때 보이는 버튼
+    
+    var onDelete: (() -> Void)? // 삭제 클로저
+    
+    @State private var showDeleteConfirmation = false
     
     private var backgroundColor: Color {
         switch taskStatus {
@@ -134,6 +139,27 @@ struct TaskStatusRow: View {
                     .foregroundStyle(Color.subHeadlineFontColor)
                     .padding(.leading, 10)
             }
+            
+            // 삭제하기 버튼
+            if showDeleteIcon {
+                Button {
+                    showDeleteConfirmation = true
+                } label: {
+                    Image(systemName: "x.circle.fill")
+                        .foregroundColor(.red)
+                        .padding(.leading, 10)
+                }
+                .alert(isPresented: $showDeleteConfirmation) {
+                    Alert(
+                        title: Text("삭제하시겠습니까?"),
+                        message: Text("이 작업은 되돌릴 수 없습니다."),
+                        primaryButton: .destructive(Text("삭제")) {
+                            onDelete?()
+                        },
+                        secondaryButton: .cancel(Text("취소"))
+                    )
+                }
+            }
         }
         .opacity(taskStatus == .completed ? 0.5 : 1.0)
         .padding(.horizontal, 20)
@@ -155,5 +181,5 @@ struct TaskStatusRow: View {
 }
 
 #Preview("TaskStatusRow") {
-    TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false))
+    TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false), showDeleteIcon: .constant(false))
 }

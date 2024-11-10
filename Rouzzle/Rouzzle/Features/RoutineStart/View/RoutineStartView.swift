@@ -119,7 +119,8 @@ struct RoutineStartView: View {
                         emojiText: nextTask.emoji,
                         title: nextTask.title,
                         timeInterval: nextTask.timer ?? nil,
-                        showEditIcon: .constant(false)
+                        showEditIcon: .constant(false),
+                        showDeleteIcon: .constant(false)
                     )
                     .padding(.top, 18)
                 }
