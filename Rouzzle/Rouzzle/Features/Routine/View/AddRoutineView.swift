@@ -60,6 +60,11 @@ struct AddRoutineView: View {
                 })
                 .background(Color.white)
             }
+            .overlay {
+                if viewModel.loadState == .loading {
+                    ProgressView()
+                }
+            }
             .onChange(of: viewModel.loadState, { _, newValue in
                 if newValue == .completed {
                     dismiss()
@@ -188,22 +193,22 @@ struct RoutineNotificationView: View {
                 
                 HStack(spacing: 10) {
                     // 분 선택
-                    CustomPicker(
-                        label: "분",
-                        selection: $viewModel.interval,
-                        options: minutes.map { "\($0)분 "},
-                        isDisabled: isOneAlarm
+                    CustomPicker2(
+                        unit: "분",
+                        isDisabled: isOneAlarm,
+                        options: minutes,
+                        selection: $viewModel.interval
                     )
                     
                     Text("간격으로")
                         .foregroundStyle(isOneAlarm ? .gray : .primary)
                     
                     // 횟수 선택
-                    CustomPicker(
-                        label: "횟수",
-                        selection: $viewModel.repeatCount,
-                        options: counts.map { "\($0)회 "},
-                        isDisabled: isOneAlarm
+                    CustomPicker2(
+                        unit: "횟수",
+                        isDisabled: isOneAlarm,
+                        options: counts,
+                        selection: $viewModel.repeatCount
                     )
                     
                     Text("알려드릴게요")
@@ -234,6 +239,34 @@ struct CustomPicker: View {
             }
         }
         .pickerStyle(MenuPickerStyle())
+        .frame(height: 40)
+        .background(Color.white)
+        .clipShape(.rect(cornerRadius: 10))
+        .tint(.accent)
+        .disabled(isDisabled)
+    }
+}
+
+struct CustomPicker2: View {
+    let unit: String
+    let isDisabled: Bool
+    let options: [Int]
+    @Binding var selection: Int
+    
+    var body: some View {
+        Menu {
+            ForEach(options, id: \.self) { value in
+                Button {
+                    selection = value
+                } label: {
+                    Text("\(value)\(unit)")
+                }
+            }
+        } label: {
+            Text("\(selection)\(unit)")
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+        }
         .frame(height: 40)
         .background(Color.white)
         .clipShape(.rect(cornerRadius: 10))
