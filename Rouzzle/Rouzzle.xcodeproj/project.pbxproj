@@ -113,6 +113,7 @@
 		FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F12CDC3FF70084BC19 /* DBError.swift */; };
 		FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */; };
 		FB4174FC2CDDCABB0084BC19 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */; };
+		FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -213,6 +214,7 @@
 		FB4174F12CDC3FF70084BC19 /* DBError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBError.swift; sourceTree = "<group>"; };
 		FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheetViewModel.swift; sourceTree = "<group>"; };
 		FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
+		FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +347,7 @@
 				97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */,
 				23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */,
 				BD6301B52CDE52E90000203C /* String+Extension.swift */,
+				FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */,
 				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
 				97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */,
+				FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */,

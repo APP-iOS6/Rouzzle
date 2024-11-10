@@ -9,10 +9,11 @@ import SwiftUI
 
 struct RoutineSetTimeView: View {
     @Environment(\.dismiss) private var dismiss
-    let selectedDays: [String]
     @State private var selectedTime: Date = Date() // 기본 시간 설정
     @State private var showTimePickerSheet = false
     @State private var showWeekSetTimeView = false
+    
+    @Binding var selectedDateWithTime: [Day: Date]
     
     var body: some View {
         VStack {
@@ -52,7 +53,7 @@ struct RoutineSetTimeView: View {
             TimePickerSheet(time: $selectedTime)
         }
         .fullScreenCover(isPresented: $showWeekSetTimeView) {
-            WeekSetTimeView(selectedDays: selectedDays)
+            // WeekSetTimeView(selectedDays: selectedDays)
         }
     }
 }

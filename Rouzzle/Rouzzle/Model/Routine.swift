@@ -41,9 +41,8 @@ struct RoutineTask: Codable {
         return TaskList(title: title, emoji: emoji, timer: timer)
     }
 }
-
 enum Day: Int, Codable, CaseIterable {
-    case sunday = 0
+    case sunday = 1
     case monday
     case tuesday
     case wednesday
@@ -51,9 +50,27 @@ enum Day: Int, Codable, CaseIterable {
     case friday
     case saturday
     
+    var id: Int { self.rawValue }
+    
     var name: String {
-        let formatter = DateFormatter()
-        return formatter.weekdaySymbols[self.rawValue - 1]
+        switch self {
+        case .sunday:
+            "일"
+        case .monday:
+            "월"
+        case .tuesday:
+            "화"
+        case .wednesday:
+            "수"
+        case .thursday:
+            "목"
+        case .friday:
+            "금"
+        case .saturday:
+            "토"
+        }
     }
     
 }
+
+let testRoutine = Routine(title: "배드민턴 폐관", emoji: "🏸", routineTask: [], dayStartTime: [1: "06:30", 2: "15:30"], userId: "TzzhJLgUByQdqVx1mpQAlWpIFJc2")
