@@ -8,26 +8,9 @@
 import SwiftUI
 
 struct AddRoutineView: View {
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @State private var title: String = ""
-    @State private var selectedDays: Set<String> = []
-    @State private var isDaily: Bool = false
-    @State private var startTime: Date = Date()
-    @State private var isNotificationEnabled: Bool = false
-    @State private var isOneAlarm: Bool = false
-    @State private var selectedMinute: Int = 2
-    @State private var selectedCount: Int = 1
-    @State private var selectedEmoji: String? = "🧩"
-    
-    @State private var times: [String: Date] = [
-        "월": Date(),
-        "화": Date(),
-        "수": Date(),
-        "목": Date(),
-        "금": Date(),
-        "토": Date(),
-        "일": Date()
-    ]
+    @State private var viewModel: AddRoutineViewModel = .init()
     
     let minutes = [1, 3, 5, 7, 10]
     let counts = [1, 2, 3, 4, 5]
@@ -56,177 +39,184 @@ struct AddRoutineView: View {
                     VStack(alignment: .center, spacing: 20) {
                         // 이모지 입력
                         EmojiButton(
-                            selectedEmoji: $selectedEmoji, // @State 변수를 Binding으로 전달
+                            selectedEmoji: $viewModel.selectedEmoji,
                             emojiButtonType: .routineEmoji
                         ) { selectedEmoji in
                             print("Selected Emoji: \(selectedEmoji)")
                         }
                         .frame(maxWidth: .infinity, minHeight: 90)
                         
-                        // 첫번째 네모칸(제목, 요일, 시간)
-                        VStack(alignment: .leading, spacing: 20) {
-                            // 제목 입력 필드
-                            RouzzleTextField(text: $title, placeholder: "제목을 입력해주세요")
-                                .accentColor(Color("AccentColor"))
-                            
-                            // 반복 요일 섹션
-                            HStack {
-                                Text("반복 요일")
-                                    .font(.semibold18)
-                                Spacer()
-                                // 매일 체크박스
-                                HStack {
-                                    Image(systemName: isDaily ? "checkmark.square" : "square")
-                                    Text("매일")
-                                        .font(.regular16)
-                                }
-                                .foregroundColor(isDaily ? .black : .gray)
-                                .onTapGesture {
-                                    isDaily.toggle()
-                                    selectedDays = isDaily ? Set(daysOfWeek) : []
-                                }
-                            }
-                            
-                            // 요일 선택 버튼
-                            HStack(spacing: 15) {
-                                ForEach(daysOfWeek, id: \.self) { day in
-                                    DayButton(day: day, isSelected: selectedDays.contains(day)) {
-                                        if selectedDays.contains(day) {
-                                            selectedDays.remove(day)
-                                        } else {
-                                            selectedDays.insert(day)
-                                        }
-                                        isDaily = selectedDays.count == daysOfWeek.count
-                                    }
-                                }
-                            }
-                            
-                            Divider()
-                                .padding(.vertical, 2)
-                            
-                            HStack {
-                                Text("시작 시간")
-                                    .font(.semibold18)
-                                Spacer()
-                                VStack {
-                                    // Todo: 요일별 값이 다를 때 띄우기
-                                    Text("(요일별 다름)")
-                                        .font(.regular12)
-                                        .foregroundColor(.gray)
-                                    
-                                    NavigationLink {
-                                        RoutineSetTimeView(selectedDays: Array(selectedDays))
-                                    } label: {
-                                        HStack {
-                                            Text(startTime, style: .time)
-                                                .padding(.horizontal, 8)
-                                                .padding(.vertical, 4)
-                                                .background(Color.white)
-                                                .clipShape(.rect(cornerRadius: 8))
-                                        }
-                                    }
-                                    .disabled(selectedDays.isEmpty)
-                                }
-                            }
-                        }
-                        .padding()
-                        .background(Color.fromRGB(r: 248, g: 247, b: 247))
-                        .clipShape(.rect(cornerRadius: 20))
+                        RoutineBasicSettingView(viewModel: viewModel)
                         
-                        // 두 번째 네모칸(알림설정)
-                        VStack(alignment: .leading, spacing: 20) {
-                            // 알림 설정 제목 및 스위치
-                            HStack {
-                                Text("루틴 시작 알림")
-                                    .font(.semibold18)
-                                Spacer()
-                                Toggle(isOn: $isNotificationEnabled) {
-                                    Text("")
-                                }
-                                .toggleStyle(SwitchToggleStyle(tint: Color(.accent)))
-                            }
-                            
-                            // 알림 On일 때 활성화
-                            if isNotificationEnabled {
-                                Divider() // 구분선
-                                
-                                // 알림 빈도 설정
-                                VStack(alignment: .leading, spacing: 10) {
-                                    Text("알림 빈도")
-                                        .font(.headline)
-                                    
-                                    HStack(spacing: 10) {
-                                        // 분 선택 Picker
-                                        CustomPicker(
-                                            label: "분",
-                                            selection: $selectedMinute,
-                                            options: minutes.map { "\($0)분" },
-                                            isDisabled: isOneAlarm
-                                        )
-                                        
-                                        Text("간격으로")
-                                            .foregroundColor(isOneAlarm ? .gray : .primary)
-                                        
-                                        // 횟수 선택 Picker
-                                        CustomPicker(
-                                            label: "횟수",
-                                            selection: $selectedCount,
-                                            options: counts.map { "\($0)회" },
-                                            isDisabled: isOneAlarm
-                                        )
-                                        
-                                        Spacer()
-                                        
-                                        // 알람 체크박스
-                                        HStack {
-                                            Image(systemName: isOneAlarm ? "checkmark.square" : "square")
-                                            Text("1회만")
-                                                .font(.regular16)
-                                        }
-                                        .foregroundColor(isOneAlarm ? .black : .gray)
-                                        .onTapGesture {
-                                            isOneAlarm.toggle()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .padding()
-                        .background(Color.fromRGB(r: 248, g: 247, b: 247))
-                        .cornerRadius(20)
+                        RoutineNotificationView(viewModel: viewModel)
+                        
                     }
                     .padding(.top, 20)
                 }
                 
                 RouzzleButton(buttonType: .save, action: {
                     print("루틴 등록 버튼")
-                    dismiss()
+                    viewModel.uploadRoutine(context: context)
                 })
                 .background(Color.white)
             }
+            .onChange(of: viewModel.loadState, { _, newValue in
+                if newValue == .completed {
+                    dismiss()
+                }
+            })
             .padding()
             .toolbar(.hidden, for: .tabBar)
         }
     }
     // 요일 선택 버튼
-    private func dayButton(for day: String) -> some View {
+    private func dayButton(for day: Day) -> some View {
         ZStack {
-            Image(selectedDays.contains(day) ? "dayButtonOn" : "dayButtonOff")
+            Image(viewModel.isSelected(day) ? "dayButtonOn" : "dayButtonOff")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
-            Text(day)
+            Text(day.name)
                 .font(.regular16)
-                .foregroundColor(selectedDays.contains(day) ? .black : .gray)
+                .foregroundColor(viewModel.isSelected(day) ? .black : .gray)
         }
         .onTapGesture {
-            if selectedDays.contains(day) {
-                selectedDays.remove(day)
-            } else {
-                selectedDays.insert(day)
-            }
-            isDaily = selectedDays.count == daysOfWeek.count
+            viewModel.toggleDay(day)
         }
+    }
+}
+
+struct RoutineBasicSettingView: View {
+    @Bindable var viewModel: AddRoutineViewModel
+    var body: some View {
+        VStack(spacing: 20) {
+            RouzzleTextField(text: $viewModel.title, placeholder: "제목을 입력해주세요")
+            
+            HStack {
+                Text("반복 요일")
+                    .font(.semibold18)
+                Spacer()
+                
+                HStack {
+                    Image(systemName: viewModel.isDaily ? "checkmark.square" : "square")
+                    Text("매일")
+                        .font(.regular16)
+                }
+                .foregroundColor(viewModel.isDaily ? .black : .gray)
+                .onTapGesture {
+                    viewModel.toggleDaily()
+                }
+            }
+            
+            // 반복 요일 선택 버튼
+            HStack(spacing: 15) {
+                ForEach(Day.allCases, id: \.self) { day in
+                    DayButton(day: day.name, isSelected: viewModel.isSelected(day)) {
+                        viewModel.toggleDay(day)
+                    }
+                }
+            }
+            
+            Divider()
+            
+            HStack(alignment: .top) {
+                Text("시작 시간")
+                    .font(.semibold18)
+                Spacer()
+                if !viewModel.selectedDateWithTime.isEmpty {
+                    VStack(spacing: 4) {
+                        if let firstDay = viewModel.selectedDateWithTime.sorted(by: { $0.key.rawValue < $1.key.rawValue }).first {
+                            // 선택된 요일 중 가장 첫 번째 요일의 시간을 보여줄 거임
+                            NavigationLink {
+                                WeekSetTimeView(viewModel: viewModel)
+                            } label: {
+                                Text(firstDay.value, style: .time)
+                                    .foregroundStyle(.black)
+                                    .font(.regular18)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(.white)
+                                    .clipShape(.rect(cornerRadius: 8))
+                            }
+                        }
+                        Text("(요일별로 다름)")
+                            .font(.regular12)
+                            .foregroundStyle(.gray)
+                    }
+                }
+            }
+        }
+        .animation(.smooth, value: viewModel.selectedDateWithTime)
+        .padding()
+        .background(Color.fromRGB(r: 248, g: 247, b: 247))
+        .clipShape(.rect(cornerRadius: 20)) // .cornerRadius 대신 clipShape 사용
+    }
+}
+
+struct RoutineNotificationView: View {
+    @Bindable var viewModel: AddRoutineViewModel
+    @State private var isOneAlarm: Bool = false
+    let minutes = [1, 3, 5, 7, 10]
+    let counts = [1, 2, 3, 4, 5]
+    var body: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text("루틴 시작 알림")
+                    .font(.semibold18)
+                Spacer()
+                Toggle("", isOn: $viewModel.isNotificationEnabled)
+                    .labelsHidden()
+                    .toggleStyle(SwitchToggleStyle(tint: .accent))
+            }
+            
+            if viewModel.isNotificationEnabled {
+                Divider()
+                
+                // 알람 체크박스
+                HStack(spacing: 10) {
+                    Text("알림 빈도")
+                        .font(.headline)
+                    Image(systemName: isOneAlarm ? "checkmark.square" : "square")
+                    Text("1회만")
+                        .font(.regular16)
+                        .foregroundStyle(isOneAlarm ? .black : .gray)
+                    Spacer()
+                }
+                .onTapGesture {
+                    isOneAlarm.toggle()
+                }
+                
+                HStack(spacing: 10) {
+                    // 분 선택
+                    CustomPicker(
+                        label: "분",
+                        selection: $viewModel.interval,
+                        options: minutes.map { "\($0)분 "},
+                        isDisabled: isOneAlarm
+                    )
+                    
+                    Text("간격으로")
+                        .foregroundStyle(isOneAlarm ? .gray : .primary)
+                    
+                    // 횟수 선택
+                    CustomPicker(
+                        label: "횟수",
+                        selection: $viewModel.repeatCount,
+                        options: counts.map { "\($0)회 "},
+                        isDisabled: isOneAlarm
+                    )
+                    
+                    Text("알려드릴게요")
+                        .foregroundStyle(isOneAlarm ? .gray : .primary)
+                    
+                    Spacer()
+                }
+            }
+        }
+        .animation(.smooth, value: viewModel.isNotificationEnabled)
+        .padding()
+        .background(Color.fromRGB(r: 248, g: 247, b: 247))
+        .clipShape(.rect(cornerRadius: 20))
     }
 }
 

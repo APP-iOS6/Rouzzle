@@ -101,9 +101,9 @@ struct RoutineStatusPuzzle: View {
 
 }
 
-//#Preview("2") {
+// #Preview("2") {
 //    RoutineStatusPuzzle2()
-//}
+// }
 
 struct RoutineItemSample {
     var title: String = "운동 루틴"

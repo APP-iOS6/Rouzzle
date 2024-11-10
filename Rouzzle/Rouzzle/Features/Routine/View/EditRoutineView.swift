@@ -112,7 +112,7 @@ struct EditRoutineView: View {
                                         .foregroundColor(.gray)
                                     
                                     NavigationLink {
-                                        RoutineSetTimeView(selectedDays: Array(selectedDays))
+                                        // RoutineSetTimeView(selectedDays: Array(selectedDays))
                                     } label: {
                                         HStack {
                                             Text(startTime, style: .time)

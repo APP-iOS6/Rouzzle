@@ -9,23 +9,12 @@ import SwiftUI
 
 struct WeekSetTimeView: View {
     @Environment(\.dismiss) private var dismiss
-    let allDays = ["월", "화", "수", "목", "금", "토", "일"]
-    let selectedDays: [String]
-    @State private var times: [String: Date]
-    @State private var selectedDay: String?
-    @State private var showSheet = false
-    @State private var showAllDaysPicker = false
-    @State private var allDaysTime: Date = Date() // 전체 시간을 설정할 때 사용할 시간
-    @State private var temporaryTime: Date = Date() // 임시 시간을 저장할 변수
     
-    init(selectedDays: [String]) {
-        self.selectedDays = selectedDays
-        // 기본 시간은 오전 8시 30분으로 설정
-        let defaultTime = Calendar.current.date(bySettingHour: 8, minute: 30, second: 0, of: Date())!
-        _times = State(initialValue: allDays.reduce(into: [:]) { result, day in
-            result[day] = selectedDays.contains(day) ? Date() : defaultTime
-        })
-    }
+    @Bindable var viewModel: AddRoutineViewModel
+    @State private var selectedDay: Day = .sunday
+    @State private var selectedTime: Date = Date() // 전체 시간을 설정할 때 사용할 시간
+    @State private var showDaySheet = false
+    @State private var showAllDaysPicker = false
     
     var body: some View {
         VStack {
@@ -38,9 +27,12 @@ struct WeekSetTimeView: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.trailing, 20)
             
+            Text("요일별 시간 설정")
+                .font(.semibold20)
+                .padding(.top, 8)
+            
             // 전체 선택 버튼
             Button(action: {
-                temporaryTime = allDaysTime // 현재 값을 임시 저장
                 showAllDaysPicker = true
             }, label: {
                 HStack {
@@ -52,75 +44,70 @@ struct WeekSetTimeView: View {
             .padding(.top, 39)
 
             // 개별 요일 시간 설정 리스트
-            VStack(alignment: .leading, spacing: 12) {
-                ForEach(allDays, id: \.self) { day in
-                    HStack {
-                        Text("\(day)요일")
-                            .strikethrough(!selectedDays.contains(day), color: Color(.systemGray3))
-                            .foregroundColor(selectedDays.contains(day) ? .black : Color(.systemGray3))
-                            .font(.semibold18)
-                            .padding(.leading, 15)
-                        Spacer()
-                        if let time = times[day] {
-                            Text(time, style: .time)
-                                .strikethrough(!selectedDays.contains(day), color: Color(.systemGray3))
-                                .foregroundColor(selectedDays.contains(day) ? Color(.black).opacity(0.6) : Color(.systemGray3))
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
+                    ForEach(Day.allCases, id: \.self) { day in
+                        let selected = viewModel.selectedDateWithTime[day] != nil
+                        HStack {
+                            Text("\(day.name)요일")
+                                .strikethrough(!selected, color: Color(uiColor: .systemGray3))
+                                .foregroundStyle(!selected ? Color(uiColor: .systemGray3) : .black)
+                                .font(.semibold18)
+                                .padding(.leading)
+                            
+                            Spacer()
+                            
+                            Text(viewModel.selectedDateWithTime[day] ?? Date(), style: .time)
+                                .strikethrough(!selected, color: Color(uiColor: .systemGray3))
+                                .foregroundStyle(!selected ? Color(uiColor: .systemGray3) : .black.opacity(0.6))
                                 .font(.regular18)
-                                .padding(.horizontal, 15)
+                                .padding(.horizontal)
                         }
-                    }
-                    .padding(.vertical, 20)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color(.systemGray5).opacity(0.4))
-                    )
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        if selectedDays.contains(day) {
+                        .padding(.vertical, 20)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(uiColor: .systemGray5).opacity(0.4))
+                        )
+                        .contentShape(Rectangle())
+                        .onTapGesture {
                             selectedDay = day
-                            temporaryTime = times[day] ?? Date() // 현재 값을 임시 저장
-                            showSheet = true
+                            selectedTime = viewModel.selectedDateWithTime[day] ?? Date()
+                            showDaySheet.toggle()
                         }
+                        .disabled(!selected)
                     }
-                    .disabled(!selectedDays.contains(day))
                 }
+                .padding(.horizontal, 3)
+                .padding(.top, 10)
             }
-            .padding(.horizontal, 3)
-            .padding(.top, 10)
-            
             Spacer()
             
             // 저장하기 버튼
             RouzzleButton(buttonType: .complete, action: {
-                print("Selected times: \(times)")
                 dismiss()
             })
         }
         .padding()
         // 요일별 시간 피커
-        .sheet(isPresented: $showSheet) {
-            if let selectedDay = selectedDay {
-                ReusableTimePickerSheet(
-                    time: $temporaryTime,
-                    onConfirm: {
-                        times[selectedDay] = temporaryTime
-                    }
-                )
+        .sheet(isPresented: $showDaySheet) {
+            ReusableTimePickerSheet(time: $selectedTime) {
+                viewModel.selectedDateWithTime[selectedDay] = selectedTime
             }
         }
         // 한 번에 시간 피커
         .sheet(isPresented: $showAllDaysPicker) {
-            ReusableTimePickerSheet(
-                time: $temporaryTime,
-                onConfirm: {
-                    allDaysTime = temporaryTime
-                    for day in selectedDays {
-                        times[day] = allDaysTime
-                    }
-                }
-            )
+//            ReusableTimePickerSheet(
+//                time: $temporaryTime,
+//                onConfirm: {
+//                    allDaysTime = temporaryTime
+//                    for day in selectedDays {
+//                        times[day] = allDaysTime
+//                    }
+//                }
+//            )
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -158,6 +145,6 @@ struct ReusableTimePickerSheet: View {
 
 #Preview {
     NavigationStack {
-        WeekSetTimeView(selectedDays: ["월", "화", "수", "목", "금"])
+        WeekSetTimeView(viewModel: .init())
     }
 }
