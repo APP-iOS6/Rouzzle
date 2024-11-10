@@ -7,6 +7,7 @@
 
 import Factory
 import Foundation
+import FirebaseAuth
 import Observation
 import SwiftData
 
@@ -58,11 +59,26 @@ class AddRoutineViewModel {
         return selectedDateWithTime[day] != nil
     }
     
+    // 요일 시간 한번에 수정했을 때 불리는 함수
+    func selectedDayChangeDate(_ date: Date) {
+        for day in selectedDateWithTime.keys {
+            selectedDateWithTime[day] = date
+        }
+    }
+    
+    // 데이터 저장에는 딕셔너리 타입이 Int: String이기 때문에 selectedDateWithTime의 타입을 변환하는 함수(Extension 사용)
+    func selectedDateWithTimeTypeChange() -> [Int: String] {
+        return selectedDateWithTime.mapKeys { $0.rawValue }
+            .mapValues { $0.formattedToTime() }
+    }
+    
     @MainActor
     func uploadRoutine(context: ModelContext) {
+        let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
+        let createRoutine = Routine(title: title, emoji: selectedEmoji ?? "🧩", routineTask: [], dayStartTime: selectedDateWithTimeTypeChange(), userId: userUid)
         Task {
-            let routine = await routineService.addRoutine(testRoutine)
+            let routine = await routineService.addRoutine(createRoutine)
             switch routine {
             case let .success(result):
                 do {
