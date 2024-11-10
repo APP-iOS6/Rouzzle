@@ -93,5 +93,6 @@ struct RoutineListView: View {
 #Preview {
     NavigationStack {
         RoutineListView()
+            .modelContainer(SampleData.shared.modelContainer)
     }
 }

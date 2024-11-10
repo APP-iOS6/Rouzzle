@@ -142,3 +142,10 @@ struct AddTaskView: View {
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        AddTaskView(routineItem: RoutineItem.sampleData[0])
+            .modelContainer(SampleData.shared.modelContainer)
+    }
+}

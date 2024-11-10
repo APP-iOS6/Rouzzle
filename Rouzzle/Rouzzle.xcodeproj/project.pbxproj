@@ -73,6 +73,7 @@
 		BD912F892CDD2B24007B8503 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F882CDD2B24007B8503 /* Item.swift */; };
 		BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */; };
 		BD912F8D2CDD32F5007B8503 /* SwiftDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD912F8C2CDD32F5007B8503 /* SwiftDataError.swift */; };
+		BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAC7C472CE09D5200BF0379 /* SampleData.swift */; };
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
@@ -181,6 +182,7 @@
 		BD912F882CDD2B24007B8503 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BD912F8A2CDD2C6E007B8503 /* SwiftDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataService.swift; sourceTree = "<group>"; };
 		BD912F8C2CDD32F5007B8503 /* SwiftDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataError.swift; sourceTree = "<group>"; };
+		BDAC7C472CE09D5200BF0379 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		BDD719CB2CD4A89800AE0977 /* Rouzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rouzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
@@ -675,6 +677,7 @@
 				FB4174E62CDB34B50084BC19 /* Routine.swift */,
 				FB4174E82CDB475F0084BC19 /* RoutineCompletion.swift */,
 				BD912F882CDD2B24007B8503 /* Item.swift */,
+				BDAC7C472CE09D5200BF0379 /* SampleData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */,
+				BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */,
 				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BD1187092CD6010D00FF4180 /* LoginView.swift in Sources */,
