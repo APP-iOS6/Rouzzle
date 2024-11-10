@@ -10,6 +10,7 @@ import SwiftData
 
 enum SwiftDataService {
     // 루틴 관련 메서드
+    @MainActor
     static func addRoutine(_ routine: RoutineItem, context: ModelContext) throws {
         context.insert(routine)
         do {
