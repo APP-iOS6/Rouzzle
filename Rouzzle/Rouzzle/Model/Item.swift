@@ -74,3 +74,19 @@ class TaskList: Identifiable {
         return RoutineTask(title: title, emoji: emoji, timer: timer)
     }
 }
+
+extension RoutineItem {
+    static let sampleData: [RoutineItem] = [
+        RoutineItem(title: "아침 루틴", emoji: "🚬", dayStartTime: [1: "06:30"]),
+        RoutineItem(title: "점심 루틴", emoji: "💪🏻", dayStartTime: [1: "12:00"]),
+        RoutineItem(title: "저녁 루틴", emoji: "🍺", dayStartTime: [1: "18:00"])
+    ]
+}
+
+extension TaskList {
+static let sampleData: [TaskList] = [
+    TaskList(title: "밥 먹기", emoji: "🍚", timer: 3, isCompleted: true),
+    TaskList(title: "양치 하기", emoji: "🪥", timer: 3, isCompleted: true),
+    TaskList(title: "술 마시기", emoji: "🍺", timer: 30, isCompleted: false)
+]
+}

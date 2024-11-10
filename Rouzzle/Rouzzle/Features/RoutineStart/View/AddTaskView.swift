@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddTaskView: View {
+    @Bindable var routineItem: RoutineItem
+    @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
@@ -30,15 +33,11 @@ struct AddTaskView: View {
                             .aspectRatio(contentMode: .fit)
                     }
                     .padding(.top, 5)
-                    
-                    // 할일 리스트
-                    VStack(spacing: 10) {
-                        TaskStatusPuzzle(taskStatus: .completed)
-                        
-                        TaskStatusPuzzle(taskStatus: .pending)
-                        
-                        TaskStatusPuzzle(taskStatus: .pending)
+                
+                    ForEach(routineItem.taskList) { task in
+                        TaskStatusPuzzle(task: task)
                     }
+                    .id(routineItem)
                     
                     HStack {
                         Text("추천 할 일")
@@ -61,13 +60,16 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 30)
                     
-                    // 추천 할 일 리스트
                     VStack(spacing: 10) {
-                        TaskStatusPuzzle(taskStatus: .recommend)
-                        
-                        TaskStatusPuzzle(taskStatus: .recommend)
-                        
-                        TaskStatusPuzzle(taskStatus: .recommend)
+                        TaskRecommendPuzzle { task in
+                            addTaskToRoutine(task)
+                        }
+                        TaskRecommendPuzzle { task in
+                            addTaskToRoutine(task)
+                        }
+                        TaskRecommendPuzzle { task in
+                            addTaskToRoutine(task)
+                        }
                     }
                     
                     HStack(alignment: .bottom) {
@@ -131,10 +133,19 @@ struct AddTaskView: View {
             .padding()
         }
     }
+    // Task를 추가하는 함수
+    private func addTaskToRoutine(_ task: RecommendTodoTask) {
+        do {
+            try SwiftDataService.addTask(to: routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
+        } catch {
+            print("할일 추가 실패")
+        }
+    }
 }
 
 #Preview {
     NavigationStack {
-        AddTaskView()
+        AddTaskView(routineItem: RoutineItem.sampleData[0])
+            .modelContainer(SampleData.shared.modelContainer)
     }
 }
