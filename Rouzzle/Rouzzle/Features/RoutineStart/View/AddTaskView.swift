@@ -9,13 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct AddTaskView: View {
-    @Bindable var routineItem: RoutineItem
+    var routineItem: RoutineItem
     @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-    
+   // @Binding var dataChanged: Bool
     var body: some View {
         ZStack {
             ScrollView {
@@ -132,11 +132,15 @@ struct AddTaskView: View {
             }
             .padding()
         }
+//        .onDisappear {
+//            dataChanged.toggle()
+//        }
     }
     // Task를 추가하는 함수
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
         do {
             try SwiftDataService.addTask(to: routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
+           // dataChanged.toggle()
         } catch {
             print("할일 추가 실패")
         }
