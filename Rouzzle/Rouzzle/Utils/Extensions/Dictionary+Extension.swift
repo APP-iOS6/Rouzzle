@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+extension Dictionary {
+    func mapKeys<NewKey>(_ transform: (Key) -> NewKey) -> [NewKey: Value] {
+        var newDict: [NewKey: Value] = [:]
+        for (key, value) in self {
+            newDict[transform(key)] = value
+        }
+        return newDict
+    }
+}
