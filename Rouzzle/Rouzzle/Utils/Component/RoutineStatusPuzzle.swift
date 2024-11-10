@@ -26,9 +26,9 @@ struct RoutineStatusPuzzle: View {
     
     @Bindable var routineItem: RoutineItem
     @Environment(\.modelContext) private var modelContext
-        
+    
     var status: RoutineStatus {
-        return routineItem.taskList.filter {$0.isCompleted}.count == routineItem.taskList.count ? .completed : .pending
+        return ((routineItem.taskList.filter {$0.isCompleted}.count == routineItem.taskList.count) && !routineItem.taskList.isEmpty) ? .completed : .pending
     }
     
     var inProgressStr: String {
@@ -98,7 +98,7 @@ struct RoutineStatusPuzzle: View {
         }
         return str
     }
-
+    
 }
 
 // #Preview("2") {
