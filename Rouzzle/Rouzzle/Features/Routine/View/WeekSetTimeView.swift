@@ -33,7 +33,7 @@ struct WeekSetTimeView: View {
             
             // 전체 선택 버튼
             Button(action: {
-                showAllDaysPicker = true
+                showAllDaysPicker.toggle()
             }, label: {
                 HStack {
                     Spacer()
@@ -97,15 +97,9 @@ struct WeekSetTimeView: View {
         }
         // 한 번에 시간 피커
         .sheet(isPresented: $showAllDaysPicker) {
-//            ReusableTimePickerSheet(
-//                time: $temporaryTime,
-//                onConfirm: {
-//                    allDaysTime = temporaryTime
-//                    for day in selectedDays {
-//                        times[day] = allDaysTime
-//                    }
-//                }
-//            )
+            ReusableTimePickerSheet(time: $selectedTime) {
+                viewModel.selectedDayChangeDate(selectedTime)
+            }
         }
         .navigationBarBackButtonHidden()
     }
