@@ -9,10 +9,13 @@ import SwiftUI
 
 struct NewTaskSheet: View {
     
+    let routine: RoutineItem
+    @Binding var detents: Set<PresentationDetent>
+    let action: (RecommendTodoTask) -> Void
+    
     @State private var vm: NewTaskSheetViewModel = .init()
     @Environment(\.dismiss) private var dismiss
     @FocusState var focusField: SheetType?
-    @Binding var detents: Set<PresentationDetent>
     var formattedTime: String {
         var components: [String] = []
         
@@ -28,9 +31,6 @@ struct NewTaskSheet: View {
         
         return components.joined(separator: " ")
     }
-   
-    /// 모델링을 안해서 나중에 할일 모델 action에 넣어주면 됨
-    let action: () -> Void
     
     var body: some View {
         VStack {
@@ -44,8 +44,11 @@ struct NewTaskSheet: View {
                         }
                         return
                     }
-                    action()
-                    dismiss()
+                    let timer = vm.hour * 3600 + vm.min * 60 + vm.second
+                    let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer).toRoutineTask()
+                    Task {
+                        await vm.updateRoutineTask(routine, task: task)
+                    }
                 }
                 
                 TimeSelectionView(
@@ -90,6 +93,19 @@ struct NewTaskSheet: View {
         .onAppear {
             focusField = .task
         }
+        .overlay {
+            if vm.loadState == .loading {
+                ProgressView()
+            }
+        }
+        .onChange(of: vm.loadState) { _, new in
+            if new == .completed {
+                let timer = vm.hour * 3600 + vm.min * 60 + vm.second
+                let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer)
+                action(task)
+                dismiss()
+            }
+        }
         .padding()
     }
 }
@@ -119,7 +135,7 @@ struct TaskInputView: View {
                     .clipShape(Circle())
             }
         }
-        .padding(.bottom, 8)
+        .padding(.vertical, 8)
     }
 }
 
@@ -271,7 +287,7 @@ struct CustomTimePickerView: View {
 }
 
 #Preview {
-    NewTaskSheet(detents: .constant([.fraction(0.12)])) {
+    NewTaskSheet(routine: .init(title: "", emoji: "", dayStartTime: [:]), detents: .constant([.fraction(0.12)]), action: { _ in
         
-    }
+    })
 }
