@@ -37,7 +37,7 @@ struct AddTaskView: View {
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
                     }
-                    .id(store.routineItem)
+                    .id(store.routineItem.taskList)
                     
                     HStack {
                         Text("추천 할 일")
