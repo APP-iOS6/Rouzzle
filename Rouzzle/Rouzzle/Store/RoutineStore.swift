@@ -12,9 +12,14 @@ import SwiftData
 
 @Observable
 class RoutineStore {
+    
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
+    
     var routineItem: RoutineItem
     var taskList: [TaskList] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
+    var erorrMessage: String?
     
     init(routineItem: RoutineItem) {
         print(routineItem.title)
@@ -22,12 +27,29 @@ class RoutineStore {
         self.taskList = routineItem.taskList
     }
     
-    func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) {
+    @MainActor
+    func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) async {
         do {
-            try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
-            taskList.append(todoTask.toTaskList())
+            var routine = routineItem.toRoutine()
+            routine.routineTask.append(todoTask.toRoutineTask())
+            let result = await routineService.updateRoutine(routine)
+            switch result {
+            case .success(()):
+                try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
+                taskList.append(todoTask.toTaskList())
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
         } catch {
             print("할일 추가 실패")
+        }
+    }
+    
+    func addTaskSwiftData(_ todoTask: RecommendTodoTask, context: ModelContext) {
+        do {
+            try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
+        } catch {
+            print("할 일 추가 실패")
         }
     }
     

@@ -33,7 +33,7 @@ struct AddTaskView: View {
                             .aspectRatio(contentMode: .fit)
                     }
                     .padding(.top, 5)
-                
+                    
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
                     }
@@ -63,13 +63,19 @@ struct AddTaskView: View {
                     
                     VStack(spacing: 10) {
                         TaskRecommendPuzzle { task in
-                            store.addTask(task, context: modelContext)
+                            Task {
+                                await store.addTask(task, context: modelContext)
+                            }
                         }
                         TaskRecommendPuzzle { task in
-                            store.addTask(task, context: modelContext)
+                            Task {
+                                await store.addTask(task, context: modelContext)
+                            }
                         }
                         TaskRecommendPuzzle { task in
-                            store.addTask(task, context: modelContext)
+                            Task {
+                                await store.addTask(task, context: modelContext)
+                            }
                         }
                     }
                     
@@ -118,7 +124,7 @@ struct AddTaskView: View {
                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
-                        store.addTask(task, context: modelContext)
+                        store.addTaskSwiftData(task, context: modelContext)
                     }
                     .presentationDetents(detents)
                 }
