@@ -14,6 +14,8 @@ import SwiftData
 class RoutineStore {
     var routineItem: RoutineItem
     var taskList: [TaskList] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
+    var loadState: LoadState = . none
+    
     init(routineItem: RoutineItem) {
         print(routineItem.title)
         self.routineItem = routineItem
@@ -33,7 +35,6 @@ class RoutineStore {
         guard let firstTime = routineItem.dayStartTime.first?.value, let time = firstTime.toDate() else {
             return
         }
-        
         switch time.getTimeCategory() {
         case .morning:
             return
@@ -46,6 +47,7 @@ class RoutineStore {
         }
     }
     
+    // 리팩 예정
     deinit {
         print("RoutineStore 해제")
     }
