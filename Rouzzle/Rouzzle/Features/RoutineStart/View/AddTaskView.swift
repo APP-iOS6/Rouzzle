@@ -34,7 +34,7 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 5)
                 
-                    ForEach(store.routineItem.taskList) { task in
+                    ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
                     }
                     .id(store.routineItem)
@@ -102,7 +102,7 @@ struct AddTaskView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 50)
-                .customNavigationBar(title: "\(routineItem.emoji) \(routineItem.title)")
+                .customNavigationBar(title: "\(store.routineItem.emoji) \(store.routineItem.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -136,7 +136,6 @@ struct AddTaskView: View {
     }
     // Task를 추가하는 함수
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
-        let newTask = TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!)
         do {
             try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
         } catch {

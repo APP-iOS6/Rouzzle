@@ -13,15 +13,17 @@ import SwiftData
 @Observable
 class RoutineStore {
     var routineItem: RoutineItem
-    
+    var taskList: [TaskList] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     init(routineItem: RoutineItem) {
         print(routineItem.title)
         self.routineItem = routineItem
+        self.taskList = routineItem.taskList
     }
     
     func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) {
         do {
             try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
+            taskList.append(todoTask.toTaskList())
         } catch {
             print("할일 추가 실패")
         }
