@@ -129,7 +129,7 @@ struct AddTodoTaskView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
 
-    @Bindable var routineItem: RoutineItem
+    var routineItem: RoutineItem
 
     @State private var title: String = ""
     @State private var emoji: String = ""
@@ -174,7 +174,7 @@ struct AddTodoTaskView: View {
         for index in offsets {
             let task = routineItem.taskList[index]
             do {
-                try SwiftDataService.deleteTask(task: task, context: modelContext)
+                try SwiftDataService.deleteTask(from: routineItem, task: task, context: modelContext)
             } catch {
                 print("할 일 제거 에러: \(error)")
             }

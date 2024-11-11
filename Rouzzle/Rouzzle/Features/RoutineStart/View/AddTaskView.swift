@@ -102,7 +102,7 @@ struct AddTaskView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 50)
-                .customNavigationBar(title: "☀️ 아침 루틴")
+                .customNavigationBar(title: "\(routineItem.emoji) \(routineItem.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -136,6 +136,7 @@ struct AddTaskView: View {
     }
     // Task를 추가하는 함수
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
+        let newTask = TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!)
         do {
             try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
         } catch {
