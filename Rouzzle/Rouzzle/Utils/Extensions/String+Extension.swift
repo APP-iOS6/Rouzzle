@@ -37,4 +37,12 @@ extension String {
         let hour24 = components[0]
         return hour24 < 12 ? "AM" : "PM"
     }
+    
+    /// 데이터에 올라간 시간(05:23) 문자열을 Date객체로 변환하는 함수
+    func toDate() -> Date? {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "HH:mm"
+           formatter.locale = Locale(identifier: "ko_KR")
+           return formatter.date(from: self)
+       }
 }

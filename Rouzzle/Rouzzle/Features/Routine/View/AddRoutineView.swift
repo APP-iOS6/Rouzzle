@@ -12,10 +12,6 @@ struct AddRoutineView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: AddRoutineViewModel = .init()
     
-    let minutes = [1, 3, 5, 7, 10]
-    let counts = [1, 2, 3, 4, 5]
-    let daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
-    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
