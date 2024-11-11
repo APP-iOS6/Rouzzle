@@ -227,19 +227,19 @@ struct EditRoutineView: View {
                                         )
                                         // 순서 수정
                                     } else {
-                                        TaskStatusRow(
-                                            taskStatus: task.taskStatus,
-                                            emojiText: task.emoji,
-                                            title: task.title,
-                                            showEditIcon: .constant(true),
-                                            showDeleteIcon: $showDeleteIcon
-                                        )
-                                        .onDrag {
-                                            draggedItem = task
-                                            return NSItemProvider()
-                                        }
-                                        .onDrop(of: [.text],
-                                                delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
+//                                        TaskStatusRow(
+//                                            taskStatus: task.taskStatus,
+//                                            emojiText: task.emoji,
+//                                            title: task.title,
+//                                            showEditIcon: .constant(true),
+//                                            showDeleteIcon: $showDeleteIcon
+//                                        )
+//                                        .onDrag {
+//                                            draggedItem = task
+//                                            return NSItemProvider()
+//                                        }
+//                                        .onDrop(of: [.text],
+//                                                delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
                                     }
                                 }
                             }

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct RoutineStartView: View {
-    @State private var viewModel: RoutineStartViewModel = RoutineStartViewModel()
+    @State var viewModel: RoutineStartViewModel
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.modelContext) private var modelContext
+
     @State var isShowingTaskListSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
     
@@ -18,7 +19,7 @@ struct RoutineStartView: View {
         ZStack(alignment: .top) {
             // MARK: 그라데이션 배경
             LinearGradient(
-                colors: viewModel.gradientColors,
+                colors: viewModel.timerState.gradientColors,
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -47,7 +48,7 @@ struct RoutineStartView: View {
                     Image(.puzzleTimer)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(viewModel.puzzleTimerColor)
+                        .foregroundStyle(viewModel.timerState.puzzleTimerColor)
                     
                     VStack(spacing: 0) {
                         if (viewModel.inProgressTask?.timer) != nil {
@@ -58,7 +59,7 @@ struct RoutineStartView: View {
                             } else {
                                 Text("+\(abs(viewModel.timeRemaining).toTimeString())")
                                     .font(.bold66)
-                                    .foregroundStyle(viewModel.timerState == .paused ? .white : viewModel.overtimeTextColor)
+                                    .foregroundStyle(viewModel.timerState == .paused ? .white : Color(.overtimeText))
                             }
                         } else {
                             Text("Check!")
@@ -69,7 +70,7 @@ struct RoutineStartView: View {
                         if let timerValue = viewModel.inProgressTask?.timer {
                             Text(viewModel.timeRemaining >= 60 ? "\(timerValue / 60)분" : "\(timerValue)초")
                                 .font(.regular18)
-                                .foregroundStyle(viewModel.timeTextColor)
+                                .foregroundStyle(viewModel.timerState.timeTextColor)
                         } else {
                             Text("")
                         }
@@ -115,10 +116,10 @@ struct RoutineStartView: View {
                 
                 if let nextTask = viewModel.nextPendingTask {
                     TaskStatusRow(
-                        taskStatus: nextTask.taskStatus,
+                        taskStatus: .pending,
                         emojiText: nextTask.emoji,
                         title: nextTask.title,
-                        timeInterval: nextTask.timer ?? nil,
+                        timeInterval: nextTask.timer,
                         showEditIcon: .constant(false),
                         showDeleteIcon: .constant(false)
                     )
@@ -138,20 +139,21 @@ struct RoutineStartView: View {
             .padding(.horizontal)
         }
         .sheet(isPresented: $isShowingTaskListSheet) {
-            TaskListSheet(detents: $detents)
+            TaskListSheet(tasks: $viewModel.routineItem.taskList, detents: $detents)
                 .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
-            RoutineCompleteView()
+            RoutineCompleteView(routineItem: viewModel.routineItem)
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
             viewModel.startTimer()
+            viewModel.resetTask()
         }
     }
 }
 
 #Preview {
-    RoutineStartView()
-    
+    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: RoutineItem.sampleData[0]))
+            .modelContainer(SampleData.shared.modelContainer)
 }

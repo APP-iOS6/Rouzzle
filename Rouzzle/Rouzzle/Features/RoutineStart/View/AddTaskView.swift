@@ -120,7 +120,7 @@ struct AddTaskView: View {
                     }
                 }
                 .fullScreenCover(isPresented: $isShowingTimerView) {
-                    RoutineStartView()
+                    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: store.routineItem))
                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
