@@ -34,7 +34,7 @@ struct CategoryButton: View {
                     Capsule()
                         .fill(isSelected ? Color.themeColor : Color.gray.opacity(0.2))
                 )
-                .foregroundColor(isSelected ? .basic : .basic)
+                .foregroundStyle(isSelected ? .basic : .basic)
         }
         .buttonStyle(PlainButtonStyle())
         
@@ -49,7 +49,7 @@ struct SearchBar: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .padding(.leading)
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
             
             TextField("이모지 검색", text: $text)
                 .padding(.trailing, 8)
@@ -62,7 +62,7 @@ struct SearchBar: View {
                     },
                     label: {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
                     }
                 )
                 .padding(.trailing, 8)
