@@ -30,9 +30,13 @@
 		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
 		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
 		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
+		4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */; };
+		4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */; };
+		4B1348672CE2184800A957C7 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348662CE2184800A957C7 /* testView.swift */; };
 		4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */; };
 		4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */; };
 		4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */; };
+		4BE4399A2CE1C8FE007E0272 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE439992CE1C8FE007E0272 /* SearchBarView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
 		970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */; };
 		9711587A2CDCAC03008854B0 /* TaskListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971158792CDCAC03008854B0 /* TaskListSheet.swift */; };
@@ -150,9 +154,13 @@
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
+		4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLabelView.swift; sourceTree = "<group>"; };
+		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
+		4B1348662CE2184800A957C7 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSetTimeView.swift; sourceTree = "<group>"; };
 		4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
 		4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
+		4BE439992CE1C8FE007E0272 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
 		9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartViewModel.swift; sourceTree = "<group>"; };
 		971158792CDCAC03008854B0 /* TaskListSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListSheet.swift; sourceTree = "<group>"; };
@@ -587,6 +595,10 @@
 			isa = PBXGroup;
 			children = (
 				BD15465C2CD9AA880098AD7B /* SocialView.swift */,
+				4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */,
+				4B1348662CE2184800A957C7 /* testView.swift */,
+				4BE439992CE1C8FE007E0272 /* SearchBarView.swift */,
+				4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -883,6 +895,7 @@
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				BD912F892CDD2B24007B8503 /* Item.swift in Sources */,
+				4B1348672CE2184800A957C7 /* testView.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
 				23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */,
 				BD6301B82CDE73550000203C /* ConvertDays.swift in Sources */,
@@ -896,6 +909,7 @@
 				97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */,
 				FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
+				4BE4399A2CE1C8FE007E0272 /* SearchBarView.swift in Sources */,
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,
@@ -925,6 +939,7 @@
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
+				4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */,
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
@@ -938,6 +953,7 @@
 				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
+				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
