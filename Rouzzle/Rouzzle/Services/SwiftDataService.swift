@@ -40,6 +40,19 @@ enum SwiftDataService {
             throw SwiftDataServiceError.saveFailed(error)
         }
     }
+    
+    static func addTasks(to routinieItem: RoutineItem, _ task: [TaskList], context: ModelContext) throws {
+        for job in task {
+            job.routineItem = routinieItem
+            routinieItem.taskList.append(job)
+            context.insert(job)
+        }
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.saveFailed(error)
+        }
+    }
 
     static func deleteTask(from routineItem: RoutineItem, task: TaskList, context: ModelContext) throws {
         if let index = routineItem.taskList.firstIndex(where: { $0.id == task.id }) {

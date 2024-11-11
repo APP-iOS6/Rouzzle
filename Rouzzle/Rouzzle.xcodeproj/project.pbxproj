@@ -117,6 +117,7 @@
 		FB4174FC2CDDCABB0084BC19 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */; };
 		FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */; };
 		FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CC2CE088780038243D /* TimeCategory.swift */; };
+		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,6 +222,7 @@
 		FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
 		FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		FBDC52CC2CE088780038243D /* TimeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCategory.swift; sourceTree = "<group>"; };
+		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -701,6 +703,7 @@
 		FBDC52CE2CE0A1190038243D /* Dummy */ = {
 			isa = PBXGroup;
 			children = (
+				FBDC52CF2CE1BA500038243D /* DummyData.swift */,
 			);
 			path = Dummy;
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
 				FB2A5A902CD7A2C400CB981A /* AuthError.swift in Sources */,
 				9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */,
+				FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */,
 				BD1545CD2CD93AA00098AD7B /* NavigationBackButtonModifier.swift in Sources */,
 				BD1546592CD9AA630098AD7B /* RecommendView.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,
