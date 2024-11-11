@@ -143,7 +143,7 @@ struct RoutineStartView: View {
                 .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
-            RoutineCompleteView()
+            RoutineCompleteView(routineItem: viewModel.routineItem)
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
