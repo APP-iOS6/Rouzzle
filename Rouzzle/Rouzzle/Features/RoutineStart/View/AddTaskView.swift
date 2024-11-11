@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct AddTaskView: View {
-    @Bindable var routineItem: RoutineItem
+    var store: RoutineStore
     @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
@@ -34,10 +34,10 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 5)
                 
-                    ForEach(routineItem.taskList) { task in
+                    ForEach(store.routineItem.taskList) { task in
                         TaskStatusPuzzle(task: task)
                     }
-                    .id(routineItem)
+                    .id(store.routineItem)
                     
                     HStack {
                         Text("추천 할 일")
@@ -63,13 +63,13 @@ struct AddTaskView: View {
                     
                     VStack(spacing: 10) {
                         TaskRecommendPuzzle { task in
-                            addTaskToRoutine(task)
+                            store.addTask(task, context: modelContext)
                         }
                         TaskRecommendPuzzle { task in
-                            addTaskToRoutine(task)
+                            store.addTask(task, context: modelContext)
                         }
                         TaskRecommendPuzzle { task in
-                            addTaskToRoutine(task)
+                            store.addTask(task, context: modelContext)
                         }
                     }
                     
@@ -137,7 +137,7 @@ struct AddTaskView: View {
     // Task를 추가하는 함수
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
         do {
-            try SwiftDataService.addTask(to: routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
+            try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
         } catch {
             print("할일 추가 실패")
         }
@@ -146,7 +146,7 @@ struct AddTaskView: View {
 
 #Preview {
     NavigationStack {
-        AddTaskView(routineItem: RoutineItem.sampleData[0])
+        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]))
             .modelContainer(SampleData.shared.modelContainer)
     }
 }
