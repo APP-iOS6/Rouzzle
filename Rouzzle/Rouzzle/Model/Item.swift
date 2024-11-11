@@ -57,7 +57,7 @@ class TaskList: Identifiable {
     
     @Relationship(inverse: \RoutineItem.taskList)
     var routineItem: RoutineItem?
-    
+
     init(
         title: String,
         emoji: String,

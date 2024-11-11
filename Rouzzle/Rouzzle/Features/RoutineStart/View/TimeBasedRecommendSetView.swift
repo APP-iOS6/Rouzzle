@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct TimeBasedRecommendSetView: View {
+    @Environment(\.dismiss) private var dismiss
     let category: RoutineCategoryByTime // 카테고리 아침, 오후, 저녁, 휴식을 전달받음
-    
+    let action: ([RecommendTodoTask]) -> Void
+    @State var addRecommendTask: [RecommendTodoTask] = []
     var body: some View {
         ZStack {
             Color("OnBoardingBackgroundColor")
@@ -30,10 +32,13 @@ struct TimeBasedRecommendSetView: View {
                             RecommendTask(
                                 emojiTxt: category.tasks[index].emoji,
                                 title: category.tasks[index].title,
-                                timeInterval: category.tasks[index].timeInterval,
+                                timeInterval: category.tasks[index].timeInterval.formattedTimer,
                                 isPlus: false,
                                 description: category.tasks[index].description
-                            )
+                            ) {
+                                let recommendTodoTask = RecommendTodoTask(emoji: category.tasks[index].emoji, title: category.tasks[index].title, timer: category.tasks[index].timeInterval)
+                                addRecommendTask.append(recommendTodoTask)
+                            }
                             
                             if index < category.tasks.count - 1 {
                                 DashedVerticalLine()
@@ -47,7 +52,8 @@ struct TimeBasedRecommendSetView: View {
                     Spacer()
                     
                     RouzzleButton(buttonType: .save) {
-                        print("저장하기")
+                        action(addRecommendTask)
+                        dismiss()
                     }
                     .frame(width: 370)
                     .padding(.vertical, 20)
@@ -63,6 +69,6 @@ struct TimeBasedRecommendSetView: View {
 
 #Preview {
     NavigationStack {
-        TimeBasedRecommendSetView(category: .morning)
+        TimeBasedRecommendSetView(category: .morning) { _ in}
     }
 }

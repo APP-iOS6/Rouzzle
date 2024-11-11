@@ -9,80 +9,37 @@ import Foundation
 import Observation
 import SwiftUI
 
-enum TimerState {
-    case running
-    case paused
-    case overtime
-}
-
 @Observable
 class RoutineStartViewModel {
-    var timerState: TimerState = .running
     private var timer: Timer?
+    var timerState: TimerState = .running
+    var timeRemaining: Int
+    var routineItem: RoutineItem
     
-    var timeRemaining: Int = 0
-    
-    var tasks = DummyTask.tasks
-    
-    private let playBackgroundColor = Color.fromRGB(r: 252, g: 255, b: 240)
-    private let pauseBackgroundColor = Color.fromRGB(r: 230, g: 235, b: 212)
-    private let overtimeBackgroundColor = Color.fromRGB(r: 255, g: 242, b: 226)
-    
-    private let pausePuzzleTimerColor = Color.fromRGB(r: 191, g: 207, b: 154)
-    private let overtimePuzzleTimerColor = Color.fromRGB(r: 255, g: 211, b: 172)
-    
-    let overtimeTextColor = Color.fromRGB(r: 245, g: 71, b: 28)
-
-    var gradientColors: [Color] {
-        switch timerState {
-        case .running:
-            return [.white, playBackgroundColor]
-        case .paused:
-            return [.white, pauseBackgroundColor]
-        case .overtime:
-            return [.white, overtimeBackgroundColor]
-        }
+    var inProgressTask: TaskList? {
+        routineItem.taskList.first { !$0.isCompleted }
     }
     
-    // 퍼즐 모양 배경색
-    var puzzleTimerColor: Color {
-        switch timerState {
-        case .overtime:
-            return overtimePuzzleTimerColor
-        case .running:
-            return Color.themeColor
-        case .paused:
-            return pausePuzzleTimerColor
-        }
-    }
-    
-    var timeTextColor: Color {
-        timerState == .overtime ? overtimeTextColor : (timerState == .running ? .accent : .white)
-    }
-    
-    var inProgressTask: DummyTask? {
-        tasks.first { $0.taskStatus == .inProgress }
-    }
-    
-    var nextPendingTask: DummyTask? {
-        tasks
-            .drop(while: { $0.taskStatus != .inProgress })
+    var nextPendingTask: TaskList? {
+        routineItem.taskList
+            .drop(while: { $0.isCompleted })
             .dropFirst()
-            .first(where: { $0.taskStatus == .pending })
+            .first(where: { !$0.isCompleted })
     }
     
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     
-    init() {
-        timeRemaining = inProgressTask?.timer ?? 0
+    init(routineItem: RoutineItem) {
+        self.routineItem = routineItem
+        self.timeRemaining = routineItem.taskList.first?.timer ?? 0
     }
-    
     // 타이머 시작
     func startTimer() {
         timer?.invalidate()
         guard timerState == .running || timerState == .overtime else { return }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
             self.timeRemaining -= 1
             if self.timeRemaining < 0 {
                 self.timerState = .overtime
@@ -93,37 +50,52 @@ class RoutineStartViewModel {
     func toggleTimer() {
         if timerState == .running || timerState == .overtime {
             timerState = .paused
+            timer?.invalidate()
         } else {
             timerState = timeRemaining >= 0 ? .running : .overtime
+            startTimer()
         }
-        startTimer()
     }
     
     // 완료 버튼 로직(inProgress 상태에서 completed로 변경)
     func markTaskAsCompleted() {
-        guard let inProgressIndex = tasks.firstIndex(where: { $0.taskStatus == .inProgress }) else { return }
+        guard let currentIndex = routineItem.taskList.firstIndex(where: { !$0.isCompleted }) else {
+            isRoutineCompleted = true
+            timer?.invalidate()
+            return
+        }
         
-        tasks[inProgressIndex].taskStatus = .completed
+        routineItem.taskList[currentIndex].isCompleted = true
         
-        if let nextPendingIndex = tasks[inProgressIndex...].firstIndex(where: { $0.taskStatus == .pending }) {
-            tasks[nextPendingIndex].taskStatus = .inProgress
-            timeRemaining = tasks[nextPendingIndex].timer ?? 0
+        if let nextTask = routineItem.taskList.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
+            timeRemaining = nextTask.timer
         } else {
             isRoutineCompleted = true
+            timer?.invalidate()
         }
     }
     
     // 스킵 버튼 로직(inProgress 상태에서 pending으로 변경)
     func skipTask() {
-        guard let inProgressIndex = tasks.firstIndex(where: { $0.taskStatus == .inProgress }) else { return }
-        
-        tasks[inProgressIndex].taskStatus = .pending
-        
-        if let nextPendingIndex = tasks[(inProgressIndex + 1)...].firstIndex(where: { $0.taskStatus == .pending }) {
-            tasks[nextPendingIndex].taskStatus = .inProgress
-            timeRemaining = tasks[nextPendingIndex].timer ?? 0
+        guard let currentIndex = routineItem.taskList.firstIndex(where: { !$0.isCompleted }) else {
+            isRoutineCompleted = true
+            timer?.invalidate()
+            return
+        }
+                
+        if let nextTask = routineItem.taskList.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
+            timeRemaining = nextTask.timer
         } else {
             isRoutineCompleted = true
+            timer?.invalidate()
+        }
+    }
+    
+    func resetTask() {
+        if routineItem.taskList.filter({!$0.isCompleted}).isEmpty && !routineItem.taskList.isEmpty { // 모든일이 완료되었다면 초기화 시켜준다.
+            for task in routineItem.taskList {
+                task.isCompleted = false
+            }
         }
     }
 }

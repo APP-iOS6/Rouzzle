@@ -37,7 +37,7 @@ struct ComponentView: View {
                 
                 DashedVerticalLine()
                 
-                RecommendTask(isPlus: false)
+                RecommendTask(isPlus: false) {}
                 
                 FloatingButton(action: {})
             }
