@@ -11,8 +11,8 @@ import SwiftData
 struct RoutineListView: View {
     @Query private var routines: [RoutineItem]
     @Environment(\.modelContext) private var modelContext
-
     @State var isShowingAddRoutineSheet: Bool = false
+//    @State var dataChanged: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -61,7 +61,7 @@ struct RoutineListView: View {
                     
                     ForEach(routines) { routine in
                         NavigationLink {
-                            AddTaskView(routineItem: routine)
+                            AddTaskView(store: RoutineStore(routineItem: routine))
                         } label: {
                             RoutineStatusPuzzle(routineItem: routine)
                                 .padding(.horizontal)

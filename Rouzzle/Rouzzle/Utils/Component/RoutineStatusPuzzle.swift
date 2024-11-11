@@ -26,7 +26,13 @@ struct RoutineStatusPuzzle: View {
     
     @Bindable var routineItem: RoutineItem
     @Environment(\.modelContext) private var modelContext
-    
+    var todayStartTime: String {
+        let today = Date()
+        let calendar = Calendar.current
+        let weekdayNumber = calendar.component(.weekday, from: today)
+        let value = routineItem.dayStartTime[weekdayNumber] ?? routineItem.dayStartTime.first?.value ?? ""
+        return value.to12HourPeriod() + " " +  value.to12HourFormattedTime()
+    }
     var status: RoutineStatus {
         return ((routineItem.taskList.filter {$0.isCompleted}.count == routineItem.taskList.count) && !routineItem.taskList.isEmpty) ? .completed : .pending
     }
@@ -76,8 +82,7 @@ struct RoutineStatusPuzzle: View {
                 VStack(alignment: .trailing, spacing: 5) {
                     HStack(spacing: 5) {
                         Image(systemName: isAlram ? "bell" : "bell.slash")
-                        Text(routineItem.dayStartTime[1, default: ""].to12HourFormattedTime())
-                        Text(routineItem.dayStartTime[1, default: ""].to12HourPeriod())
+                        Text(todayStartTime)
                     }
                     .font(.regular16)
                     Text(convertDaysToStirng(days: routineItem.dayStartTime.keys.sorted()))

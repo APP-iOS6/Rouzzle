@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct RoutineCompleteView: View {
-
+    @Environment(\.dismiss) private var dismiss
+    var routineItem: RoutineItem
+    var tasks: [TaskList] {
+        routineItem.taskList
+    }
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("☀️")
+                Text("\(routineItem.emoji)")
                     .font(.bold30)
                 
-                Text("아침 루틴")
+                Text("\(routineItem.title)")
                     .font(.bold24)
             }
             .padding(.top, 60)
@@ -58,19 +62,19 @@ struct RoutineCompleteView: View {
             
             ScrollView {
                 VStack(spacing: 18) {
-                    ForEach(DummyTask.tasks) { task in
+                    ForEach(tasks) { task in
                         HStack(spacing: 20) {
-                            Text(task.emoji)
+                            Text("\(task.emoji)")
                                 .font(.bold30)
                             
                             Text(task.title)
                                 .font(.semibold16)
-                                .strikethrough(task.taskStatus == .completed)
+                                .strikethrough()
                             
                             Spacer()
                             
-                            Text(task.timer == nil ? "없음" :
-                                (task.timer! < 60 ? "\(task.timer!)초" : "\(task.timer! / 60)분"))
+                            Text(task.timer == 0 ? "없음" :
+                                (task.timer < 60 ? "\(task.timer)초" : "\(task.timer / 60)분"))
                                 .font(.regular14)
                                 .foregroundStyle(Color.subHeadlineFontColor)
                         }
@@ -81,7 +85,7 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
-                
+                dismiss()
             }
             .padding(.bottom)
         }
@@ -90,5 +94,5 @@ struct RoutineCompleteView: View {
 }
 
 #Preview {
-    RoutineCompleteView()
+    RoutineCompleteView(routineItem: RoutineItem.sampleData[0])
 }

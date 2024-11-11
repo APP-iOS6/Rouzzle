@@ -44,6 +44,10 @@ extension Font {
     static var bold16: Font {
         return Font.custom("Pretendard-Bold", size: 16)
     }
+    
+    static var bold14: Font {
+        return Font.custom("Pretendard-Bold", size: 14)
+    }
 
     /// SemiBold Fonts
     static var semibold24: Font {
@@ -126,5 +130,9 @@ extension Font {
     
     static var light14: Font {
         return Font.custom("Pretendard-Light", fixedSize: 14)
+    }
+    
+    static var light16: Font {
+        return Font.custom("Pretendard-Light", fixedSize: 16)
     }
 }
