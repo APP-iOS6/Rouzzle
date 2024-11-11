@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct TaskListSheet: View {
-    @Binding var tasks: [TaskList] 
+    @Binding var tasks: [TaskList]
     @Binding var detents: Set<PresentationDetent>
     @State private var draggedItem: TaskList?
     @State private var showEditIcon = false
+    var inProgressTask: TaskList?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -47,7 +48,8 @@ struct TaskListSheet: View {
                         } else {
                             // 순서 수정 버튼 안 눌렀을 때
                             TaskStatusRow(
-                                taskStatus: task.isCompleted ? .completed : .pending,
+                                taskStatus: task.id == inProgressTask?.id ? .inProgress :
+                                    (task.isCompleted ? .completed : .pending),
                                 emojiText: task.emoji,
                                 title: task.title,
                                 showEditIcon: $showEditIcon,
