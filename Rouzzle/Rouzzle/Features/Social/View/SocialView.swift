@@ -10,51 +10,59 @@ import SwiftUI
 struct SocialView: View {
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
+    // 임시
+    private let favoriteUsers = ["기바오", "김정언", "찐따영", "현정카이저", "노원뱅갈"]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 40) {
-            SearchBarView(text: $query)
-                .animation(.easeInOut, value: query)
-            
-            VStack(alignment: .leading) {
-                Text("즐겨찾기")
-                    .font(.semibold18)
+        NavigationView {
+            VStack(alignment: .leading, spacing: 40) {
+                SearchBarView(text: $query)
+                    .animation(.easeInOut, value: query)
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 15) {
-                        ForEach(0..<4) { _ in
-                            VStack {
-                                Image(systemName: "person.crop.circle.fill")
-                                    .resizable()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(Circle())
-                                Text("닉네임")
-                                    .font(.regular12)
+                VStack(alignment: .leading) {
+                    Text("즐겨찾기")
+                        .font(.semibold18)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(favoriteUsers, id: \.self) { userNickname in
+                                NavigationLink(destination: SocialMarkDetailView(userNickname: userNickname)) {
+                                    VStack {
+                                        Image(systemName: "person.crop.circle.fill")
+                                            .resizable()
+                                            .foregroundColor(.gray)
+                                            .frame(width: 60, height: 60)
+                                            .clipShape(Circle())
+                                        Text(userNickname)
+                                            .font(.regular12)
+                                            .foregroundColor(.black)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                VStack(alignment: .leading) {
+                    Text("루즐러 둘러보기")
+                        .font(.semibold18)
+                    
+                    // 사용자 랜덤으로 보여주기
+                    ScrollView {
+                        VStack(spacing: 15) {
+                            ForEach(0..<3) { index in
+                                RoutineCardView(isExpanded: expandedRoutineIndex == index, onToggleExpand: {
+                                    withAnimation {
+                                        expandedRoutineIndex = (expandedRoutineIndex == index) ? nil : index
+                                    }
+                                }, tasks: DummyTask.tasks)
                             }
                         }
                     }
                 }
             }
-            
-            VStack(alignment: .leading) {
-                Text("루즐러 둘러보기")
-                    .font(.semibold18)
-                
-                ScrollView {
-                    VStack(spacing: 15) {
-                        ForEach(0..<3) { index in
-                            RoutineCardView(isExpanded: expandedRoutineIndex == index, onToggleExpand: {
-                                withAnimation {
-                                    expandedRoutineIndex = (expandedRoutineIndex == index) ? nil : index
-                                }
-                            }, tasks: DummyTask.tasks)
-                        }
-                    }
-                }
-            }
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -125,7 +133,7 @@ struct RoutineCardView: View {
             .padding(.top, 3)
             
             if isExpanded {
-//                Divider()
+                //                Divider()
                 RoutineTasksView(tasks: tasks)
             }
         }
@@ -149,12 +157,12 @@ struct RoutineTasksView: View {
                 HStack(spacing: 2) {
                     Text(task.emoji)
                     Text(task.title)
-                        .font(.regular14)
+                        .font(.regular12)
                         .padding(.leading, 4)
                     Spacer()
                     if let timer = task.timer {
                         Text("\(timer)분")
-                            .font(.regular14)
+                            .font(.regular12)
                             .foregroundColor(.gray)
                     }
                 }
