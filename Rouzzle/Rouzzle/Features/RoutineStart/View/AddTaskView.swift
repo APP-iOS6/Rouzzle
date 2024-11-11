@@ -107,7 +107,7 @@ struct AddTaskView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 50)
-                .customNavigationBar(title: "☀️ 아침 루틴")
+                .customNavigationBar(title: "\(routineItem.emoji) \(routineItem.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
