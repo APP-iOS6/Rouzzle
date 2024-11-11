@@ -39,7 +39,7 @@ struct RecommendDetailView: View {
                     .padding(.horizontal)
                 
                 Text(card.fullText)
-                    .font(.light14)
+                    .font(.light16)
                     .foregroundColor(.descriptioncolor)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)

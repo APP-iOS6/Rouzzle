@@ -110,4 +110,8 @@ extension Font {
     static var light14: Font {
         return Font.custom("Pretendard-Light", fixedSize: 14)
     }
+    
+    static var light16: Font {
+        return Font.custom("Pretendard-Light", fixedSize: 16)
+    }
 }
