@@ -20,4 +20,9 @@ extension Color {
     static var themeColor: Color {
         return .fromRGB(r: 193, g: 235, b: 96)
     }
+    
+    /// F9F9F9
+    static var backgroundLightGray: Color {
+        return .fromRGB(r: 249, g: 249, b: 249)
+    }
 }

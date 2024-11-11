@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MyPageView: View {
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
-    private let backgroundLightGray = Color.fromRGB(r: 249, g: 249, b: 249) // F9F9F9
     @Environment(AuthStore.self) private var authStore
     @State var isShowingLogoutAlert: Bool = false
     @State var isShowingDeleteAccountAlert: Bool = false
@@ -72,7 +71,7 @@ struct MyPageView: View {
                     
                     // MARK: PASS, SHOP, 배지 부분
                     ZStack(alignment: .top) {
-                        backgroundLightGray
+                        Color.backgroundLightGray
                             .padding(.horizontal, -16)
                         
                         VStack(alignment: .leading) {
@@ -161,10 +160,10 @@ struct MyPageView: View {
                     }
                     
                     NavigationLink {
-                        
+                        FAQView()
                     } label: {
                         HStack {
-                            Text("Q&A")
+                            Text("FAQ")
                                 .font(.semibold16)
                                 .foregroundStyle(.black)
                             
