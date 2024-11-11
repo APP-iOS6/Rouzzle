@@ -8,20 +8,28 @@
 import Foundation
 import Factory
 import Observation
+import SwiftData
 
 @Observable
 class RoutineStore {
     var routineItem: RoutineItem
     
-    
     init(routineItem: RoutineItem) {
+        print(routineItem.title)
         self.routineItem = routineItem
     }
     
+    func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) {
+        do {
+            try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
+        } catch {
+            print("할일 추가 실패")
+        }
+    }
     
     func getRecommendTask() {
         guard let firstTime = routineItem.dayStartTime.first?.value, let time = firstTime.toDate() else {
-           return
+            return
         }
         
         switch time.getTimeCategory() {
@@ -36,4 +44,7 @@ class RoutineStore {
         }
     }
     
+    deinit {
+        print("RoutineStore 해제")
+    }
 }
