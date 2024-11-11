@@ -83,6 +83,7 @@ struct MyPageView: View {
                                 } label: {
                                     VStack {
                                         Image(.pass)
+                                            .frame(width: 48, height: 48)
                                         
                                         Text("PASS")
                                             .font(.regular14)
@@ -98,6 +99,7 @@ struct MyPageView: View {
                                 } label: {
                                     VStack {
                                         Image(.shop)
+                                            .frame(width: 48, height: 48)
                                         
                                         Text("SHOP")
                                             .font(.regular14)
