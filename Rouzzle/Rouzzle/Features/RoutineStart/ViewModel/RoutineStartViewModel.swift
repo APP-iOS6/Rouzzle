@@ -13,52 +13,48 @@ enum TimerState {
     case running
     case paused
     case overtime
+    
+    var gradientColors: [Color] {
+        switch self {
+        case .running:
+            return [.white, Color(.playBackground)]
+        case .paused:
+            return [.white, Color(.pauseBackground)]
+        case .overtime:
+            return [.white, Color(.overtimeBackground)]
+        }
+    }
+    
+    var puzzleTimerColor: Color {
+        switch self {
+        case .overtime:
+            return Color(.overtimePuzzleTimer)
+        case .running:
+            return Color.themeColor
+        case .paused:
+            return Color(.pausePuzzleTimer)
+        }
+    }
+    
+    var timeTextColor: Color {
+        switch self {
+        case .overtime:
+            return Color(.overtimePuzzleTimer)
+        case .running:
+            return .accent
+        case .paused:
+            return .white
+        }
+    }
+    
 }
 
 @Observable
 class RoutineStartViewModel {
     var timerState: TimerState = .running
     private var timer: Timer?
-    
     var timeRemaining: Int = 0
-    
     var tasks = DummyTask.tasks
-    
-    private let playBackgroundColor = Color.fromRGB(r: 252, g: 255, b: 240)
-    private let pauseBackgroundColor = Color.fromRGB(r: 230, g: 235, b: 212)
-    private let overtimeBackgroundColor = Color.fromRGB(r: 255, g: 242, b: 226)
-    
-    private let pausePuzzleTimerColor = Color.fromRGB(r: 191, g: 207, b: 154)
-    private let overtimePuzzleTimerColor = Color.fromRGB(r: 255, g: 211, b: 172)
-    
-    let overtimeTextColor = Color.fromRGB(r: 245, g: 71, b: 28)
-
-    var gradientColors: [Color] {
-        switch timerState {
-        case .running:
-            return [.white, playBackgroundColor]
-        case .paused:
-            return [.white, pauseBackgroundColor]
-        case .overtime:
-            return [.white, overtimeBackgroundColor]
-        }
-    }
-    
-    // 퍼즐 모양 배경색
-    var puzzleTimerColor: Color {
-        switch timerState {
-        case .overtime:
-            return overtimePuzzleTimerColor
-        case .running:
-            return Color.themeColor
-        case .paused:
-            return pausePuzzleTimerColor
-        }
-    }
-    
-    var timeTextColor: Color {
-        timerState == .overtime ? overtimeTextColor : (timerState == .running ? .accent : .white)
-    }
     
     var inProgressTask: DummyTask? {
         tasks.first { $0.taskStatus == .inProgress }

@@ -18,7 +18,7 @@ struct RoutineStartView: View {
         ZStack(alignment: .top) {
             // MARK: 그라데이션 배경
             LinearGradient(
-                colors: viewModel.gradientColors,
+                colors: viewModel.timerState.gradientColors,
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -47,7 +47,7 @@ struct RoutineStartView: View {
                     Image(.puzzleTimer)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(viewModel.puzzleTimerColor)
+                        .foregroundStyle(viewModel.timerState.puzzleTimerColor)
                     
                     VStack(spacing: 0) {
                         if (viewModel.inProgressTask?.timer) != nil {
@@ -58,7 +58,7 @@ struct RoutineStartView: View {
                             } else {
                                 Text("+\(abs(viewModel.timeRemaining).toTimeString())")
                                     .font(.bold66)
-                                    .foregroundStyle(viewModel.timerState == .paused ? .white : viewModel.overtimeTextColor)
+                                    .foregroundStyle(viewModel.timerState == .paused ? .white : Color(.overtimeText))
                             }
                         } else {
                             Text("Check!")
@@ -69,7 +69,7 @@ struct RoutineStartView: View {
                         if let timerValue = viewModel.inProgressTask?.timer {
                             Text(viewModel.timeRemaining >= 60 ? "\(timerValue / 60)분" : "\(timerValue)초")
                                 .font(.regular18)
-                                .foregroundStyle(viewModel.timeTextColor)
+                                .foregroundStyle(viewModel.timerState.timeTextColor)
                         } else {
                             Text("")
                         }
