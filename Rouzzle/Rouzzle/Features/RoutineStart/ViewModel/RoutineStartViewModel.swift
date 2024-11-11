@@ -82,14 +82,20 @@ class RoutineStartViewModel {
             timer?.invalidate()
             return
         }
-        
-        // 현재 작업은 완료로 표시하지 않음
-        
+                
         if let nextTask = routineItem.taskList.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
             timeRemaining = nextTask.timer
         } else {
             isRoutineCompleted = true
             timer?.invalidate()
+        }
+    }
+    
+    func resetTask() {
+        if routineItem.taskList.filter({!$0.isCompleted}).isEmpty && !routineItem.taskList.isEmpty { // 모든일이 완료되었다면 초기화 시켜준다.
+            for task in routineItem.taskList {
+                task.isCompleted = false
+            }
         }
     }
 }

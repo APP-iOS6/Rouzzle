@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct TaskListSheet: View {
-    @State private var tasks = DummyTask.tasks
-    @State private var draggedItem: DummyTask?
-    
+    @Binding var tasks: [TaskList] 
     @Binding var detents: Set<PresentationDetent>
+    @State private var draggedItem: TaskList?
     @State private var showEditIcon = false
     @Environment(\.dismiss) private var dismiss
     
@@ -26,24 +25,34 @@ struct TaskListSheet: View {
                     ForEach(tasks) { task in
                         if showEditIcon {
                             // 순서 수정 버튼 눌렀을 때
-                            TaskStatusRow(taskStatus: task.taskStatus,
-                                          emojiText: task.emoji,
-                                          title: task.title,
-                                          showEditIcon: $showEditIcon,
-                                          showDeleteIcon: .constant(false))
+                            TaskStatusRow(
+                                taskStatus: task.isCompleted ? .completed : .pending,
+                                emojiText: task.emoji,
+                                title: task.title,
+                                showEditIcon: $showEditIcon,
+                                showDeleteIcon: .constant(false)
+                            )
                             .onDrag {
                                 self.draggedItem = task
                                 return NSItemProvider()
                             }
-                            .onDrop(of: [.text],
-                                    delegate: DropViewDelegate(item: task, items: $tasks, draggedItem: $draggedItem))
+                            .onDrop(
+                                of: [.text],
+                                delegate: DropViewDelegate(
+                                    item: task,
+                                    items: $tasks,
+                                    draggedItem: $draggedItem
+                                )
+                            )
                         } else {
                             // 순서 수정 버튼 안 눌렀을 때
-                            TaskStatusRow(taskStatus: task.taskStatus,
-                                          emojiText: task.emoji,
-                                          title: task.title,
-                                          showEditIcon: $showEditIcon,
-                                          showDeleteIcon: .constant(false))
+                            TaskStatusRow(
+                                taskStatus: task.isCompleted ? .completed : .pending,
+                                emojiText: task.emoji,
+                                title: task.title,
+                                showEditIcon: $showEditIcon,
+                                showDeleteIcon: .constant(false)
+                            )
                         }
                     }
                 }
@@ -85,9 +94,9 @@ struct TaskListSheet: View {
 }
 
 struct DropViewDelegate: DropDelegate {
-    let item: DummyTask
-    @Binding var items: [DummyTask]
-    @Binding var draggedItem: DummyTask?
+    let item: TaskList
+    @Binding var items: [TaskList]
+    @Binding var draggedItem: TaskList?
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         DropProposal(operation: .move)
@@ -101,15 +110,14 @@ struct DropViewDelegate: DropDelegate {
     func dropEntered(info: DropInfo) {
         guard let draggedItem,
               draggedItem.id != item.id,
-              let toIndex = items.firstIndex(where: { $0.id == item.id }),
-              let fromIndex = items.firstIndex(where: { $0.id == draggedItem.id }) else { return }
+              let fromIndex = items.firstIndex(where: { $0.id == draggedItem.id }),
+              let toIndex = items.firstIndex(where: { $0.id == item.id }) else { return }
         
         withAnimation {
             items.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
         }
     }
 }
-
-#Preview {
-    TaskListSheet(detents: .constant([.fraction(0.12)]))
-}
+//#Preview {
+//    TaskListSheet(detents: .constant([.fraction(0.12)]))
+//}
