@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct RecommendCategoryView: View {
-    @Binding var selectedCategory: String
+    @Binding var selectedCategory: RecommendViewModel.Category
     
-    let categories = [
-        "유명인", "아침", "저녁", "건강", "반려동물", "생산성", "휴식"
-    ]
+    let categories = RecommendViewModel.Category.allCases
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 12) {
                 ForEach(categories, id: \.self) { category in
-                    Text(category)
+                    Text(category.rawValue)
                         .font(.semibold16)
                         .foregroundStyle(
                             selectedCategory == category ? .white : .graymedium
@@ -42,5 +40,5 @@ struct RecommendCategoryView: View {
 }
 
 #Preview {
-    RecommendCategoryView(selectedCategory: .constant("유명인"))
+    RecommendCategoryView(selectedCategory: .constant(.celebrity))
 }

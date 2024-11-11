@@ -9,27 +9,49 @@ import Foundation
 
 @Observable
 final class RecommendViewModel {
-    var selectedCategory: String = "유명인" {
-        didSet { updateCards() }
+    enum Category: String, CaseIterable {
+        case celebrity = "유명인"
+        case morning = "아침"
+        case evening = "저녁"
+        case health = "건강"
+        case pet = "반려동물"
+        case productivity = "생산성"
+        case rest = "휴식"
     }
-
-    private let allCards: [String: [Card]] = [
-        "유명인": DummyCardData.celebrityCards,
-        "아침": DummyCardData.morningCards,
-        "저녁": DummyCardData.eveningCards,
-        "건강": DummyCardData.healthCards,
-        "반려동물": DummyCardData.petCards,
-        "생산성": DummyCardData.productivityCards,
-        "휴식": DummyCardData.restCards
-    ]
-
+    
+    var selectedCategory: Category = .celebrity
     var filteredCards: [Card] = []
-
+    
+    private let allCards: [Category: [Card]] = [
+        .celebrity: DummyCardData.celebrityCards,
+        .morning: DummyCardData.morningCards,
+        .evening: DummyCardData.eveningCards,
+        .health: DummyCardData.healthCards,
+        .pet: DummyCardData.petCards,
+        .productivity: DummyCardData.productivityCards,
+        .rest: DummyCardData.restCards
+    ]
+    
     init() {
         updateCards()
     }
-
+    
+    func updateCategory(_ category: Category) {
+        selectedCategory = category
+        updateCards()
+    }
+    
     private func updateCards() {
         filteredCards = allCards[selectedCategory] ?? []
+    }
+}
+
+@Observable
+final class DetailViewModel {
+    var selectedTasks: Set<String> = []
+    
+    func saveSelectedTasks() {
+        // TODO: 저장 로직 구현
+        print("선택된 작업 저장: \(selectedTasks)")
     }
 }

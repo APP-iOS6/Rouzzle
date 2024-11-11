@@ -13,6 +13,10 @@ struct RecommendDetailView: View {
     let onTap: () -> Void
     @State private var selectedTasks: Set<String> = []
     
+    private var isSaveEnabled: Bool {
+        !selectedTasks.isEmpty
+    }
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)

@@ -7,12 +7,16 @@
 
 import Foundation
 
-struct Card: Identifiable {
+struct Card: Identifiable, Equatable {
     let id = UUID()
     let title: String
     let imageName: String
     let fullText: String
     let routines: [RoutineTask]
+    
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 // MARK: - 더미 데이터
