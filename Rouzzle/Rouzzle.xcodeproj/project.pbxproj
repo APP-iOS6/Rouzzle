@@ -35,6 +35,7 @@
 		97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */; };
 		97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
 		974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596D22CE1C892004C346B /* ProfileEditView.swift */; };
+		974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596D62CE1D61A004C346B /* CustomAlert.swift */; };
 		9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9791BB812CDDCB00007BD566 /* FloatingButton.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
@@ -145,6 +146,7 @@
 		9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSettingsSheet.swift; sourceTree = "<group>"; };
 		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		974596D22CE1C892004C346B /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		974596D62CE1D61A004C346B /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		9791BB812CDDCB00007BD566 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */,
 				BD1546652CD9D70D0098AD7B /* EmojiView.swift */,
 				9791BB812CDDCB00007BD566 /* FloatingButton.swift */,
+				974596D62CE1D61A004C346B /* CustomAlert.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -862,6 +865,7 @@
 				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */,
+				974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */,
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,

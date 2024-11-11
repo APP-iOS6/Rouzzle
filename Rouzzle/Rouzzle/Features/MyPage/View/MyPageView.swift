@@ -10,6 +10,9 @@ import SwiftUI
 struct MyPageView: View {
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
     private let backgroundLightGray = Color.fromRGB(r: 249, g: 249, b: 249) // F9F9F9
+    @Environment(AuthStore.self) private var authStore
+    @State var isShowingLogoutAlert: Bool = false
+    @State var isShowingDeleteAccountAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -173,7 +176,7 @@ struct MyPageView: View {
                     }
                     
                     Button {
-                        
+                        isShowingLogoutAlert.toggle()
                     } label: {
                         HStack {
                             Text("로그아웃")
@@ -184,7 +187,7 @@ struct MyPageView: View {
                     }
                     
                     Button {
-                        
+                        isShowingDeleteAccountAlert.toggle()
                     } label: {
                         HStack {
                             Text("계정탈퇴")
@@ -196,6 +199,16 @@ struct MyPageView: View {
                 }
                 .padding(.horizontal)
             }
+            .customAlert(isPresented: $isShowingLogoutAlert,
+                         title: "로그아웃하시겠어요?",
+                         message: "",
+                         primaryButtonTitle: "로그아웃",
+                         primaryAction: { authStore.logOut() })
+            .customAlert(isPresented: $isShowingDeleteAccountAlert,
+                         title: "정말 탈퇴하시겠어요?",
+                         message: "탈퇴 버튼 선택 시, 계정은\n삭제되며 복구되지 않습니다.",
+                         primaryButtonTitle: "탈퇴",
+                         primaryAction: {})
         }
     }
 }
@@ -203,5 +216,6 @@ struct MyPageView: View {
 #Preview {
     NavigationStack {
         MyPageView()
+            .environment(AuthStore())
     }
 }
