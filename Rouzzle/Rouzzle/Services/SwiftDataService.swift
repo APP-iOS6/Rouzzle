@@ -31,6 +31,7 @@ enum SwiftDataService {
     // 할 일 관련 메서드
     static func addTask(to routineItem: RoutineItem, _ task: TaskList, context: ModelContext) throws {
         task.routineItem = routineItem
+        routineItem.taskList.append(task)
         context.insert(task)
         do {
             try context.save()
