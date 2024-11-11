@@ -15,7 +15,7 @@ extension Date {
         return formatter.string(from: self)
     }
     
-    //Date객채를 시간에 따라 아심, 점심, 저녁, 새벽으로 나누는 함수
+    // Date객채를 시간에 따라 아심, 점심, 저녁, 새벽으로 나누는 함수
     func getTimeCategory() -> TimeCategory {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: self)
