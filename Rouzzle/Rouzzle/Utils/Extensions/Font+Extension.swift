@@ -62,6 +62,10 @@ extension Font {
         return Font.custom("Pretendard-SemiBold", size: 16)
     }
     
+    static var semibold14: Font {
+        return Font.custom("Pretendard-SemiBold", size: 14)
+    }
+    
     static var semibold12: Font {
         return Font.custom("Pretendard-SemiBold", size: 12)
     }
@@ -70,6 +74,19 @@ extension Font {
         return Font.custom("Pretendard-SemiBold", size: 8)
     }
 
+    /// Medium Fonts
+    static var medium16: Font {
+        return Font.custom("Pretendard-Medium", size: 16)
+    }
+    
+    static var medium14: Font {
+        return Font.custom("Pretendard-Medium", size: 14)
+    }
+    
+    static var medium12: Font {
+        return Font.custom("Pretendard-Medium", size: 12)
+    }
+    
     /// Regular Fonts
     static var regular24: Font {
         return Font.custom("Pretendard-Regular", size: 24)
