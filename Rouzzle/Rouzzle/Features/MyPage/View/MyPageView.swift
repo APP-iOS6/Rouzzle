@@ -12,6 +12,7 @@ struct MyPageView: View {
     @Environment(AuthStore.self) private var authStore
     @State var isShowingLogoutAlert: Bool = false
     @State var isShowingDeleteAccountAlert: Bool = false
+    @State private var isShowingPassView: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -22,6 +23,7 @@ struct MyPageView: View {
                         .frame(maxWidth: .infinity, minHeight: 56, alignment: .leading)
                         .padding(.bottom, 10)
                     
+                    // MARK: 프사, 닉, 편집 버튼, 자기소개 부분
                     HStack(alignment: .top) {
                         Image(systemName: "person.fill")
                             .frame(width: 53, height: 53)
@@ -76,8 +78,8 @@ struct MyPageView: View {
                         
                         VStack(alignment: .leading) {
                             HStack(spacing: 70) {
-                                NavigationLink {
-                                    // 구독 페이지 이동
+                                Button {
+                                    isShowingPassView.toggle()
                                 } label: {
                                     VStack {
                                         Image(.pass)
@@ -129,6 +131,7 @@ struct MyPageView: View {
                         }
                     }
                     
+                    // MARK: 네비게이션 리스트 및 로그아웃, 계정탈퇴 부분
                     NavigationLink {
                         
                     } label: {
@@ -208,6 +211,9 @@ struct MyPageView: View {
                          message: "탈퇴 버튼 선택 시, 계정은\n삭제되며 복구되지 않습니다.",
                          primaryButtonTitle: "탈퇴",
                          primaryAction: {})
+            .fullScreenCover(isPresented: $isShowingPassView) {
+                PassView()
+            }
         }
     }
 }
