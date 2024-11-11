@@ -30,7 +30,7 @@ struct SocialView: View {
                                     .frame(width: 60, height: 60)
                                     .clipShape(Circle())
                                 Text("닉네임")
-                                    .font(.regular14)
+                                    .font(.regular12)
                             }
                         }
                     }
@@ -48,7 +48,7 @@ struct SocialView: View {
                                 withAnimation {
                                     expandedRoutineIndex = (expandedRoutineIndex == index) ? nil : index
                                 }
-                            })
+                            }, tasks: DummyTask.tasks)
                         }
                     }
                 }
@@ -62,6 +62,7 @@ struct RoutineCardView: View {
     var isExpanded: Bool
     var onToggleExpand: () -> Void
     @State private var isStarred: Bool = false
+    var tasks: [DummyTask]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -124,8 +125,8 @@ struct RoutineCardView: View {
             .padding(.top, 3)
             
             if isExpanded {
-                Divider()
-                RoutineTasksView()
+//                Divider()
+                RoutineTasksView(tasks: tasks)
             }
         }
         .padding()
@@ -136,20 +137,26 @@ struct RoutineCardView: View {
 
 // 더보기(루틴 할 일 리스트)
 struct RoutineTasksView: View {
+    var tasks: [DummyTask]
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 15) {
             Text("8:30 AM - 8:50 AM")
                 .font(.light12)
                 .foregroundColor(.gray)
             
-            ForEach(0..<4) { _ in
-                HStack {
-                    Text("할 일 제목")
+            ForEach(tasks) { task in
+                HStack(spacing: 2) {
+                    Text(task.emoji)
+                    Text(task.title)
                         .font(.regular14)
+                        .padding(.leading, 4)
                     Spacer()
-                    Text("1분")
-                        .font(.regular14)
-                        .foregroundColor(.gray)
+                    if let timer = task.timer {
+                        Text("\(timer)분")
+                            .font(.regular14)
+                            .foregroundColor(.gray)
+                    }
                 }
             }
         }
