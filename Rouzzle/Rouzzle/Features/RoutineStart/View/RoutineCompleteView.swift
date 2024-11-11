@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoutineCompleteView: View {
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(spacing: 0) {
@@ -81,7 +82,7 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
-                
+                dismiss()
             }
             .padding(.bottom)
         }

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct RoutineStartView: View {
-    @State private var viewModel: RoutineStartViewModel = RoutineStartViewModel()
+    @State var viewModel: RoutineStartViewModel
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.modelContext) private var modelContext
+
     @State var isShowingTaskListSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
     
@@ -115,10 +116,10 @@ struct RoutineStartView: View {
                 
                 if let nextTask = viewModel.nextPendingTask {
                     TaskStatusRow(
-                        taskStatus: nextTask.taskStatus,
+                        taskStatus: .pending,
                         emojiText: nextTask.emoji,
                         title: nextTask.title,
-                        timeInterval: nextTask.timer ?? nil,
+                        timeInterval: nextTask.timer,
                         showEditIcon: .constant(false),
                         showDeleteIcon: .constant(false)
                     )
@@ -152,6 +153,6 @@ struct RoutineStartView: View {
 }
 
 #Preview {
-    RoutineStartView()
-    
+    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: RoutineItem.sampleData[0]))
+            .modelContainer(SampleData.shared.modelContainer)
 }
