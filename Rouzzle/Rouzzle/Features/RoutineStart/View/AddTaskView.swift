@@ -117,8 +117,8 @@ struct AddTaskView: View {
                     RoutineStartView()
                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
-                    NewTaskSheet(detents: $detents) {
-                        // 할 일 추가 버튼 로직
+                    NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
+                        store.addTask(task, context: modelContext)
                     }
                     .presentationDetents(detents)
                 }
