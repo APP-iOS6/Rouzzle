@@ -161,7 +161,7 @@ struct RoutineTasksView: View {
                         .padding(.leading, 4)
                     Spacer()
                     if let timer = task.timer {
-                        Text("\(timer)분")
+                        Text("\(timer/60)분")
                             .font(.regular12)
                             .foregroundColor(.gray)
                     }
