@@ -19,6 +19,7 @@ enum SwiftDataService {
             throw SwiftDataServiceError.saveFailed(error)
         }
     }
+    
     static func deleteRoutine(routine: RoutineItem, context: ModelContext) throws {
         context.delete(routine)
         do {
@@ -31,6 +32,7 @@ enum SwiftDataService {
     // 할 일 관련 메서드
     static func addTask(to routineItem: RoutineItem, _ task: TaskList, context: ModelContext) throws {
         task.routineItem = routineItem
+        routineItem.taskList.append(task)
         context.insert(task)
         do {
             try context.save()
@@ -39,8 +41,16 @@ enum SwiftDataService {
         }
     }
 
-    static func deleteTask(task: TaskList, context: ModelContext) throws {
+    static func deleteTask(from routineItem: RoutineItem, task: TaskList, context: ModelContext) throws {
+        if let index = routineItem.taskList.firstIndex(where: { $0.id == task.id }) {
+            routineItem.taskList.remove(at: index)
+        }
         context.delete(task)
-        try context.save()
+        
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.deleteFailed(error)
+        }
     }
 }
