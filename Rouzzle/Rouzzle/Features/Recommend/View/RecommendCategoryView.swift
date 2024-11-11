@@ -21,7 +21,7 @@ struct RecommendCategoryView: View {
                     Text(category)
                         .font(.semibold16)
                         .foregroundStyle(
-                            selectedCategory == category ? .white : .deactivation
+                            selectedCategory == category ? .white : .graymedium
                         )
                         .padding(.horizontal)
                         .padding(.vertical, 10)
