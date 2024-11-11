@@ -47,7 +47,7 @@ struct SocialMarkDetailView: View {
                 }
                 Spacer()
             }
-            .padding(.top, 70)
+            .padding(.top, 40)
             
             VStack(alignment: .leading) {
                 Text("자기소개")
@@ -55,7 +55,7 @@ struct SocialMarkDetailView: View {
                     .foregroundColor(.black)
                 Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: 30, alignment: .topLeading)
+            .frame(maxWidth: .infinity, maxHeight: 40, alignment: .topLeading)
             
             ScrollView {
                 VStack(spacing: 16) {
@@ -85,9 +85,9 @@ struct RoutineDetailCardView2: View {
             
             Divider()
             
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 12) {
                 ForEach(DummyTask.tasks) { task in
-                    HStack {
+                    HStack(spacing: 2) {
                         Text(task.emoji)
                         Text(task.title)
                             .font(.regular12)
