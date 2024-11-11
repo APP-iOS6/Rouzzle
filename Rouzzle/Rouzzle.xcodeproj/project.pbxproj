@@ -16,6 +16,7 @@
 		23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */; };
 		23BC98D52CE1D56E009BE074 /* RecommendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D42CE1D56E009BE074 /* RecommendCard.swift */; };
 		23BC98D82CE1D65B009BE074 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */; };
+		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -132,6 +133,7 @@
 		23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardView.swift; sourceTree = "<group>"; };
 		23BC98D42CE1D56E009BE074 /* RecommendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCard.swift; sourceTree = "<group>"; };
 		23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
+		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				BD6301B32CDE3FD50000203C /* RoutineSDView.swift */,
 				23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */,
 				23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */,
+				23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -916,6 +919,7 @@
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
+				23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
