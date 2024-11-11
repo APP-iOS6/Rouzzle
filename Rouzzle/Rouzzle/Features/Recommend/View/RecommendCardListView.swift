@@ -17,16 +17,14 @@ struct RecommendCardListView: View {
             LazyVStack(spacing: 20) {
                 ForEach(cards) { card in
                     if selectedCardID == card.id {
-                        // 카드 확장 뷰
-//                        ExpandedCardView(card: card, animation: animationNamespace) {
-//                            selectedCardID = nil
-//                        }
+                        RecommendDetailView(card: card, animation: animationNamespace) {
+                            selectedCardID = nil
+                        }
                     } else {
-                        // 카드 축소 뷰
                         RecommendCardView(card: card, animation: animationNamespace) {
                             selectedCardID = card.id
                         }
-                        .padding(.horizontal, 16) // 양옆 패딩 추가
+                        .padding(.horizontal)
                     }
                 }
             }
