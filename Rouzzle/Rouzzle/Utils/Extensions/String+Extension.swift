@@ -14,7 +14,7 @@ extension String {
         
         // 유효한 "HH:mm" 형식인지 확인
         guard components.count == 2, components[0] >= 0, components[0] < 24, components[1] >= 0, components[1] < 60 else {
-            return "00:00"
+            return ""
         }
         
         let hour24 = components[0]
@@ -31,7 +31,7 @@ extension String {
         
         // 유효한 "HH:mm" 형식인지 확인
         guard components.count == 2, components[0] >= 0, components[0] < 24 else {
-            return "00:00"
+            return ""
         }
         
         let hour24 = components[0]

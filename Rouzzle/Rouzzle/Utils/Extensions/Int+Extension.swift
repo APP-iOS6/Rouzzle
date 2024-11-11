@@ -35,4 +35,13 @@ extension Int {
             return "일"
         }
     }
+    
+    var formattedTimer: String {
+        if self >= 60 {
+            let minutes = self / 60
+            return "\(minutes)분"
+        } else {
+            return "\(self)초"
+        }
+    }
 }

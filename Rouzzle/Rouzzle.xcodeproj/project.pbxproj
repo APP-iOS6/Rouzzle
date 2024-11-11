@@ -84,6 +84,7 @@
 		BDD719E02CD4A8AA00AE0977 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */; };
 		BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */; };
 		BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */; };
+		BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC31C2CE1C89400ED8A81 /* TimerState.swift */; };
 		FB2A5A672CD5F67000CB981A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A662CD5F67000CB981A /* Factory */; };
 		FB2A5A6A2CD5F69A00CB981A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A692CD5F69A00CB981A /* GoogleSignIn */; };
 		FB2A5A6C2CD5F69A00CB981A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A6B2CD5F69A00CB981A /* GoogleSignInSwift */; };
@@ -123,6 +124,7 @@
 		FB4174FC2CDDCABB0084BC19 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */; };
 		FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */; };
 		FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CC2CE088780038243D /* TimeCategory.swift */; };
+		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,6 +204,7 @@
 		BDD719DC2CD4A8AA00AE0977 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDD719DE2CD4A8AA00AE0977 /* RouzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleApp.swift; sourceTree = "<group>"; };
 		BDD719E52CD4A8E100AE0977 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		BDFBC31C2CE1C89400ED8A81 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
 		FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		FB2A5A912CD7A31200CB981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -233,6 +236,7 @@
 		FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
 		FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		FBDC52CC2CE088780038243D /* TimeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCategory.swift; sourceTree = "<group>"; };
+		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */,
+				BDFBC31C2CE1C89400ED8A81 /* TimerState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -735,6 +740,7 @@
 		FBDC52CE2CE0A1190038243D /* Dummy */ = {
 			isa = PBXGroup;
 			children = (
+				FBDC52CF2CE1BA500038243D /* DummyData.swift */,
 			);
 			path = Dummy;
 			sourceTree = "<group>";
@@ -911,6 +917,7 @@
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
+				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
@@ -949,6 +956,7 @@
 				FB2A5A942CD7B23600CB981A /* SignUpButtonModifier.swift in Sources */,
 				FB2A5A902CD7A2C400CB981A /* AuthError.swift in Sources */,
 				9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */,
+				FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */,
 				BD1545CD2CD93AA00098AD7B /* NavigationBackButtonModifier.swift in Sources */,
 				BD1546592CD9AA630098AD7B /* RecommendView.swift in Sources */,
 				BDD719E22CD4A8AA00AE0977 /* RouzzleApp.swift in Sources */,

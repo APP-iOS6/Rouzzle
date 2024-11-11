@@ -20,7 +20,7 @@ struct AddTaskView: View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    Label("08:00 AM", systemImage: "clock")
+                    Label(store.todayStartTime, systemImage: "clock")
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
                         .padding(.top, 10)
@@ -47,7 +47,7 @@ struct AddTaskView: View {
                         
                         // 새로고침 버튼
                         Button {
-                            
+                            store.getRecommendTask()
                         } label: {
                             Image(systemName: "arrow.clockwise")
                                 .frame(width: 25, height: 25)
@@ -61,23 +61,17 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 30)
                     
+                    // 추천 리스트
                     VStack(spacing: 10) {
-                        TaskRecommendPuzzle { task in
-                            Task {
-                                await store.addTask(task, context: modelContext)
-                            }
-                        }
-                        TaskRecommendPuzzle { task in
-                            Task {
-                                await store.addTask(task, context: modelContext)
-                            }
-                        }
-                        TaskRecommendPuzzle { task in
-                            Task {
-                                await store.addTask(task, context: modelContext)
+                        ForEach(store.recommendTodoTask, id: \.self) { recommend in
+                            TaskRecommendPuzzle(recommendTask: recommend) {
+                                Task {
+                                    await store.addTask(recommend, context: modelContext)
+                                }
                             }
                         }
                     }
+                    .animation(.smooth, value: store.recommendTodoTask)
                     
                     HStack(alignment: .bottom) {
                         Text("추천 세트")
@@ -93,7 +87,13 @@ struct AddTaskView: View {
                     
                     HStack(spacing: 14) {
                         ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
-                            NavigationLink(destination: TimeBasedRecommendSetView(category: category)) {
+                            NavigationLink {
+                                TimeBasedRecommendSetView(category: category) { tasks in
+                                    Task {
+                                        await store.addTasks(tasks, context: modelContext)
+                                    }
+                                }
+                            } label: {
                                 Text(category.rawValue)
                                     .font(.semibold16)
                                     .foregroundStyle(.black)
@@ -103,6 +103,7 @@ struct AddTaskView: View {
                                             .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
                                     )
                             }
+
                         }
                     }
                     .padding(.top, 10)
@@ -120,7 +121,7 @@ struct AddTaskView: View {
                     }
                 }
                 .fullScreenCover(isPresented: $isShowingTimerView) {
-                    RoutineStartView()
+                    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: store.routineItem))
                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
@@ -139,6 +140,12 @@ struct AddTaskView: View {
             }
             .padding()
         }
+        .overlay {
+            if store.loadState == .loading {
+                ProgressView()
+            }
+        }
+        .animation(.smooth, value: store.taskList)
     }
     // Task를 추가하는 함수
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
