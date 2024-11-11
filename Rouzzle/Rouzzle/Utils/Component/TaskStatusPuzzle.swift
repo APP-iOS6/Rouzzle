@@ -29,6 +29,14 @@ struct RecommendTodoTask {
     let emoji: String
     let title: String
     let timer: Int // 분 단위
+    
+    func toTaskList() -> TaskList {
+        return TaskList(title: title, emoji: emoji, timer: timer)
+    }
+    
+    func toRoutineTask() -> RoutineTask {
+        return RoutineTask(title: title, emoji: emoji, timer: timer)
+    }
 }
 
 struct TaskStatusPuzzle: View {
