@@ -38,6 +38,8 @@
 		974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596D62CE1D61A004C346B /* CustomAlert.swift */; };
 		974596DB2CE1E721004C346B /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596DA2CE1E721004C346B /* FAQView.swift */; };
 		974596DD2CE1F6A6004C346B /* PassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596DC2CE1F6A6004C346B /* PassView.swift */; };
+		974596DF2CE28300004C346B /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596DE2CE28300004C346B /* ShopView.swift */; };
+		974596E12CE2978C004C346B /* PieceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596E02CE2978C004C346B /* PieceCounter.swift */; };
 		9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9791BB812CDDCB00007BD566 /* FloatingButton.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
@@ -151,6 +153,8 @@
 		974596D62CE1D61A004C346B /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		974596DA2CE1E721004C346B /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		974596DC2CE1F6A6004C346B /* PassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassView.swift; sourceTree = "<group>"; };
+		974596DE2CE28300004C346B /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
+		974596E02CE2978C004C346B /* PieceCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceCounter.swift; sourceTree = "<group>"; };
 		9791BB812CDDCB00007BD566 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -378,6 +382,7 @@
 				BD1546652CD9D70D0098AD7B /* EmojiView.swift */,
 				9791BB812CDDCB00007BD566 /* FloatingButton.swift */,
 				974596D62CE1D61A004C346B /* CustomAlert.swift */,
+				974596E02CE2978C004C346B /* PieceCounter.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -570,6 +575,7 @@
 				974596D22CE1C892004C346B /* ProfileEditView.swift */,
 				974596DA2CE1E721004C346B /* FAQView.swift */,
 				974596DC2CE1F6A6004C346B /* PassView.swift */,
+				974596DE2CE28300004C346B /* ShopView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -863,6 +869,7 @@
 				974596DD2CE1F6A6004C346B /* PassView.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
+				974596DF2CE28300004C346B /* ShopView.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
@@ -885,6 +892,7 @@
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
+				974596E12CE2978C004C346B /* PieceCounter.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,

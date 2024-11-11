@@ -10,8 +10,8 @@ import SwiftUI
 struct MyPageView: View {
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
     @Environment(AuthStore.self) private var authStore
-    @State var isShowingLogoutAlert: Bool = false
-    @State var isShowingDeleteAccountAlert: Bool = false
+    @State private var isShowingLogoutAlert: Bool = false
+    @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingPassView: Bool = false
     
     var body: some View {
@@ -95,7 +95,7 @@ struct MyPageView: View {
                                     .padding(.vertical)
                                 
                                 NavigationLink {
-                                    // Shop 페이지 이동
+                                    ShopView()
                                 } label: {
                                     VStack {
                                         Image(.shop)

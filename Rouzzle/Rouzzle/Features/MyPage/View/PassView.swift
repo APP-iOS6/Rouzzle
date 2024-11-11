@@ -156,7 +156,5 @@ struct PassView: View {
 }
 
 #Preview {
-    NavigationStack {
-        PassView()
-    }
+    PassView()
 }
