@@ -25,7 +25,7 @@ enum TaskStatus {
         }
     }
 }
-struct RecommendTodoTask {
+struct RecommendTodoTask: Hashable {
     let emoji: String
     let title: String
     let timer: Int // 분 단위
@@ -75,7 +75,7 @@ struct TaskStatusPuzzle: View {
                 
                 Spacer()
                 
-                Text("\(task.timer)분")
+                Text(task.timer.formattedTimer)
                     .font(.regular14)
                     .foregroundColor(Color.subHeadlineFontColor)
                     .padding(.trailing, 25)
@@ -103,8 +103,8 @@ let recommendTodoTask: [RecommendTodoTask] = [
 ]
 
 struct TaskRecommendPuzzle: View {
-    var recommendTask = recommendTodoTask.randomElement()!
-    var onAddTap: (RecommendTodoTask) -> Void
+    var recommendTask: RecommendTodoTask
+    var onAddTap: () -> Void
     var body: some View {
         ZStack {
             Image(.recommendTask)
@@ -122,7 +122,7 @@ struct TaskRecommendPuzzle: View {
                         .font(.semibold18)
                         .lineLimit(1)
                     
-                    Text("\(recommendTask.timer)분")
+                    Text(recommendTask.timer.formattedTimer)
                         .font(.regular12)
                         .foregroundColor(Color.subHeadlineFontColor)
                     
@@ -136,7 +136,7 @@ struct TaskRecommendPuzzle: View {
                     .font(.title2)
                     .padding(.trailing, 25)
                     .onTapGesture {
-                        onAddTap(recommendTask)
+                        onAddTap()
                     }
                 
             }
