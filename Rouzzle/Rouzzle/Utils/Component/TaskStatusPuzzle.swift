@@ -150,7 +150,7 @@ struct TaskStatusRow: View {
     private(set) var taskStatus: TaskStatus
     private(set) var emojiText: String = "💊"
     private(set) var title: String = "유산균 먹기"
-    private(set) var timeInterval: Int? = 60
+    private(set) var timeInterval: Int? 
     
     @Binding var showEditIcon: Bool // 리스트 수정일 때 보이는 아이콘
     @Binding var showDeleteIcon: Bool // 리스트 삭제할 때 보이는 버튼

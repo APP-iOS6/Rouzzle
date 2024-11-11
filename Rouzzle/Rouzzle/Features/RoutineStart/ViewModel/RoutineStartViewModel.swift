@@ -31,7 +31,8 @@ class RoutineStartViewModel {
     
     init(routineItem: RoutineItem) {
         self.routineItem = routineItem
-        self.timeRemaining = routineItem.taskList.first?.timer ?? 0
+        self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
+
     }
     // 타이머 시작
     func startTimer() {
