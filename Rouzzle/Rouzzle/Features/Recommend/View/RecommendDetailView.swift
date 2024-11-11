@@ -41,6 +41,7 @@ struct RecommendDetailView: View {
                 Text(card.fullText)
                     .font(.light16)
                     .foregroundColor(.descriptioncolor)
+                    .lineSpacing(5)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
@@ -54,16 +55,23 @@ struct RecommendDetailView: View {
                     }
                 }
                 .padding(.horizontal, 8)
-                .padding(.bottom, 35)
+                .padding(.bottom, 24)
+                
+                RouzzleButton(buttonType: .save) {
+                    print("선택 추가 버튼 클릭")
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 24)
             }
             
             VStack {
                 HStack {
                     Spacer()
                     Button(action: onTap) {
-                        Image(systemName: "chevron.down")
+                        Image(systemName: "chevron.up")
                             .foregroundStyle(.graymedium)
                             .padding()
+                            .padding(.top, 20)
                     }
                 }
                 Spacer()

@@ -13,32 +13,36 @@ struct RecommendTaskView: View {
     let onTap: () -> Void
 
     var body: some View {
-        HStack(spacing: 10) {
-            HStack {
-                Text(task.emoji)
-                    .font(.title)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(task.title)
-                        .font(.headline)
-                    Text("\(task.timer)분")
-                        .font(.regular12)
-                        .foregroundColor(.gray)
-                }
-            }
-            Spacer()
-            
-            Button(action: onTap) {
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "plus.circle.fill")
-                    .font(.system(size: 24))
-                    .foregroundColor(isSelected ? .accentColor : .graylight)
-            }
-        }
-        .padding(.vertical, 8)
-        .padding(.horizontal)
-        .background(
+        // 전체 컨테이너를 frame으로 먼저 잡습니다
+        ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.grayultralight)
-        )
+            
+            HStack(spacing: 10) {
+                HStack {
+                    Text(task.emoji)
+                        .font(.title)
+                        .frame(width: 40) // 이모지 영역 고정
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(task.title)
+                            .font(.headline)
+                        Text("\(task.timer)분")
+                            .font(.regular12)
+                            .foregroundColor(.gray)
+                    }
+                }
+                
+                Spacer()
+                
+                Button(action: onTap) {
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "plus.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundColor(isSelected ? .accentColor : .graylight)
+                }
+            }
+            .padding(.horizontal, 16)
+        }
         .frame(height: 60)
     }
 }
