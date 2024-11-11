@@ -19,7 +19,12 @@ final class RecommendViewModel {
         case rest = "휴식"
     }
     
-    var selectedCategory: Category = .celebrity
+    var selectedCategory: Category = .celebrity {
+        didSet {
+            updateCards()
+        }
+    }
+    
     var filteredCards: [Card] = []
     
     private let allCards: [Category: [Card]] = [
@@ -33,11 +38,6 @@ final class RecommendViewModel {
     ]
     
     init() {
-        updateCards()
-    }
-    
-    func updateCategory(_ category: Category) {
-        selectedCategory = category
         updateCards()
     }
     

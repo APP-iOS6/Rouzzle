@@ -31,6 +31,7 @@ struct RecommendCategoryView: View {
                         )
                         .onTapGesture {
                             selectedCategory = category
+                            print("Selected category: \(category.rawValue)")
                         }
                 }
             }

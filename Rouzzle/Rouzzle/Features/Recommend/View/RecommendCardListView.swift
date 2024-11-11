@@ -13,18 +13,28 @@ struct RecommendCardListView: View {
     @State private var selectedCardID: UUID?
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 20) {
-                ForEach(cards) { card in
-                    if selectedCardID == card.id {
-                        RecommendDetailView(card: card, animation: animationNamespace) {
-                            selectedCardID = nil
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 20) {
+                    ForEach(cards) { card in
+                        if selectedCardID == card.id {
+                            RecommendDetailView(card: card, animation: animationNamespace) {
+                                withAnimation {
+                                    selectedCardID = nil
+                                }
+                            }
+                            .id(card.id)
+                        } else {
+                            RecommendCardView(card: card, animation: animationNamespace) {
+                                withAnimation {
+                                    selectedCardID = card.id
+                                    // 선택된 카드로 스크롤
+                                    proxy.scrollTo(card.id, anchor: .top)
+                                }
+                            }
+                            .id(card.id)
+                            .padding(.horizontal)
                         }
-                    } else {
-                        RecommendCardView(card: card, animation: animationNamespace) {
-                            selectedCardID = card.id
-                        }
-                        .padding(.horizontal)
                     }
                 }
             }

@@ -83,7 +83,7 @@ struct DummyCardData {
     static let morningCards: [Card] = [
         Card(
             title: "상쾌한 아침 루틴",
-            imageName: "🌞",
+            imageName: "☀️",
             fullText: "몸과 마음을 깨우는 상쾌한 하루의 시작.",
             routines: [
                 RoutineTask(title: "기상 후 스트레칭", emoji: "🙆‍♀️", timer: 10),

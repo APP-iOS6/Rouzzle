@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct RecommendView: View {
-    @Bindable private var viewModel = RecommendViewModel()
+    @State private var viewModel = RecommendViewModel()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -22,10 +22,8 @@ struct RecommendView: View {
             }
             .padding(.top, 20)
 
-            // 카테고리 선택
             RecommendCategoryView(selectedCategory: $viewModel.selectedCategory)
-
-            // 추천 리스트
+            
             RecommendCardListView(cards: $viewModel.filteredCards)
 
             Spacer()
