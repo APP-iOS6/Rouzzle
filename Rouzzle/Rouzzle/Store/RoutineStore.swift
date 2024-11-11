@@ -13,6 +13,7 @@ import SwiftData
 @Observable
 class RoutineStore {
     var routineItem: RoutineItem
+    var loadState: LoadState = . none
     
     init(routineItem: RoutineItem) {
         print(routineItem.title)
@@ -31,7 +32,6 @@ class RoutineStore {
         guard let firstTime = routineItem.dayStartTime.first?.value, let time = firstTime.toDate() else {
             return
         }
-        
         switch time.getTimeCategory() {
         case .morning:
             return
@@ -44,6 +44,7 @@ class RoutineStore {
         }
     }
     
+    // 리팩 예정
     deinit {
         print("RoutineStore 해제")
     }
