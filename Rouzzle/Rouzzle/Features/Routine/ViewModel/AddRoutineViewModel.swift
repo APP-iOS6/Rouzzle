@@ -22,8 +22,8 @@ class AddRoutineViewModel {
     var selectedDateWithTime: [Day: Date] = [:]
     var isDaily: Bool = false
     var isNotificationEnabled: Bool = false
-    var repeatCount: Int = 3 // 예: 1, 3, 5
-    var interval: Int = 5 // 분 단위, 예: 1, 3, 5
+    var repeatCount: Int? = 3 // 예: 1, 3, 5
+    var interval: Int? = 5 // 분 단위, 예: 1, 3, 5
     
     var errorMessage: String?
     var loadState: LoadState = .none
@@ -80,7 +80,7 @@ class AddRoutineViewModel {
     func uploadRoutine(context: ModelContext) {
         let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
-        let createRoutine = Routine(title: title, emoji: selectedEmoji ?? "🧩", routineTask: [], dayStartTime: selectedDateWithTimeTypeChange(), userId: userUid)
+        let createRoutine = Routine(title: title, emoji: selectedEmoji ?? "🧩", routineTask: [], repeatCount: repeatCount, interval: interval, dayStartTime: selectedDateWithTimeTypeChange(), userId: userUid)
         Task {
             let routine = await routineService.addRoutine(createRoutine)
             switch routine {
