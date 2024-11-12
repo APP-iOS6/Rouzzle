@@ -17,9 +17,6 @@ struct LaunchView: View {
             case .splash:
                 SplashView()
                     .transition(.opacity)
-            case .onboarding:
-                OnboardingView()
-                    .transition(.opacity)
             case .login:
                 LoginView()
                     .transition(.opacity)
