@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Routine: Codable {
+struct Routine: Codable, Hashable {
     @DocumentID var documentId: String?
     var title: String
     var emoji: String
@@ -33,7 +33,7 @@ struct Routine: Codable {
     }
 }
 
-struct RoutineTask: Codable {
+struct RoutineTask: Codable, Hashable {
     var title: String // 할일 제목
     var emoji: String // 이모지
     var timer: Int // 타이머
