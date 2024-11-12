@@ -23,15 +23,21 @@ struct RoutineListView: View {
                         // BlurView로 텍스트 애니메이션 적용
                         BlurTextView(text: "끊임없이 남탓하고, 사고하지 말라", font: .bold18, startTime: 0.5)
                         
-                        ZStack {
-                            Image(.dailyChallenge)
-                                .resizable()
-                                .frame(maxWidth: .infinity)
-                                .aspectRatio(contentMode: .fit)
-                            Text("루즐 챌린지")
-                                .font(.semibold18)
-                                .offset(y: -10)
+                        NavigationLink(destination: RouzzleChallengeView()) {
+                            ZStack {
+                                Image(.dailyChallenge)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: .infinity)
+                                
+                                Text("루즐 챌린지")
+                                    .font(.semibold18)
+                                    .foregroundColor(.black)
+                                    .padding(.bottom, 20)
+                            }
+                            .frame(maxWidth: .infinity)
                         }
+                        .buttonStyle(PlainButtonStyle())
                         .padding()
                     }
                     
