@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileEditView: View {
     @State var nickname: String = ""
     @State var introduction: String = ""
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,10 +65,23 @@ struct ProfileEditView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     // 프로필 변경된 데이터 저장
+                    dismiss()
                 } label: {
                     Text("완료")
                         .font(.semibold18)  
                 }
+            }
+        }
+        // 닉네임 글자 수 9자 제한
+        .onChange(of: nickname) {
+            if nickname.count > 9 {
+                nickname = String(nickname.prefix(9))
+            }
+        }
+        // 자기소개 글자 수 30자 제한
+        .onChange(of: introduction) {
+            if introduction.count > 30 {
+                introduction = String(introduction.prefix(30))
             }
         }
     }
