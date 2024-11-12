@@ -13,9 +13,11 @@ struct EmptyProfileView: View {
     
     var body: some View {
         Image(systemName: "person.fill")
-            .font(.bold50)
+            .resizable()
+            .scaledToFit()
             .foregroundStyle(.accent)
             .frame(width: frameSize, height: frameSize)
+            .scaleEffect(0.6)
             .background(
                 Circle()
                     .fill(.white)
@@ -36,4 +38,8 @@ struct ProfileImageView: View {
             .frame(width: frameSize, height: frameSize)
             .clipShape(Circle())
     }
+}
+
+#Preview {
+    EmptyProfileView(frameSize: 73)
 }

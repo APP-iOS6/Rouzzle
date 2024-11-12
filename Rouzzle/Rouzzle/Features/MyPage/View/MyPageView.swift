@@ -13,7 +13,8 @@ struct MyPageView: View {
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingPassView: Bool = false
-    
+    @State var profileImage: UIImage?
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -25,16 +26,15 @@ struct MyPageView: View {
                     
                     // MARK: 프사, 닉, 편집 버튼, 자기소개 부분
                     HStack(alignment: .top) {
-                        Image(systemName: "person.fill")
-                            .frame(width: 53, height: 53)
-                            .font(.bold40)
-                            .foregroundStyle(.accent)
-                            .background(
-                                Circle()
-                                    .stroke(.accent, lineWidth: 2)
-                            )
-                            .padding(.trailing, 12)
-                            .padding(.top, -2)
+                        if let profileImage = profileImage {
+                            ProfileImageView(frameSize: 53, profileImage: profileImage)
+                                .padding(.trailing, 12)
+                                .padding(.top, -2)
+                        } else {
+                            EmptyProfileView(frameSize: 53)
+                                .padding(.trailing, 12)
+                                .padding(.top, -2)
+                        }
                         
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(alignment: .bottom) {
@@ -54,7 +54,7 @@ struct MyPageView: View {
                         Spacer()
                         
                         NavigationLink {
-                            ProfileEditView()
+                            ProfileEditView(profileImage: $profileImage)
                         } label: {
                             Text("프로필 편집")
                                 .font(.medium14)

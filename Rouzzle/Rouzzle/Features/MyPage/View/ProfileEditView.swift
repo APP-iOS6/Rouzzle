@@ -12,7 +12,7 @@ struct ProfileEditView: View {
     @State var nickname: String = ""
     @State var introduction: String = ""
     @State var selectedItem: PhotosPickerItem?
-    @State var profileImage: UIImage?
+    @Binding var profileImage: UIImage?
     @State var showPicker: Bool = false
     @Environment(\.dismiss) private var dismiss
 
@@ -95,12 +95,16 @@ struct ProfileEditView: View {
                 introduction = String(introduction.prefix(30))
             }
         }
-        .photosPicker(isPresented: $showPicker, selection: $selectedItem, matching: .images)
+        .photosPicker(isPresented: $showPicker,
+                      selection: $selectedItem,
+                      matching: .images)
         .onChange(of: selectedItem) {
             Task {
                 if let data = try? await selectedItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
                     profileImage = uiImage
+                } else {
+                    print("지원하지 않는 이미지 형식이거나 파일을 불러오는 데 실패했습니다.")
                 }
             }
         }
@@ -108,7 +112,9 @@ struct ProfileEditView: View {
 }
 
 #Preview {
+    @Previewable @State var profileImage: UIImage?
+    
     NavigationStack {
-        ProfileEditView()
+        ProfileEditView(profileImage: $profileImage)
     }
 }
