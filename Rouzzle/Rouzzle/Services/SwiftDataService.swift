@@ -55,11 +55,12 @@ enum SwiftDataService {
     }
 
     static func deleteTask(from routineItem: RoutineItem, task: TaskList, context: ModelContext) throws {
-        if let index = routineItem.taskList.firstIndex(where: { $0.id == task.id }) {
+        // routineItem의 taskList에서 task를 제거
+        if let index = routineItem.taskList.firstIndex(of: task) {
             routineItem.taskList.remove(at: index)
         }
         context.delete(task)
-        
+        // 변경사항 저장
         do {
             try context.save()
         } catch {

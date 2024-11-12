@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct TaskListSheet: View {
-    @Binding var tasks: [TaskList] 
+    //@State var viewModel: RoutineStartViewModel
+    @Binding var tasks: [TaskList] // viewTasks
     @Binding var detents: Set<PresentationDetent>
     @State private var draggedItem: TaskList?
     @State private var showEditIcon = false
+    var inProgressTask: TaskList?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -29,8 +31,12 @@ struct TaskListSheet: View {
                                 taskStatus: task.isCompleted ? .completed : .pending,
                                 emojiText: task.emoji,
                                 title: task.title,
+                                timeInterval: task.timer,
                                 showEditIcon: $showEditIcon,
-                                showDeleteIcon: .constant(false)
+                                showDeleteIcon: .constant(false),
+                                onDelete: {
+                                    //onDelete(task)
+                                }
                             )
                             .onDrag {
                                 self.draggedItem = task
@@ -47,9 +53,11 @@ struct TaskListSheet: View {
                         } else {
                             // 순서 수정 버튼 안 눌렀을 때
                             TaskStatusRow(
-                                taskStatus: task.isCompleted ? .completed : .pending,
+                                taskStatus: task.id == inProgressTask?.id ? .inProgress :
+                                    (task.isCompleted ? .completed : .pending),
                                 emojiText: task.emoji,
                                 title: task.title,
+                                timeInterval: task.timer,
                                 showEditIcon: $showEditIcon,
                                 showDeleteIcon: .constant(false)
                             )
@@ -118,6 +126,8 @@ struct DropViewDelegate: DropDelegate {
         }
     }
 }
+
 // #Preview {
 //    TaskListSheet(detents: .constant([.fraction(0.12)]))
 // }
+

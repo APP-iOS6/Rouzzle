@@ -108,12 +108,11 @@ struct RoutineDetailView: View {
     private func deleteTask(at offsets: IndexSet) {
         let tasksToDelete = offsets.map { routineItem.taskList[$0] }
         for task in tasksToDelete {
-            modelContext.delete(task)
-        }
-        do {
-            try modelContext.save()
-        } catch {
-            print("할 일 삭제 실패: \(error)")
+            do {
+                try SwiftDataService.deleteTask(from: routineItem, task: task, context: modelContext)
+            } catch {
+                print("할 일 삭제 실패: \(error)")
+            }
         }
     }
     

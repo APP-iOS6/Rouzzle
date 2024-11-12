@@ -38,7 +38,6 @@ struct AddTaskView: View {
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
                     }
-                    .id(store.routineItem)
                     
                     HStack {
                         Text("추천 할 일")
@@ -46,7 +45,6 @@ struct AddTaskView: View {
                         
                         Spacer()
                         
-                        // 새로고침 버튼
                         Button {
                             store.getRecommendTask()
                         } label: {

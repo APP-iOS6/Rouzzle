@@ -139,7 +139,7 @@ struct RoutineStartView: View {
             .padding(.horizontal)
         }
         .sheet(isPresented: $isShowingTaskListSheet) {
-            TaskListSheet(tasks: $viewModel.routineItem.taskList, detents: $detents)
+            TaskListSheet(tasks: $viewModel.viewTasks, detents: $detents, inProgressTask: viewModel.inProgressTask)
                 .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
@@ -147,8 +147,8 @@ struct RoutineStartView: View {
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
-            viewModel.startTimer()
             viewModel.resetTask()
+            viewModel.startTimer()
         }
     }
 }
