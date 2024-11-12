@@ -14,7 +14,7 @@ struct TimeBasedRecommendSetView: View {
     @State var addRecommendTask: [RecommendTodoTask] = []
     var body: some View {
         ZStack {
-            Color("OnBoardingBackgroundColor")
+            Color("subbackgroundcolor")
                 .edgesIgnoringSafeArea(.all)
             
             ScrollView {

@@ -14,7 +14,7 @@ struct SplashView: View {
     
     var body: some View {
         ZStack {
-            Color("OnBoardingBackgroundColor")
+            Color("subbackgroundcolor")
                 .edgesIgnoringSafeArea(.all)
             
             VStack {

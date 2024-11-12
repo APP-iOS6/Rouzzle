@@ -16,8 +16,18 @@ struct SocialView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 40) {
-                SearchBarView(text: $query)
-                    .animation(.easeInOut, value: query)
+                VStack {
+                    HStack {
+                        Text("소셜")
+                            .font(.semibold18)
+                            .foregroundStyle(.basic)
+                        Spacer()
+                    }
+                    .padding(.top, 20)
+                    
+                    SearchBarView(text: $query)
+                        .animation(.easeInOut, value: query)
+                }
                 
                 VStack(alignment: .leading) {
                     Text("즐겨찾기")
