@@ -21,7 +21,7 @@ struct SignUpView: View {
         @Bindable var vm = viewModel
         
         ZStack {
-            Color("OnBoardingBackgroundColor")
+            Color("subbackgroundcolor")
                 .edgesIgnoringSafeArea(.all)
             
             GeometryReader { geometry in
