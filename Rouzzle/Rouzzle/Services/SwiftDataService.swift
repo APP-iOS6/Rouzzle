@@ -66,4 +66,15 @@ enum SwiftDataService {
             throw SwiftDataServiceError.deleteFailed(error)
         }
     }
+    
+    static func deleteTasks(tasks: [TaskList], context: ModelContext) throws {
+        for task in tasks {
+            context.delete(task)
+        }
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.deleteFailed(error)
+        }
+    }
 }
