@@ -40,7 +40,9 @@ struct SocialMarkDetailView2: View {
                 
                 Spacer()
                 
-                Button(action: {}) {
+                Button {
+                    
+                } label: {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
                         .font(.title)
@@ -67,9 +69,9 @@ struct SocialMarkDetailView2: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    // 뒤로 가기
-                }) {
+                Button {
+                    
+                } label: {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.green)
                 }

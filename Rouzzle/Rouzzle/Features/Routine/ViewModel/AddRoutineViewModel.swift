@@ -28,6 +28,10 @@ class AddRoutineViewModel {
     var errorMessage: String?
     var loadState: LoadState = .none
     
+    var disabled: Bool {
+        selectedDateWithTime.isEmpty || title.isEmpty
+    }
+    
     // 개별 요일 토글
     func toggleDay(_ day: Day) {
         if isSelected(day) {

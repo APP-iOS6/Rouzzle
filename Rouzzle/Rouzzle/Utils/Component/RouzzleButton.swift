@@ -18,7 +18,18 @@ enum ButtonType: String {
 /// 버튼은 type 만을 넘겨주고 동일하게 사용할 수 있도록
 struct RouzzleButton: View {
     let buttonType: ButtonType
+    let disabled: Bool
     let action: () -> Void
+    
+    init(
+        buttonType: ButtonType,
+        disabled: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.buttonType = buttonType
+        self.disabled = disabled
+        self.action = action
+    }
     var body: some View {
         Button(action: action) {
             Text("\(buttonType.rawValue)")
@@ -26,8 +37,9 @@ struct RouzzleButton: View {
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 61)
-                .background(.accent)
+                .background(disabled ? Color.gray.opacity(0.3) : .accent)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
+        .disabled(disabled)
     }
 }

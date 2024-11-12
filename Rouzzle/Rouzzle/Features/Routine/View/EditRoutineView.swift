@@ -9,6 +9,11 @@ import SwiftUI
 
 struct EditRoutineView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var viewModel: EditRoutineViewModel
+    @State private var selectedDay: Day = .sunday
+    @State private var selectedTime: Date = Date() // 전체 시간을 설정할 때 사용할 시간
+    @State private var showDaySheet = false
+    @State private var showAllDaysPicker = false
     
     @State private var tasks = DummyTask.tasks
     @State private var draggedItem: DummyTask?
@@ -34,6 +39,12 @@ struct EditRoutineView: View {
         "토": Date(),
         "일": Date()
     ]
+    
+    init(
+        viewModel: EditRoutineViewModel
+    ) {
+        self.viewModel = viewModel
+    }
     
     let minutes = [1, 3, 5, 7, 10]
     let counts = [1, 2, 3, 4, 5]
@@ -63,15 +74,15 @@ struct EditRoutineView: View {
                     VStack(alignment: .center, spacing: 20) {
                         // 이모지 입력
                         EmojiButton(selectedEmoji: $emoji, emojiButtonType: .routineEmoji) { selectedEmoji in
-                            print("Selected Emoji: \(selectedEmoji)")
+                            viewModel.routine.emoji = selectedEmoji
                         }
                         .frame(maxWidth: .infinity, minHeight: 90)
                         
                         // 첫번째 네모칸(제목, 요일, 시간)
                         VStack(alignment: .leading, spacing: 20) {
                             // 제목 입력 필드
-                            RouzzleTextField(text: $title, placeholder: "제목을 입력해주세요")
-                                .accentColor(Color("AccentColor"))
+                            RouzzleTextField(text: $viewModel.routine.title, placeholder: "제목을 입력해주세요")
+                                .tint(.accent)
                             
                             // 반복 요일 섹션
                             HStack {
@@ -255,6 +266,9 @@ struct EditRoutineView: View {
                 })
                 .background(Color.white)
             }
+            .onAppear {
+                emoji = viewModel.routine.emoji
+            }
             .padding()
             .toolbar(.hidden, for: .tabBar)
         }
@@ -284,6 +298,6 @@ struct EditRoutineView: View {
 
 #Preview {
     NavigationStack {
-        EditRoutineView()
+        EditRoutineView(viewModel: .init(routine: testRoutine))
     }
 }

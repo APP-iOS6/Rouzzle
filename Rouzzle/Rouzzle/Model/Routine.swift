@@ -71,7 +71,6 @@ enum Day: Int, Codable, CaseIterable {
             "토"
         }
     }
-    
 }
 
 let testRoutine = Routine(title: "배드민턴 폐관", emoji: "🏸", routineTask: [], dayStartTime: [1: "06:30", 2: "15:30"], userId: "TzzhJLgUByQdqVx1mpQAlWpIFJc2")
