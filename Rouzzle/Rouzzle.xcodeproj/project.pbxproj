@@ -136,6 +136,7 @@
 		FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CC2CE088780038243D /* TimeCategory.swift */; };
 		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
 		FBDC52D22CE2426E0038243D /* EditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */; };
+		FBDC52D92CE321B60038243D /* RoutineEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D82CE321B60038243D /* RoutineEditData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +260,7 @@
 		FBDC52CC2CE088780038243D /* TimeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCategory.swift; sourceTree = "<group>"; };
 		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewModel.swift; sourceTree = "<group>"; };
+		FBDC52D82CE321B60038243D /* RoutineEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +543,7 @@
 		BD1545C62CD92F040098AD7B /* Routine */ = {
 			isa = PBXGroup;
 			children = (
+				FBDC52D62CE321760038243D /* Model */,
 				BD1545C72CD92F390098AD7B /* View */,
 				FB4174F62CDCB6070084BC19 /* ViewModel */,
 			);
@@ -778,6 +781,14 @@
 			path = Dummy;
 			sourceTree = "<group>";
 		};
+		FBDC52D62CE321760038243D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FBDC52D82CE321B60038243D /* RoutineEditData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -932,6 +943,7 @@
 				FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
 				4BE4399A2CE1C8FE007E0272 /* SearchBarView.swift in Sources */,
+				FBDC52D92CE321B60038243D /* RoutineEditData.swift in Sources */,
 				BD1546612CD9AAD50098AD7B /* MyPageView.swift in Sources */,
 				FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */,
 				FB2A5A9E2CD7D1A500CB981A /* AppSceneDelegate.swift in Sources */,

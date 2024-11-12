@@ -43,7 +43,21 @@ class RoutineItem: Identifiable {
     }
     
     func toRoutine() -> Routine {
-        return Routine(documentId: id, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, dayStartTime: dayStartTime, userId: userId)
+        return Routine(documentId: id, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, repeatCount: repeatCount, interval: interval, dayStartTime: dayStartTime, alarmIDs: alarmIDs, userId: userId)
+    }
+    
+    func toRoutineEditData() -> RoutineEditData {
+        return RoutineEditData(
+            id: id,
+            title: title,
+            emoji: emoji,
+            repeatCount: repeatCount,
+            interval: interval,
+            dayStartTime: dayStartTime,
+            alarmIDs: alarmIDs,
+            userId: userId,
+            taskList: taskList.map { $0.toTaskEditData() }
+        )
     }
 }
 
@@ -59,11 +73,13 @@ class TaskList: Identifiable {
     var routineItem: RoutineItem?
 
     init(
+        id: UUID = UUID(),
         title: String,
         emoji: String,
         timer: Int,
         isCompleted: Bool = false
     ) {
+        self.id = id
         self.title = title
         self.emoji = emoji
         self.timer = timer
@@ -72,6 +88,16 @@ class TaskList: Identifiable {
     
     func toRoutineTask() -> RoutineTask {
         return RoutineTask(title: title, emoji: emoji, timer: timer)
+    }
+    
+    func toTaskEditData() -> TaskEditData {
+        return TaskEditData(
+            id: id,
+            title: title,
+            emoji: emoji,
+            timer: timer,
+            isCompleted: isCompleted
+        )
     }
 }
 
