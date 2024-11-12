@@ -14,7 +14,7 @@ struct DashedVerticalLine: View {
             path.addLine(to: CGPoint(x: 1, y: 40))
         }
         .stroke(style: StrokeStyle(lineWidth: 3, lineCap: .round, dash: [5, 5]))
-        .foregroundColor(Color.themeColor)
+        .foregroundStyle(Color.themeColor)
         .frame(width: 2, height: 40)
     }
 }
