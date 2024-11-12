@@ -17,13 +17,13 @@ struct SocialView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 40) {
                 VStack {
-//                    HStack {
-//                        Text("소셜")
-//                            .font(.semibold18)
-//                            .foregroundStyle(.basic)
-//                        Spacer()
-//                    }
-//                    .padding(.top, 20)
+                    HStack {
+                        Text("소셜")
+                            .font(.semibold18)
+                            .foregroundStyle(.basic)
+                        Spacer()
+                    }
+                    .padding(.top, 20)
                     
                     SearchBarView(text: $query)
                         .animation(.easeInOut, value: query)

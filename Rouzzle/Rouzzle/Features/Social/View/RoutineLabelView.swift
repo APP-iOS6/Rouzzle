@@ -19,6 +19,7 @@ struct RoutineLabelView: View {
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.accent, lineWidth: 1)
+                    .fill(Color.white)
             )
     }
 }
