@@ -19,7 +19,7 @@ struct LoginView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Color("OnBoardingBackgroundColor")
+                Color("subbackgroundcolor")
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack(alignment: .center, spacing: 17) {

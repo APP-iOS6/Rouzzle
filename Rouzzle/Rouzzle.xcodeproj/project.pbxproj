@@ -19,6 +19,7 @@
 		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
 		23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */; };
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
+		23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -28,7 +29,6 @@
 		23D7BD372CDD3957000B3DD9 /* EmojiComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */; };
 		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
 		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
-		23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7782CDA6B310029D4DA /* OnboardingView.swift */; };
 		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */; };
 		4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */; };
@@ -151,6 +151,7 @@
 		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
 		23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailView.swift; sourceTree = "<group>"; };
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
+		23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurTextView.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -159,7 +160,6 @@
 		23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiComponents.swift; sourceTree = "<group>"; };
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
-		23DBE7782CDA6B310029D4DA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
 		4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLabelView.swift; sourceTree = "<group>"; };
 		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
@@ -431,6 +431,7 @@
 				974596D62CE1D61A004C346B /* CustomAlert.swift */,
 				974596E02CE2978C004C346B /* PieceCounter.swift */,
 				972FEC502CE319650041F1A5 /* ProfileImage.swift */,
+				23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -710,7 +711,6 @@
 			children = (
 				FB2A5AAE2CD909A500CB981A /* LaunchView.swift */,
 				23DBE7712CDA675C0029D4DA /* SplashView.swift */,
-				23DBE7782CDA6B310029D4DA /* OnboardingView.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -963,6 +963,7 @@
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
@@ -978,7 +979,6 @@
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
-				23DBE7792CDA6B310029D4DA /* OnboardingView.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
 				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
