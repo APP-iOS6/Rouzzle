@@ -215,6 +215,15 @@ struct RoutineNotificationView: View {
                 }
             }
         }
+        .onChange(of: viewModel.isNotificationEnabled, { _, newValue in
+            if newValue {
+                viewModel.repeatCount = 1
+                viewModel.interval = 1
+            } else {
+                viewModel.repeatCount = nil
+                viewModel.interval = nil
+            }
+        })
         .animation(.smooth, value: viewModel.isNotificationEnabled)
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
@@ -248,7 +257,7 @@ struct CustomPicker2: View {
     let unit: String
     let isDisabled: Bool
     let options: [Int]
-    @Binding var selection: Int
+    @Binding var selection: Int?
     
     var body: some View {
         Menu {
@@ -260,7 +269,7 @@ struct CustomPicker2: View {
                 }
             }
         } label: {
-            Text("\(selection)\(unit)")
+            Text("\(selection ?? 0)\(unit)")
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
         }
