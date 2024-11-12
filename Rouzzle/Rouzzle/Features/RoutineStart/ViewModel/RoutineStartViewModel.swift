@@ -15,13 +15,13 @@ class RoutineStartViewModel {
     var timerState: TimerState = .running
     var timeRemaining: Int
     var routineItem: RoutineItem
-    
+    var viewTasks: [TaskList]
     var inProgressTask: TaskList? {
-        routineItem.taskList.first { !$0.isCompleted }
+        viewTasks.first { !$0.isCompleted }
     }
     
     var nextPendingTask: TaskList? {
-        routineItem.taskList
+        viewTasks
             .drop(while: { $0.isCompleted })
             .dropFirst()
             .first(where: { !$0.isCompleted })
@@ -31,6 +31,7 @@ class RoutineStartViewModel {
     
     init(routineItem: RoutineItem) {
         self.routineItem = routineItem
+        self.viewTasks = routineItem.taskList
         self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
 
     }
@@ -60,16 +61,25 @@ class RoutineStartViewModel {
     
     // 완료 버튼 로직(inProgress 상태에서 completed로 변경)
     func markTaskAsCompleted() {
-        guard let currentIndex = routineItem.taskList.firstIndex(where: { !$0.isCompleted }) else {
+        guard let currentIndex = viewTasks.firstIndex(where: { !$0.isCompleted }) else {
             isRoutineCompleted = true
             timer?.invalidate()
             return
         }
         
-        routineItem.taskList[currentIndex].isCompleted = true
+        // 뷰용 리스트에서 완료 상태 변경
+        viewTasks[currentIndex].isCompleted = true
         
-        if let nextTask = routineItem.taskList.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
+        // 모델의 리스트에서 완료 상태 변경
+        if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == viewTasks[currentIndex].id }) {
+            routineItem.taskList[modelIndex].isCompleted = true
+        }
+        
+        // 다음 작업의 타이머 설정
+        if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
             timeRemaining = nextTask.timer
+            timerState = .running
+            startTimer()
         } else {
             isRoutineCompleted = true
             timer?.invalidate()
@@ -78,14 +88,17 @@ class RoutineStartViewModel {
     
     // 스킵 버튼 로직(inProgress 상태에서 pending으로 변경)
     func skipTask() {
-        guard let currentIndex = routineItem.taskList.firstIndex(where: { !$0.isCompleted }) else {
+        guard let currentIndex = viewTasks.firstIndex(where: { !$0.isCompleted }) else {
             isRoutineCompleted = true
             timer?.invalidate()
             return
         }
-                
-        if let nextTask = routineItem.taskList.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
+        
+        // 현재 작업을 건너뛰고 다음 작업으로 이동
+        if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
             timeRemaining = nextTask.timer
+            timerState = .running
+            startTimer()
         } else {
             isRoutineCompleted = true
             timer?.invalidate()
@@ -98,6 +111,15 @@ class RoutineStartViewModel {
                 task.isCompleted = false
             }
         }
+    }
+    
+    // 순서 변경 함수 (뷰 전용)
+    func moveTask(from source: IndexSet, to destination: Int) {
+        viewTasks.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    deinit {
+        timer?.invalidate()
     }
 }
 

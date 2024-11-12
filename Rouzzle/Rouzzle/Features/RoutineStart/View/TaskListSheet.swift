@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct TaskListSheet: View {
-    @Binding var tasks: [TaskList]
+    //@State var viewModel: RoutineStartViewModel
+    @Binding var tasks: [TaskList] // viewTasks
     @Binding var detents: Set<PresentationDetent>
     @State private var draggedItem: TaskList?
     @State private var showEditIcon = false
@@ -32,7 +33,10 @@ struct TaskListSheet: View {
                                 title: task.title,
                                 timeInterval: task.timer,
                                 showEditIcon: $showEditIcon,
-                                showDeleteIcon: .constant(false)
+                                showDeleteIcon: .constant(false),
+                                onDelete: {
+                                    //onDelete(task)
+                                }
                             )
                             .onDrag {
                                 self.draggedItem = task
@@ -122,6 +126,3 @@ struct DropViewDelegate: DropDelegate {
         }
     }
 }
-//#Preview {
-//    TaskListSheet(detents: .constant([.fraction(0.12)]))
-//}
