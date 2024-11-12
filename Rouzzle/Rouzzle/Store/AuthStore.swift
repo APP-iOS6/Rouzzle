@@ -21,7 +21,6 @@ class AuthStore {
     
     enum AuthState {
         case splash
-        case onboarding
         case login
         case signup
         case authenticated
@@ -36,9 +35,9 @@ class AuthStore {
         
         // 3초 후에 로그인 상태 체크
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            // isLoggedIn이 false라면 onboarding으로 이동
+            // isLoggedIn이 false라면 login으로 이동
             guard self.isLoggedIn else {
-                self.authState = .onboarding
+                self.authState = .login
                 return
             }
             
