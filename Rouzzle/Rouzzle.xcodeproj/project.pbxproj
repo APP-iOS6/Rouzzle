@@ -19,6 +19,7 @@
 		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
 		23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */; };
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
+		23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -149,6 +150,7 @@
 		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
 		23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailView.swift; sourceTree = "<group>"; };
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
+		23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurTextView.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				9791BB812CDDCB00007BD566 /* FloatingButton.swift */,
 				974596D62CE1D61A004C346B /* CustomAlert.swift */,
 				974596E02CE2978C004C346B /* PieceCounter.swift */,
+				23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
