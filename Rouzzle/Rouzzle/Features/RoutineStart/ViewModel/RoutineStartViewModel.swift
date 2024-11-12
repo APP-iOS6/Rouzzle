@@ -13,7 +13,7 @@ import SwiftUI
 class RoutineStartViewModel {
     private var timer: Timer?
     var timerState: TimerState = .running
-    var timeRemaining: Int
+    var timeRemaining: Int = 0
     var routineItem: RoutineItem
     var viewTasks: [TaskList]
     var inProgressTask: TaskList? {
@@ -30,18 +30,20 @@ class RoutineStartViewModel {
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     
     init(routineItem: RoutineItem) {
+        print("뷰모델 생성 ")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
-        self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
-
     }
     // 타이머 시작
     func startTimer() {
+        self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
         timer?.invalidate()
+
         guard timerState == .running || timerState == .overtime else { return }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
+            print("Timer: \(self.timeRemaining)")
             self.timeRemaining -= 1
             if self.timeRemaining < 0 {
                 self.timerState = .overtime
@@ -106,6 +108,7 @@ class RoutineStartViewModel {
     }
     
     func resetTask() {
+        print("리셋 테스크")
         if routineItem.taskList.filter({!$0.isCompleted}).isEmpty && !routineItem.taskList.isEmpty { // 모든일이 완료되었다면 초기화 시켜준다.
             for task in routineItem.taskList {
                 task.isCompleted = false

@@ -147,8 +147,8 @@ struct RoutineStartView: View {
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
-            viewModel.startTimer()
             viewModel.resetTask()
+            viewModel.startTimer()
         }
     }
 }
