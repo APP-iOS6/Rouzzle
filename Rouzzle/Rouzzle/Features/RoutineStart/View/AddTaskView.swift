@@ -125,7 +125,7 @@ struct AddTaskView: View {
                     RoutineStartView(viewModel: RoutineStartViewModel(routineItem: store.routineItem))
                 }
                 .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem.toRoutine()))
+                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem))
                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
