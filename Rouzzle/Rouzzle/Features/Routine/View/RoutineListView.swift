@@ -17,46 +17,23 @@ struct RoutineListView: View {
         NavigationStack {
             ZStack {
                 ScrollView {
-                    HStack {
-                        Label {
-                            Text("0")
-                                .font(.regular16)
-                                .foregroundColor(.black) // 텍스트를 검정색으로 설정
-                        } icon: {
-                            Image(systemName: "puzzlepiece.fill")
-                                .foregroundStyle(.accent)
-                        }
-                        .padding(10)
-                        .background(
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.white)
-                                .shadow(color: Color.gray.opacity(0.3), radius: 1)
-                        )
+                    VStack(spacing: 20) {
+                        Spacer().frame(height: 5)
                         
-                        Spacer()
+                        // BlurView로 텍스트 애니메이션 적용
+                        BlurTextView(text: "끊임없이 남탓하고, 사고하지 말라", font: .bold18, startTime: 0.5)
                         
-                        Button {
-
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
-                                .font(.title)
+                        ZStack {
+                            Image(.dailyChallenge)
+                                .resizable()
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(contentMode: .fit)
+                            Text("루즐 챌린지")
+                                .font(.semibold18)
+                                .offset(y: -10)
                         }
+                        .padding()
                     }
-                    .padding()
-                    
-                    // BlurView로 텍스트 애니메이션 적용
-                    BlurTextView(text: "끊임없이 남탓하고, 사고하지 말라", font: .bold18, startTime: 0.5)
-                    
-                    ZStack {
-                        Image(.dailyChallenge)
-                            .resizable()
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(contentMode: .fit)
-                        Text("24일 루즐 챌린지")
-                            .font(.semibold18)
-                            .offset(y: -7)
-                    }
-                    .padding()
                     
                     ForEach(routines) { routine in
                         NavigationLink {
@@ -83,6 +60,19 @@ struct RoutineListView: View {
                 .padding()
                 .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                     AddRoutineView()
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    PieceCounter(count: 9)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        print("Settings tapped")
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .font(.title2)
+                    }
                 }
             }
         }
