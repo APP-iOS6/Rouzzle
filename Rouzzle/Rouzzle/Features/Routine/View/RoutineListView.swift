@@ -66,7 +66,6 @@ struct RoutineListView: View {
                                 .padding(.horizontal)
                         }
                     }
-                    .id(routines)
                     
                     Image(.requestRoutine)
                         .resizable()
