@@ -21,6 +21,8 @@
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
 		23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */; };
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
+		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
+		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -154,6 +156,8 @@
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
 		23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurTextView.swift; sourceTree = "<group>"; };
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
+		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
+		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				974596E02CE2978C004C346B /* PieceCounter.swift */,
 				972FEC502CE319650041F1A5 /* ProfileImage.swift */,
 				23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */,
+				23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */,
+				23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -940,6 +946,7 @@
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
 				23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */,
 				BD6301B82CDE73550000203C /* ConvertDays.swift in Sources */,
+				23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */,
 				23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */,
 				23D7BD372CDD3957000B3DD9 /* EmojiComponents.swift in Sources */,
 				23BC98D82CE1D65B009BE074 /* RecommendViewModel.swift in Sources */,
@@ -947,6 +954,7 @@
 				BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */,
 				4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */,
 				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
+				23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */,
 				97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */,
 				FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,

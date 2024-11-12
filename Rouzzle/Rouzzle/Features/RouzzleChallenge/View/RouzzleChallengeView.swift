@@ -35,12 +35,19 @@ struct RouzzleChallengeView: View {
                         print("참여 안내 탭눌림")
                     }
                     
-                    // 메인 챌린지 이미지
-                    Image(.tuna)
-                        .resizable()
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(370/278, contentMode: .fit)
-                        .padding(.top, 0)
+                    // 메인 챌린지
+                    ZStack(alignment: .bottomTrailing) {
+                        Image(.tuna)
+                            .resizable()
+                            .frame(maxWidth: .infinity)
+                            .aspectRatio(370/278, contentMode: .fit)
+                        
+                        RouzzleChallengePlayButton(style: .large) {
+                            print("tuna 퍼즐로 이동")
+                        }
+                        .padding([.bottom, .trailing], 16)
+                    }
+                    .padding(.top, 0)
                     
                     // 퍼즐 이미지 목록
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 24) {
@@ -52,27 +59,32 @@ struct RouzzleChallengeView: View {
                         ]
                         
                         ForEach(puzzleImages, id: \.0) { (imageName, opacity) in
-                            Image(imageName)
-                                .resizable()
-                                .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 173, height: 173)
-                                .opacity(opacity)
-                                .onTapGesture {
-                                    if opacity == 1.0 {
-                                        print("\(imageName) 퍼즐 선택됨")
-                                    } else {
-                                        print("\(imageName) 잠금 상태")
+                            ZStack(alignment: .bottomTrailing) {
+                                Image(imageName)
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fit)
+                                    .frame(width: 173, height: 173)
+                                    .opacity(opacity)
+                                
+                                if opacity == 1.0 {
+                                    RouzzleChallengePlayButton(style: .small) {
+                                        print("\(imageName) 퍼즐로 이동")
                                     }
+                                    .padding([.bottom, .trailing], 8)
+                                } else {
+                                    PuzzleLockButton()
+                                        .padding([.bottom, .trailing], 8)
                                 }
+                            }
                         }
                     }
-                    .padding(.vertical, 40)
+                    .padding(.vertical, 30)
                     
                     Text("새로운 퍼즐이 곧 업데이트될 예정입니다.\n많이 기대해 주세요! 😆")
                         .font(.regular16)
                         .foregroundStyle(.gray)
                         .multilineTextAlignment(.center)
-                        .padding(.bottom, 100)
+                        .padding(.bottom, 200)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
