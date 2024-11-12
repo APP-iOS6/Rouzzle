@@ -12,7 +12,6 @@ struct RoutineListView: View {
     @Query private var routines: [RoutineItem]
     @Environment(\.modelContext) private var modelContext
     @State var isShowingAddRoutineSheet: Bool = false
-//    @State var dataChanged: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -45,8 +44,8 @@ struct RoutineListView: View {
                     }
                     .padding()
                     
-                    Text("끊임없이 남탓하고, 사고하지 말라")
-                        .font(.bold18)
+                    // BlurView로 텍스트 애니메이션 적용
+                    BlurTextView(text: "끊임없이 남탓하고, 사고하지 말라", font: .bold18, startTime: 0.5)
                     
                     ZStack {
                         Image(.dailyChallenge)
