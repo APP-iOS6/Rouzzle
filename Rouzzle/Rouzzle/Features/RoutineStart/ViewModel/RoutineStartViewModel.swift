@@ -9,11 +9,7 @@ import Factory
 import Foundation
 import Observation
 import SwiftUI
-<<<<<<< HEAD
-import Factory
-=======
 import FirebaseFirestore
->>>>>>> develop
 
 @Observable
 class RoutineStartViewModel {
@@ -26,10 +22,6 @@ class RoutineStartViewModel {
     var timeRemaining: Int = 0
     var routineItem: RoutineItem
     var viewTasks: [TaskList]
-    
-    @ObservationIgnored
-    @Injected(\.routineService) private var routineService // 루틴 완료 상태 저장을 위해 추가
-    private var taskManager: CalendarTaskManager // 캘린더 상태 업데이트를 위해 추가
     
     // 기존 computed properties 유지
     var inProgressTask: TaskList? {
@@ -50,7 +42,6 @@ class RoutineStartViewModel {
         print("뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
-        self.taskManager = taskManager
     }
     // 타이머 시작
     func startTimer() {
@@ -84,7 +75,6 @@ class RoutineStartViewModel {
         guard let currentIndex = viewTasks.firstIndex(where: { !$0.isCompleted }) else {
             isRoutineCompleted = true
             timer?.invalidate()
-            updateRoutineCompletion() // 루틴 완료 상태 업데이트 추가
             return
         }
         
@@ -102,7 +92,6 @@ class RoutineStartViewModel {
         } else {
             isRoutineCompleted = true
             timer?.invalidate()
-            updateRoutineCompletion() // 루틴 완료 상태 업데이트 추가
         }
     }
     
@@ -144,31 +133,6 @@ class RoutineStartViewModel {
         viewTasks.move(fromOffsets: source, toOffset: destination)
     }
     
-<<<<<<< HEAD
-    // 새로 추가된 메서드 - 루틴 완료 상태 업데이트
-    private func updateRoutineCompletion() {
-        let completion = RoutineCompletion(
-            routineId: routineItem.id,
-            userId: routineItem.userId,
-            date: Date(),
-            taskCompletions: routineItem.taskList.map { task in
-                TaskCompletion(
-                    title: task.title,
-                    emoji: task.emoji,
-                    timer: TimeInterval(task.timer),
-                    isComplete: task.isCompleted
-                )
-            }
-        )
-        
-        Task {
-            let result = await routineService.updateRoutineCompletion(completion)
-            if case .success = result {
-                await MainActor.run {
-                    taskManager.updateFromRoutineCompletion(completion)
-                }
-            }
-=======
     func updateRoutineCompletion(_ routineCompletion: RoutineCompletion) async -> Result<Void, DBError> {
         let db = Firestore.firestore()
         do {
@@ -177,7 +141,6 @@ class RoutineStartViewModel {
             return .success(())
         } catch {
             return .failure(DBError.firebaseError(error))
->>>>>>> develop
         }
     }
     
