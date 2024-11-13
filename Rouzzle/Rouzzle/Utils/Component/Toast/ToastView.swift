@@ -53,6 +53,7 @@ struct ToastView: View {
             // 메시지 텍스트 표시
             Text(message)
                 .foregroundColor(textColor)
+                .font(.regular16)
                 .multilineTextAlignment(.leading)
         }
         .padding()

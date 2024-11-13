@@ -41,10 +41,11 @@ struct ToastModifier: ViewModifier {
                             .frame(width: 24, height: 24)
                         Text(toast.message)
                             .foregroundColor(.white)
-                            .font(.headline)
+                            .font(.regular16)
                     }
                     .padding()
                     .background(toast.type.themeColor)
+                    .shadow(radius: 5)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                     .padding(.top, 50)
                     .onAppear {
