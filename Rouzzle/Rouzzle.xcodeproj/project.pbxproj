@@ -23,6 +23,11 @@
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
 		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
 		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
+		23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99782CE46370009BE074 /* CalendarTask.swift */; };
+		23BC997C2CE468B2009BE074 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */; };
+		23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */; };
+		23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99812CE46B56009BE074 /* CalendarView.swift */; };
+		23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99852CE47232009BE074 /* StatisticViewModel.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -164,6 +169,11 @@
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
 		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
 		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
+		23BC99782CE46370009BE074 /* CalendarTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTask.swift; sourceTree = "<group>"; };
+		23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTaskManager.swift; sourceTree = "<group>"; };
+		23BC99812CE46B56009BE074 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		23BC99852CE47232009BE074 /* StatisticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewModel.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -341,6 +351,24 @@
 				23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		23BC99772CE46338009BE074 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23BC99782CE46370009BE074 /* CalendarTask.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23BC997A2CE46744009BE074 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */,
+				23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */,
+				23BC99852CE47232009BE074 /* StatisticViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		23D7BD262CDD342F000B3DD9 /* Emoji */ = {
@@ -604,7 +632,9 @@
 		BD1546522CD9A9BA0098AD7B /* Statistic */ = {
 			isa = PBXGroup;
 			children = (
+				23BC99772CE46338009BE074 /* Model */,
 				BD1546532CD9A9F10098AD7B /* View */,
+				23BC997A2CE46744009BE074 /* ViewModel */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -613,6 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1546542CD9AA090098AD7B /* StatisticView.swift */,
+				23BC99812CE46B56009BE074 /* CalendarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -972,6 +1003,7 @@
 				974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
+				23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
@@ -1013,9 +1045,11 @@
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
 				FB4174E92CDB475F0084BC19 /* RoutineCompletion.swift in Sources */,
+				23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */,
 				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */,
+				23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */,
 				974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */,
 				974596DB2CE1E721004C346B /* FAQView.swift in Sources */,
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
@@ -1030,8 +1064,10 @@
 				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
+				23BC997C2CE468B2009BE074 /* CalendarViewModel.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */,
+				23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */,
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,

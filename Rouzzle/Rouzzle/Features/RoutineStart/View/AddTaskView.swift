@@ -9,13 +9,15 @@ import SwiftUI
 import SwiftData
 
 struct AddTaskView: View {
-    @Bindable var store: RoutineStore
+    var store: RoutineStore
     @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
     @State var isShowingEditRoutineSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+    
+    @State private var taskManager = CalendarTaskManager()
     
     var body: some View {
         ZStack {
@@ -120,10 +122,12 @@ struct AddTaskView: View {
                     }
                 }
                 .fullScreenCover(isPresented: $isShowingTimerView) {
-                    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: store.routineItem))
-                }
-                .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem))
+                    RoutineStartView(
+                        viewModel: RoutineStartViewModel(
+                            routineItem: store.routineItem,
+                            taskManager: taskManager  // taskManager 전달
+                        )
+                    )
                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
@@ -149,7 +153,7 @@ struct AddTaskView: View {
         }
         .animation(.smooth, value: store.taskList)
     }
-    // Task를 추가하는 함수
+    // Task를 추가
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
         do {
             try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
