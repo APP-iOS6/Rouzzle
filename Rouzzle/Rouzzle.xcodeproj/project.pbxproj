@@ -26,6 +26,7 @@
 		23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99782CE46370009BE074 /* CalendarTask.swift */; };
 		23BC997C2CE468B2009BE074 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */; };
 		23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */; };
+		23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99812CE46B56009BE074 /* CalendarView.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -169,6 +170,7 @@
 		23BC99782CE46370009BE074 /* CalendarTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTask.swift; sourceTree = "<group>"; };
 		23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTaskManager.swift; sourceTree = "<group>"; };
+		23BC99812CE46B56009BE074 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -526,7 +528,6 @@
 				BD15465A2CD9AA740098AD7B /* Social */,
 				BD1546562CD9AA470098AD7B /* Recommend */,
 				BD1546522CD9A9BA0098AD7B /* Statistic */,
-				23BC997A2CE46744009BE074 /* ViewModel */,
 				FB2A5AAC2CD9096B00CB981A /* Launch */,
 				BD1545C62CD92F040098AD7B /* Routine */,
 				BD1187022CD600AF00FF4180 /* Login */,
@@ -627,6 +628,7 @@
 			children = (
 				23BC99772CE46338009BE074 /* Model */,
 				BD1546532CD9A9F10098AD7B /* View */,
+				23BC997A2CE46744009BE074 /* ViewModel */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -635,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1546542CD9AA090098AD7B /* StatisticView.swift */,
+				23BC99812CE46B56009BE074 /* CalendarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1039,6 +1042,7 @@
 				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */,
+				23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */,
 				974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */,
 				974596DB2CE1E721004C346B /* FAQView.swift in Sources */,
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
