@@ -16,6 +16,7 @@ class RoutineStore {
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
     
+    var allRoutines: [RoutineItem] = [] // 모든 루틴 목록
     var routineItem: RoutineItem
     var taskList: [TaskList] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
@@ -33,7 +34,21 @@ class RoutineStore {
         print(routineItem.title)
         self.routineItem = routineItem
         self.taskList = routineItem.taskList
+        fetchAllRoutines() // 모든 루틴 로드
         getRecommendTask()
+    }
+    
+    /// 모든 루틴 데이터를 Firestore에서 가져오기
+    func fetchAllRoutines() {
+        Task {
+            do {
+                let routines = try await routineService.getAllRoutines()
+                allRoutines = routines.map { RoutineItem(from: $0) } // 변환 적용
+            } catch {
+                errorMessage = "루틴 데이터를 가져오는 데 실패했습니다."
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @MainActor

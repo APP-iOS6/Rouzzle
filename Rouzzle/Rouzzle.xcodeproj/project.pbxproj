@@ -28,6 +28,9 @@
 		23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */; };
 		23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99812CE46B56009BE074 /* CalendarView.swift */; };
 		23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99852CE47232009BE074 /* StatisticViewModel.swift */; };
+		23BC99882CE49223009BE074 /* StatisticCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99872CE49223009BE074 /* StatisticCategoryView.swift */; };
+		23BC998A2CE49C66009BE074 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99892CE49C66009BE074 /* SummaryView.swift */; };
+		23BC998C2CE49C94009BE074 /* RegisteredRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -180,6 +183,9 @@
 		23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTaskManager.swift; sourceTree = "<group>"; };
 		23BC99812CE46B56009BE074 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		23BC99852CE47232009BE074 /* StatisticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewModel.swift; sourceTree = "<group>"; };
+		23BC99872CE49223009BE074 /* StatisticCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCategoryView.swift; sourceTree = "<group>"; };
+		23BC99892CE49C66009BE074 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredRoutinesView.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -678,6 +684,9 @@
 			children = (
 				BD1546542CD9AA090098AD7B /* StatisticView.swift */,
 				23BC99812CE46B56009BE074 /* CalendarView.swift */,
+				23BC99872CE49223009BE074 /* StatisticCategoryView.swift */,
+				23BC99892CE49C66009BE074 /* SummaryView.swift */,
+				23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1110,9 +1119,11 @@
 				974596E12CE2978C004C346B /* PieceCounter.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */,
+				23BC998A2CE49C66009BE074 /* SummaryView.swift in Sources */,
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
+				23BC998C2CE49C94009BE074 /* RegisteredRoutinesView.swift in Sources */,
 				23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
@@ -1121,6 +1132,7 @@
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
 				97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */,
+				23BC99882CE49223009BE074 /* StatisticCategoryView.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,

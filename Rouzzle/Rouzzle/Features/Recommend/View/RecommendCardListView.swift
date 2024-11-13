@@ -39,6 +39,7 @@ struct RecommendCardListView: View {
                 }
                 .padding(.bottom, 300)
             }
+            .scrollIndicators(.hidden)
         }
         .animation(.spring(), value: selectedCardID)
     }

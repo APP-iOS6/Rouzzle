@@ -77,15 +77,6 @@ class CalendarTaskManager {
     func loadDummyData() {
         let dummyCompletions = [
             RoutineCompletion(
-                routineId: "routine1",
-                userId: "user1",
-                date: Date(), // 오늘 날짜
-                taskCompletions: [
-                    TaskCompletion(title: "Task 1", emoji: "☕️", timer: 600, isComplete: true),
-                    TaskCompletion(title: "Task 2", emoji: "📚", timer: 300, isComplete: false)
-                ]
-            ),
-            RoutineCompletion(
                 routineId: "routine2",
                 userId: "user1",
                 date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // 12일
