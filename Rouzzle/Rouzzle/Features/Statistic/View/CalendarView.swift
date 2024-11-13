@@ -93,6 +93,15 @@ struct CalendarView: View {
                     }
                 }
             }
+            
+            // 테스트용 더미 데이터 버튼
+            Button("더미 데이터 로드") {
+                viewModel.loadDummyData()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
         }
         .onAppear {
             viewModel.loadRoutineCompletions()
