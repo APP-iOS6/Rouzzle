@@ -78,20 +78,21 @@ class EditRoutineViewModel {
     @MainActor
     func updateRoutine(context: ModelContext) async {
         loadState = .loading
-        saveRoutine()
-        
-        let routine = await routineService.updateRoutine(routine.toRoutine())
+        let routine = await routineService.updateRoutine(editRoutine.toRoutine())
         switch routine {
-        case .success(()):
-            let deleteTasks = deleteTasks.map { $0.toTaskList() }
+        case .success:
             do {
-                try SwiftDataService.deleteTasks(tasks: deleteTasks, context: context)
+                try SwiftDataService.resetRoutine(from: self.routine, context: context)
+                for task in editRoutine.taskList {
+                    try SwiftDataService.addTask(to: self.routine, task.toTaskList(), context: context)
+                }
+                saveRoutine()
+                try context.save()
                 loadState = .completed
             } catch {
                 loadState = .failed
                 errorMessage = "루틴 수정 실패"
             }
-            return
         case .failure:
             loadState = .failed
             errorMessage = "루틴 수정 실패"
@@ -99,12 +100,12 @@ class EditRoutineViewModel {
     }
     
     func saveRoutine() {
+        // 루틴의 기본 속성 업데이트
         routine.title = editRoutine.title
         routine.emoji = editRoutine.emoji
         routine.dayStartTime = tempdayStartTime.mapKeys { $0.rawValue }.mapValues { $0.formattedToTime() }
         routine.interval = editRoutine.interval
         routine.repeatCount = editRoutine.repeatCount
         routine.alarmIDs = editRoutine.alarmIDs
-        routine.taskList = editRoutine.taskList.map { $0.toTaskList() }
     }
 }
