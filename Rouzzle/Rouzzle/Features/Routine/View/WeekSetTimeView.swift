@@ -10,11 +10,13 @@ import SwiftUI
 struct WeekSetTimeView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @Bindable var viewModel: AddRoutineViewModel
+    @Binding var selectedDateWithTime: [Day: Date]
     @State private var selectedDay: Day = .sunday
     @State private var selectedTime: Date = Date() // 전체 시간을 설정할 때 사용할 시간
     @State private var showDaySheet = false
     @State private var showAllDaysPicker = false
+    
+    let allTimeChange: (Date) -> Void
     
     var body: some View {
         VStack {
@@ -47,7 +49,7 @@ struct WeekSetTimeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(Day.allCases, id: \.self) { day in
-                        let selected = viewModel.selectedDateWithTime[day] != nil
+                        let selected = selectedDateWithTime[day] != nil
                         HStack {
                             Text("\(day.name)요일")
                                 .strikethrough(!selected, color: Color(uiColor: .systemGray3))
@@ -57,7 +59,7 @@ struct WeekSetTimeView: View {
                             
                             Spacer()
                             
-                            Text(viewModel.selectedDateWithTime[day] ?? Date(), style: .time)
+                            Text(selectedDateWithTime[day] ?? Date(), style: .time)
                                 .strikethrough(!selected, color: Color(uiColor: .systemGray3))
                                 .foregroundStyle(!selected ? Color(uiColor: .systemGray3) : .black.opacity(0.6))
                                 .font(.regular18)
@@ -72,7 +74,7 @@ struct WeekSetTimeView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             selectedDay = day
-                            selectedTime = viewModel.selectedDateWithTime[day] ?? Date()
+                            selectedTime = selectedDateWithTime[day] ?? Date()
                             showDaySheet.toggle()
                         }
                         .disabled(!selected)
@@ -92,13 +94,13 @@ struct WeekSetTimeView: View {
         // 요일별 시간 피커
         .sheet(isPresented: $showDaySheet) {
             ReusableTimePickerSheet(time: $selectedTime) {
-                viewModel.selectedDateWithTime[selectedDay] = selectedTime
+                selectedDateWithTime[selectedDay] = selectedTime
             }
         }
         // 한 번에 시간 피커
         .sheet(isPresented: $showAllDaysPicker) {
             ReusableTimePickerSheet(time: $selectedTime) {
-                viewModel.selectedDayChangeDate(selectedTime)
+                allTimeChange(selectedTime)
             }
         }
         .navigationBarBackButtonHidden()
@@ -139,6 +141,8 @@ struct ReusableTimePickerSheet: View {
 
 #Preview {
     NavigationStack {
-        WeekSetTimeView(viewModel: .init())
+        WeekSetTimeView(selectedDateWithTime: .constant([:])) {_ in 
+            
+        }
     }
 }
