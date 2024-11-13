@@ -59,6 +59,12 @@ class RoutineItem: Identifiable {
             taskList: taskList.map { $0.toTaskEditData() }
         )
     }
+    
+    func toRoutineCompletion(_ date: Date) -> RoutineCompletion {
+        let documentId: String = "\(date.formattedDateToString)_\(id)"
+        print(documentId)
+        return RoutineCompletion(documentId: documentId, routineId: id, userId: userId, date: date, taskCompletions: taskList.map { $0.toTaskCompletion() })
+    }
 }
 
 @Model
@@ -98,6 +104,10 @@ class TaskList: Identifiable {
             timer: timer,
             isCompleted: isCompleted
         )
+    }
+    
+    func toTaskCompletion() -> TaskCompletion {
+        return TaskCompletion(title: title, emoji: emoji, timer: timer, isComplete: isCompleted)
     }
 }
 

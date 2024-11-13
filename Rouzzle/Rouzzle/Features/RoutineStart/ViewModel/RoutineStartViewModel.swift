@@ -5,13 +5,22 @@
 //  Created by Hyojeong on 11/5/24.
 //
 
+import Factory
 import Foundation
 import Observation
 import SwiftUI
+<<<<<<< HEAD
 import Factory
+=======
+import FirebaseFirestore
+>>>>>>> develop
 
 @Observable
 class RoutineStartViewModel {
+    
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
+
     private var timer: Timer?
     var timerState: TimerState = .running
     var timeRemaining: Int = 0
@@ -86,6 +95,7 @@ class RoutineStartViewModel {
         }
         
         if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
+            print("담작겁이승ㅁ")
             timeRemaining = nextTask.timer
             timerState = .running
             startTimer()
@@ -124,11 +134,17 @@ class RoutineStartViewModel {
         }
     }
     
+    func saveRoutineCompletion() async {
+        let routine = routineItem.toRoutineCompletion(Date())
+        _ = await updateRoutineCompletion(routine)
+    }
+    
     // 순서 변경 함수 (뷰 전용)
     func moveTask(from source: IndexSet, to destination: Int) {
         viewTasks.move(fromOffsets: source, toOffset: destination)
     }
     
+<<<<<<< HEAD
     // 새로 추가된 메서드 - 루틴 완료 상태 업데이트
     private func updateRoutineCompletion() {
         let completion = RoutineCompletion(
@@ -152,6 +168,16 @@ class RoutineStartViewModel {
                     taskManager.updateFromRoutineCompletion(completion)
                 }
             }
+=======
+    func updateRoutineCompletion(_ routineCompletion: RoutineCompletion) async -> Result<Void, DBError> {
+        let db = Firestore.firestore()
+        do {
+            let routineCompletionEcode = try Firestore.Encoder().encode(routineCompletion)
+            try await db.collection("RoutineCompletion").document(routineCompletion.documentId ?? UUID().uuidString).setData(routineCompletionEcode, merge: true)
+            return .success(())
+        } catch {
+            return .failure(DBError.firebaseError(error))
+>>>>>>> develop
         }
     }
     

@@ -11,7 +11,7 @@ struct RoutineStartView: View {
     @State var viewModel: RoutineStartViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-
+    
     @State var isShowingTaskListSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
     
@@ -154,16 +154,15 @@ struct RoutineStartView: View {
             viewModel.resetTask()
             viewModel.startTimer()
         }
+        .onDisappear {
+            Task {
+                await viewModel.saveRoutineCompletion()
+            }
+        }
     }
 }
 
 #Preview {
-    let taskManager = CalendarTaskManager()
-    return RoutineStartView(
-        viewModel: RoutineStartViewModel(
-            routineItem: RoutineItem.sampleData[0],
-            taskManager: taskManager
-        )
-    )
-    .modelContainer(SampleData.shared.modelContainer)
+    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: RoutineItem.sampleData[0]))
+        .modelContainer(SampleData.shared.modelContainer)
 }
