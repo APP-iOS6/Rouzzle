@@ -139,8 +139,12 @@ struct RoutineStartView: View {
             .padding(.horizontal)
         }
         .sheet(isPresented: $isShowingTaskListSheet) {
-            TaskListSheet(tasks: $viewModel.viewTasks, detents: $detents, inProgressTask: viewModel.inProgressTask)
-                .presentationDetents(detents)
+            TaskListSheet(
+                tasks: $viewModel.viewTasks,
+                detents: $detents,
+                inProgressTask: viewModel.inProgressTask
+            )
+            .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
             RoutineCompleteView(routineItem: viewModel.routineItem)
@@ -154,6 +158,12 @@ struct RoutineStartView: View {
 }
 
 #Preview {
-    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: RoutineItem.sampleData[0]))
-            .modelContainer(SampleData.shared.modelContainer)
+    let taskManager = CalendarTaskManager()
+    return RoutineStartView(
+        viewModel: RoutineStartViewModel(
+            routineItem: RoutineItem.sampleData[0],
+            taskManager: taskManager
+        )
+    )
+    .modelContainer(SampleData.shared.modelContainer)
 }

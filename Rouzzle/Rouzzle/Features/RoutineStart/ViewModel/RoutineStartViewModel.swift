@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 import SwiftUI
+import Factory
 
 @Observable
 class RoutineStartViewModel {
@@ -16,6 +17,12 @@ class RoutineStartViewModel {
     var timeRemaining: Int = 0
     var routineItem: RoutineItem
     var viewTasks: [TaskList]
+    
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService // 루틴 완료 상태 저장을 위해 추가
+    private var taskManager: CalendarTaskManager // 캘린더 상태 업데이트를 위해 추가
+    
+    // 기존 computed properties 유지
     var inProgressTask: TaskList? {
         viewTasks.first { !$0.isCompleted }
     }
@@ -29,16 +36,18 @@ class RoutineStartViewModel {
     
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     
-    init(routineItem: RoutineItem) {
-        print("뷰모델 생성 ")
+    // taskManager 파라미터 추가
+    init(routineItem: RoutineItem, taskManager: CalendarTaskManager) {
+        print("뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
+        self.taskManager = taskManager
     }
     // 타이머 시작
     func startTimer() {
         self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
         timer?.invalidate()
-
+        
         guard timerState == .running || timerState == .overtime else { return }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
@@ -61,23 +70,21 @@ class RoutineStartViewModel {
         }
     }
     
-    // 완료 버튼 로직(inProgress 상태에서 completed로 변경)
+    // 완료 버튼 로직 수정 - 루틴 완료 시 Firebase 저장 및 캘린더 업데이트 추가
     func markTaskAsCompleted() {
         guard let currentIndex = viewTasks.firstIndex(where: { !$0.isCompleted }) else {
             isRoutineCompleted = true
             timer?.invalidate()
+            updateRoutineCompletion() // 루틴 완료 상태 업데이트 추가
             return
         }
         
-        // 뷰용 리스트에서 완료 상태 변경
         viewTasks[currentIndex].isCompleted = true
         
-        // 모델의 리스트에서 완료 상태 변경
         if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == viewTasks[currentIndex].id }) {
             routineItem.taskList[modelIndex].isCompleted = true
         }
         
-        // 다음 작업의 타이머 설정
         if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
             timeRemaining = nextTask.timer
             timerState = .running
@@ -85,6 +92,7 @@ class RoutineStartViewModel {
         } else {
             isRoutineCompleted = true
             timer?.invalidate()
+            updateRoutineCompletion() // 루틴 완료 상태 업데이트 추가
         }
     }
     
@@ -119,6 +127,32 @@ class RoutineStartViewModel {
     // 순서 변경 함수 (뷰 전용)
     func moveTask(from source: IndexSet, to destination: Int) {
         viewTasks.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    // 새로 추가된 메서드 - 루틴 완료 상태 업데이트
+    private func updateRoutineCompletion() {
+        let completion = RoutineCompletion(
+            routineId: routineItem.id,
+            userId: routineItem.userId,
+            date: Date(),
+            taskCompletions: routineItem.taskList.map { task in
+                TaskCompletion(
+                    title: task.title,
+                    emoji: task.emoji,
+                    timer: TimeInterval(task.timer),
+                    isComplete: task.isCompleted
+                )
+            }
+        )
+        
+        Task {
+            let result = await routineService.updateRoutineCompletion(completion)
+            if case .success = result {
+                await MainActor.run {
+                    taskManager.updateFromRoutineCompletion(completion)
+                }
+            }
+        }
     }
     
     deinit {

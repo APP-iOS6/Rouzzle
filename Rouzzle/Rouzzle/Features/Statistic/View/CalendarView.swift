@@ -17,9 +17,7 @@ struct CalendarView: View {
                 Spacer()
                 HStack(spacing: 15) {
                     Button {
-                        withAnimation {
                             viewModel.moveMonth(direction: -1)
-                        }
                     } label: {
                         Image(systemName: "chevron.left")
                             .font(.regular14)
@@ -30,9 +28,7 @@ struct CalendarView: View {
                         .font(.regular14)
                     
                     Button {
-                        withAnimation {
                             viewModel.moveMonth(direction: 1)
-                        }
                     } label: {
                         Image(systemName: "chevron.right")
                             .font(.regular14)
@@ -99,8 +95,7 @@ struct CalendarView: View {
                 viewModel.loadDummyData()
             }
             .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
+            .background(Color.themeColor)
             .cornerRadius(10)
         }
         .onAppear {
