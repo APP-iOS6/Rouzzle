@@ -45,16 +45,15 @@ struct AddRoutineView: View {
                         RoutineBasicSettingView(viewModel: viewModel)
                         
                         RoutineNotificationView(viewModel: viewModel)
-                        
                     }
                     .padding(.top, 20)
                 }
                 
-                RouzzleButton(buttonType: .save, action: {
+                RouzzleButton(buttonType: .save, disabled: viewModel.disabled, action: {
                     print("루틴 등록 버튼")
                     viewModel.uploadRoutine(context: context)
                 })
-                .background(Color.white)
+                .animation(.smooth, value: viewModel.disabled)
             }
             .overlay {
                 if viewModel.loadState == .loading {
@@ -129,7 +128,9 @@ struct RoutineBasicSettingView: View {
                         if let firstDay = viewModel.selectedDateWithTime.sorted(by: { $0.key.rawValue < $1.key.rawValue }).first {
                             // 선택된 요일 중 가장 첫 번째 요일의 시간을 보여줄 거임
                             NavigationLink {
-                                WeekSetTimeView(viewModel: viewModel)
+                                WeekSetTimeView(selectedDateWithTime: $viewModel.selectedDateWithTime) { allTime in
+                                    viewModel.selectedDayChangeDate(allTime)
+                                }
                             } label: {
                                 Text(firstDay.value, style: .time)
                                     .foregroundStyle(.black)
@@ -214,6 +215,15 @@ struct RoutineNotificationView: View {
                 }
             }
         }
+        .onChange(of: viewModel.isNotificationEnabled, { _, newValue in
+            if newValue {
+                viewModel.repeatCount = 1
+                viewModel.interval = 1
+            } else {
+                viewModel.repeatCount = nil
+                viewModel.interval = nil
+            }
+        })
         .animation(.smooth, value: viewModel.isNotificationEnabled)
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
@@ -247,7 +257,7 @@ struct CustomPicker2: View {
     let unit: String
     let isDisabled: Bool
     let options: [Int]
-    @Binding var selection: Int
+    @Binding var selection: Int?
     
     var body: some View {
         Menu {
@@ -259,7 +269,7 @@ struct CustomPicker2: View {
                 }
             }
         } label: {
-            Text("\(selection)\(unit)")
+            Text("\(selection ?? 0)\(unit)")
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
         }

@@ -65,9 +65,8 @@ class RoutineStore {
         switch result {
         case .success(()):
             do {
-                try SwiftDataService.addTasks(to: routineItem, todoTasks.map { $0.toTaskList() }, context: context)
                 for task in todoTasks {
-                    taskList.append(task.toTaskList())
+                    try SwiftDataService.addTask(to: routineItem, task.toTaskList(), context: context)
                 }
             } catch {
                 errorMessage = "할일 추가에 실패했습니다"

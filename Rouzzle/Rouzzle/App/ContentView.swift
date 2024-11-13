@@ -16,7 +16,7 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                 }
             
-            RoutineSDView()
+            StatisticView()
                 .tabItem {
                     Text("통계")
                     Image(systemName: "list.bullet.clipboard.fill")
