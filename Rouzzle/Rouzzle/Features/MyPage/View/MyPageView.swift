@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @State private var viewModel = MyPageViewModel()
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
     @Environment(AuthStore.self) private var authStore
     @State private var isShowingLogoutAlert: Bool = false
@@ -38,7 +39,7 @@ struct MyPageView: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(alignment: .bottom) {
-                                Text("효짱")
+                                Text(viewModel.userName)
                                     .font(.bold18)
                                 
                                 Text("루즐러")
@@ -67,7 +68,7 @@ struct MyPageView: View {
                         }
                     }
                     
-                    Text("나 김효정.. 노원 대표 뱅갈호랑이, 누가 날 막을소냐!")
+                    Text(viewModel.introduction)
                         .font(.regular14)
                         .padding(.vertical)
                     
@@ -202,6 +203,9 @@ struct MyPageView: View {
                     }
                 }
                 .padding(.horizontal)
+            }
+            .onAppear {
+                viewModel.loadUserData()
             }
             .customAlert(isPresented: $isShowingLogoutAlert,
                          title: "로그아웃하시겠어요?",

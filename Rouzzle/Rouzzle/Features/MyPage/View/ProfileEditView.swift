@@ -9,8 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileEditView: View {
-    @State var nickname: String = ""
-    @State var introduction: String = ""
+    @Bindable private var viewModel = MyPageViewModel()
     @State var selectedItem: PhotosPickerItem?
     @Binding var profileImage: UIImage?
     @State var showPicker: Bool = false
@@ -51,7 +50,7 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack {
-                TextField("", text: $nickname, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
+                TextField("", text: $viewModel.userName, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.subHeadlineFontColor)
@@ -63,7 +62,7 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack {
-                TextField("", text: $introduction, prompt: Text("자기소개를 입력해주세요.").font(.regular16))
+                TextField("", text: $viewModel.introduction, prompt: Text("자기소개를 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.subHeadlineFontColor)
@@ -75,7 +74,7 @@ struct ProfileEditView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // 프로필 변경된 데이터 저장
+                    viewModel.updateUserData()
                     dismiss()
                 } label: {
                     Text("완료")
@@ -84,15 +83,15 @@ struct ProfileEditView: View {
             }
         }
         // 닉네임 글자 수 9자 제한
-        .onChange(of: nickname) {
-            if nickname.count > 9 {
-                nickname = String(nickname.prefix(9))
+        .onChange(of: viewModel.userName) {
+            if viewModel.userName.count > 9 {
+                viewModel.userName = String(viewModel.userName.prefix(9))
             }
         }
         // 자기소개 글자 수 30자 제한
-        .onChange(of: introduction) {
-            if introduction.count > 30 {
-                introduction = String(introduction.prefix(30))
+        .onChange(of: viewModel.introduction) {
+            if viewModel.introduction.count > 30 {
+                viewModel.introduction = String(viewModel.introduction.prefix(30))
             }
         }
         .photosPicker(isPresented: $showPicker,
