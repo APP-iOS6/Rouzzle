@@ -13,7 +13,7 @@ struct SocialView: View {
     @State private var expandedRoutineIndex: Int?
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(alignment: .leading, spacing: 40) {
                 VStack {
                     HStack {
@@ -64,12 +64,8 @@ struct SocialView: View {
                     // 사용자 랜덤으로 보여주기
                     ScrollView {
                         VStack(spacing: 15) {
-                            ForEach(0..<3) { index in
-                                RoutineCardView(isExpanded: expandedRoutineIndex == index, onToggleExpand: {
-                                    withAnimation {
-                                        expandedRoutineIndex = (expandedRoutineIndex == index) ? nil : index
-                                    }
-                                }, tasks: DummyTask.tasks)
+                            ForEach(viewModel.userProfiles) { user in
+                                RoutineCardView(userProfile: user)
                             }
                         }
                     }
@@ -86,25 +82,28 @@ struct SocialView: View {
 }
 
 struct RoutineCardView: View {
-    var isExpanded: Bool
-    var onToggleExpand: () -> Void
+    @State var isExpanded: Bool = false
     @State private var isStarred: Bool = false
-    var tasks: [DummyTask]
+    var userProfile: UserProfile
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
                 // 프로필 이미지
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .foregroundColor(.gray)
-                    .frame(width: 44, height: 44)
-                    .clipShape(Circle())
+                AsyncImage(url: URL(string: userProfile.profileImageUrl)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 44, height: 44)
+                .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 3) {
                     HStack {
                         // 닉네임
-                        Text("메어른")
+                        Text("\(userProfile.nickname)")
                             .font(.semibold16)
                         
                         // 연속일
@@ -137,23 +136,27 @@ struct RoutineCardView: View {
             
             HStack {
                 // 루틴이름
-                RoutineLabelView(text: "아침 루틴")
-                
+                LazyHStack {
+                    ForEach(userProfile.routines, id: \.self) { routine in
+                        RoutineLabelView(text: "\(routine.title)")
+                    }
+                }
                 Spacer()
                 
                 // 더보기 버튼
                 Button(action: {
-                    onToggleExpand()
+                    withAnimation {
+                        isExpanded.toggle()
+                    }
                 }, label: {
                     Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
                         .foregroundColor(.gray)
                 })
             }
-            .padding(.top, 3)
+            .padding(.top, 2)
             
             if isExpanded {
-                //                Divider()
-                RoutineTasksView(tasks: tasks)
+                RoutineTasksView(tasks: userProfile.routines[0].routineTask)
             }
         }
         .padding()
@@ -164,7 +167,7 @@ struct RoutineCardView: View {
 
 // 더보기(루틴 할 일 리스트)
 struct RoutineTasksView: View {
-    var tasks: [DummyTask]
+    var tasks: [RoutineTask]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -172,18 +175,16 @@ struct RoutineTasksView: View {
                 .font(.light12)
                 .foregroundColor(.gray)
             
-            ForEach(tasks) { task in
+            ForEach(tasks, id: \.self) { task in
                 HStack(spacing: 2) {
                     Text(task.emoji)
                     Text(task.title)
                         .font(.regular12)
                         .padding(.leading, 4)
                     Spacer()
-                    if let timer = task.timer {
-                        Text("\(timer/60)분")
-                            .font(.regular12)
-                            .foregroundColor(.gray)
-                    }
+                    Text("\(task.timer/60)분")
+                        .font(.regular12)
+                        .foregroundColor(.gray)
                 }
             }
         }
