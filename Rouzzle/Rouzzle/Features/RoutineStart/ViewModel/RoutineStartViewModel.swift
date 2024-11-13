@@ -5,12 +5,18 @@
 //  Created by Hyojeong on 11/5/24.
 //
 
+import Factory
 import Foundation
 import Observation
 import SwiftUI
+import FirebaseFirestore
 
 @Observable
 class RoutineStartViewModel {
+    
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
+
     private var timer: Timer?
     var timerState: TimerState = .running
     var timeRemaining: Int = 0
@@ -79,6 +85,7 @@ class RoutineStartViewModel {
         
         // 다음 작업의 타이머 설정
         if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
+            print("담작겁이승ㅁ")
             timeRemaining = nextTask.timer
             timerState = .running
             startTimer()
@@ -116,9 +123,25 @@ class RoutineStartViewModel {
         }
     }
     
+    func saveRoutineCompletion() async {
+        let routine = routineItem.toRoutineCompletion(Date())
+        _ = await updateRoutineCompletion(routine)
+    }
+    
     // 순서 변경 함수 (뷰 전용)
     func moveTask(from source: IndexSet, to destination: Int) {
         viewTasks.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    func updateRoutineCompletion(_ routineCompletion: RoutineCompletion) async -> Result<Void, DBError> {
+        let db = Firestore.firestore()
+        do {
+            let routineCompletionEcode = try Firestore.Encoder().encode(routineCompletion)
+            try await db.collection("RoutineCompletion").document(routineCompletion.documentId ?? UUID().uuidString).setData(routineCompletionEcode, merge: true)
+            return .success(())
+        } catch {
+            return .failure(DBError.firebaseError(error))
+        }
     }
     
     deinit {
