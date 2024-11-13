@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @State private var viewModel = MyPageViewModel()
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
     @Environment(AuthStore.self) private var authStore
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingPassView: Bool = false
-    @State var profileImage: UIImage?
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -26,19 +26,22 @@ struct MyPageView: View {
                     
                     // MARK: 프사, 닉, 편집 버튼, 자기소개 부분
                     HStack(alignment: .top) {
-                        if let profileImage = profileImage {
-                            ProfileImageView(frameSize: 53, profileImage: profileImage)
+                        ZStack {
+                            ProfileImageView(frameSize: 53, profileImage: viewModel.profileImage)
                                 .padding(.trailing, 12)
                                 .padding(.top, -2)
-                        } else {
-                            EmptyProfileView(frameSize: 53)
-                                .padding(.trailing, 12)
-                                .padding(.top, -2)
+
+                            if viewModel.loadState == .loading {
+                                ProgressView()
+                                    .padding(.trailing, 12)
+                                    .padding(.top, -2)
+                                    .tint(.black)
+                            }
                         }
                         
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(alignment: .bottom) {
-                                Text("효짱")
+                                Text(viewModel.name)
                                     .font(.bold18)
                                 
                                 Text("루즐러")
@@ -54,7 +57,11 @@ struct MyPageView: View {
                         Spacer()
                         
                         NavigationLink {
-                            ProfileEditView(profileImage: $profileImage)
+                            ProfileEditView(name: viewModel.name,
+                                            introduction: viewModel.introduction,
+                                            profileImage: viewModel.profileImage) {
+                                viewModel.loadUserData()
+                            }
                         } label: {
                             Text("프로필 편집")
                                 .font(.medium14)
@@ -67,7 +74,7 @@ struct MyPageView: View {
                         }
                     }
                     
-                    Text("나 김효정.. 노원 대표 뱅갈호랑이, 누가 날 막을소냐!")
+                    Text(viewModel.introduction)
                         .font(.regular14)
                         .padding(.vertical)
                     
