@@ -25,7 +25,6 @@ struct SocialMarkDetailView: View {
                 .frame(width: 50, height: 50)
                 .clipShape(Circle())
 
-                
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
                         Text(userProfile.nickname)
@@ -117,7 +116,3 @@ struct RoutineDetailCardView2: View {
         .cornerRadius(12)
     }
 }
-//
-//#Preview {
-//    SocialMarkDetailView()
-//}

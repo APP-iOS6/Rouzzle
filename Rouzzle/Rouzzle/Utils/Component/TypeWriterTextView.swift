@@ -18,11 +18,11 @@ struct TypeWriterTextView: View {
     var body: some View {
         Text(displayedText)
             .font(font)
-            .onChange(of: text) { newText in
+            .onChange(of: text) {
                 // 새로운 텍스트가 들어오면 애니메이션 재시작
                 displayedText = ""
                 currentIndex = 0
-                startTypingAnimation(with: newText)
+                startTypingAnimation(with: text)
             }
             .onAppear {
                 // 초기 텍스트 애니메이션 실행
