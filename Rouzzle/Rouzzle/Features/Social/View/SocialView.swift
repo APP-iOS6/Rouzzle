@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct SocialView: View {
+    @State private var viewModel: SocialViewModel = SocialViewModel()
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
-    // 임시
-    private let favoriteUsers = ["기바오", "김정언", "찐따영", "현정카이저", "노원뱅갈"]
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 40) {
@@ -35,15 +34,20 @@ struct SocialView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 15) {
-                            ForEach(favoriteUsers, id: \.self) { userNickname in
-                                NavigationLink(destination: SocialMarkDetailView(userNickname: userNickname)) {
+                            ForEach(viewModel.userProfiles) { user in
+                                NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
                                     VStack {
-                                        Image(systemName: "person.crop.circle.fill")
-                                            .resizable()
-                                            .foregroundColor(.gray)
-                                            .frame(width: 60, height: 60)
-                                            .clipShape(Circle())
-                                        Text(userNickname)
+                                        AsyncImage(url: URL(string: user.profileImageUrl)) { image in
+                                            image
+                                                .resizable()
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle())
+                                        } placeholder: {
+                                            ProgressView()
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle())
+                                        }
+                                        Text(user.nickname)
                                             .font(.regular12)
                                             .foregroundColor(.black)
                                     }
@@ -72,6 +76,11 @@ struct SocialView: View {
                 }
             }
             .padding()
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchUserProfiles()
+            }
         }
     }
 }

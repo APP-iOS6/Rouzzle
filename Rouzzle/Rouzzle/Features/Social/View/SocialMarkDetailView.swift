@@ -8,22 +8,26 @@
 import SwiftUI
 
 struct SocialMarkDetailView: View {
-    var userNickname: String
+    var userProfile: UserProfile
     @State private var isStarred: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                // 프로필 이미지
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .foregroundColor(.gray)
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
                 
+                AsyncImage(url: URL(string: userProfile.profileImageUrl)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 50, height: 50)
+                .clipShape(Circle())
+
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
-                        Text(userNickname)
+                        Text(userProfile.nickname)
                             .font(.bold16)
                         Text("루즐러")
                             .font(.regular14)
@@ -59,8 +63,10 @@ struct SocialMarkDetailView: View {
             
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(0..<2) { _ in
-                        RoutineDetailCardView2() // 각 할 일 목록 카드
+                    ForEach(userProfile.routines, id: \.self) { routine in
+                        if !routine.routineTask.isEmpty {
+                            RoutineDetailCardView2(routine: routine) // 각 할 일 목록 카드
+                        }
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 12)
@@ -68,15 +74,16 @@ struct SocialMarkDetailView: View {
                 }
             }
         }
-        .customNavigationBar(title: userNickname)
+        .customNavigationBar(title: userProfile.nickname)
     }
 }
 
 struct RoutineDetailCardView2: View {
+    var routine: Routine
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                RoutineLabelView(text: "저녁 루틴")
+                RoutineLabelView(text: "\(routine.emoji) \(routine.title)")
                 Spacer()
                 Text("8:30 AM ~ 8:50 AM")
                     .font(.light12)
@@ -86,18 +93,19 @@ struct RoutineDetailCardView2: View {
             Divider()
             
             VStack(alignment: .leading, spacing: 12) {
-                ForEach(DummyTask.tasks) { task in
+                ForEach(routine.routineTask, id: \.self) { task in
+                    
                     HStack(spacing: 2) {
                         Text(task.emoji)
                         Text(task.title)
                             .font(.regular12)
                             .padding(.leading, 4)
                         Spacer()
-                        if let timer = task.timer {
-                            Text("\(timer / 60)분")
-                                .font(.regular12)
-                                .foregroundColor(.gray)
-                        }
+                        
+                        Text("\(task.timer / 60)분")
+                            .font(.regular12)
+                            .foregroundColor(.gray)
+                        
                     }
                 }
             }
@@ -107,8 +115,4 @@ struct RoutineDetailCardView2: View {
         .background(Color(.systemGray6))
         .cornerRadius(12)
     }
-}
-
-#Preview {
-    SocialMarkDetailView(userNickname: "기바오")
 }

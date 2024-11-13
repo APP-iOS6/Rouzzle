@@ -24,9 +24,9 @@ struct AddTaskView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     Label(store.todayStartTime, systemImage: "clock")
-                        .font(.regular16)
+                        .font(.regular14)
                         .foregroundStyle(Color.subHeadlineFontColor)
-                        .padding(.top, 10)
+                        .padding(.top, 15)
                     
                     Button {
                         isShowingTimerView.toggle()
@@ -35,7 +35,7 @@ struct AddTaskView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                     }
-                    .padding(.top, 5)
+                    .padding(.top, -2)
                     
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)

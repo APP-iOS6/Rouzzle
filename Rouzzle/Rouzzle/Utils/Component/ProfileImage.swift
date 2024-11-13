@@ -7,39 +7,32 @@
 
 import SwiftUI
 
-// 기본 프사
-struct EmptyProfileView: View {
-    var frameSize: CGFloat
-    
-    var body: some View {
-        Image(systemName: "person.fill")
-            .resizable()
-            .scaledToFit()
-            .foregroundStyle(.accent)
-            .frame(width: frameSize, height: frameSize)
-            .scaleEffect(0.6)
-            .background(
-                Circle()
-                    .fill(.white)
-                    .stroke(.accent, lineWidth: 2)
-            )
-    }
-}
-
-// 사용자가 이미지 넣었을 때 뜨는 프사
 struct ProfileImageView: View {
     var frameSize: CGFloat
-    var profileImage: UIImage
+    var profileImage: UIImage?
     
     var body: some View {
-        Image(uiImage: profileImage)
-            .resizable()
-            .scaledToFill()
-            .frame(width: frameSize, height: frameSize)
-            .clipShape(Circle())
+        Group {
+            if let profileImage = profileImage {
+                // 프로필 사진이 있으면 표시
+                Image(uiImage: profileImage)
+                    .resizable()
+            } else {
+                Image(.defaultProfile)
+                    .resizable()
+                    .scaleEffect(0.5)
+            }
+        }
+        .scaledToFill()
+        .frame(width: frameSize, height: frameSize)
+        .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(Color.accentColor, lineWidth: 2)
+        )
     }
 }
 
 #Preview {
-    EmptyProfileView(frameSize: 73)
+    ProfileImageView(frameSize: 73)
 }

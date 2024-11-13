@@ -36,6 +36,7 @@ class RoutineStartViewModel {
     }
     
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
+    private var isResuming = false // 일시정지 후 재개 상태를 추적
     
     // taskManager 파라미터 추가
     init(routineItem: RoutineItem, taskManager: CalendarTaskManager) {
@@ -45,7 +46,12 @@ class RoutineStartViewModel {
     }
     // 타이머 시작
     func startTimer() {
-        self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
+//        self.timeRemaining = routineItem.taskList.first { !$0.isCompleted }?.timer ?? 0
+        if !isResuming {
+            self.timeRemaining = inProgressTask?.timer ?? 0
+        }
+        isResuming = false // 설정 후 초기화
+        
         timer?.invalidate()
         
         guard timerState == .running || timerState == .overtime else { return }
@@ -66,6 +72,7 @@ class RoutineStartViewModel {
             timer?.invalidate()
         } else {
             timerState = timeRemaining >= 0 ? .running : .overtime
+            isResuming = true
             startTimer()
         }
     }
