@@ -18,7 +18,7 @@ struct ProfileEditView: View {
     @State private var showPicker: Bool = false
     @State private var isNameEmpty: Bool = false
     @State private var isCameraOverlayVisible: Bool = true
-    @State private var showSheet: Bool = false  // 시트 표시 상태 추가
+    @State private var showSheet: Bool = false
 
     @Environment(\.dismiss) private var dismiss
     let action: () -> Void
@@ -26,7 +26,7 @@ struct ProfileEditView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                showSheet.toggle()  // 액션 시트 표시
+                showSheet.toggle()
             } label: {
                 ZStack {
                     ProfileImageView(frameSize: 72, profileImage: profileImage)
@@ -45,16 +45,16 @@ struct ProfileEditView: View {
                 }
             }
             .padding(.vertical, 30)
-            .confirmationDialog("", isPresented: $showSheet) {
-                Button("사진 편집하기") {
+            .sheet(isPresented: $showSheet) {
+                ProfileImageSettingSheet(editAction: {
                     showPicker.toggle()
                     isCameraOverlayVisible = false
-                }
-                Button("사진 삭제하기") {
+                }, deleteAction: {
                     profileImage = nil
                     isCameraOverlayVisible = false
-                }
-             }
+                })
+                .presentationDetents([.fraction(0.25)])
+            }
             
             Text("닉네임")
                 .font(.semibold16)
