@@ -9,18 +9,24 @@ import SwiftUI
 
 struct CalendarView: View {
     @Bindable var viewModel: CalendarViewModel
+    @Binding var isShowingGuide: Bool
     var body: some View {
         VStack(spacing: 35) {
             // 년월 표시 및 이동 버튼
             HStack {
                 Text("월간 요약")
                     .font(.bold16)
-                
+                Image(systemName: "questionmark.circle")
+                    .frame(width: 15, height: 15)
+                    .foregroundStyle(.graymedium)
+                    .onTapGesture {
+                        isShowingGuide.toggle()
+                    }
                 Spacer()
                 
-                HStack(spacing: 15) {
+                HStack(spacing: 8) {
                     Button {
-                            viewModel.moveMonth(direction: -1)
+                        viewModel.moveMonth(direction: -1)
                     } label: {
                         Image(systemName: "chevron.left")
                             .font(.regular14)
@@ -31,7 +37,7 @@ struct CalendarView: View {
                         .font(.regular14)
                     
                     Button {
-                            viewModel.moveMonth(direction: 1)
+                        viewModel.moveMonth(direction: 1)
                     } label: {
                         Image(systemName: "chevron.right")
                             .font(.regular14)
@@ -39,7 +45,6 @@ struct CalendarView: View {
                     }
                 }
             }
-            .padding(.horizontal)
             
             // 요일 헤더 표시
             HStack(spacing: 0) {
@@ -70,7 +75,7 @@ struct CalendarView: View {
                                     } else {
                                         Image(systemName: "puzzlepiece.extension.fill")
                                             .font(.system(size: 35))
-                                            .foregroundColor(.themeColor)
+                                            .foregroundColor(.partiallyCompletePuzzle)
                                         Text("\(value.day)")
                                             .font(.medium16)
                                             .foregroundStyle(.primary)

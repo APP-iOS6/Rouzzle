@@ -57,7 +57,7 @@ struct SummaryView: View {
                 
                 Spacer()
                 
-                HStack(spacing: 15) {
+                HStack(spacing: 8) {
                     Button {
                         viewModel.calendarViewModel.moveMonth(direction: -1)
                     } label: {

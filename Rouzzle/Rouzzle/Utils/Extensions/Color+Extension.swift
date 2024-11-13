@@ -25,4 +25,9 @@ extension Color {
     static var backgroundLightGray: Color {
         return .fromRGB(r: 249, g: 249, b: 249)
     }
+    
+    /// BFDF8F
+    static var partiallyCompletePuzzle: Color {
+        return .fromRGB(r: 191, g: 223, b: 143)
+    }
 }

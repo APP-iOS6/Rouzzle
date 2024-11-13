@@ -10,6 +10,7 @@ import SwiftUI
 struct StatisticCategoryView: View {
     @State private var selectedCategory: String = "요약"
     @State var viewModel = StatisticViewModel()
+    @Binding var isShowingGuide: Bool
     let routines = RoutineItem.sampleData // 샘플 데이터
     
     // 모든 카테고리 (기본 + 루틴 목록)
@@ -63,7 +64,7 @@ struct StatisticCategoryView: View {
                     // 다른 카테고리가 선택된 경우
                     VStack(spacing: 20) {                     
                         // 캘린더 뷰
-                        CalendarView(viewModel: viewModel.calendarViewModel)
+                        CalendarView(viewModel: viewModel.calendarViewModel, isShowingGuide: $isShowingGuide)
                     }
                 }
             }
@@ -85,8 +86,4 @@ struct StatisticRoutineDetailView: View {
         }
         .padding()
     }
-}
-
-#Preview {
-    StatisticCategoryView()
 }
