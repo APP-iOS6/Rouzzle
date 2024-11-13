@@ -11,9 +11,7 @@ struct SocialView: View {
     @State private var viewModel: SocialViewModel = SocialViewModel()
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
-    // 임시
-   // private let favoriteUsers = Array(viewModel.nicknameToRoutines.keys).sorted()
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 40) {
@@ -37,7 +35,7 @@ struct SocialView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 15) {
                             ForEach(viewModel.userProfiles) { user in
-                                NavigationLink(destination: SocialMarkDetailView(userNickname: user.nickname)) {
+                                NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
                                     VStack {
                                         AsyncImage(url: URL(string: user.profileImageUrl)) { image in
                                             image
@@ -45,9 +43,7 @@ struct SocialView: View {
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle())
                                         } placeholder: {
-                                            Image(systemName: "person.crop.circle.fill")
-                                                .resizable()
-                                                .foregroundColor(.gray)
+                                            ProgressView()
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle())
                                         }

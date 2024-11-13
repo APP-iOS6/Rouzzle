@@ -13,7 +13,7 @@ import Factory
 class SocialViewModel {
     @ObservationIgnored
     @Injected(\.socialService) private var socialService
-    var userProfiles: [OtherUserProfile] = []
+    var userProfiles: [UserProfile] = []
     var error: DBError?
     var nicknameToRoutines: [String: [Routine]] = [:] // nickname: [Routine]
     
@@ -25,11 +25,11 @@ class SocialViewModel {
             let groupedRoutines = try await socialService.fetchRoutinesGroupedByUser()
             
             // 각 유저의 프로필 이미지, 닉네임, 루틴을 포함하여 UserProfile 생성
-            var profiles: [OtherUserProfile] = []
+            var profiles: [UserProfile] = []
             for (userID, routines) in groupedRoutines {
                 if let nickname = idToNameMap[userID] {
                     let profileImageUrl = try await socialService.fetchUserProfileImage(userID: userID)
-                    let userProfile = OtherUserProfile(
+                    let userProfile = UserProfile(
                         userID: userID,
                         nickname: nickname,     // 닉네임 설정
                         profileImageUrl: profileImageUrl,
@@ -49,7 +49,7 @@ class SocialViewModel {
     }
 }
 
-struct OtherUserProfile: Identifiable {
+struct UserProfile: Identifiable {
     var id = UUID()
     var userID: String
     var nickname: String
