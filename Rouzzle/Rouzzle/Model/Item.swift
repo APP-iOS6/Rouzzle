@@ -43,7 +43,17 @@ class RoutineItem: Identifiable {
     }
     
     func toRoutine() -> Routine {
-        return Routine(documentId: id, title: title, emoji: emoji, routineTask: taskList.map { $0.toRoutineTask() }, repeatCount: repeatCount, interval: interval, dayStartTime: dayStartTime, alarmIDs: alarmIDs, userId: userId)
+        return Routine(
+            documentId: id,
+            title: title,
+            emoji: emoji,
+            routineTask: taskList.map { $0.toRoutineTask() },
+            repeatCount: repeatCount,
+            interval: interval,
+            dayStartTime: dayStartTime,
+            alarmIDs: alarmIDs,
+            userId: userId
+        )
     }
     
     func toRoutineEditData() -> RoutineEditData {
@@ -63,7 +73,27 @@ class RoutineItem: Identifiable {
     func toRoutineCompletion(_ date: Date) -> RoutineCompletion {
         let documentId: String = "\(date.formattedDateToString)_\(id)"
         print(documentId)
-        return RoutineCompletion(documentId: documentId, routineId: id, userId: userId, date: date, taskCompletions: taskList.map { $0.toTaskCompletion() })
+        return RoutineCompletion(
+            documentId: documentId,
+            routineId: id,
+            userId: userId,
+            date: date,
+            taskCompletions: taskList.map { $0.toTaskCompletion() }
+        )
+    }
+    
+    convenience init(from routine: Routine) {
+        self.init(
+            id: routine.documentId ?? UUID().uuidString,
+            title: routine.title,
+            emoji: routine.emoji,
+            dayStartTime: routine.dayStartTime,
+            repeatCount: routine.repeatCount,
+            interval: routine.interval,
+            alarmIDs: routine.alarmIDs,
+            userId: routine.userId
+        )
+        self.taskList = routine.routineTask.map { TaskList(from: $0) }
     }
 }
 
@@ -93,7 +123,11 @@ class TaskList: Identifiable {
     }
     
     func toRoutineTask() -> RoutineTask {
-        return RoutineTask(title: title, emoji: emoji, timer: timer)
+        return RoutineTask(
+            title: title,
+            emoji: emoji,
+            timer: timer
+        )
     }
     
     func toTaskEditData() -> TaskEditData {
@@ -107,7 +141,21 @@ class TaskList: Identifiable {
     }
     
     func toTaskCompletion() -> TaskCompletion {
-        return TaskCompletion(title: title, emoji: emoji, timer: timer, isComplete: isCompleted)
+        return TaskCompletion(
+            title: title,
+            emoji: emoji,
+            timer: timer,
+            isComplete: isCompleted
+        )
+    }
+    
+    convenience init(from routineTask: RoutineTask) {
+        self.init(
+            title: routineTask.title,
+            emoji: routineTask.emoji,
+            timer: routineTask.timer,
+            isCompleted: false
+        )
     }
 }
 
@@ -120,9 +168,9 @@ extension RoutineItem {
 }
 
 extension TaskList {
-static let sampleData: [TaskList] = [
-    TaskList(title: "밥 먹기", emoji: "🍚", timer: 3, isCompleted: true),
-    TaskList(title: "양치 하기", emoji: "🪥", timer: 3, isCompleted: true),
-    TaskList(title: "술 마시기", emoji: "🍺", timer: 30, isCompleted: false)
-]
+    static let sampleData: [TaskList] = [
+        TaskList(title: "밥 먹기", emoji: "🍚", timer: 3, isCompleted: true),
+        TaskList(title: "양치 하기", emoji: "🪥", timer: 3, isCompleted: true),
+        TaskList(title: "술 마시기", emoji: "🍺", timer: 30, isCompleted: false)
+    ]
 }

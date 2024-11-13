@@ -9,6 +9,8 @@ import Foundation
 import FirebaseFirestore
 
 protocol RoutineServiceType {
+    /// 모든 루틴 데이터를 가져오는 함수
+    func getAllRoutines() async throws -> [Routine]
     /// 루틴 컬렉션에 루틴 데이터를 추가하는 함수
     func addRoutine(_ routine: Routine) async -> Result<Routine, DBError>
     /// 루틴 컬렉션에 루틴 데이터를 삭제하는 함수
@@ -23,6 +25,18 @@ protocol RoutineServiceType {
 
 class RoutineService: RoutineServiceType {
     private let db = Firestore.firestore()
+    
+    func getAllRoutines() async throws -> [Routine] {
+        do {
+            let snapshot = try await db.collection("Routine").getDocuments()
+            let routines = try snapshot.documents.map { document in
+                try document.data(as: Routine.self)
+            }
+            return routines
+        } catch {
+            throw DBError.firebaseError(error)
+        }
+    }
     
     func addRoutine(_ routine: Routine) async -> Result<Routine, DBError> {
         do {
