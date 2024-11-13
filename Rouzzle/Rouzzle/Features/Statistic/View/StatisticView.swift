@@ -14,6 +14,8 @@ struct StatisticView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    // 카테고리 뷰
+                    StatisticCategoryView()
                     // 캘린더 뷰
                     CalendarView(viewModel: viewModel.calendarViewModel)
                         .padding(.horizontal)
