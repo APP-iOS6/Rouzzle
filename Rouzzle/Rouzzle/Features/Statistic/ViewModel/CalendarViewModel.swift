@@ -103,4 +103,9 @@ class CalendarViewModel {
             }
         }
     }
+    
+    // 테스트용 더미 데이터 로드
+    func loadDummyData() {
+        taskManager.loadDummyData()
+    }
 }

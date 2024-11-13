@@ -97,7 +97,7 @@ struct CalendarView: View {
         .onAppear {
             viewModel.loadRoutineCompletions()
         }
-        .onChange(of: viewModel.currentMonth) { oldValue, newValue in
+        .onChange(of: viewModel.currentMonth) {
             viewModel.extractDate()
             viewModel.loadRoutineCompletions()
         }
