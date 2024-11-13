@@ -29,12 +29,11 @@ final class MyPageViewModel {
         set { userInfo.introduction = newValue }
     }
     
-    var profileUrlString: String {
-        get { userInfo.profileUrlString }
-        set { userInfo.profileUrlString = newValue }
-    }
-    
     var profileImage: UIImage?
+    
+    init() {
+        loadUserData()
+    }
         
     // Firebase에서 유저 데이터를 가져오는 함수
     func loadUserData() {
@@ -47,7 +46,6 @@ final class MyPageViewModel {
                 self.userInfo = user
                 await loadProfileImage(from: user.profileUrlString) // 프로필 이미지 다운로드
                 print("♻️ 데이터 로드")
-                print("🔗 Profile URL: \(profileUrlString)") 
             case .failure(let error):
                 print("⛔️ Error fetching user data: \(error)")
             }

@@ -9,14 +9,17 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileEditView: View {
-    @Binding var name: String
-    @Binding var introduction: String
-    @Binding var profileImage: UIImage?
-    @Binding var isDataUpdated: Bool  // 데이터 업데이트 플래그 바인딩 추가
+    @State var name: String
+    @State var introduction: String
+    @State var profileImage: UIImage?
+        
     @State private var viewModel = ProfileEditViewModel()
-    @State var selectedItem: PhotosPickerItem?
-    @State var showPicker: Bool = false
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var showPicker: Bool = false
+    @State private var isNameEmpty: Bool = false
+    
     @Environment(\.dismiss) private var dismiss
+    let action: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -56,7 +59,11 @@ struct ProfileEditView: View {
                 TextField("", text: $name, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
-                    .foregroundStyle(Color.subHeadlineFontColor)
+                    .foregroundStyle(isNameEmpty ? .red : Color.subHeadlineFontColor)
+                
+                Text(isNameEmpty ? "닉네임은 비워둘 수 없습니다." : "")
+                    .foregroundStyle(.red)
+                    .font(.regular10)
             }
             .padding(.bottom, 30)
             
@@ -77,19 +84,24 @@ struct ProfileEditView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    Task {
-                        await viewModel.updateUserProfile(
-                            name: name,
-                            introduction: introduction,
-                            image: profileImage
-                        )
-                        isDataUpdated = true // 데이터가 수정되었음을 알림
-                        dismiss()
+                    if name.isEmpty {
+                        isNameEmpty = true
+                    } else {
+                        Task {
+                            await viewModel.updateUserProfile(
+                                name: name,
+                                introduction: introduction,
+                                image: profileImage
+                            )
+                            action()
+                            dismiss()
+                        }
                     }
                 } label: {
                     Text("완료")
                         .font(.semibold18)
                 }
+                .disabled(viewModel.loadState == .loading)
             }
         }
         // 닉네임 글자 수 9자 제한
@@ -117,20 +129,16 @@ struct ProfileEditView: View {
                 }
             }
         }
+        .overlay {
+            if viewModel.loadState == .loading {
+                ProgressView()
+            }
+        }
     }
 }
 
 #Preview {
-    @Previewable @State var previewName: String = "Sample Name"
-    @Previewable @State var previewIntroduction: String = "Sample Introduction"
-    @Previewable @State var previewProfileImage: UIImage? = UIImage(systemName: "person.circle")
-
     NavigationStack {
-        ProfileEditView(
-            name: $previewName,
-            introduction: $previewIntroduction,
-            profileImage: $previewProfileImage,
-            isDataUpdated: .constant(true)
-        )
+        ProfileEditView(name: "", introduction: "", action: {})
     }
 }
