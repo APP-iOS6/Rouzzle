@@ -14,16 +14,30 @@ class SocialViewModel {
     @ObservationIgnored
     @Injected(\.socialService) private var socialService
     
-    var routinesByUser: [String: [Routine]] = [:]
     var error: DBError?
+    var nicknameToRoutines: [String: [Routine]] = [:] // nickname: [Routine]
 
     @MainActor
-    func fetchRoutines() async {
+    func fetchUsersAndRoutines() async {
         do {
-            let groupedRoutines = try await socialService.fetchRoutinesGroupedByUser()
-            self.routinesByUser = groupedRoutines
+            async let usersTask = socialService.fetchAllUserNicknames() // 닉네임 : UUID
+            async let routinesTask = socialService.fetchRoutinesGroupedByUser() // UUID: 루틴
+            
+            let (users, routines) = try await (usersTask, routinesTask)
+            
+            var mapping: [String: [Routine]] = [:]
+            
+            for (userID, routinesList) in routines {
+                if let nickname = users[userID] {
+                    mapping[nickname, default: []] += routinesList
+                } else {
+                    mapping["Unknown", default: []] += routinesList
+                }
+            }
+            self.nicknameToRoutines = mapping
         } catch {
             self.error = DBError.firebaseError(error)
         }
     }
+    
 }

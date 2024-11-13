@@ -12,15 +12,15 @@ struct UsersRoutineListView: View {
     @State var viewModel: SocialViewModel = SocialViewModel()
     
     private var sortedUserIDs: [String] {
-        viewModel.routinesByUser.keys.sorted()
+        viewModel.nicknameToRoutines.keys.sorted()
     }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(sortedUserIDs, id: \.self) { userid in
-                    if let routines = viewModel.routinesByUser[userid] {
-                        UserSection(userid: userid, routines: routines)
+                ForEach(sortedUserIDs, id: \.self) { nickname in
+                    if let routines = viewModel.nicknameToRoutines[nickname] {
+                        UserSection(nickname: nickname, routines: routines)
                     }
                 }
             }
@@ -29,7 +29,7 @@ struct UsersRoutineListView: View {
         }
         .onAppear {
             Task {
-                await viewModel.fetchRoutines()
+                await viewModel.fetchUsersAndRoutines()
             }
         }
     }
@@ -50,11 +50,11 @@ struct RoutineRow: View {
 }
 
 struct UserSection: View {
-    var userid: String
+    var nickname: String
     var routines: [Routine]
     
     var body: some View {
-        Section(header: Text("User ID: \(userid)")) {
+        Section(header: Text("\(nickname)")) {
             ForEach(routines, id: \.self) { routine in
                 RoutineRow(routine: routine)
             }
