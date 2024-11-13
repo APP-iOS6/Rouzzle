@@ -21,7 +21,7 @@ struct RoutineListView: View {
                         Spacer().frame(height: 5)
                         
                         // BlurView로 텍스트 애니메이션 적용
-                        BlurTextView(text: "끊임없이 남탓하고, 사고하지 말라", font: .bold18, startTime: 0.5)
+                        TypeWriterTextView(text: "끊임없이 남탓하고, 사고하지 말라", font: .bold18, animationDelay: 0.05)
                         
                         NavigationLink(destination: RouzzleChallengeView()) {
                             ZStack {
