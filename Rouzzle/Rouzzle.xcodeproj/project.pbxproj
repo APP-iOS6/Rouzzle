@@ -19,10 +19,15 @@
 		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
 		23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */; };
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
-		23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */; };
+		23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */; };
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
 		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
 		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
+		23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99782CE46370009BE074 /* CalendarTask.swift */; };
+		23BC997C2CE468B2009BE074 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */; };
+		23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */; };
+		23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99812CE46B56009BE074 /* CalendarView.swift */; };
+		23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99852CE47232009BE074 /* StatisticViewModel.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -42,6 +47,7 @@
 		4BAE5DB42CE4866E00F01153 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAE2CE4866E00F01153 /* ToastModifier.swift */; };
 		4BAE5DB52CE4866E00F01153 /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAF2CE4866E00F01153 /* ToastStyle.swift */; };
 		4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DB02CE4866E00F01153 /* ToastView.swift */; };
+		4BAE5DB82CE4F1AD00F01153 /* QuotesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */; };
 		4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */; };
 		4BE4399A2CE1C8FE007E0272 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE439992CE1C8FE007E0272 /* SearchBarView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
@@ -163,10 +169,15 @@
 		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
 		23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailView.swift; sourceTree = "<group>"; };
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
-		23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurTextView.swift; sourceTree = "<group>"; };
+		23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeWriterTextView.swift; sourceTree = "<group>"; };
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
 		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
 		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
+		23BC99782CE46370009BE074 /* CalendarTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTask.swift; sourceTree = "<group>"; };
+		23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTaskManager.swift; sourceTree = "<group>"; };
+		23BC99812CE46B56009BE074 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		23BC99852CE47232009BE074 /* StatisticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewModel.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -180,6 +191,7 @@
 		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
 		4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSetTimeView.swift; sourceTree = "<group>"; };
 		4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
+		4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesProvider.swift; sourceTree = "<group>"; };
 		4BAE5DAC2CE4866E00F01153 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		4BAE5DAD2CE4866E00F01153 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
 		4BAE5DAE2CE4866E00F01153 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
@@ -349,6 +361,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		23BC99772CE46338009BE074 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23BC99782CE46370009BE074 /* CalendarTask.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23BC997A2CE46744009BE074 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23BC997B2CE468B2009BE074 /* CalendarViewModel.swift */,
+				23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */,
+				23BC99852CE47232009BE074 /* StatisticViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		23D7BD262CDD342F000B3DD9 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,7 +514,7 @@
 				974596D62CE1D61A004C346B /* CustomAlert.swift */,
 				974596E02CE2978C004C346B /* PieceCounter.swift */,
 				972FEC502CE319650041F1A5 /* ProfileImage.swift */,
-				23BC98EA2CE30CB0009BE074 /* BlurTextView.swift */,
+				23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */,
 				23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */,
 				23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */,
 			);
@@ -610,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
+				4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */,
 				BD1545CA2CD937F20098AD7B /* AddRoutineView.swift */,
 				4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */,
 				4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */,
@@ -622,7 +653,9 @@
 		BD1546522CD9A9BA0098AD7B /* Statistic */ = {
 			isa = PBXGroup;
 			children = (
+				23BC99772CE46338009BE074 /* Model */,
 				BD1546532CD9A9F10098AD7B /* View */,
+				23BC997A2CE46744009BE074 /* ViewModel */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -631,6 +664,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1546542CD9AA090098AD7B /* StatisticView.swift */,
+				23BC99812CE46B56009BE074 /* CalendarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -989,6 +1023,7 @@
 				974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
+				23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
@@ -1029,9 +1064,11 @@
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
 				FB4174E92CDB475F0084BC19 /* RoutineCompletion.swift in Sources */,
+				23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */,
 				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				BD1546552CD9AA090098AD7B /* StatisticView.swift in Sources */,
 				9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */,
+				23BC99822CE46B56009BE074 /* CalendarView.swift in Sources */,
 				974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */,
 				974596DB2CE1E721004C346B /* FAQView.swift in Sources */,
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
@@ -1043,11 +1080,13 @@
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */,
-				23BC98EB2CE30CB0009BE074 /* BlurTextView.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
+				23BC997C2CE468B2009BE074 /* CalendarViewModel.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */,
+				23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */,
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
@@ -1068,6 +1107,7 @@
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
+				4BAE5DB82CE4F1AD00F01153 /* QuotesProvider.swift in Sources */,
 				23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */,
 				BD6301B62CDE52E90000203C /* String+Extension.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
