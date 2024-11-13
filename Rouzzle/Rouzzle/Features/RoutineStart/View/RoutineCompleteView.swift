@@ -82,6 +82,7 @@ struct RoutineCompleteView: View {
                         
                     }
                 }
+                .padding(.horizontal, 46)
             }
             .padding(.top, 51)
             
