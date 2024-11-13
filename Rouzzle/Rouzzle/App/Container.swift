@@ -21,4 +21,8 @@ extension Container {
     var routineService: Factory<RoutineServiceType> {
         Factory(self) { RoutineService() }
     }
+    
+    var socialService: Factory<SocialServiceType> {
+        Factory(self) { SocialService() }
+    }
 }
