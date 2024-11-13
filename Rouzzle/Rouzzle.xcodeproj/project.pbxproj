@@ -40,9 +40,13 @@
 		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */; };
 		4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */; };
-		4B1348672CE2184800A957C7 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348662CE2184800A957C7 /* testView.swift */; };
 		4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */; };
 		4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */; };
+		4BAE5DB22CE4866E00F01153 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAC2CE4866E00F01153 /* ToastMessageView.swift */; };
+		4BAE5DB32CE4866E00F01153 /* ToastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAD2CE4866E00F01153 /* ToastModel.swift */; };
+		4BAE5DB42CE4866E00F01153 /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAE2CE4866E00F01153 /* ToastModifier.swift */; };
+		4BAE5DB52CE4866E00F01153 /* ToastStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAF2CE4866E00F01153 /* ToastStyle.swift */; };
+		4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DB02CE4866E00F01153 /* ToastView.swift */; };
 		4BAE5DB82CE4F1AD00F01153 /* QuotesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */; };
 		4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */; };
 		4BE4399A2CE1C8FE007E0272 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE439992CE1C8FE007E0272 /* SearchBarView.swift */; };
@@ -185,10 +189,14 @@
 		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
 		4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLabelView.swift; sourceTree = "<group>"; };
 		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
-		4B1348662CE2184800A957C7 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSetTimeView.swift; sourceTree = "<group>"; };
 		4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
 		4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesProvider.swift; sourceTree = "<group>"; };
+		4BAE5DAC2CE4866E00F01153 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
+		4BAE5DAD2CE4866E00F01153 /* ToastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModel.swift; sourceTree = "<group>"; };
+		4BAE5DAE2CE4866E00F01153 /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
+		4BAE5DAF2CE4866E00F01153 /* ToastStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyle.swift; sourceTree = "<group>"; };
+		4BAE5DB02CE4866E00F01153 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
 		4BE439992CE1C8FE007E0272 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
@@ -417,6 +425,18 @@
 			path = RiveAnimation;
 			sourceTree = "<group>";
 		};
+		4BAE5DB12CE4866E00F01153 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				4BAE5DAC2CE4866E00F01153 /* ToastMessageView.swift */,
+				4BAE5DAD2CE4866E00F01153 /* ToastModel.swift */,
+				4BAE5DAF2CE4866E00F01153 /* ToastStyle.swift */,
+				4BAE5DAE2CE4866E00F01153 /* ToastModifier.swift */,
+				4BAE5DB02CE4866E00F01153 /* ToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		9700427B2CD9DA2200777F43 /* RoutineStart */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +498,7 @@
 		BD1186F72CD553BB00FF4180 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				4BAE5DB12CE4866E00F01153 /* Toast */,
 				BD1545C42CD928FA0098AD7B /* ComponentView.swift */,
 				BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */,
 				FB2A5A992CD7BF9200CB981A /* LoadState.swift */,
@@ -686,7 +707,6 @@
 			children = (
 				BD15465C2CD9AA880098AD7B /* SocialView.swift */,
 				4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */,
-				4B1348662CE2184800A957C7 /* testView.swift */,
 				BDFBC3232CE3B59900ED8A81 /* UsersRoutineListView.swift */,
 				4BE439992CE1C8FE007E0272 /* SearchBarView.swift */,
 				4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */,
@@ -1008,7 +1028,6 @@
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
 				BD912F892CDD2B24007B8503 /* Item.swift in Sources */,
-				4B1348672CE2184800A957C7 /* testView.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
 				23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */,
 				BD6301B82CDE73550000203C /* ConvertDays.swift in Sources */,
@@ -1092,6 +1111,11 @@
 				23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */,
 				BD6301B62CDE52E90000203C /* String+Extension.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
+				4BAE5DB22CE4866E00F01153 /* ToastMessageView.swift in Sources */,
+				4BAE5DB32CE4866E00F01153 /* ToastModel.swift in Sources */,
+				4BAE5DB42CE4866E00F01153 /* ToastModifier.swift in Sources */,
+				4BAE5DB52CE4866E00F01153 /* ToastStyle.swift in Sources */,
+				4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */,
