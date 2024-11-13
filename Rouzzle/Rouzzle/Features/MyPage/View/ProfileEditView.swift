@@ -17,7 +17,8 @@ struct ProfileEditView: View {
     @State private var selectedItem: PhotosPickerItem?
     @State private var showPicker: Bool = false
     @State private var isNameEmpty: Bool = false
-    
+    @State private var isEditing: Bool = true
+
     @Environment(\.dismiss) private var dismiss
     let action: () -> Void
     
@@ -25,29 +26,32 @@ struct ProfileEditView: View {
         VStack(alignment: .leading) {
             Button {
                 showPicker.toggle()
+                isEditing = false
             } label: {
-                if let profileImage = profileImage {
-                    ProfileImageView(frameSize: 72, profileImage: profileImage)
-                        .overlay(
-                            Circle()
-                                .stroke(.accent, lineWidth: 2)
-                        )
-                        .frame(maxWidth: .infinity, alignment: .center)
-                } else {
-                    ZStack {
+                ZStack {
+                    if let profileImage = profileImage {
+                        ProfileImageView(frameSize: 72, profileImage: profileImage)
+                            .overlay(
+                                Circle()
+                                    .stroke(.accent, lineWidth: 2)
+                            )
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
                         EmptyProfileView(frameSize: 72)
-                        
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    
+                    // 처음 진입 시에만 오버레이 보이도록 설정
+                    if isEditing {
                         Circle()
                             .fill(.black).opacity(0.4)
                             .frame(width: 72, height: 72)
                         
-                        Image(systemName: "camera.fill")
+                        Image(systemName: "camera")
                             .foregroundStyle(.white)
                             .font(.bold30)
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                
             }
             .padding(.vertical, 30)
             
@@ -55,7 +59,7 @@ struct ProfileEditView: View {
                 .font(.semibold16)
                 .padding(.bottom, 5)
             
-            VStack {
+            VStack(alignment: .leading) {
                 TextField("", text: $name, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
@@ -63,7 +67,7 @@ struct ProfileEditView: View {
                 
                 Text(isNameEmpty ? "닉네임은 비워둘 수 없습니다." : "")
                     .foregroundStyle(.red)
-                    .font(.regular10)
+                    .font(.regular12)
             }
             .padding(.bottom, 30)
             
