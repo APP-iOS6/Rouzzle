@@ -79,18 +79,20 @@ struct EditRoutineView: View {
                                     taskStatus: .pending,
                                     emojiText: task.emoji,
                                     title: task.title,
+                                    timeInterval: task.timer,
                                     showEditIcon: .constant(false),
                                     showDeleteIcon: $showDeleteIcon) {
-                                        if let task = viewModel.editRoutine.taskList.first(where: { $0.title == task.title }) {
+                                        if let task = viewModel.editRoutine.taskList.first(where: { $0.id == task.id }) {
                                             viewModel.deleteTasks.append(task)
                                         }
-                                        viewModel.editRoutine.taskList.removeAll { $0.title == task.title }
+                                        viewModel.editRoutine.taskList.removeAll { $0.id == task.id }
                                     }
                             } else {
                                 TaskStatusRow(
                                     taskStatus: .pending,
                                     emojiText: task.emoji,
                                     title: task.title,
+                                    timeInterval: task.timer,
                                     showEditIcon: .constant(true),
                                     showDeleteIcon: $showDeleteIcon
                                 )
