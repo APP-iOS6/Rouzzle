@@ -14,6 +14,7 @@ struct MyPageView: View {
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingPassView: Bool = false
+    @State private var isDataUpdated = false  // 데이터 업데이트 플래그 추가
     
     var body: some View {
         NavigationStack {
@@ -56,7 +57,8 @@ struct MyPageView: View {
                         NavigationLink {
                             ProfileEditView(name: $viewModel.name,
                                             introduction: $viewModel.introduction,
-                                            profileImage: $viewModel.profileImage)
+                                            profileImage: $viewModel.profileImage,
+                                            isDataUpdated: $isDataUpdated)
                         } label: {
                             Text("프로필 편집")
                                 .font(.medium14)
@@ -206,7 +208,10 @@ struct MyPageView: View {
                 .padding(.horizontal)
             }
             .onAppear {
-                viewModel.loadUserData()
+                if viewModel.name.isEmpty || isDataUpdated {
+                    viewModel.loadUserData()
+                    isDataUpdated = false // 상태 초기화
+                }
             }
             .customAlert(isPresented: $isShowingLogoutAlert,
                          title: "로그아웃하시겠어요?",

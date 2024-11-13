@@ -12,6 +12,7 @@ struct ProfileEditView: View {
     @Binding var name: String
     @Binding var introduction: String
     @Binding var profileImage: UIImage?
+    @Binding var isDataUpdated: Bool  // 데이터 업데이트 플래그 바인딩 추가
     @State private var viewModel = ProfileEditViewModel()
     @State var selectedItem: PhotosPickerItem?
     @State var showPicker: Bool = false
@@ -82,6 +83,7 @@ struct ProfileEditView: View {
                             introduction: introduction,
                             image: profileImage
                         )
+                        isDataUpdated = true // 데이터가 수정되었음을 알림
                         dismiss()
                     }
                 } label: {
@@ -123,11 +125,12 @@ struct ProfileEditView: View {
     @Previewable @State var previewIntroduction: String = "Sample Introduction"
     @Previewable @State var previewProfileImage: UIImage? = UIImage(systemName: "person.circle")
 
-    return NavigationStack {
+    NavigationStack {
         ProfileEditView(
             name: $previewName,
             introduction: $previewIntroduction,
-            profileImage: $previewProfileImage
+            profileImage: $previewProfileImage,
+            isDataUpdated: .constant(true)
         )
     }
 }
