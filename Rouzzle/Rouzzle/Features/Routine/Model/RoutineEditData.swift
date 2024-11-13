@@ -30,6 +30,20 @@ struct RoutineEditData: Hashable {
             userId: userId
         )
     }
+    
+    func toRoutine() -> Routine {
+        return Routine(
+            documentId: id,
+            title: title,
+            emoji: emoji,
+            routineTask: taskList.map { $0.toRoutineTask() },
+            repeatCount: repeatCount,
+            interval: interval,
+            dayStartTime: dayStartTime,
+            alarmIDs: alarmIDs,
+            userId: userId
+        )
+    }
 }
 
 struct TaskEditData: Identifiable, Hashable {
@@ -47,5 +61,9 @@ struct TaskEditData: Identifiable, Hashable {
             timer: timer,
             isCompleted: isCompleted
         )
+    }
+    
+    func toRoutineTask() -> RoutineTask {
+        return RoutineTask(title: title, emoji: emoji, timer: timer)
     }
 }
