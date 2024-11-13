@@ -9,11 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct AddTaskView: View {
-    var store: RoutineStore
+    @Bindable var store: RoutineStore
     @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
+    @State var isShowingEditRoutineSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
     
     var body: some View {
@@ -121,6 +122,9 @@ struct AddTaskView: View {
                 .fullScreenCover(isPresented: $isShowingTimerView) {
                     RoutineStartView(viewModel: RoutineStartViewModel(routineItem: store.routineItem))
                 }
+                .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
+                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem))
+                }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
                         store.addTaskSwiftData(task, context: modelContext)
@@ -128,7 +132,7 @@ struct AddTaskView: View {
                     .presentationDetents(detents)
                 }
                 .sheet(isPresented: $isShowingRoutineSettingsSheet) {
-                    RoutineSettingsSheet()
+                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet)
                         .presentationDetents([.fraction(0.25)])
                 }
             }
