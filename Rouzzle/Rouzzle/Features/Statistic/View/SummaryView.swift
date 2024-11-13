@@ -8,6 +8,22 @@
 import SwiftUI
 
 struct SummaryView: View {
+    @State private var viewModel = StatisticViewModel()
+    // 임시 데이터 구조
+    struct RoutineData: Identifiable {
+        let id = UUID()
+        let emoji: String
+        let title: String
+        let progress: Double
+    }
+    
+    // 샘플 데이터 (임시 데이터로만 사용)
+    private let routines = [
+        RoutineData(emoji: "☀️", title: "아침 루틴", progress: 0.8),
+        RoutineData(emoji: "🌙", title: "저녁 루틴", progress: 0.5),
+        RoutineData(emoji: "🏃‍♀️", title: "운동 루틴", progress: 0.62)
+    ]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             // 최대 연속기록 박스
@@ -15,12 +31,13 @@ struct SummaryView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("나의 최대 연속 기록이에요!")
                         .font(.medium16)
-                    HStack {
+                    HStack(alignment: .bottom, spacing: 4) {
                         Text("0일")
                             .font(.bold36)
                         Text("아침 루틴")
                             .font(.regular16)
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
+                            .alignmentGuide(.bottom) { $0[.bottom] + 4 }
                         Spacer()
                     }
                 }
@@ -32,88 +49,78 @@ struct SummaryView: View {
                         .fill(Color.gray.opacity(0.1))
                 )
             }
+            .padding(.bottom, 20)
             
-            // 월간 성공률
-            Text("월간 성공률")
-                .font(.bold16)
-            
-            // 루틴별 성공률 박스
-            VStack(spacing: 10) {
-                ForEach(RoutineItem.sampleData, id: \.id) { routine in
-                    HStack {
-                        Text(routine.emoji)
-                            .font(.largeTitle)
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(routine.title)
-                                .font(.bold16)
-                            ProgressBar(progress: .constant(0.62))
-                                .frame(height: 10)
-                        }
-                        Spacer()
-                        Text("62%")
-                            .font(.bold16)
-                    }
-                    .padding()
-                    .frame(height: 140)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.gray.opacity(0.1))
-                    )
-                }
-            }
-        }
-    }
-}
-
-// ProgressBar 컴포넌트
-struct ProgressBar: View {
-    @Binding var progress: Double
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(Color.gray.opacity(0.3))
-                HStack(spacing: 2) {
-                    Rectangle()
-                        .fill(Color.accentColor)
-                        .frame(width: geometry.size.width * progress / 2)
-                    Rectangle()
-                        .fill(Color.themeColor)
-                        .frame(width: geometry.size.width * progress / 2)
-                }
-                .frame(height: geometry.size.height)
-            }
-        }
-    }
-}
-
-// 루틴 성공률 컴포넌트
-struct RoutineProgressView: View {
-    let emoji: String
-    let title: String
-    let progress: Double
-    
-    var body: some View {
-        HStack {
-            Text(emoji)
-                .font(.largeTitle)
-            VStack(alignment: .leading, spacing: 5) {
-                Text(title)
+            HStack {
+                Text("월간 성공률")
                     .font(.bold16)
-                ProgressBar(progress: .constant(progress))
-                    .frame(height: 10)
+                
+                Spacer()
+                
+                HStack(spacing: 15) {
+                    Button {
+                        viewModel.calendarViewModel.moveMonth(direction: -1)
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.regular14)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    Text("\(viewModel.calendarViewModel.extraData()[1])년 \(viewModel.calendarViewModel.extraData()[0])월")
+                        .font(.regular14)
+                    
+                    Button {
+                        viewModel.calendarViewModel.moveMonth(direction: 1)
+                    } label: {
+                        Image(systemName: "chevron.right")
+                            .font(.regular14)
+                            .foregroundStyle(.gray)
+                    }
+                }
             }
-            Spacer()
-            Text("\(Int(progress * 100))%")
-                .font(.regular16)
+            // 루틴별 성공률 한 박스
+            VStack(spacing: 20) {
+                ForEach(Array(routines.enumerated()), id: \.1.id) { index, routine in
+                    HStack(spacing: 4) {
+                        // 이모지
+                        Text(routine.emoji)
+                            .font(.system(size: 16))
+                            .frame(width: 20)
+                        
+                        // 루틴 이름
+                        Text(routine.title)
+                            .font(.regular16)
+                            .frame(width: 70, alignment: .leading)
+                        
+                        // 프로그레스바와 퍼센트를 묶어서 처리
+                        ZStack(alignment: .leading) {
+                            GeometryReader { geometry in
+                                ZStack(alignment: .trailing) {
+                                    Rectangle()
+                                        .fill(index % 2 == 0 ? Color.accentColor : Color.themeColor)
+                                        .frame(width: geometry.size.width * routine.progress, height: 10)
+                                    
+                                    Text("\(Int(routine.progress * 100))%")
+                                        .font(.medium11)
+                                        .foregroundStyle(.gray.opacity(0.7))
+                                        .offset(x: 26)
+                                }
+                            }
+                            .frame(height: 10)
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity)
+            .frame(height: 145)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.gray.opacity(0.1))
+            )
         }
-        .padding()
-        .frame(width: 370, height: 140)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.gray.opacity(0.1))
-        )
+        .frame(maxWidth: .infinity)
     }
 }
 

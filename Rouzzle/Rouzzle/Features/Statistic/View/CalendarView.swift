@@ -9,12 +9,15 @@ import SwiftUI
 
 struct CalendarView: View {
     @Bindable var viewModel: CalendarViewModel
-    
     var body: some View {
         VStack(spacing: 35) {
             // 년월 표시 및 이동 버튼
             HStack {
+                Text("월간 요약")
+                    .font(.bold16)
+                
                 Spacer()
+                
                 HStack(spacing: 15) {
                     Button {
                             viewModel.moveMonth(direction: -1)
