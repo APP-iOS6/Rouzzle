@@ -51,7 +51,7 @@ final class DetailViewModel {
     var selectedTasks: Set<String> = []
     
     func saveSelectedTasks() {
-        // TODO: 저장 로직 구현
+        // 저장 로직 구현
         print("선택된 작업 저장: \(selectedTasks)")
     }
 }

@@ -33,4 +33,12 @@ extension Date {
             return .night
         }
     }
+    
+    var formattedDateToString: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR") // 한국 로케일// 필요에 따라 타임존 설정
+        formatter.dateFormat = "yyyyMMdd"
+        return formatter.string(from: self)
+    }
+
 }

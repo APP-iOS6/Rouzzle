@@ -16,7 +16,7 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                 }
             
-            RoutineSDView()
+            StatisticView()
                 .tabItem {
                     Text("통계")
                     Image(systemName: "list.bullet.clipboard.fill")
@@ -40,11 +40,11 @@ struct ContentView: View {
                     Image(systemName: "person.circle.fill")
                 }
             
-            EditRoutineView()
-                .tabItem {
-                    Text("편집뷰")
-                    Image(systemName: "pencil.circle.fill")
-                }
+//            EditRoutineView()
+//                .tabItem {
+//                    Text("편집뷰")
+//                    Image(systemName: "pencil.circle.fill")
+//                }
         }
     }
 }
