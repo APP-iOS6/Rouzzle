@@ -8,33 +8,41 @@
 import SwiftUI
 
 struct TypeWriterTextView: View {
-    let characters: [String.Element]
-        let font: Font
-        let animationDelay: Double
-        
-        @State private var shownIndices: Set<Int> = [] // 나타난 글자 인덱스를 추적
+    @Binding var text: String // 바인딩으로 텍스트 받아옴
+    let font: Font
+    let animationDelay: Double
+    
+    @State private var displayedText: String = ""
+    @State private var currentIndex: Int = 0
 
-        init(text: String, font: Font, animationDelay: Double) {
-            self.characters = Array(text)
-            self.font = font
-            self.animationDelay = animationDelay
-        }
-
-        var body: some View {
-            HStack(spacing: 1) {
-                ForEach(0..<characters.count, id: \.self) { index in
-                    Text(String(self.characters[index]))
-                        .font(font)
-                        .opacity(shownIndices.contains(index) ? 1 : 0) // 나타난 글자만 불투명하게
-                        .animation(.easeIn(duration: 0.05).delay(Double(index) * animationDelay), value: shownIndices)
-                }
+    var body: some View {
+        Text(displayedText)
+            .font(font)
+            .onChange(of: text) { newText in
+                // 새로운 텍스트가 들어오면 애니메이션 재시작
+                displayedText = ""
+                currentIndex = 0
+                startTypingAnimation(with: newText)
             }
             .onAppear {
-                for index in characters.indices {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * animationDelay) {
-                        shownIndices.insert(index) // 순차적으로 인덱스 추가해 글자 나타나게 함
-                    }
-                }
+                // 초기 텍스트 애니메이션 실행
+                startTypingAnimation(with: text)
+            }
+    }
+    
+    private func startTypingAnimation(with newText: String) {
+        displayedText = ""
+        currentIndex = 0
+
+        // 타이핑 애니메이션을 실행하는 타이머
+        Timer.scheduledTimer(withTimeInterval: animationDelay, repeats: true) { timer in
+            if currentIndex < newText.count {
+                let index = newText.index(newText.startIndex, offsetBy: currentIndex)
+                displayedText.append(newText[index])
+                currentIndex += 1
+            } else {
+                timer.invalidate() // 애니메이션 완료 시 타이머 중지
             }
         }
+    }
 }
