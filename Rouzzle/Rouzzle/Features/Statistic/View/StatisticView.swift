@@ -5,11 +5,6 @@
 //  Created by 김정원 on 11/5/24.
 //
 
-//
-//  StatisticView.swift
-//  Rouzzle
-//
-
 import SwiftUI
 import Factory
 
