@@ -54,7 +54,9 @@ struct MyPageView: View {
                         Spacer()
                         
                         NavigationLink {
-                            ProfileEditView()
+                            ProfileEditView(name: $viewModel.name,
+                                            introduction: $viewModel.introduction,
+                                            profileImage: $viewModel.profileImage)
                         } label: {
                             Text("프로필 편집")
                                 .font(.medium14)

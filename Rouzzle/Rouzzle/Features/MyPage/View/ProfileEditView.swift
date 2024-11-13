@@ -9,6 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileEditView: View {
+    @Binding var name: String
+    @Binding var introduction: String
+    @Binding var profileImage: UIImage?
     @State private var viewModel = ProfileEditViewModel()
     @State var selectedItem: PhotosPickerItem?
     @State var showPicker: Bool = false
@@ -19,7 +22,7 @@ struct ProfileEditView: View {
             Button {
                 showPicker.toggle()
             } label: {
-                if let profileImage = viewModel.profileImage {
+                if let profileImage = profileImage {
                     ProfileImageView(frameSize: 72, profileImage: profileImage)
                         .overlay(
                             Circle()
@@ -49,7 +52,7 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack {
-                TextField("", text: $viewModel.name, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
+                TextField("", text: $name, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.subHeadlineFontColor)
@@ -61,7 +64,7 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack {
-                TextField("", text: $viewModel.introduction, prompt: Text("자기소개를 입력해주세요.").font(.regular16))
+                TextField("", text: $introduction, prompt: Text("자기소개를 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.subHeadlineFontColor)
@@ -74,7 +77,11 @@ struct ProfileEditView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     Task {
-                        await viewModel.updateUserProfile(image: viewModel.profileImage)
+                        await viewModel.updateUserProfile(
+                            name: name,
+                            introduction: introduction,
+                            image: profileImage
+                        )
                         dismiss()
                     }
                 } label: {
@@ -84,15 +91,15 @@ struct ProfileEditView: View {
             }
         }
         // 닉네임 글자 수 9자 제한
-        .onChange(of: viewModel.name) {  _, newValue in
+        .onChange(of: name) {  _, newValue in
             if newValue.count > 9 {
-                viewModel.name = String(newValue.prefix(9))
+                name = String(newValue.prefix(9))
             }
         }
         // 자기소개 글자 수 30자 제한
-        .onChange(of: viewModel.introduction) {  _, newValue in
+        .onChange(of: introduction) {  _, newValue in
             if newValue.count > 30 {
-                viewModel.introduction = String(newValue.prefix(30))
+                introduction = String(newValue.prefix(30))
             }
         }
         .photosPicker(isPresented: $showPicker,
@@ -102,22 +109,25 @@ struct ProfileEditView: View {
             Task {
                 if let data = try? await selectedItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
-                    viewModel.profileImage = uiImage
+                    profileImage = uiImage
                 } else {
                     print("⛔️ 지원하지 않는 이미지 형식이거나 파일을 불러오는 데 실패했습니다.")
                 }
-            }
-        }
-        .onAppear {
-            Task {
-                await viewModel.loadUserProfileData()
             }
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-        ProfileEditView()
+    @Previewable @State var previewName: String = "Sample Name"
+    @Previewable @State var previewIntroduction: String = "Sample Introduction"
+    @Previewable @State var previewProfileImage: UIImage? = UIImage(systemName: "person.circle")
+
+    return NavigationStack {
+        ProfileEditView(
+            name: $previewName,
+            introduction: $previewIntroduction,
+            profileImage: $previewProfileImage
+        )
     }
 }

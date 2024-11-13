@@ -20,15 +20,18 @@ final class MyPageViewModel {
     var userInfo = RoutineUser(name: "", profileUrlString: "", introduction: "")
     
     var name: String {
-        userInfo.name
+        get { userInfo.name }
+        set { userInfo.name = newValue }
     }
     
     var introduction: String {
-        userInfo.introduction
+        get { userInfo.introduction }
+        set { userInfo.introduction = newValue }
     }
     
     var profileUrlString: String {
-        userInfo.profileUrlString
+        get { userInfo.profileUrlString }
+        set { userInfo.profileUrlString = newValue }
     }
     
     var profileImage: UIImage?
