@@ -83,7 +83,7 @@ struct RoutineDetailCardView2: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                RoutineLabelView(text: "\(routine.emoji) \(routine.title)")
+                RoutineLabelView(text: "\(routine.emoji) \(routine.title)", isSelected: true, onTap: {})
                 Spacer()
                 Text("8:30 AM ~ 8:50 AM")
                     .font(.light12)

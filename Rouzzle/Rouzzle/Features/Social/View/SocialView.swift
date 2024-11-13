@@ -14,58 +14,60 @@ struct SocialView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 40) {
-                VStack {
-                    HStack {
-                        Text("소셜")
-                            .font(.semibold18)
-                            .foregroundStyle(.basic)
-                        Spacer()
+            ScrollView {
+                VStack(alignment: .leading, spacing: 40) {
+                    VStack {
+                        HStack {
+                            Text("소셜")
+                                .font(.semibold18)
+                                .foregroundStyle(.basic)
+                            Spacer()
+                        }
+                        .padding(.top, 20)
+                        
+                        SearchBarView(text: $query)
+                            .animation(.easeInOut, value: query)
                     }
-                    .padding(.top, 20)
                     
-                    SearchBarView(text: $query)
-                        .animation(.easeInOut, value: query)
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("즐겨찾기")
-                        .font(.semibold18)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(viewModel.userProfiles) { user in
-                                NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
-                                    VStack {
-                                        AsyncImage(url: URL(string: user.profileImageUrl)) { image in
-                                            image
-                                                .resizable()
-                                                .frame(width: 60, height: 60)
-                                                .clipShape(Circle())
-                                        } placeholder: {
-                                            ProgressView()
-                                                .frame(width: 60, height: 60)
-                                                .clipShape(Circle())
+                    VStack(alignment: .leading) {
+                        Text("즐겨찾기")
+                            .font(.semibold18)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                ForEach(viewModel.userProfiles) { user in
+                                    NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
+                                        VStack {
+                                            AsyncImage(url: URL(string: user.profileImageUrl)) { image in
+                                                image
+                                                    .resizable()
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(Circle())
+                                            } placeholder: {
+                                                ProgressView()
+                                                    .frame(width: 60, height: 60)
+                                                    .clipShape(Circle())
+                                            }
+                                            Text(user.nickname)
+                                                .font(.regular12)
+                                                .foregroundColor(.black)
                                         }
-                                        Text(user.nickname)
-                                            .font(.regular12)
-                                            .foregroundColor(.black)
                                     }
                                 }
                             }
                         }
                     }
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("루즐러 둘러보기")
-                        .font(.semibold18)
                     
-                    // 사용자 랜덤으로 보여주기
-                    ScrollView {
-                        VStack(spacing: 15) {
-                            ForEach(viewModel.userProfiles) { user in
-                                RoutineCardView(userProfile: user)
+                    VStack(alignment: .leading) {
+                        Text("루즐러 둘러보기")
+                            .font(.semibold18)
+                        
+                        // 사용자 랜덤으로 보여주기
+                        ScrollView {
+                            VStack(spacing: 15) {
+                                ForEach(viewModel.userProfiles) { user in
+                                    RoutineCardView(userProfile: user)
+                                }
                             }
                         }
                     }
@@ -84,8 +86,9 @@ struct SocialView: View {
 struct RoutineCardView: View {
     @State var isExpanded: Bool = false
     @State private var isStarred: Bool = false
+    @State private var selectedRoutineIndex: Int?
     var userProfile: UserProfile
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
@@ -137,26 +140,48 @@ struct RoutineCardView: View {
             HStack {
                 // 루틴이름
                 LazyHStack {
-                    ForEach(userProfile.routines, id: \.self) { routine in
-                        RoutineLabelView(text: "\(routine.title)")
+                    ForEach(Array(userProfile.routines.enumerated()), id: \.element.self) { index, routine in
+                        RoutineLabelView(
+                            text: routine.title,
+                            isSelected: selectedRoutineIndex == index,
+                            onTap: {
+                                withAnimation(.easeInOut) {
+                                    if selectedRoutineIndex == index {
+                                        selectedRoutineIndex = nil
+                                    } else {
+                                        selectedRoutineIndex = index
+                                    }
+                                }
+                            }
+                        )
                     }
                 }
                 Spacer()
                 
-                // 더보기 버튼
-                Button(action: {
-                    withAnimation {
-                        isExpanded.toggle()
+                // 더보기 버튼 (선택된 루틴이 있을 때만 작동)
+                Button {
+                    withAnimation(.easeInOut) {
+                        if selectedRoutineIndex != nil {
+                            // 선택된 루틴이 있으면 선택 해제
+                            selectedRoutineIndex = nil
+                        } else {
+                            // 선택된 루틴이 없으면 첫 번째 루틴 선택
+                            selectedRoutineIndex = 0
+                        }
                     }
-                }, label: {
-                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                } label: {
+                    Image(systemName: selectedRoutineIndex != nil ? "chevron.up" : "chevron.down")
                         .foregroundColor(.gray)
-                })
+                        .rotationEffect(.degrees(selectedRoutineIndex != nil ? 180 : 0))
+                        .animation(.easeInOut, value: selectedRoutineIndex != nil)
+                }
             }
             .padding(.top, 2)
-            
-            if isExpanded {
-                RoutineTasksView(tasks: userProfile.routines[0].routineTask)
+
+            // 선택된 루틴의 세부 정보 표시
+            if let selectedIndex = selectedRoutineIndex, selectedIndex < userProfile.routines.count {
+                RoutineTasksView(tasks: userProfile.routines[selectedIndex].routineTask)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
         }
         .padding()
