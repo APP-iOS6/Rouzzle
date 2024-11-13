@@ -41,24 +41,32 @@ struct ProfileImageView: View {
                 Image(uiImage: profileImage)
                     .resizable()
                     .scaledToFill()
-            } else if let url = defaultProfileImageUrl,
-                      let imageData = try? Data(contentsOf: url),
-                      let defaultImage = UIImage(data: imageData) {
-                // 프로필 사진이 없을 경우 기본 이미지 로드
-                Image(uiImage: defaultImage)
-                    .resizable()
-                    .scaledToFill()
+            } else if let url = defaultProfileImageUrl {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView() // 로딩 중인 경우
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    case .failure:
+                        EmptyProfileView(frameSize: frameSize) // 로드 실패 시 기본 빈 이미지
+                    default:
+                        EmptyProfileView(frameSize: frameSize)
+                    }
+                }
             } else {
                 // 기본 이미지 로드가 실패했을 때 빈 뷰
                 EmptyProfileView(frameSize: frameSize)
             }
         }
-        .overlay(
-            Circle()
-                .stroke(.accent, lineWidth: 2)
-        )
         .frame(width: frameSize, height: frameSize)
         .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(Color.accentColor, lineWidth: 2)
+        )
     }
 }
 
