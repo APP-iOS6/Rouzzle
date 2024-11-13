@@ -27,16 +27,10 @@ struct MyPageView: View {
                     // MARK: 프사, 닉, 편집 버튼, 자기소개 부분
                     HStack(alignment: .top) {
                         ZStack {
-                            if let profileImage = viewModel.profileImage {
-                                ProfileImageView(frameSize: 53, profileImage: profileImage)
-                                    .padding(.trailing, 12)
-                                    .padding(.top, -2)
-                            } else {
-                                EmptyProfileView(frameSize: 53)
-                                    .padding(.trailing, 12)
-                                    .padding(.top, -2)
-                            }
-                            
+                            ProfileImageView(frameSize: 53, profileImage: viewModel.profileImage)
+                                .padding(.trailing, 12)
+                                .padding(.top, -2)
+
                             if viewModel.loadState == .loading {
                                 ProgressView()
                                     .padding(.trailing, 12)

@@ -17,7 +17,8 @@ struct ProfileEditView: View {
     @State private var selectedItem: PhotosPickerItem?
     @State private var showPicker: Bool = false
     @State private var isNameEmpty: Bool = false
-    @State private var isEditing: Bool = true
+    @State private var isCameraOverlayVisible: Bool = true
+    @State private var showSheet: Bool = false  // 시트 표시 상태 추가
 
     @Environment(\.dismiss) private var dismiss
     let action: () -> Void
@@ -25,24 +26,14 @@ struct ProfileEditView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Button {
-                showPicker.toggle()
-                isEditing = false
+                showSheet.toggle()  // 액션 시트 표시
             } label: {
                 ZStack {
-                    if let profileImage = profileImage {
-                        ProfileImageView(frameSize: 72, profileImage: profileImage)
-                            .overlay(
-                                Circle()
-                                    .stroke(.accent, lineWidth: 2)
-                            )
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    } else {
-                        EmptyProfileView(frameSize: 72)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                    }
+                    ProfileImageView(frameSize: 72, profileImage: profileImage)
+                        .frame(maxWidth: .infinity, alignment: .center)
                     
                     // 처음 진입 시에만 오버레이 보이도록 설정
-                    if isEditing {
+                    if isCameraOverlayVisible {
                         Circle()
                             .fill(.black).opacity(0.4)
                             .frame(width: 72, height: 72)
@@ -54,6 +45,16 @@ struct ProfileEditView: View {
                 }
             }
             .padding(.vertical, 30)
+            .confirmationDialog("", isPresented: $showSheet) {
+                Button("사진 편집하기") {
+                    showPicker.toggle()
+                    isCameraOverlayVisible = false
+                }
+                Button("사진 삭제하기") {
+                    profileImage = nil
+                    isCameraOverlayVisible = false
+                }
+             }
             
             Text("닉네임")
                 .font(.semibold16)
