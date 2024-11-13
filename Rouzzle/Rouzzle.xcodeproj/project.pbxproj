@@ -57,6 +57,7 @@
 		974596E12CE2978C004C346B /* PieceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596E02CE2978C004C346B /* PieceCounter.swift */; };
 		9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9791BB812CDDCB00007BD566 /* FloatingButton.swift */; };
 		97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */; };
+		97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -191,6 +192,7 @@
 		974596E02CE2978C004C346B /* PieceCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceCounter.swift; sourceTree = "<group>"; };
 		9791BB812CDDCB00007BD566 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */,
+				97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1024,6 +1027,7 @@
 				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
+				97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */,
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,

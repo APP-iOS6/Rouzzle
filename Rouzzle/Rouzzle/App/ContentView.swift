@@ -40,11 +40,11 @@ struct ContentView: View {
                     Image(systemName: "person.circle.fill")
                 }
             
-            EditRoutineView()
-                .tabItem {
-                    Text("편집뷰")
-                    Image(systemName: "pencil.circle.fill")
-                }
+//            EditRoutineView()
+//                .tabItem {
+//                    Text("편집뷰")
+//                    Image(systemName: "pencil.circle.fill")
+//                }
         }
     }
 }

@@ -14,8 +14,7 @@ struct MyPageView: View {
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingPassView: Bool = false
-    @State var profileImage: UIImage?
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -27,7 +26,7 @@ struct MyPageView: View {
                     
                     // MARK: 프사, 닉, 편집 버튼, 자기소개 부분
                     HStack(alignment: .top) {
-                        if let profileImage = profileImage {
+                        if let profileImage = viewModel.profileImage {
                             ProfileImageView(frameSize: 53, profileImage: profileImage)
                                 .padding(.trailing, 12)
                                 .padding(.top, -2)
@@ -39,7 +38,7 @@ struct MyPageView: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(alignment: .bottom) {
-                                Text(viewModel.userName)
+                                Text(viewModel.name)
                                     .font(.bold18)
                                 
                                 Text("루즐러")
@@ -55,7 +54,7 @@ struct MyPageView: View {
                         Spacer()
                         
                         NavigationLink {
-                            ProfileEditView(profileImage: $profileImage)
+                            ProfileEditView()
                         } label: {
                             Text("프로필 편집")
                                 .font(.medium14)

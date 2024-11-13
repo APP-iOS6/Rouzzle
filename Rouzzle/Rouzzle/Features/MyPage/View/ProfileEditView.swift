@@ -9,18 +9,17 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileEditView: View {
-    @Bindable private var viewModel = MyPageViewModel()
+    @State private var viewModel = ProfileEditViewModel()
     @State var selectedItem: PhotosPickerItem?
-    @Binding var profileImage: UIImage?
     @State var showPicker: Bool = false
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Button {
                 showPicker.toggle()
             } label: {
-                if let profileImage = profileImage {
+                if let profileImage = viewModel.profileImage {
                     ProfileImageView(frameSize: 72, profileImage: profileImage)
                         .overlay(
                             Circle()
@@ -50,7 +49,7 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack {
-                TextField("", text: $viewModel.userName, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
+                TextField("", text: $viewModel.name, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.subHeadlineFontColor)
@@ -74,24 +73,26 @@ struct ProfileEditView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    viewModel.updateUserData()
-                    dismiss()
+                    Task {
+                        await viewModel.updateUserProfile(image: viewModel.profileImage)
+                        dismiss()
+                    }
                 } label: {
                     Text("완료")
-                        .font(.semibold18)  
+                        .font(.semibold18)
                 }
             }
         }
         // 닉네임 글자 수 9자 제한
-        .onChange(of: viewModel.userName) {
-            if viewModel.userName.count > 9 {
-                viewModel.userName = String(viewModel.userName.prefix(9))
+        .onChange(of: viewModel.name) {  _, newValue in
+            if newValue.count > 9 {
+                viewModel.name = String(newValue.prefix(9))
             }
         }
         // 자기소개 글자 수 30자 제한
-        .onChange(of: viewModel.introduction) {
-            if viewModel.introduction.count > 30 {
-                viewModel.introduction = String(viewModel.introduction.prefix(30))
+        .onChange(of: viewModel.introduction) {  _, newValue in
+            if newValue.count > 30 {
+                viewModel.introduction = String(newValue.prefix(30))
             }
         }
         .photosPicker(isPresented: $showPicker,
@@ -101,19 +102,22 @@ struct ProfileEditView: View {
             Task {
                 if let data = try? await selectedItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
-                    profileImage = uiImage
+                    viewModel.profileImage = uiImage
                 } else {
-                    print("지원하지 않는 이미지 형식이거나 파일을 불러오는 데 실패했습니다.")
+                    print("⛔️ 지원하지 않는 이미지 형식이거나 파일을 불러오는 데 실패했습니다.")
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.loadUserProfileData()
             }
         }
     }
 }
 
 #Preview {
-    @Previewable @State var profileImage: UIImage?
-    
     NavigationStack {
-        ProfileEditView(profileImage: $profileImage)
+        ProfileEditView()
     }
 }
