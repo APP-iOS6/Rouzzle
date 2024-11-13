@@ -23,6 +23,7 @@
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
 		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
 		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
+		23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99782CE46370009BE074 /* CalendarTask.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -163,6 +164,7 @@
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
 		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
 		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
+		23BC99782CE46370009BE074 /* CalendarTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTask.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -341,6 +343,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		23BC99772CE46338009BE074 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23BC99782CE46370009BE074 /* CalendarTask.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23BC997A2CE46744009BE074 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		23D7BD262CDD342F000B3DD9 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +520,7 @@
 				BD15465A2CD9AA740098AD7B /* Social */,
 				BD1546562CD9AA470098AD7B /* Recommend */,
 				BD1546522CD9A9BA0098AD7B /* Statistic */,
+				23BC997A2CE46744009BE074 /* ViewModel */,
 				FB2A5AAC2CD9096B00CB981A /* Launch */,
 				BD1545C62CD92F040098AD7B /* Routine */,
 				BD1187022CD600AF00FF4180 /* Login */,
@@ -601,6 +619,7 @@
 		BD1546522CD9A9BA0098AD7B /* Statistic */ = {
 			isa = PBXGroup;
 			children = (
+				23BC99772CE46338009BE074 /* Model */,
 				BD1546532CD9A9F10098AD7B /* View */,
 			);
 			path = Statistic;
@@ -969,6 +988,7 @@
 				974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
+				23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
