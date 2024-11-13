@@ -59,6 +59,7 @@ struct RoutineCompleteView: View {
                     .fill(Color.fromRGB(r: 250, g: 250, b: 250))
             )
             .padding(.top, 39)
+            .padding(.horizontal, 46)
             
             ScrollView {
                 VStack(spacing: 18) {
@@ -88,8 +89,9 @@ struct RoutineCompleteView: View {
                 dismiss()
             }
             .padding(.bottom)
+            .padding()
         }
-        .padding(.horizontal, 46)
+        
     }
 }
 
