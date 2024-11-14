@@ -68,7 +68,7 @@ class RoutineService: RoutineServiceType {
                 return .failure(DBError.documenetIdError)
             }
             let routineEncode = try Firestore.Encoder().encode(routine)
-            try await self.db.collection("Routine").document(routineId).setData(routineEncode, merge: true)
+            try await self.db.collection("Routine").document(routineId).setData(routineEncode)
             return .success(())
         } catch {
             return .failure(DBError.firebaseError(error))

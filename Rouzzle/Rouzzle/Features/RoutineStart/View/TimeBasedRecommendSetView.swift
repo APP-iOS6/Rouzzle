@@ -37,7 +37,11 @@ struct TimeBasedRecommendSetView: View {
                                 description: category.tasks[index].description
                             ) {
                                 let recommendTodoTask = RecommendTodoTask(emoji: category.tasks[index].emoji, title: category.tasks[index].title, timer: category.tasks[index].timeInterval)
-                                addRecommendTask.append(recommendTodoTask)
+                                if addRecommendTask.contains(where: { $0.title == recommendTodoTask.title}) {
+                                    addRecommendTask.removeAll(where: { $0.title == recommendTodoTask.title })
+                                } else {
+                                    addRecommendTask.append(recommendTodoTask)
+                                }
                             }
                             
                             if index < category.tasks.count - 1 {

@@ -15,6 +15,7 @@ struct AddTaskView: View {
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
     @State var isShowingEditRoutineSheet: Bool = false
+    @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
     
     @State private var taskManager = CalendarTaskManager()
@@ -129,6 +130,12 @@ struct AddTaskView: View {
                         )
                     )
                 }
+                .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
+                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem)) { _ in
+                        store.loadState = .completed
+                        store.toastMessage = "수정에 성공했습니다."
+                    }
+                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
                         store.addTaskSwiftData(task, context: modelContext)
@@ -146,11 +153,24 @@ struct AddTaskView: View {
             }
             .padding()
         }
+        .toastView(toast: $toast) // ToastModifier 적용
         .overlay {
             if store.loadState == .loading {
                 ProgressView()
             }
         }
+        .onChange(of: store.toastMessage, { _, new in
+            guard let new else {
+                return
+            }
+            if store.loadState == .completed {
+                toast = ToastModel(type: .success, message: new)
+                store.toastMessage = nil
+            } else {
+                toast = ToastModel(type: .warning, message: new)
+                store.toastMessage = nil
+            }
+        })
         .animation(.smooth, value: store.taskList)
     }
     // Task를 추가
