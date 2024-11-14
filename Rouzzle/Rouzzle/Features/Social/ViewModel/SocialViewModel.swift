@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 import Factory
+import FirebaseFirestore
 
 @Observable
 class SocialViewModel {
@@ -24,39 +25,26 @@ class SocialViewModel {
     @MainActor
     func fetchUserProfiles() async {
         do {
-            // 닉네임 맵과 루틴을 가져오기
-            let idToNameMap = try await socialService.fetchAllUserNicknames()
-            let groupedRoutines = try await socialService.fetchRoutinesGroupedByUser()
-            
-            // 각 유저의 프로필 이미지, 닉네임, 루틴을 포함하여 UserProfile 생성
-            var profiles: [UserProfile] = []
-            for (userID, routines) in groupedRoutines {
-                if let nickname = idToNameMap[userID] {
-                    let profileImageUrl = try await socialService.fetchUserProfileImage(userID: userID)
-                    let userProfile = UserProfile(
-                        userID: userID,
-                        nickname: nickname,     // 닉네임 설정
-                        profileImageUrl: profileImageUrl,
-                        routines: routines
-                    )
-                    profiles.append(userProfile)
-                } else {
-                    print("UserID \(userID) does not have a corresponding nickname.")
-                }
-            }
-            
-            self.userProfiles = profiles
+            self.userProfiles = try await socialService.fetchUserInfo()
+            print("유저 프로필 \(userProfiles)")
         } catch {
+            self.error = DBError.firebaseError(error)
             print("Error fetching user profiles: \(error)")
-            
         }
     }
 }
 
-struct UserProfile: Identifiable {
-    var id = UUID()
-    var userID: String
+struct UserProfile: Codable, Hashable {
+    @DocumentID var documentId: String? // Firestore 문서 ID
     var nickname: String
     var profileImageUrl: String?
-    var routines: [Routine]
+    var introduction: String?
+    var routines: [Routine] = [] // 초기값으로 빈 배열 설정
+
+    enum CodingKeys: String, CodingKey {
+        case documentId
+        case nickname = "name"
+        case profileImageUrl = "profileUrlString"
+        case introduction
+    }
 }

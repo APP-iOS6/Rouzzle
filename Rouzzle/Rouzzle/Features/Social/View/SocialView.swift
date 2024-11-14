@@ -35,7 +35,7 @@ struct SocialView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
-                                ForEach(viewModel.userProfiles) { user in
+                                ForEach(viewModel.userProfiles, id: \.self) { user in
                                     NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
                                         VStack {
                                             ProfileCachedImage(imageUrl: user.profileImageUrl)
@@ -57,7 +57,7 @@ struct SocialView: View {
                         
                         // 사용자 랜덤으로 보여주기
                         LazyVStack(spacing: 15) {
-                            ForEach(viewModel.userProfiles) { user in
+                            ForEach(viewModel.userProfiles, id: \.self) { user in
                                 RoutineCardView(userProfile: user)
                             }
                         }
