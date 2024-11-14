@@ -16,7 +16,11 @@ class SocialViewModel {
     var userProfiles: [UserProfile] = []
     var error: DBError?
     var nicknameToRoutines: [String: [Routine]] = [:] // nickname: [Routine]
-    
+    init() {
+        Task {
+            await fetchUserProfiles()
+        }
+    }
     @MainActor
     func fetchUserProfiles() async {
         do {

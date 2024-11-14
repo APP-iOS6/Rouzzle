@@ -38,16 +38,10 @@ struct SocialView: View {
                                 ForEach(viewModel.userProfiles) { user in
                                     NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
                                         VStack {
-                                            AsyncImage(url: URL(string: user.profileImageUrl)) { image in
-                                                image
-                                                    .resizable()
-                                                    .frame(width: 60, height: 60)
-                                                    .clipShape(Circle())
-                                            } placeholder: {
-                                                ProgressView()
-                                                    .frame(width: 60, height: 60)
-                                                    .clipShape(Circle())
-                                            }
+                                            CacheImage(url: user.profileImageUrl)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle())
+                                                .background(.red)
                                             Text(user.nickname)
                                                 .font(.regular12)
                                                 .foregroundColor(.black)
@@ -63,22 +57,16 @@ struct SocialView: View {
                             .font(.semibold18)
                         
                         // 사용자 랜덤으로 보여주기
-                        ScrollView {
-                            VStack(spacing: 15) {
-                                ForEach(viewModel.userProfiles) { user in
-                                    RoutineCardView(userProfile: user)
-                                }
+                        LazyVStack(spacing: 15) {
+                            ForEach(viewModel.userProfiles) { user in
+                                RoutineCardView(userProfile: user)
                             }
                         }
+                        
                     }
                 }
             }
             .padding()
-        }
-        .onAppear {
-            Task {
-                await viewModel.fetchUserProfiles()
-            }
         }
     }
 }
@@ -93,15 +81,9 @@ struct RoutineCardView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
                 // 프로필 이미지
-                AsyncImage(url: URL(string: userProfile.profileImageUrl)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 44, height: 44)
-                .clipShape(Circle())
+                CacheImage(url: userProfile.profileImageUrl)
+                    .frame(width: 44, height: 44)
+                    .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 3) {
                     HStack {
@@ -138,23 +120,25 @@ struct RoutineCardView: View {
             }
             
             HStack {
-                // 루틴이름
-                LazyHStack {
-                    ForEach(Array(userProfile.routines.enumerated()), id: \.element.self) { index, routine in
-                        RoutineLabelView(
-                            text: routine.title,
-                            isSelected: selectedRoutineIndex == index,
-                            onTap: {
-                                withAnimation(.easeInOut) {
-                                    if selectedRoutineIndex == index {
-                                        selectedRoutineIndex = nil
-                                    } else {
-                                        selectedRoutineIndex = index
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(Array(userProfile.routines.enumerated()), id: \.element.self) { index, routine in
+                            RoutineLabelView(
+                                text: routine.title,
+                                isSelected: selectedRoutineIndex == index,
+                                onTap: {
+                                    withAnimation(.easeInOut) {
+                                        if selectedRoutineIndex == index {
+                                            selectedRoutineIndex = nil
+                                        } else {
+                                            selectedRoutineIndex = index
+                                        }
                                     }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
+                    .padding(2)
                 }
                 Spacer()
                 
