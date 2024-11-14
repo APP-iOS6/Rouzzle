@@ -57,6 +57,6 @@ struct UserProfile: Identifiable {
     var id = UUID()
     var userID: String
     var nickname: String
-    var profileImageUrl: String
+    var profileImageUrl: String?
     var routines: [Routine]
 }

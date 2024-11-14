@@ -27,3 +27,18 @@ struct CacheImage: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+
+struct ProfileCachedImage: View {
+    private(set) var imageUrl: String?
+
+    var body: some View {
+        ZStack {
+            if let imageUrl = imageUrl {
+                CacheImage(url: imageUrl)
+            } else {
+                Image("defaultProfileImage")
+            }
+        }
+
+    }
+}

@@ -38,10 +38,9 @@ struct SocialView: View {
                                 ForEach(viewModel.userProfiles) { user in
                                     NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
                                         VStack {
-                                            CacheImage(url: user.profileImageUrl)
+                                            ProfileCachedImage(imageUrl: user.profileImageUrl)
                                                 .frame(width: 60, height: 60)
                                                 .clipShape(Circle())
-                                                .background(.red)
                                             Text(user.nickname)
                                                 .font(.regular12)
                                                 .foregroundColor(.black)
@@ -81,7 +80,7 @@ struct RoutineCardView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
                 // 프로필 이미지
-                CacheImage(url: userProfile.profileImageUrl)
+                ProfileCachedImage(imageUrl: userProfile.profileImageUrl)
                     .frame(width: 44, height: 44)
                     .clipShape(Circle())
                 
