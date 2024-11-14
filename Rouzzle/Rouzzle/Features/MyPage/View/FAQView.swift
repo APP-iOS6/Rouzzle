@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FAQView: View {
+    @Environment(\.openURL) var openURL
+    private var viewModel = FAQViewModel()
+    
     var body: some View {
         ZStack {
             Color.backgroundLightGray
@@ -40,6 +43,19 @@ struct FAQView: View {
                     )
                     .padding(.top)
                 }
+                
+                VStack(spacing: 16) {
+                    Text("원하는 답변이 없으신가요?")
+                        .font(.semibold16)
+                    
+                    Button {
+                        viewModel.send(openURL: openURL)
+                    } label: {
+                        Text("이메일로 문의하기")
+                            .underline()
+                    }
+                }
+                .padding(.vertical, 32)
             }
             .customNavigationBar(title: "FAQ")
         }
