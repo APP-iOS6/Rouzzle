@@ -58,7 +58,9 @@ struct SocialView: View {
                         // 사용자 랜덤으로 보여주기
                         LazyVStack(spacing: 15) {
                             ForEach(viewModel.userProfiles, id: \.self) { user in
-                                RoutineCardView(userProfile: user)
+                                if !user.routines.isEmpty {
+                                    RoutineCardView(userProfile: user)
+                                }
                             }
                         }
                         
@@ -101,10 +103,12 @@ struct RoutineCardView: View {
                             .offset(x: -7)
                     }
                     // 자기소개
-                    Text("메이플의 짱이 되는 그날까지 ...")
-                        .font(.regular12)
-                        .lineLimit(isExpanded ? nil : 1)
-                        .foregroundColor(.gray)
+                    if let introduction = userProfile.introduction {
+                        Text(introduction)
+                            .font(.regular12)
+                            .lineLimit(isExpanded ? nil : 1)
+                            .foregroundColor(.gray)
+                    }
                 }
                 
                 Spacer()

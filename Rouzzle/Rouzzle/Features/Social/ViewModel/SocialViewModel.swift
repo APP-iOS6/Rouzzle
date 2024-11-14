@@ -16,7 +16,6 @@ class SocialViewModel {
     @Injected(\.socialService) private var socialService
     var userProfiles: [UserProfile] = []
     var error: DBError?
-    var nicknameToRoutines: [String: [Routine]] = [:] // nickname: [Routine]
     init() {
         Task {
             await fetchUserProfiles()
@@ -26,7 +25,6 @@ class SocialViewModel {
     func fetchUserProfiles() async {
         do {
             self.userProfiles = try await socialService.fetchUserInfo()
-            print("유저 프로필 \(userProfiles)")
         } catch {
             self.error = DBError.firebaseError(error)
             print("Error fetching user profiles: \(error)")
