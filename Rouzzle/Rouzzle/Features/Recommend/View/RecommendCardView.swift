@@ -25,6 +25,15 @@ struct RecommendCardView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .matchedGeometryEffect(id: "title\(card.id)", in: animation)
             
+            if let subTitle = card.subTitle {
+                Text(subTitle)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .font(.semibold14)
+                    .background(.secondcolor)
+                    .clipShape(.rect(cornerRadius: 18))
+            }
+            
             Spacer()
             Image(systemName: "chevron.down")
                 .foregroundStyle(.graymedium)

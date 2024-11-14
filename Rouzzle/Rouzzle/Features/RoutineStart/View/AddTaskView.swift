@@ -9,22 +9,25 @@ import SwiftUI
 import SwiftData
 
 struct AddTaskView: View {
-    @Bindable var store: RoutineStore
+    var store: RoutineStore
     @Environment(\.modelContext) private var modelContext
     @State var isShowingAddTaskSheet: Bool = false
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
     @State var isShowingEditRoutineSheet: Bool = false
+    @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+    
+    @State private var taskManager = CalendarTaskManager()
     
     var body: some View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading) {
                     Label(store.todayStartTime, systemImage: "clock")
-                        .font(.regular16)
+                        .font(.regular14)
                         .foregroundStyle(Color.subHeadlineFontColor)
-                        .padding(.top, 10)
+                        .padding(.top, 15)
                     
                     Button {
                         isShowingTimerView.toggle()
@@ -33,7 +36,7 @@ struct AddTaskView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                     }
-                    .padding(.top, 5)
+                    .padding(.top, -2)
                     
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
@@ -120,11 +123,19 @@ struct AddTaskView: View {
                     }
                 }
                 .fullScreenCover(isPresented: $isShowingTimerView) {
-                    RoutineStartView(viewModel: RoutineStartViewModel(routineItem: store.routineItem))
+                    RoutineStartView(
+                        viewModel: RoutineStartViewModel(
+                            routineItem: store.routineItem,
+                            taskManager: taskManager  // taskManager 전달
+                        )
+                    )
                 }
                 .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem))
-                }
+                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem)) { _ in
+                        store.loadState = .completed
+                        store.toastMessage = "수정에 성공했습니다."
+                    }
+                 }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
                         store.addTaskSwiftData(task, context: modelContext)
@@ -142,14 +153,27 @@ struct AddTaskView: View {
             }
             .padding()
         }
+        .toastView(toast: $toast) // ToastModifier 적용
         .overlay {
             if store.loadState == .loading {
                 ProgressView()
             }
         }
+        .onChange(of: store.toastMessage, { _, new in
+            guard let new else {
+                return
+            }
+            if store.loadState == .completed {
+                toast = ToastModel(type: .success, message: new)
+                store.toastMessage = nil
+            } else {
+                toast = ToastModel(type: .warning, message: new)
+                store.toastMessage = nil
+            }
+        })
         .animation(.smooth, value: store.taskList)
     }
-    // Task를 추가하는 함수
+    // Task를 추가
     private func addTaskToRoutine(_ task: RecommendTodoTask) {
         do {
             try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)

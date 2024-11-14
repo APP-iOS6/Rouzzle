@@ -5,10 +5,15 @@
 //  Created by Hyeonjeong Sim on 11/11/24.
 //
 
+import Factory
 import Foundation
-
+import SwiftData
 @Observable
 final class RecommendViewModel {
+    
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
+    
     enum Category: String, CaseIterable {
         case celebrity = "유명인"
         case morning = "아침"
@@ -19,6 +24,8 @@ final class RecommendViewModel {
         case rest = "휴식"
     }
     
+    var loadState: LoadState = .none
+    var toastMessage: String?
     var selectedCategory: Category = .celebrity {
         didSet {
             updateCards()
@@ -26,6 +33,7 @@ final class RecommendViewModel {
     }
     
     var filteredCards: [Card] = []
+    var selectedRecommend: [RecommendTodoTask] = []
     
     private let allCards: [Category: [Card]] = [
         .celebrity: DummyCardData.celebrityCards,
@@ -43,6 +51,34 @@ final class RecommendViewModel {
     
     private func updateCards() {
         filteredCards = allCards[selectedCategory] ?? []
+    }
+    
+    @MainActor
+    func addTask(_ routineItem: RoutineItem, context: ModelContext) async {
+        loadState = .loading
+        var routine = routineItem.toRoutine()
+        for task in selectedRecommend {
+            routine.routineTask.append(task.toRoutineTask())
+        }
+        
+        let result = await routineService.updateRoutine(routine)
+        switch result {
+        case .success:
+            do {
+                for task in selectedRecommend {
+                    try SwiftDataService.addTask(to: routineItem, task.toTaskList(), context: context)
+                }
+                loadState = .completed
+                toastMessage = "\(routineItem.title) 에 할 일을 추가하였습니다"
+            } catch {
+                loadState = .failed
+                toastMessage = "루틴 추가에 실패했습니다"
+            }
+        case .failure:
+            loadState = .failed
+            toastMessage = "루틴 추가에 실패했습니다"
+        }
+        
     }
 }
 

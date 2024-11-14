@@ -16,10 +16,11 @@ class RoutineStore {
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
     
+    var allRoutines: [RoutineItem] = [] // 모든 루틴 목록
     var routineItem: RoutineItem
     var taskList: [TaskList] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
-    var errorMessage: String?
+    var toastMessage: String?
     var recommendTodoTask: [RecommendTodoTask] = []
     var todayStartTime: String {
         let today = Date()
@@ -33,11 +34,26 @@ class RoutineStore {
         print(routineItem.title)
         self.routineItem = routineItem
         self.taskList = routineItem.taskList
+        fetchAllRoutines() // 모든 루틴 로드
         getRecommendTask()
+    }
+    
+    /// 모든 루틴 데이터를 Firestore에서 가져오기
+    func fetchAllRoutines() {
+        Task {
+            do {
+                let routines = try await routineService.getAllRoutines()
+                allRoutines = routines.map { RoutineItem(from: $0) } // 변환 적용
+            } catch {
+                toastMessage = "루틴 데이터를 가져오는 데 실패했습니다."
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @MainActor
     func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) async {
+        loadState = .loading
         do {
             var routine = routineItem.toRoutine()
             routine.routineTask.append(todoTask.toRoutineTask())
@@ -46,17 +62,21 @@ class RoutineStore {
             case .success(()):
                 try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
                 taskList.append(todoTask.toTaskList())
+                loadState = .completed
             case .failure:
-                errorMessage = "할일 추가에 실패했습니다"
+                toastMessage = "할일 추가에 실패했습니다"
+                loadState = .failed
             }
         } catch {
-            errorMessage = "할일 추가에 실패했습니다"
+            toastMessage = "할일 추가에 실패했습니다"
+            loadState = .failed
             print("할일 추가 실패")
         }
     }
     
     @MainActor
     func addTasks(_ todoTasks: [RecommendTodoTask], context: ModelContext) async {
+        loadState = .loading
         var routine = routineItem.toRoutine()
         for task in todoTasks {
             routine.routineTask.append(task.toRoutineTask())
@@ -68,20 +88,26 @@ class RoutineStore {
                 for task in todoTasks {
                     try SwiftDataService.addTask(to: routineItem, task.toTaskList(), context: context)
                 }
+                loadState = .completed
             } catch {
-                errorMessage = "할일 추가에 실패했습니다"
+                loadState = .failed
+                toastMessage = "할일 추가에 실패했습니다"
             }
         case .failure:
-            errorMessage = "할일 추가에 실패했습니다"
+            loadState = .failed
+            toastMessage = "할일 추가에 실패했습니다"
         }
     }
     
-    /// 스위프트 데이터에만 추가하는 함수
+    /// 스위프트 데이터에만 추가하는 함수, 시트쪽에서 파베 업데이트 하므로 스데만 업데이트 하는 함수
     func addTaskSwiftData(_ todoTask: RecommendTodoTask, context: ModelContext) {
+        loadState = .loading
         do {
             try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
+            loadState = .completed
         } catch {
-            errorMessage = "할일 추가에 실패했습니다"
+            toastMessage = "할일 추가에 실패했습니다"
+            loadState = .failed
             print("할 일 추가 실패")
         }
     }

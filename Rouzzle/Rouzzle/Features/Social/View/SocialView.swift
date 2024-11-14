@@ -8,66 +8,60 @@
 import SwiftUI
 
 struct SocialView: View {
+    @State private var viewModel: SocialViewModel = SocialViewModel()
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
-    // 임시
-    private let favoriteUsers = ["기바오", "김정언", "찐따영", "현정카이저", "노원뱅갈"]
-    
+
     var body: some View {
-        NavigationView {
-            VStack(alignment: .leading, spacing: 40) {
-                VStack {
-                    HStack {
-                        Text("소셜")
-                            .font(.semibold18)
-                            .foregroundStyle(.basic)
-                        Spacer()
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 40) {
+                    VStack {
+                        HStack {
+                            Text("소셜")
+                                .font(.semibold18)
+                                .foregroundStyle(.basic)
+                            Spacer()
+                        }
+                        .padding(.top, 20)
+                        
+                        SearchBarView(text: $query)
+                            .animation(.easeInOut, value: query)
                     }
-                    .padding(.top, 20)
                     
-                    SearchBarView(text: $query)
-                        .animation(.easeInOut, value: query)
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("즐겨찾기")
-                        .font(.semibold18)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(favoriteUsers, id: \.self) { userNickname in
-                                NavigationLink(destination: SocialMarkDetailView(userNickname: userNickname)) {
-                                    VStack {
-                                        Image(systemName: "person.crop.circle.fill")
-                                            .resizable()
-                                            .foregroundColor(.gray)
-                                            .frame(width: 60, height: 60)
-                                            .clipShape(Circle())
-                                        Text(userNickname)
-                                            .font(.regular12)
-                                            .foregroundColor(.black)
+                    VStack(alignment: .leading) {
+                        Text("즐겨찾기")
+                            .font(.semibold18)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                ForEach(viewModel.userProfiles) { user in
+                                    NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
+                                        VStack {
+                                            ProfileCachedImage(imageUrl: user.profileImageUrl)
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(Circle())
+                                            Text(user.nickname)
+                                                .font(.regular12)
+                                                .foregroundColor(.black)
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("루즐러 둘러보기")
-                        .font(.semibold18)
                     
-                    // 사용자 랜덤으로 보여주기
-                    ScrollView {
-                        VStack(spacing: 15) {
-                            ForEach(0..<3) { index in
-                                RoutineCardView(isExpanded: expandedRoutineIndex == index, onToggleExpand: {
-                                    withAnimation {
-                                        expandedRoutineIndex = (expandedRoutineIndex == index) ? nil : index
-                                    }
-                                }, tasks: DummyTask.tasks)
+                    VStack(alignment: .leading) {
+                        Text("루즐러 둘러보기")
+                            .font(.semibold18)
+                        
+                        // 사용자 랜덤으로 보여주기
+                        LazyVStack(spacing: 15) {
+                            ForEach(viewModel.userProfiles) { user in
+                                RoutineCardView(userProfile: user)
                             }
                         }
+                        
                     }
                 }
             }
@@ -77,25 +71,23 @@ struct SocialView: View {
 }
 
 struct RoutineCardView: View {
-    var isExpanded: Bool
-    var onToggleExpand: () -> Void
+    @State var isExpanded: Bool = false
     @State private var isStarred: Bool = false
-    var tasks: [DummyTask]
-    
+    @State private var selectedRoutineIndex: Int?
+    var userProfile: UserProfile
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
                 // 프로필 이미지
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .foregroundColor(.gray)
+                ProfileCachedImage(imageUrl: userProfile.profileImageUrl)
                     .frame(width: 44, height: 44)
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading, spacing: 3) {
                     HStack {
                         // 닉네임
-                        Text("메어른")
+                        Text("\(userProfile.nickname)")
                             .font(.semibold16)
                         
                         // 연속일
@@ -127,24 +119,52 @@ struct RoutineCardView: View {
             }
             
             HStack {
-                // 루틴이름
-                RoutineLabelView(text: "아침 루틴")
-                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(Array(userProfile.routines.enumerated()), id: \.element.self) { index, routine in
+                            RoutineLabelView(
+                                text: routine.title,
+                                isSelected: selectedRoutineIndex == index,
+                                onTap: {
+                                    withAnimation(.easeInOut) {
+                                        if selectedRoutineIndex == index {
+                                            selectedRoutineIndex = nil
+                                        } else {
+                                            selectedRoutineIndex = index
+                                        }
+                                    }
+                                }
+                            )
+                        }
+                    }
+                    .padding(2)
+                }
                 Spacer()
                 
-                // 더보기 버튼
-                Button(action: {
-                    onToggleExpand()
-                }, label: {
-                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                // 더보기 버튼 (선택된 루틴이 있을 때만 작동)
+                Button {
+                    withAnimation(.easeInOut) {
+                        if selectedRoutineIndex != nil {
+                            // 선택된 루틴이 있으면 선택 해제
+                            selectedRoutineIndex = nil
+                        } else {
+                            // 선택된 루틴이 없으면 첫 번째 루틴 선택
+                            selectedRoutineIndex = 0
+                        }
+                    }
+                } label: {
+                    Image(systemName: selectedRoutineIndex != nil ? "chevron.up" : "chevron.down")
                         .foregroundColor(.gray)
-                })
+                        .rotationEffect(.degrees(selectedRoutineIndex != nil ? 180 : 0))
+                        .animation(.easeInOut, value: selectedRoutineIndex != nil)
+                }
             }
-            .padding(.top, 3)
-            
-            if isExpanded {
-                //                Divider()
-                RoutineTasksView(tasks: tasks)
+            .padding(.top, 2)
+
+            // 선택된 루틴의 세부 정보 표시
+            if let selectedIndex = selectedRoutineIndex, selectedIndex < userProfile.routines.count {
+                RoutineTasksView(tasks: userProfile.routines[selectedIndex].routineTask)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
         }
         .padding()
@@ -155,7 +175,7 @@ struct RoutineCardView: View {
 
 // 더보기(루틴 할 일 리스트)
 struct RoutineTasksView: View {
-    var tasks: [DummyTask]
+    var tasks: [RoutineTask]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -163,18 +183,16 @@ struct RoutineTasksView: View {
                 .font(.light12)
                 .foregroundColor(.gray)
             
-            ForEach(tasks) { task in
+            ForEach(tasks, id: \.self) { task in
                 HStack(spacing: 2) {
                     Text(task.emoji)
                     Text(task.title)
                         .font(.regular12)
                         .padding(.leading, 4)
                     Spacer()
-                    if let timer = task.timer {
-                        Text("\(timer/60)분")
-                            .font(.regular12)
-                            .foregroundColor(.gray)
-                    }
+                    Text("\(task.timer/60)분")
+                        .font(.regular12)
+                        .foregroundColor(.gray)
                 }
             }
         }

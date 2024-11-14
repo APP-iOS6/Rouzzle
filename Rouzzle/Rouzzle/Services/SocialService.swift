@@ -14,7 +14,8 @@ protocol SocialServiceType {
         
     /// userId 로 닉네임 패치
     func fetchAllUserNicknames() async throws -> [String: String]
-
+    
+    func fetchUserProfileImage(userID: String) async throws -> String?
 }
 
 class SocialService: SocialServiceType {
@@ -34,6 +35,20 @@ class SocialService: SocialServiceType {
             
             print("Fetched user nicknames: \(idToNameMap)")
             return idToNameMap
+        } catch {
+            throw DBError.firebaseError(error)
+        }
+    }
+    
+    func fetchUserProfileImage(userID: String) async throws -> String? {
+        do {
+            let document = try await db.collection("User").document(userID).getDocument()
+            
+            if let imageStr = document.data()?["profileUrlString"] as? String {
+                return imageStr
+            } else {
+                return nil
+            }
         } catch {
             throw DBError.firebaseError(error)
         }
