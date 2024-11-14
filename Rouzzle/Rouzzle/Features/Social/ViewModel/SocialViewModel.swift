@@ -44,17 +44,14 @@ class SocialViewModel {
         }
     }
     
-//    func fetchFavoriteUser() -> [UserProfile] {
-//        // 유저 프로필 중 즐겨찾기에 포함된 유저만 필터링
-//        let favoriteIDs = userProfiles
-//            .first(where: { $0.documentId == Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID() })?
-//            .isFavoriteUser ?? []
-//
-//        // favoriteIDs에 있는 ID 값에 해당하는 유저만 필터링
-//        let favoriteProfiles = userProfiles.filter { profile in
-//            favoriteIDs.contains(profile.documentId ?? "")
-//        }
-//        
-//        return favoriteProfiles
-//    }
+    func addFavorite(userID: String) async {
+        do {
+            try await socialService.addFavoriteUser(userID: userID)
+            print("User \(userID) added to favorites.")
+        } catch let dbError as DBError {
+            self.error = dbError
+        } catch {
+            self.error = DBError.firebaseError(error)
+        }
+    }
 }

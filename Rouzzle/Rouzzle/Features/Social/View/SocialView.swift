@@ -59,7 +59,11 @@ struct SocialView: View {
                         LazyVStack(spacing: 15) {
                             ForEach(viewModel.userProfiles, id: \.self) { user in
                                 if !user.routines.isEmpty {
-                                    RoutineCardView(userProfile: user)
+                                    RoutineCardView(userProfile: user) {
+                                        Task {
+                                            await viewModel.addFavorite(userID: user.documentId!)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -77,7 +81,8 @@ struct RoutineCardView: View {
     @State private var isStarred: Bool = false
     @State private var selectedRoutineIndex: Int?
     var userProfile: UserProfile
-
+    let action: () -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
@@ -116,6 +121,7 @@ struct RoutineCardView: View {
                 // 즐겨찾기
                 Button(action: {
                     isStarred.toggle()
+                    action()
                 }, label: {
                     Image(systemName: isStarred ? "star.fill" : "star")
                         .foregroundColor(isStarred ? .yellow : .gray)

@@ -10,13 +10,29 @@ import FirebaseFirestore
 import FirebaseAuth
 
 protocol SocialServiceType {
-        
+    
     func fetchUserInfo() async throws -> [UserProfile]
-
+    
+    func addFavoriteUser(userID: String) async throws
+    
 }
 
 class SocialService: SocialServiceType {
     private let db = Firestore.firestore()
+    
+    func addFavoriteUser(userID: String) async throws {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            throw DBError.firebaseError(NSError(domain: "User Not Logged In", code: 401, userInfo: nil))
+        }
+        
+        do {
+            try await db.collection("User").document(currentUserID).updateData([
+                "isFavoriteUser": FieldValue.arrayUnion([userID])
+            ])
+        } catch {
+            throw DBError.firebaseError(error)
+        }
+    }
     
     func fetchUserInfo() async throws -> [UserProfile] {
         do {
