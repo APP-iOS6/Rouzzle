@@ -140,27 +140,12 @@ struct MyPageView: View {
                         }
                     }
                     
-                    // MARK: 네비게이션 리스트 및 로그아웃, 계정탈퇴 부분
+                    // MARK: 리스트 부분
                     NavigationLink {
                         
                     } label: {
                         HStack {
-                            Text("개인정보")
-                                .font(.semibold16)
-                                .foregroundStyle(.black)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                        }
-                        .frame(width: 370, height: 45)
-                    }
-                    
-                    Button {
-                        
-                    } label: {
-                        HStack {
-                            Text("이메일 연동")
+                            Text("계정 관리")
                                 .font(.semibold16)
                                 .foregroundStyle(.black)
                             
@@ -185,6 +170,49 @@ struct MyPageView: View {
                         }
                         .frame(width: 370, height: 45)
                     }
+                    
+                    // 사파리 링크로 노션 띄어줄 예정
+                    NavigationLink {
+                        
+                    } label: {
+                        HStack {
+                            Text("이용 약관")
+                                .font(.semibold16)
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                        .frame(width: 370, height: 45)
+                    }
+                    
+                    // 사파리 링크로 노션 띄어줄 예정
+                    NavigationLink {
+                        
+                    } label: {
+                        HStack {
+                            Text("개인정보 처리방침")
+                                .font(.semibold16)
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                        .frame(width: 370, height: 45)
+                    }
+                    
+                    HStack {
+                        Text("버전 정보")
+                            .font(.semibold16)
+                        
+                        Spacer()
+                        
+                        Text(viewModel.appVersion)
+                            .font(.regular16)
+                    }
+                    .frame(width: 370, height: 45)
                     
                     Button {
                         isShowingLogoutAlert.toggle()
