@@ -10,13 +10,14 @@ import SwiftUI
 struct RecommendDetailView: View {
     let card: Card
     let animation: Namespace.ID
+    @Binding var selectedRecommendTask: [RecommendTodoTask]
+    @Binding var allCheckBtn: Bool
     let onTap: () -> Void
-    @State private var selectedTasks: Set<String> = []
-    
-    private var isSaveEnabled: Bool {
-        !selectedTasks.isEmpty
-    }
-    
+    let addRoutine: (RoutineItem?) -> Void
+    @State private var routineSheet: Bool = false
+    @State private var detents: Set<PresentationDetent> = [.fraction(0.3)]
+    @State private var toast: ToastModel?
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
@@ -33,14 +34,25 @@ struct RecommendDetailView: View {
                     .shadow(color: .black.opacity(0.2), radius: 5)
                     .matchedGeometryEffect(id: "image\(card.id)", in: animation)
                 
-                Text(card.title)
-                    .font(.bold30)
-                    .bold()
-                    .foregroundColor(.basic)
-                    .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .matchedGeometryEffect(id: "title\(card.id)", in: animation)
-                    .padding(.horizontal)
+                HStack {
+                    Text(card.title)
+                        .font(.bold30)
+                        .bold()
+                        .foregroundColor(.basic)
+                        .lineLimit(1)
+                        .matchedGeometryEffect(id: "title\(card.id)", in: animation)
+                        .padding(.horizontal)
+                    
+                    if let subTitle = card.subTitle {
+                        Text(subTitle)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .font(.semibold14)
+                            .background(.secondcolor)
+                            .clipShape(.rect(cornerRadius: 18))
+                            .padding(.leading, 8)
+                    }
+                }
                 
                 Text(card.fullText)
                     .font(.light16)
@@ -51,19 +63,43 @@ struct RecommendDetailView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 15)
                 
+                HStack {
+                    Image(systemName: allCheckBtn ? "checkmark.square" : "square")
+                    Text("전체선택")
+                        .font(.regular18)
+                }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .foregroundColor(allCheckBtn ? .black : .gray)
+                .onTapGesture {
+                    if allCheckBtn {
+                        allCheckBtn.toggle()
+                        selectedRecommendTask.removeAll()
+                    } else {
+                        allCheckBtn.toggle()
+                        selectedRecommendTask.removeAll()
+                        for task in card.routines {
+                            let task = RecommendTodoTask(emoji: task.emoji, title: task.title, timer: task.timer)
+                            selectedRecommendTask.append(task)
+                        }
+                    }
+                }
+                
                 VStack(spacing: 8) {
                     ForEach(card.routines, id: \.title) { task in
-                        RecommendTaskView(task: task, isSelected: selectedTasks.contains(task.title)) {
-                            toggleTaskSelection(task.title)
+                        RecommendTaskView(task: task, isSelected: selectedRecommendTask.contains(where: { $0.title == task.title })) {
+                            let task = RecommendTodoTask(emoji: task.emoji, title: task.title, timer: task.timer)
+                            toggleTaskSelection(task)
                         }
                     }
                 }
                 .padding(.horizontal, 8)
                 .padding(.bottom, 24)
                 
-                RouzzleButton(buttonType: .save) {
-                    print("선택 추가 버튼 클릭")
+                RouzzleButton(buttonType: .save, disabled: selectedRecommendTask.isEmpty) {
+                    routineSheet.toggle()
                 }
+                .disabled(selectedRecommendTask.isEmpty)
                 .padding(.horizontal)
                 .padding(.bottom, 24)
             }
@@ -81,16 +117,26 @@ struct RecommendDetailView: View {
                 Spacer()
             }
         }
+        .animation(.smooth, value: selectedRecommendTask)
         .frame(width: 370, height: 757)
         .padding(.horizontal)
+        .sheet(isPresented: $routineSheet) {
+            RecommendSheet(tasks: selectedRecommendTask) { routineItem in
+                addRoutine(routineItem)
+            }
+            .presentationDetents(detents)
+            .interactiveDismissDisabled()
+        }
     }
     
     // 선택된 작업을 토글
-    private func toggleTaskSelection(_ taskTitle: String) {
-        if selectedTasks.contains(taskTitle) {
-            selectedTasks.remove(taskTitle)
+    private func toggleTaskSelection(_ task: RecommendTodoTask) {
+        if selectedRecommendTask.contains(task) {
+            selectedRecommendTask.removeAll { $0.title == task.title }
+            allCheckBtn = selectedRecommendTask.count == card.routines.count
         } else {
-            selectedTasks.insert(taskTitle)
+            selectedRecommendTask.append(task)
+            allCheckBtn = selectedRecommendTask.count == card.routines.count
         }
     }
 }
@@ -99,6 +145,9 @@ struct RecommendDetailView: View {
     RecommendDetailView(
         card: DummyCardData.celebrityCards.first!,
         animation: Namespace().wrappedValue,
-        onTap: {}
+        selectedRecommendTask: .constant([]),
+        allCheckBtn: .constant(false),
+        onTap: {},
+        addRoutine: { _ in }
     )
 }

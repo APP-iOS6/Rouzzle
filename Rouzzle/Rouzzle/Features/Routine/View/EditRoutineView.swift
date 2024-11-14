@@ -11,15 +11,20 @@ struct EditRoutineView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: EditRoutineViewModel
-        @State private var draggedItem: TaskEditData?
+    @State private var draggedItem: TaskEditData?
     @State private var showEditIcon = true
     @State private var showDeleteIcon = false
     @State private var emoji: String? = "🧩"
-    
+    var createRoutine: Bool = false
+    let completeeAction: (String) -> Void
     init(
-        viewModel: EditRoutineViewModel
+        viewModel: EditRoutineViewModel,
+        createRoutine: Bool = false,
+        completeeAction: @escaping (String) -> Void = { _ in }
     ) {
         self.viewModel = viewModel
+        self.createRoutine = createRoutine
+        self.completeeAction = completeeAction
     }
     
     var body: some View {
@@ -109,9 +114,13 @@ struct EditRoutineView: View {
                     .padding(.top, 20)
                 }
                 
-                RouzzleButton(buttonType: .save, action: {
+                RouzzleButton(buttonType: .save, disabled: viewModel.tempdayStartTime.isEmpty, action: {
                     Task {
-                        await viewModel.updateRoutine(context: modelContext)
+                        if createRoutine {
+                            await viewModel.createRoutine(context: modelContext)
+                        } else {
+                            await viewModel.updateRoutine(context: modelContext)
+                        }
                     }
                 })
                 .background(Color.white)
@@ -126,6 +135,7 @@ struct EditRoutineView: View {
             }
             .onChange(of: viewModel.loadState, { _, new in
                 if new == .completed {
+                    completeeAction(viewModel.editRoutine.title)
                     dismiss()
                 }
             })

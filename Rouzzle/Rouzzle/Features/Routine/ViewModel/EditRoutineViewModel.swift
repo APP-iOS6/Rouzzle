@@ -78,8 +78,10 @@ class EditRoutineViewModel {
     @MainActor
     func updateRoutine(context: ModelContext) async {
         loadState = .loading
-        let routine = await routineService.updateRoutine(editRoutine.toRoutine())
-        switch routine {
+        var routine = editRoutine.toRoutine()
+        routine.dayStartTime = selectedDateWithTimeTypeChange()
+        let result = await routineService.updateRoutine(routine)
+        switch result {
         case .success:
             do {
                 try SwiftDataService.resetRoutine(from: self.routine, context: context)
@@ -99,11 +101,39 @@ class EditRoutineViewModel {
         }
     }
     
+    @MainActor
+    func createRoutine(context: ModelContext) async {
+        loadState = .loading
+        var routine = editRoutine.toRoutine()
+        routine.documentId = nil
+        routine.dayStartTime = selectedDateWithTimeTypeChange()
+        
+        let result = await routineService.addRoutine(routine)
+        switch result {
+        case let .success(uploadRoutine):
+            do {
+                let routineItem = uploadRoutine.toRoutineItem()
+                routineItem.taskList.removeAll()
+                try SwiftDataService.addRoutine(routineItem, context: context)
+                for task in uploadRoutine.routineTask.map({ $0.toTaskList() }) {
+                    try SwiftDataService.addTask(to: routineItem, task, context: context)
+                }
+                loadState = .completed
+            } catch {
+                errorMessage = "루틴 등록에 실패했습니디."
+                loadState = .failed
+            }
+        case .failure:
+            errorMessage = "루틴 등록에 실패했습니디."
+            loadState = .failed
+        }
+    }
+    
     func saveRoutine() {
         // 루틴의 기본 속성 업데이트
         routine.title = editRoutine.title
         routine.emoji = editRoutine.emoji
-        routine.dayStartTime = tempdayStartTime.mapKeys { $0.rawValue }.mapValues { $0.formattedToTime() }
+        routine.dayStartTime = selectedDateWithTimeTypeChange()
         routine.interval = editRoutine.interval
         routine.repeatCount = editRoutine.repeatCount
         routine.alarmIDs = editRoutine.alarmIDs

@@ -120,6 +120,8 @@
 		BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC31C2CE1C89400ED8A81 /* TimerState.swift */; };
 		BDFBC31F2CE3AAAB00ED8A81 /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC31E2CE3AAAB00ED8A81 /* SocialService.swift */; };
 		BDFBC3222CE3B14A00ED8A81 /* SocialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC3212CE3B14A00ED8A81 /* SocialViewModel.swift */; };
+		BDFBC3372CE6369B00ED8A81 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */; };
+		BDFBC3392CE638B900ED8A81 /* CacheImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC3382CE638B900ED8A81 /* CacheImage.swift */; };
 		FB2A5A672CD5F67000CB981A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A662CD5F67000CB981A /* Factory */; };
 		FB2A5A6A2CD5F69A00CB981A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A692CD5F69A00CB981A /* GoogleSignIn */; };
 		FB2A5A6C2CD5F69A00CB981A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A6B2CD5F69A00CB981A /* GoogleSignInSwift */; };
@@ -162,6 +164,7 @@
 		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
 		FBDC52D22CE2426E0038243D /* EditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */; };
 		FBDC52D92CE321B60038243D /* RoutineEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D82CE321B60038243D /* RoutineEditData.swift */; };
+		FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52DE2CE594250038243D /* RecommendSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -277,6 +280,8 @@
 		BDFBC31C2CE1C89400ED8A81 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
 		BDFBC31E2CE3AAAB00ED8A81 /* SocialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
 		BDFBC3212CE3B14A00ED8A81 /* SocialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewModel.swift; sourceTree = "<group>"; };
+		BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		BDFBC3382CE638B900ED8A81 /* CacheImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheImage.swift; sourceTree = "<group>"; };
 		FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		FB2A5A912CD7A31200CB981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -311,6 +316,7 @@
 		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewModel.swift; sourceTree = "<group>"; };
 		FBDC52D82CE321B60038243D /* RoutineEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditData.swift; sourceTree = "<group>"; };
+		FBDC52DE2CE594250038243D /* RecommendSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -544,6 +550,7 @@
 				23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */,
 				23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */,
 				23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */,
+				BDFBC3382CE638B900ED8A81 /* CacheImage.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -719,6 +726,7 @@
 				23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */,
 				23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */,
 				23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */,
+				FBDC52DE2CE594250038243D /* RecommendSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -835,6 +843,7 @@
 				FB2A5AA82CD7F1F200CB981A /* sha256.swift */,
 				FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */,
 				BD6301B72CDE73550000203C /* ConvertDays.swift */,
+				BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */,
 			);
 			path = Function;
 			sourceTree = "<group>";
@@ -1085,6 +1094,7 @@
 				9711587A2CDCAC03008854B0 /* TaskListSheet.swift in Sources */,
 				FB2A5ACD2CDA137200CB981A /* ChipModifier.swift in Sources */,
 				974596DD2CE1F6A6004C346B /* PassView.swift in Sources */,
+				BDFBC3372CE6369B00ED8A81 /* ImageCache.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
 				972FEC512CE319650041F1A5 /* ProfileImage.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
@@ -1108,6 +1118,7 @@
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
+				FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */,
 				23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
@@ -1116,6 +1127,7 @@
 				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
 				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
 				97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */,
+				BDFBC3392CE638B900ED8A81 /* CacheImage.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				23BC997C2CE468B2009BE074 /* CalendarViewModel.swift in Sources */,

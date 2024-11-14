@@ -26,6 +26,7 @@ struct RoutineLabelView: View {
             .onTapGesture {
                 onTap()
             }
+            .frame(height: 28)
     }
 }
 #Preview {
