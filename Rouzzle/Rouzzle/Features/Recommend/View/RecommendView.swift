@@ -67,6 +67,7 @@ struct RecommendView: View {
         .fullScreenCover(item: $addNewRoutine) { routine in
             EditRoutineView(viewModel: EditRoutineViewModel(routine: routine), createRoutine: true) { title in
                 viewModel.selectedRecommend.removeAll()
+                allCheckBtn = false
                 toast = ToastModel(type: .success, message: "\(title) 루틴이 추가되었습니다.")
                 viewModel.toastMessage = nil
             }
