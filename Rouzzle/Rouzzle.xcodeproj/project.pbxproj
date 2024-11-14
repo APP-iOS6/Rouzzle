@@ -73,6 +73,8 @@
 		97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */; };
 		97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */; };
 		97E5755A2CE64C560070FC84 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E575592CE64C560070FC84 /* FAQViewModel.swift */; };
+		97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */; };
+		97E5755E2CE667F10070FC84 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -227,6 +229,8 @@
 		97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingSheet.swift; sourceTree = "<group>"; };
 		97E575592CE64C560070FC84 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
+		97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
+		97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementViewModel.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 				97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */,
 				97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */,
 				97E575592CE64C560070FC84 /* FAQViewModel.swift */,
+				97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -756,6 +761,7 @@
 				974596DC2CE1F6A6004C346B /* PassView.swift */,
 				974596DE2CE28300004C346B /* ShopView.swift */,
 				97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */,
+				97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1088,6 +1094,7 @@
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
+				97E5755E2CE667F10070FC84 /* AccountManagementViewModel.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
 				FB4174E92CDB475F0084BC19 /* RoutineCompletion.swift in Sources */,
 				23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */,
@@ -1153,6 +1160,7 @@
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */,
 				BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */,
+				97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */,
 				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BDFBC3222CE3B14A00ED8A81 /* SocialViewModel.swift in Sources */,
