@@ -15,7 +15,7 @@ protocol SocialServiceType {
     /// userId 로 닉네임 패치
     func fetchAllUserNicknames() async throws -> [String: String]
     
-    func fetchUserProfileImage(userID: String) async throws -> String
+    func fetchUserProfileImage(userID: String) async throws -> String?
 }
 
 class SocialService: SocialServiceType {
@@ -40,14 +40,14 @@ class SocialService: SocialServiceType {
         }
     }
     
-    func fetchUserProfileImage(userID: String) async throws -> String {
+    func fetchUserProfileImage(userID: String) async throws -> String? {
         do {
             let document = try await db.collection("User").document(userID).getDocument()
             
             if let imageStr = document.data()?["profileUrlString"] as? String {
                 return imageStr
             } else {
-                throw DBError.serializationError // 필드가 없거나 데이터가 잘못된 경우
+                return nil
             }
         } catch {
             throw DBError.firebaseError(error)

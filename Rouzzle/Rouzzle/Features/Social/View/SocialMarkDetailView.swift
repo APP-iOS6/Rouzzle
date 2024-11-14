@@ -14,17 +14,10 @@ struct SocialMarkDetailView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
+                ProfileCachedImage(imageUrl: userProfile.profileImageUrl)
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle())
                 
-                AsyncImage(url: URL(string: userProfile.profileImageUrl)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 50, height: 50)
-                .clipShape(Circle())
-
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
                         Text(userProfile.nickname)

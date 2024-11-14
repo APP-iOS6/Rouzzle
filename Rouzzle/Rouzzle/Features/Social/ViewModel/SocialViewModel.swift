@@ -16,7 +16,11 @@ class SocialViewModel {
     var userProfiles: [UserProfile] = []
     var error: DBError?
     var nicknameToRoutines: [String: [Routine]] = [:] // nickname: [Routine]
-    
+    init() {
+        Task {
+            await fetchUserProfiles()
+        }
+    }
     @MainActor
     func fetchUserProfiles() async {
         do {
@@ -53,6 +57,6 @@ struct UserProfile: Identifiable {
     var id = UUID()
     var userID: String
     var nickname: String
-    var profileImageUrl: String
+    var profileImageUrl: String?
     var routines: [Routine]
 }
