@@ -7,9 +7,10 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 protocol SocialServiceType {
-    
+        
     func fetchUserInfo() async throws -> [UserProfile]
 
 }

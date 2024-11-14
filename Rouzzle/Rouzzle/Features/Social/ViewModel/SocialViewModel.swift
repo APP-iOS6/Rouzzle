@@ -8,41 +8,53 @@
 import Foundation
 import Observation
 import Factory
-import FirebaseFirestore
+import FirebaseAuth
 
 @Observable
 class SocialViewModel {
     @ObservationIgnored
     @Injected(\.socialService) private var socialService
     var userProfiles: [UserProfile] = []
+    var userFavorites: [UserProfile] {
+        let favoriteIDs = userProfiles
+            .first(where: { $0.documentId == Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID() })?
+            .isFavoriteUser ?? []
+        
+        let favoriteProfiles = userProfiles.filter { profile in
+            favoriteIDs.contains(profile.documentId ?? "")
+        }
+        return favoriteProfiles
+    }
     var error: DBError?
+    
     init() {
         Task {
             await fetchUserProfiles()
         }
     }
+    
     @MainActor
     func fetchUserProfiles() async {
         do {
             self.userProfiles = try await socialService.fetchUserInfo()
+            print("유저 프로필 \(userProfiles)")
         } catch {
             self.error = DBError.firebaseError(error)
             print("Error fetching user profiles: \(error)")
         }
     }
-}
-
-struct UserProfile: Codable, Hashable {
-    @DocumentID var documentId: String? // Firestore 문서 ID
-    var nickname: String
-    var profileImageUrl: String?
-    var introduction: String?
-    var routines: [Routine] = [] // 초기값으로 빈 배열 설정
-
-    enum CodingKeys: String, CodingKey {
-        case documentId
-        case nickname = "name"
-        case profileImageUrl = "profileUrlString"
-        case introduction
-    }
+    
+//    func fetchFavoriteUser() -> [UserProfile] {
+//        // 유저 프로필 중 즐겨찾기에 포함된 유저만 필터링
+//        let favoriteIDs = userProfiles
+//            .first(where: { $0.documentId == Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID() })?
+//            .isFavoriteUser ?? []
+//
+//        // favoriteIDs에 있는 ID 값에 해당하는 유저만 필터링
+//        let favoriteProfiles = userProfiles.filter { profile in
+//            favoriteIDs.contains(profile.documentId ?? "")
+//        }
+//        
+//        return favoriteProfiles
+//    }
 }

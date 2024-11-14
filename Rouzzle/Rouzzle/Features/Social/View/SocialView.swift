@@ -35,7 +35,7 @@ struct SocialView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
-                                ForEach(viewModel.userProfiles, id: \.self) { user in
+                                ForEach(viewModel.userFavorites, id: \.self) { user in
                                     NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
                                         VStack {
                                             ProfileCachedImage(imageUrl: user.profileImageUrl)
