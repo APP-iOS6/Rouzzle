@@ -159,6 +159,7 @@
 		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
 		FBDC52D22CE2426E0038243D /* EditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */; };
 		FBDC52D92CE321B60038243D /* RoutineEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D82CE321B60038243D /* RoutineEditData.swift */; };
+		FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52DE2CE594250038243D /* RecommendSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -305,6 +306,7 @@
 		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewModel.swift; sourceTree = "<group>"; };
 		FBDC52D82CE321B60038243D /* RoutineEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditData.swift; sourceTree = "<group>"; };
+		FBDC52DE2CE594250038243D /* RecommendSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -711,6 +713,7 @@
 				23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */,
 				23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */,
 				23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */,
+				FBDC52DE2CE594250038243D /* RecommendSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1098,6 +1101,7 @@
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
+				FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */,
 				23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
