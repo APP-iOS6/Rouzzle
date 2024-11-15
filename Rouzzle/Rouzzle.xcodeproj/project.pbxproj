@@ -31,7 +31,7 @@
 		23BC99882CE49223009BE074 /* StatisticCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99872CE49223009BE074 /* StatisticCategoryView.swift */; };
 		23BC998A2CE49C66009BE074 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99892CE49C66009BE074 /* SummaryView.swift */; };
 		23BC998C2CE49C94009BE074 /* RegisteredRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */; };
-		23BC99BC2CE6CBB9009BE074 /* RouzzleChallengePuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99BB2CE6CBB9009BE074 /* RouzzleChallengePuzzleView.swift */; };
+		23BC99BE2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99BD2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -193,7 +193,7 @@
 		23BC99872CE49223009BE074 /* StatisticCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCategoryView.swift; sourceTree = "<group>"; };
 		23BC99892CE49C66009BE074 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredRoutinesView.swift; sourceTree = "<group>"; };
-		23BC99BB2CE6CBB9009BE074 /* RouzzleChallengePuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePuzzleView.swift; sourceTree = "<group>"; };
+		23BC99BD2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePuzzleView.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -381,7 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */,
-				23BC99BB2CE6CBB9009BE074 /* RouzzleChallengePuzzleView.swift */,
+				23BC99BD2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1102,6 +1102,7 @@
 				972FEC512CE319650041F1A5 /* ProfileImage.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				974596DF2CE28300004C346B /* ShopView.swift in Sources */,
+				23BC99BE2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
 				97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */,
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
@@ -1123,7 +1124,6 @@
 				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
 				FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */,
 				23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */,
-				23BC99BC2CE6CBB9009BE074 /* RouzzleChallengePuzzleView.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,

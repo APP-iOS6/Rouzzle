@@ -42,21 +42,21 @@ struct RouzzleChallengePlayButton: View {
        self.action = action
    }
    
-   var body: some View {
-       Button(action: action) {
-           Text("PLAY")
-               .font(style.font)
-               .foregroundStyle(.white)
-               .frame(width: style.width, height: style.height)
-               .background(Color.themeColor)
-               .clipShape(RoundedRectangle(cornerRadius: 20))
-       }
-   }
+    var body: some View {
+        NavigationLink(destination: RouzzleChallengePuzzleView()) {
+            Text("PLAY")
+                .font(style.font)
+                .foregroundStyle(.white)
+                .frame(width: style.width, height: style.height)
+                .background(Color.themeColor)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+        }
+    }
 }
 
 #Preview {
-   VStack(spacing: 20) {
-       RouzzleChallengePlayButton(style: .small)
-       RouzzleChallengePlayButton(style: .large)
-   }
+    VStack(spacing: 20) {
+        RouzzleChallengePlayButton(style: .small)
+        RouzzleChallengePlayButton(style: .large)
+    }
 }
