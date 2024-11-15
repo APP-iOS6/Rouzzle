@@ -52,7 +52,6 @@
 		4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DB02CE4866E00F01153 /* ToastView.swift */; };
 		4BAE5DB82CE4F1AD00F01153 /* QuotesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */; };
 		4BAE5DC32CE71E6700F01153 /* RoutineFilterToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DC22CE71E5D00F01153 /* RoutineFilterToggle.swift */; };
-		4BAE5DC52CE7285A00F01153 /* testtoggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DC42CE7285400F01153 /* testtoggle.swift */; };
 		4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */; };
 		4BE4399A2CE1C8FE007E0272 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE439992CE1C8FE007E0272 /* SearchBarView.swift */; };
 		9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9700427D2CD9DA3900777F43 /* RoutineStartView.swift */; };
@@ -211,7 +210,6 @@
 		4BAE5DB02CE4866E00F01153 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesProvider.swift; sourceTree = "<group>"; };
 		4BAE5DC22CE71E5D00F01153 /* RoutineFilterToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineFilterToggle.swift; sourceTree = "<group>"; };
-		4BAE5DC42CE7285400F01153 /* testtoggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testtoggle.swift; sourceTree = "<group>"; };
 		4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
 		4BE439992CE1C8FE007E0272 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		9700427D2CD9DA3900777F43 /* RoutineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStartView.swift; sourceTree = "<group>"; };
@@ -669,7 +667,6 @@
 		BD1545C72CD92F390098AD7B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4BAE5DC42CE7285400F01153 /* testtoggle.swift */,
 				4BAE5DC22CE71E5D00F01153 /* RoutineFilterToggle.swift */,
 				BD1545C82CD92F5D0098AD7B /* RoutineListView.swift */,
 				4BAE5DB72CE4F19F00F01153 /* QuotesProvider.swift */,
@@ -1100,7 +1097,6 @@
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
 				97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */,
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
-				4BAE5DC52CE7285A00F01153 /* testtoggle.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
