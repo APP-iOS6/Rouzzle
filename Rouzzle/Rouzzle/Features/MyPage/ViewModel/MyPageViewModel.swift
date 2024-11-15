@@ -34,6 +34,13 @@ final class MyPageViewModel {
     var profileImage: UIImage?
     
     var loadState: LoadState = .none
+    
+    // 앱 버전과 빌드 번호
+    var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+        return "\(version) (\(build))"
+    }
 
     init() {
         loadUserData()

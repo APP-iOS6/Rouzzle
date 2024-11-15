@@ -12,7 +12,6 @@ struct MyPageView: View {
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
     @Environment(AuthStore.self) private var authStore
     @State private var isShowingLogoutAlert: Bool = false
-    @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingPassView: Bool = false
     
     var body: some View {
@@ -140,27 +139,12 @@ struct MyPageView: View {
                         }
                     }
                     
-                    // MARK: 네비게이션 리스트 및 로그아웃, 계정탈퇴 부분
+                    // MARK: 리스트 부분
                     NavigationLink {
-                        
+                        AccountManagementView()
                     } label: {
                         HStack {
-                            Text("개인정보")
-                                .font(.semibold16)
-                                .foregroundStyle(.black)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.right")
-                        }
-                        .frame(width: 370, height: 45)
-                    }
-                    
-                    Button {
-                        
-                    } label: {
-                        HStack {
-                            Text("이메일 연동")
+                            Text("계정 관리")
                                 .font(.semibold16)
                                 .foregroundStyle(.black)
                             
@@ -186,22 +170,53 @@ struct MyPageView: View {
                         .frame(width: 370, height: 45)
                     }
                     
+                    NavigationLink {
+                        Text("이용 약관 노션으로 띄어줄 예정")
+                    } label: {
+                        HStack {
+                            Text("이용 약관")
+                                .font(.semibold16)
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                        .frame(width: 370, height: 45)
+                    }
+                    
+                    // 사파리 링크로 노션 띄어줄 예정
+                    NavigationLink {
+                        Text("개인정보 처리방침 노션으로 띄어줄 예정")
+                    } label: {
+                        HStack {
+                            Text("개인정보 처리방침")
+                                .font(.semibold16)
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                        .frame(width: 370, height: 45)
+                    }
+                    
+                    HStack {
+                        Text("버전 정보")
+                            .font(.semibold16)
+                        
+                        Spacer()
+                        
+                        Text(viewModel.appVersion)
+                            .font(.regular16)
+                    }
+                    .frame(width: 370, height: 45)
+                    
                     Button {
                         isShowingLogoutAlert.toggle()
                     } label: {
                         HStack {
                             Text("로그아웃")
-                                .font(.medium16)
-                                .foregroundStyle(.red)
-                        }
-                        .frame(width: 370, height: 45, alignment: .leading)
-                    }
-                    
-                    Button {
-                        isShowingDeleteAccountAlert.toggle()
-                    } label: {
-                        HStack {
-                            Text("계정탈퇴")
                                 .font(.medium16)
                                 .foregroundStyle(.red)
                         }
@@ -215,11 +230,6 @@ struct MyPageView: View {
                          message: "",
                          primaryButtonTitle: "로그아웃",
                          primaryAction: { authStore.logOut() })
-            .customAlert(isPresented: $isShowingDeleteAccountAlert,
-                         title: "정말 탈퇴하시겠어요?",
-                         message: "탈퇴 버튼 선택 시, 계정은\n삭제되며 복구되지 않습니다.",
-                         primaryButtonTitle: "탈퇴",
-                         primaryAction: {})
             .fullScreenCover(isPresented: $isShowingPassView) {
                 PassView()
             }
