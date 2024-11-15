@@ -37,13 +37,15 @@ struct RouzzleChallengeView: View {
                     
                     // 메인 챌린지
                     ZStack(alignment: .bottomTrailing) {
-                        Image(.tuna)
-                            .resizable()
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(370/278, contentMode: .fit)
+                        NavigationLink(destination: RouzzleChallengePuzzleView()) {
+                            Image(.tuna)
+                                .resizable()
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(370/278, contentMode: .fit)
+                        }
                         
                         RouzzleChallengePlayButton(style: .large) {
-                            print("tuna 퍼즐로 이동")
+                            // 버튼은 시각적 요소로만 사용
                         }
                         .padding([.bottom, .trailing], 16)
                     }
@@ -60,18 +62,26 @@ struct RouzzleChallengeView: View {
                         
                         ForEach(puzzleImages, id: \.0) { (imageName, opacity) in
                             ZStack(alignment: .bottomTrailing) {
-                                Image(imageName)
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .frame(width: 173, height: 173)
-                                    .opacity(opacity)
-                                
                                 if opacity == 1.0 {
+                                    NavigationLink(destination: RouzzleChallengePuzzleView()) {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .frame(width: 173, height: 173)
+                                            .opacity(opacity)
+                                    }
+                                    
                                     RouzzleChallengePlayButton(style: .small) {
-                                        print("\(imageName) 퍼즐로 이동")
+                                        // 버튼은 시각적 요소로만 사용
                                     }
                                     .padding([.bottom, .trailing], 8)
                                 } else {
+                                    Image(imageName)
+                                        .resizable()
+                                        .aspectRatio(1, contentMode: .fit)
+                                        .frame(width: 173, height: 173)
+                                        .opacity(opacity)
+                                    
                                     PuzzleLockButton()
                                         .padding([.bottom, .trailing], 8)
                                 }
@@ -79,13 +89,6 @@ struct RouzzleChallengeView: View {
                         }
                     }
                     .padding(.vertical, 30)
-                    
-                    Text("새로운 퍼즐이 곧 업데이트될 예정입니다.\n많이 기대해 주세요! 😆")
-                        .font(.regular16)
-                        .foregroundStyle(.gray)
-                        .multilineTextAlignment(.center)
-                        .padding(.bottom, 200)
-                        .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
             .customNavigationBar(title: "루즐 챌린지")
