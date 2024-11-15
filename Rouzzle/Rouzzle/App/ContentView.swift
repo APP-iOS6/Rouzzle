@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var tabBarState = TabBarState()
+    
     var body: some View {
         TabView {
             RoutineListView()
@@ -39,13 +41,8 @@ struct ContentView: View {
                     Text("마이페이지")
                     Image(systemName: "person.circle.fill")
                 }
-            
-//            EditRoutineView()
-//                .tabItem {
-//                    Text("편집뷰")
-//                    Image(systemName: "pencil.circle.fill")
-//                }
         }
+        .environment(tabBarState)
     }
 }
 
