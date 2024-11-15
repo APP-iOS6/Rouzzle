@@ -72,6 +72,9 @@
 		97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */; };
 		97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */; };
 		97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */; };
+		97E5755A2CE64C560070FC84 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E575592CE64C560070FC84 /* FAQViewModel.swift */; };
+		97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */; };
+		97E5755E2CE667F10070FC84 /* AccountManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */; };
 		BD1186F12CD5527400FF4180 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F02CD5527400FF4180 /* Array+Extension.swift */; };
 		BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F32CD5530D00FF4180 /* View+Extension.swift */; };
 		BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1186F52CD5531400FF4180 /* Font+Extension.swift */; };
@@ -162,6 +165,9 @@
 		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
 		FBDC52D22CE2426E0038243D /* EditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */; };
 		FBDC52D92CE321B60038243D /* RoutineEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D82CE321B60038243D /* RoutineEditData.swift */; };
+		FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52DE2CE594250038243D /* RecommendSheet.swift */; };
+		FBDC52E32CE666B90038243D /* AddRoutineContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52E22CE666B90038243D /* AddRoutineContainerView.swift */; };
+		FBDC52E72CE6D4F80038243D /* AddRoutineTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52E62CE6D4F80038243D /* AddRoutineTaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,6 +234,9 @@
 		97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingSheet.swift; sourceTree = "<group>"; };
+		97E575592CE64C560070FC84 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
+		97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
+		97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementViewModel.swift; sourceTree = "<group>"; };
 		BD1186F02CD5527400FF4180 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F32CD5530D00FF4180 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		BD1186F52CD5531400FF4180 /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
@@ -311,6 +320,9 @@
 		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewModel.swift; sourceTree = "<group>"; };
 		FBDC52D82CE321B60038243D /* RoutineEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditData.swift; sourceTree = "<group>"; };
+		FBDC52DE2CE594250038243D /* RecommendSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSheet.swift; sourceTree = "<group>"; };
+		FBDC52E22CE666B90038243D /* AddRoutineContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineContainerView.swift; sourceTree = "<group>"; };
+		FBDC52E62CE6D4F80038243D /* AddRoutineTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineTaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +501,8 @@
 			children = (
 				97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */,
 				97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */,
+				97E575592CE64C560070FC84 /* FAQViewModel.swift */,
+				97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -672,6 +686,8 @@
 				4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */,
 				4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */,
 				FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */,
+				FBDC52E22CE666B90038243D /* AddRoutineContainerView.swift */,
+				FBDC52E62CE6D4F80038243D /* AddRoutineTaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -718,6 +734,7 @@
 				23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */,
 				23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */,
 				23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */,
+				FBDC52DE2CE594250038243D /* RecommendSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -761,6 +778,7 @@
 				974596DC2CE1F6A6004C346B /* PassView.swift */,
 				974596DE2CE28300004C346B /* ShopView.swift */,
 				97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */,
+				97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1095,6 +1113,7 @@
 				974596DD2CE1F6A6004C346B /* PassView.swift in Sources */,
 				BDFBC3372CE6369B00ED8A81 /* ImageCache.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
+				FBDC52E32CE666B90038243D /* AddRoutineContainerView.swift in Sources */,
 				972FEC512CE319650041F1A5 /* ProfileImage.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				974596DF2CE28300004C346B /* ShopView.swift in Sources */,
@@ -1103,6 +1122,7 @@
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
+				97E5755E2CE667F10070FC84 /* AccountManagementViewModel.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
 				FB4174E92CDB475F0084BC19 /* RoutineCompletion.swift in Sources */,
 				23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */,
@@ -1116,6 +1136,7 @@
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
+				FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */,
 				23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
@@ -1160,15 +1181,18 @@
 				23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */,
 				BD6301B62CDE52E90000203C /* String+Extension.swift in Sources */,
 				FB2A5A962CD7B48A00CB981A /* Container.swift in Sources */,
+				97E5755A2CE64C560070FC84 /* FAQViewModel.swift in Sources */,
 				4BAE5DB22CE4866E00F01153 /* ToastMessageView.swift in Sources */,
 				4BAE5DB32CE4866E00F01153 /* ToastModel.swift in Sources */,
 				4BAE5DB42CE4866E00F01153 /* ToastModifier.swift in Sources */,
 				4BAE5DB52CE4866E00F01153 /* ToastStyle.swift in Sources */,
+				FBDC52E72CE6D4F80038243D /* AddRoutineTaskView.swift in Sources */,
 				4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */,
 				BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */,
+				97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */,
 				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
 				BD1186F42CD5530D00FF4180 /* View+Extension.swift in Sources */,
 				BDFBC3222CE3B14A00ED8A81 /* SocialViewModel.swift in Sources */,

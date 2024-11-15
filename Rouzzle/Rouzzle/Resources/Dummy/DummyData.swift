@@ -19,7 +19,7 @@ struct DummyData {
                RecommendTodoTask(emoji: "📖", title: "독서하기", timer: 1800),
                RecommendTodoTask(emoji: "🎧", title: "좋아하는 음악 듣기", timer: 1200),
                RecommendTodoTask(emoji: "🚿", title: "샤워하기", timer: 1200),
-               RecommendTodoTask(emoji: "", title: "이불 정리", timer: 1200),
+               RecommendTodoTask(emoji: "🛌", title: "이불 정리", timer: 1200),
                RecommendTodoTask(emoji: "🍽", title: "요리하기", timer: 1800),
                RecommendTodoTask(emoji: "🏋️‍♂️", title: "가벼운 운동하기", timer: 1200),
                RecommendTodoTask(emoji: "🌞", title: "산책하기", timer: 1200)
