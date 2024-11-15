@@ -10,30 +10,95 @@ import SwiftUI
 struct AddRoutineTaskView: View {
     
     @Bindable var viewModel: AddRoutineViewModel
-    
+    @State var routineByTime: RoutineCategoryByTime?
+    @State private var isCustomTaskSheet: Bool = false
+    @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+    @Environment(\.modelContext) private var context
+
     var body: some View {
         GeometryReader { proxy in
-            ScrollView {
-                VStack {
-                    SelectedTaskListView(
-                        selectedTask: $viewModel.routineTask,
-                        minHeight: proxy.size.height * 0.3
-                    )
-                    .padding(.bottom, 20)
-                    
-                    RecommendTaskListView(recommendTask: $viewModel.recommendTodoTask) {
-                        viewModel.getRecommendTask()
-                    } taskAppend: { routineTask in
-                        if let index = viewModel.routineTask.firstIndex(where: { $0.hashValue == routineTask.hashValue }) {
-                            viewModel.routineTask.remove(at: index)
-                        } else {
-                            viewModel.routineTask.append(routineTask)
+            VStack {
+                ScrollView {
+                    VStack {
+                        // 선택된 할 일 리스트 섹션
+                        SelectedTaskListView(
+                            selectedTask: $viewModel.routineTask,
+                            minHeight: proxy.size.height * 0.3
+                        )
+                        .padding(.bottom, 20)
+                        
+                        // 추천 할 일 섹션
+                        RecommendTaskListView(recommendTask: $viewModel.recommendTodoTask) {
+                            viewModel.getRecommendTask()
+                        } taskAppend: { routineTask in
+                            if let index = viewModel.routineTask.firstIndex(where: { $0.hashValue == routineTask.hashValue }) {
+                                viewModel.routineTask.remove(at: index)
+                            } else {
+                                viewModel.routineTask.append(routineTask)
+                            }
+                            viewModel.getRecommendTask()
                         }
-                        viewModel.getRecommendTask()
+                        
+                        // 추천 세트 할일 섹션
+                        HStack {
+                            Text("추천 세트")
+                                .font(.bold18)
+                            
+                            Spacer()
+                            
+                            Text("테마별 추천 할 일을 모아놨어요!")
+                                .font(.regular12)
+                                .foregroundStyle(Color.subHeadlineFontColor)
+                        }
+                        .padding(.top, 20)
+                        
+                        HStack(spacing: 14) {
+                            ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
+                                Button {
+                                    routineByTime = category
+                                } label: {
+                                    Text(category.rawValue)
+                                        .font(.semibold16)
+                                        .foregroundStyle(.black)
+                                        .frame(width: 82, height: 67)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
+                                        )
+                                }
+                            }
+                            .padding(.top, 10)
+                        }
+                        .padding(.bottom, 20)
+                    }
+                    .padding()
+                }
+                Button {
+                    isCustomTaskSheet.toggle()
+                } label: {
+                    Text("추가")
+                        .modifier(BorderButtonModifier())
+                }
+                .padding(.horizontal)
+                
+                RouzzleButton(buttonType: .save) {
+                    viewModel.uploadRoutine(context: context)
+                }
+                .padding(.horizontal)
+            }
+            .sheet(isPresented: $isCustomTaskSheet) {
+                NewTaskSheet(detents: $detents) { task in
+                    viewModel.routineTask.append(task.toRoutineTask())
+                }
+                .presentationDetents(detents)
+            }
+            .fullScreenCover(item: $routineByTime) { category in
+                TimeBasedRecommendSetView(category: category) { recommend in
+                    for task in recommend {
+                        viewModel.routineTask.append(task.toRoutineTask())
                     }
                 }
-                .padding()
-            }
+            } // endFullScreenCover
         }
     }
 }

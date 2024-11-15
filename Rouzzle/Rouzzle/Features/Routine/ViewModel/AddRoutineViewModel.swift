@@ -32,7 +32,7 @@ class AddRoutineViewModel {
     var interval: Int?  // 분 단위, 예: 1, 3, 5
     var routineTask: [RoutineTask] = []
     var recommendTodoTask: [RecommendTodoTask] = [] // 추천 할일 리스트 목록
-    var errorMessage: String?
+    var toastMessage: String?
     var loadState: LoadState = .none
 
     var disabled: Bool {
@@ -97,22 +97,36 @@ class AddRoutineViewModel {
     func uploadRoutine(context: ModelContext) {
         let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
-        let createRoutine = Routine(title: title, emoji: selectedEmoji ?? "🧩", routineTask: [], repeatCount: repeatCount, interval: interval, dayStartTime: selectedDateWithTimeTypeChange(), userId: userUid)
+        // TODO: AlarmIds 추가
+        let createRoutine = Routine(
+            title: title,
+            emoji: selectedEmoji ?? "🧩",
+            routineTask: routineTask,
+            repeatCount: repeatCount,
+            interval: interval,
+            dayStartTime: selectedDateWithTimeTypeChange(),
+            userId: userUid
+        )
+
         Task {
             let routine = await routineService.addRoutine(createRoutine)
             switch routine {
             case let .success(result):
                 do {
-                    try SwiftDataService.addRoutine(result.toRoutineItem(), context: context)
+                    let routineItem = result.toRoutineItem()
+                    routineItem.taskList.removeAll()
+                    try SwiftDataService.addRoutine(routineItem, context: context)
+                    for task in routineTask.map({ $0.toTaskList() }) {
+                        try SwiftDataService.addTask(to: routineItem, task, context: context)
+                    }
                     self.loadState = .completed
                 } catch {
-                    print("스데 실패함")
-                    print(error.localizedDescription)
+                    self.loadState = .failed
+                    self.toastMessage = "기기에 루틴을 저장하지 못했습니다."
                 }
-            case let .failure(error):
-                self.errorMessage = "실패함"
+            case .failure:
                 self.loadState = .failed
-                print("실패했음 \(error)")
+                self.toastMessage = "루틴을 저장하지 못했습니다."
             }
         }
     }

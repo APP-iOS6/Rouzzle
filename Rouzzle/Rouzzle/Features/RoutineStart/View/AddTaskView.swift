@@ -138,7 +138,7 @@ struct AddTaskView: View {
                     }
                  }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
-                    NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
+                    NewTaskSheet(detents: $detents) { task in
                         Task {
                            await store.addTask(task, context: modelContext)
                         }

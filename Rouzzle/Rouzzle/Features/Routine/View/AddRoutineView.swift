@@ -14,9 +14,8 @@ struct AddRoutineView: View {
     @State private var weekSetTimeView: Bool = false
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                
+        GeometryReader { proxy in
+            NavigationStack {
                 ScrollView {
                     VStack(alignment: .center, spacing: 20) {
                         // 이모지 입력
@@ -27,37 +26,39 @@ struct AddRoutineView: View {
                             print("Selected Emoji: \(selectedEmoji)")
                         }
                         .padding(.top, 20)
-                        .frame(maxWidth: .infinity, minHeight: 90)
+                        .frame(maxWidth: .infinity, minHeight: proxy.size.height * 0.05)
                         
                         RoutineBasicSettingView(viewModel: viewModel, weekSetTimeView: $weekSetTimeView)
                         
                         RoutineNotificationView(viewModel: viewModel)
+                            .frame(minHeight: proxy.size.height * 0.28, alignment: .top)
+                        
+                        RouzzleButton(buttonType: .next, disabled: viewModel.disabled, action: {
+                            viewModel.getRecommendTask()
+                            viewModel.step = .task
+                        })
+                        .frame(alignment: .bottom)
+                        .animation(.smooth, value: viewModel.disabled)
                     }
                 }
-                
-                RouzzleButton(buttonType: .next, disabled: viewModel.disabled, action: {
-                    viewModel.getRecommendTask()
-                    viewModel.step = .task
+                .overlay {
+                    if viewModel.loadState == .loading {
+                        ProgressView()
+                    }
+                }
+                .onChange(of: viewModel.loadState, { _, newValue in
+                    if newValue == .completed {
+                        dismiss()
+                    }
                 })
-                .animation(.smooth, value: viewModel.disabled)
+                .fullScreenCover(isPresented: $weekSetTimeView, content: {
+                    WeekSetTimeView(selectedDateWithTime: $viewModel.selectedDateWithTime) { allTime in
+                        viewModel.selectedDayChangeDate(allTime)
+                    }
+                })
+                .padding(.horizontal)
+                .toolbar(.hidden, for: .tabBar)
             }
-            .overlay {
-                if viewModel.loadState == .loading {
-                    ProgressView()
-                }
-            }
-            .onChange(of: viewModel.loadState, { _, newValue in
-                if newValue == .completed {
-                    dismiss()
-                }
-            })
-            .fullScreenCover(isPresented: $weekSetTimeView, content: {
-                WeekSetTimeView(selectedDateWithTime: $viewModel.selectedDateWithTime) { allTime in
-                    viewModel.selectedDayChangeDate(allTime)
-                }
-            })
-            .padding(.horizontal)
-            .toolbar(.hidden, for: .tabBar)
         }
     }
     // 요일 선택 버튼
