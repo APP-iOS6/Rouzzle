@@ -13,21 +13,22 @@ enum FilterOption {
 
 struct RoutineFilterToggle: View {
     @Binding var selectedFilter: FilterOption
-    /// 애니메이션 네임스페이스
+    // 애니메이션 네임스페이스
     @Namespace private var toggleAnimation
-    /// 필터 옵션 리스트
-    private let filterOptions = ["Today", " All "]
+    // 필터 옵션 리스트
+    private let filterOptions = ["Today", "All"]
 
     var body: some View {
         ZStack(alignment: .leading) {
             HStack(spacing: 0) {
                 ForEach(filterOptions.indices, id: \.self) { index in
+                    let isAll = filterOption(at: index) == .all
                     ToggleAnimationView(
                         isActive: selectedFilter == filterOption(at: index),
+                        isAll: isAll,
                         content: Text(filterOptions[index])
-                            .font(.system(size: 14))
-                            .fontWeight(.bold)
-                            .frame(height: 31)
+                            .font(.regular14)
+                            .frame(width: 40, height: 31)
                             .padding(.horizontal, 8)
                             .foregroundColor(selectedFilter == filterOption(at: index) ? .accentColor : .gray)
                             .onTapGesture {
@@ -50,11 +51,11 @@ struct RoutineFilterToggle: View {
     }
 
     /// 애니메이션을 포함한 ViewBuilder
-    @ViewBuilder func ToggleAnimationView<Content: View>(isActive: Bool, content: Content) -> some View {
+    @ViewBuilder func ToggleAnimationView<Content: View>(isActive: Bool, isAll: Bool, content: Content) -> some View {
         if isActive {
             content
                 .background(
-                    RoundedRectangle(cornerRadius: 50)
+                    RoundedRectangle(cornerRadius: 30)
                         .foregroundColor(.white)
                         .padding(2)
                         .matchedGeometryEffect(id: "highlightitem", in: toggleAnimation)
@@ -72,9 +73,7 @@ struct RoutineFilterToggle: View {
 
 #Preview {
     NavigationStack {
-        VStack(alignment: .leading) { // Preview에서 왼쪽 정렬 적용
-            RoutineFilterToggle(selectedFilter: .constant(.all))
-        }
-        .padding()
+        RoutineListView()
+            .modelContainer(SampleData.shared.modelContainer)
     }
 }
