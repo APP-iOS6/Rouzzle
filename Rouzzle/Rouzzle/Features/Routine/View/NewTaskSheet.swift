@@ -9,9 +9,7 @@ import SwiftUI
 
 struct NewTaskSheet: View {
     
-    let routine: RoutineItem
     @Binding var detents: Set<PresentationDetent>
-    let uploadDatabase: Bool = false
     let action: (RecommendTodoTask) -> Void
     
     @State private var vm: NewTaskSheetViewModel = .init()
@@ -273,7 +271,7 @@ struct CustomTimePickerView: View {
 }
 
 #Preview {
-    NewTaskSheet(routine: .init(title: "", emoji: "", dayStartTime: [:]), detents: .constant([.fraction(0.12)]), action: { _ in
+    NewTaskSheet(detents: .constant([.fraction(0.12)]), action: { _ in
         
     })
 }
