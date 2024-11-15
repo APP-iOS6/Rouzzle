@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RouzzleChallengePuzzleView: View {
     let puzzleGame: PuzzleGame
+    @State private var solvedPuzzles: Int = 0
+    @State private var consecutiveDays: Int = 0
     
     init(puzzleGame: PuzzleGame) {
         self.puzzleGame = puzzleGame
@@ -17,17 +19,21 @@ struct RouzzleChallengePuzzleView: View {
     var body: some View {
         GeometryReader { geometry in
             let screenSize = geometry.size
-            let imageWidth = min(screenSize.width * 0.9, 370)  // 최대 너비 제한
-            let imageHeight = imageWidth * (278/370)  // 원본 비율 유지
+            let horizontalPadding: CGFloat = 16
+            let imageWidth = min((screenSize.width - (horizontalPadding * 2)), 370)
+            let imageHeight = imageWidth * (278/370)
             
-            ZStack {
-                Color.white.edgesIgnoringSafeArea(.all)
-                
+            ZStack(alignment: .top) {
                 PuzzleView(
                     puzzleGame: puzzleGame,
                     imageSize: CGSize(width: imageWidth, height: imageHeight),
                     screenSize: screenSize
                 )
+                
+                VStack {
+                    PuzzleInfoBox(solvedPuzzles: solvedPuzzles, consecutiveDays: consecutiveDays)
+                    Spacer()
+                }
             }
         }
         .padding(.horizontal, -16)
@@ -38,6 +44,5 @@ struct RouzzleChallengePuzzleView: View {
             }
         }
         .hideTabBar(true)
-        
     }
 }

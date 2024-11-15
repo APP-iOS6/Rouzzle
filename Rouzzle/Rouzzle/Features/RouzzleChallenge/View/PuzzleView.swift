@@ -199,7 +199,7 @@ struct PuzzleView: View {
                 .padding(.vertical, 10)
             }
             .frame(height: getPuzzleAreaHeight())
-            .background(Color.gray.opacity(0.2))
+            .background(Color.grayultralight)
         }
         .onAppear {
             setupPuzzle()

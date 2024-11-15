@@ -21,7 +21,7 @@ struct RouzzleChallengeView: View {
             .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 15) {
                     // 참여 안내
                     HStack(spacing: 5) {
                         Image(systemName: "info.circle")
@@ -33,7 +33,7 @@ struct RouzzleChallengeView: View {
                             .underline()
                             .foregroundStyle(.gray)
                     }
-                    .padding(.top, 27)
+                    .padding(.top, 20)
                     .onTapGesture {
                         print("참여 안내 탭눌림")
                     }
