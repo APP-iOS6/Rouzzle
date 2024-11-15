@@ -70,9 +70,17 @@ struct TaskStatusPuzzle: View {
         }
         .padding()
         .overlay {
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(style: StrokeStyle(lineWidth: 1))
-                .foregroundStyle(.grayborderline)
+            ZStack {
+                if taskStatus == .completed {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.grayborderline)
+                        .opacity(0.5)
+
+                }
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(style: StrokeStyle(lineWidth: 1))
+                    .foregroundStyle(.grayborderline)
+            }
         }
         .opacity(taskStatus == .completed ? 0.7 : 1)
     }
