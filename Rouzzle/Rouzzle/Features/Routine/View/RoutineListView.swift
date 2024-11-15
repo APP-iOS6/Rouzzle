@@ -9,10 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct RoutineListView: View {
-    @Query private var routines: [RoutineItem]
+    @Query private var routinesQuery: [RoutineItem] // @Query를 사용해 SwiftData에서 루틴 로드
     @Environment(\.modelContext) private var modelContext
-    @State var isShowingAddRoutineSheet: Bool = false
+    @State private var isShowingAddRoutineSheet: Bool = false
     @State private var currentQuote: String = ""
+    @State private var selectedFilter: FilterOption = .today // 필터 상태 추가
 
     init() {
         // 초기 명언 설정
@@ -28,6 +29,7 @@ struct RoutineListView: View {
                         
                         // 랜덤 명언 텍스트 애니메이션
                         TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
+                            .frame(width: .infinity, height: 50, alignment: .top)
                         
                         NavigationLink(destination: RouzzleChallengeView()) {
                             ZStack {
@@ -45,9 +47,17 @@ struct RoutineListView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .padding()
+                        
                     }
                     
-                    ForEach(routines) { routine in
+                    VStack(alignment: .leading) {
+                        RoutineFilterToggle(selectedFilter: $selectedFilter)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(.horizontal)
+                    
+                    // 필터링된 루틴 목록 표시
+                    ForEach(filteredRoutines()) { routine in
                         NavigationLink {
                             AddTaskView(store: RoutineStore(routineItem: routine))
                         } label: {
@@ -82,14 +92,25 @@ struct RoutineListView: View {
                     PieceCounter(count: 9)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        print("Settings tapped")
-                    } label: {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                            .font(.title2)
-                    }
+                    
                 }
             }
+        }
+    }
+
+    // 선택한 필터에 따라 루틴을 필터링하는 함수
+    private func filteredRoutines() -> [RoutineItem] {
+        let routines = Array(routinesQuery) // @Query 결과를 일반 배열로 변환
+        
+        if selectedFilter == .today {
+            let todayWeekday = Calendar.current.component(.weekday, from: Date()) // 오늘의 요일
+            return routines.filter { routine in
+                // RoutineItem의 dayStartTime에 오늘의 요일이 포함된 경우 반환
+                return routine.dayStartTime.keys.contains(todayWeekday)
+            }
+        } else {
+            // "All" 선택 시 모든 루틴 반환
+            return routines
         }
     }
 }
