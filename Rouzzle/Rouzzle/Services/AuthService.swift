@@ -140,10 +140,15 @@ extension AuthService {
         try await withCheckedThrowingContinuation { continuation in
             UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                 if let error {
+                    print("🟨 Auth DEBUG: 카카오톡 로그인 에러 발생 \(error.localizedDescription)")
                     continuation.resume(throwing: error)
                 }
                 
                 if let oauthToken {
+                    print("🟨 Auth DEBUG: 카카오톡 로그인 성공")
+                    print("🟨 OAuthToken: \(oauthToken)")
+                    print("🟨 ID Token: \(oauthToken.idToken ?? "nil")")
+                    print("🟨 Access Token: \(oauthToken.accessToken)")
                     continuation.resume(returning: oauthToken)
                 }
             }
@@ -186,6 +191,29 @@ extension AuthService {
         
         let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
         
+        // Refresh Token 가져오기
+        if let authorizationCode = appleIdCredential.authorizationCode,
+           let codeString = String(data: authorizationCode, encoding: .utf8) {
+            let urlString = "https://us-central1-Rouzzle.cloudfunctions.net/getRefreshToken?code=\(codeString)"
+            if let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+                do {
+                    let (data, response) = try await URLSession.shared.data(from: url)
+                    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                        let refreshToken = String(data: data, encoding: .utf8) ?? ""
+                        UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                        print("🍎 APPLE DEBUG: Refresh Token 저장 완료: \(refreshToken)")
+                    } else {
+                        print("🍎 APPLE DEBUG: Refresh Token 가져오기 실패")
+                    }
+                } catch {
+                    print("🍎 APPLE DEBUG: Refresh Token 요청 중 에러 발생 \(error.localizedDescription)")
+                }
+            }
+        } else {
+            print("🍎 APPLE DEBUG: Authorization Code가 없습니다.")
+        }
+        
+        // Firebase 인증 처리
         do {
             return try await authenticationUserWithFirebase(credential: credential)
         } catch {
@@ -219,9 +247,6 @@ extension AuthService {
         let firestore = Firestore.firestore()
         
         do {
-            // 재인증 수행
-            try await reauthenticateUser(user)
-            
             // Firestore User 컬렉션에서 유저 삭제
             try await firestore.collection("User").document(userId).delete()
             
@@ -239,16 +264,34 @@ extension AuthService {
                 print("Routine Completion Document successfully deleted with userId: \(userId)")
             }
             
-            // Storage에 있는 데이터 삭제
-            let storageRef = Storage.storage().reference()
-            
-            let profileImageRef = storageRef.child("UserProfile/\(userId).jpg")
+            // Storage에 있는 프로필 이미지 삭제
+            let storageRef = Storage.storage().reference().child("UserProfile/\(userId).jpg")
             
             do {
-                try await profileImageRef.delete()
+                try await storageRef.delete()
                 print("Profile image successfully deleted for userId: \(userId)")
-            } catch {
-                print("Error deleting profile image: \(error)")
+            } catch let error as NSError {
+                if error.code == StorageErrorCode.objectNotFound.rawValue {
+                    // 파일이 없는 경우 처리
+                    print("Profile image not found for userId: \(userId), skipping delete.")
+                } else {
+                    // 다른 에러는 그대로 처리
+                    print("Error deleting profile image: \(error.localizedDescription)")
+                }
+            }
+            
+            // 외부 플랫폼 계정 해제(카카오/애플/구글)
+            if let providerId = user.providerData.first?.providerID {
+                switch providerId {
+                case "google.com":
+                    try await unlinkGoogleAccount()
+                case "apple.com":
+                    try await unlinkAppleAccount()
+                case "oidc.oidc.kakao":
+                    try await unlinkKakaoAccount()
+                default:
+                    print("알 수 없는 Provider ID: \(providerId)")
+                }
             }
             
             // Firebase Authentication에서 계정 삭제
@@ -260,53 +303,51 @@ extension AuthService {
         }
     }
     
-    // MARK: 사용자 재인증 함수
-    @MainActor
-    private func reauthenticateUser(_ user: FirebaseAuth.User) async throws {
-        if let providerData = user.providerData.first {
-            let providerId = providerData.providerID
-            var credential: AuthCredential
-            
-            switch providerId {
-            case GoogleAuthProviderID:
-                // 구글 로그인 재인증
-                guard let clientId = FirebaseApp.app()?.options.clientID else {
-                    throw AuthError.clientIdError
-                }
-                
-                let config = GIDConfiguration(clientID: clientId)
-                GIDSignIn.sharedInstance.configuration = config
-                
-                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                      let rootViewController = windowScene.keyWindow?.rootViewController else {
-                    throw AuthError.invalidate
-                }
-                
-                let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-                let idToken = result.user.idToken?.tokenString ?? ""
-                let accessToken = result.user.accessToken.tokenString
-                credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-                
-            // 카카오 로그인 재인증
-                
-            // 애플 로그인 재인증
-                
-            default:
-                throw AuthError.reauthenticationError
-            }
-            
-            // 재인증 수행
-            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                user.reauthenticate(with: credential) { _, error in
-                    if let error = error {
-                        continuation.resume(throwing: error) // 오류 발생 시 throw
-                    } else {
-                        continuation.resume(returning: ()) // 성공 시 빈 결과 반환
-                    }
+    /// 구글 계정 연결 해제
+    private func unlinkGoogleAccount() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw AuthError.signInError // 로그인된 유저가 없으면 에러 반환
+        }
+
+        // Firebase에서 구글 계정 연결 해제
+        _ = try await user.unlink(fromProvider: "google.com")
+        print("🟩 Auth DEBUG: 구글 계정 연결 해제 성공")
+    }
+    
+    /// 카카오 계정 연결 해제
+    private func unlinkKakaoAccount() async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            UserApi.shared.unlink { error in
+                if let error = error {
+                    print("🟨 Auth DEBUG: 카카오톡 탈퇴 중 에러 발생 \(error.localizedDescription)")
+                    continuation.resume(throwing: error)
+                } else {
+                    print("🟨 Auth DEBUG: 카카오톡 탈퇴 성공")
+                    continuation.resume(returning: ())
                 }
             }
+        }
+    }
+    
+    /// 애플 계정 연결 해제
+    private func unlinkAppleAccount() async throws {
+        guard let token = UserDefaults.standard.string(forKey: "refreshToken") else {
+            print("🍎 APPLE DEBUG: Refresh Token이 존재하지 않습니다. 로그인을 다시 시도하세요.")
+            throw AuthError.tokenError
+        }
+        
+        let urlString = "https://us-central1-your-app.cloudfunctions.net/revokeToken?refresh_token=\(token)"
+        guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {
+            throw AuthError.invalidate
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+            print("🍎 APPLE DEBUG: 애플 계정 해제 성공")
         } else {
-            throw AuthError.reauthenticationError
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown Error"
+            print("🍎 APPLE DEBUG: 애플 계정 해제 실패 \(errorMessage)")
+            throw AuthError.invalidate
         }
     }
 }

@@ -87,7 +87,6 @@ class AuthStore {
     
     /// 계정 탈퇴 함수
     func deleteAccount() {
-        print("탈퇴 버튼 눌림")
         Task {
             let result = await authService.deleteAccount()
             switch result {
