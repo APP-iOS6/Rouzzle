@@ -11,10 +11,10 @@ struct AddRoutineContainerView: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: AddRoutineViewModel = .init()
+    @State private var toast: ToastModel?
 
     var body: some View {
         VStack {
-            
             HStack {
                 Button {
                    goBack()
@@ -44,6 +44,23 @@ struct AddRoutineContainerView: View {
             }
             Spacer()
         }
+        .toastView(toast: $toast) // ToastModifier 적용
+        .overlay {
+            if viewModel.loadState == .loading {
+                ProgressView()
+            }
+        }
+        .onChange(of: viewModel.loadState) { _, new in
+            if new == .completed {
+                dismiss()
+            }
+        }
+        .onChange(of: viewModel.toastMessage, { _, new in
+            guard let new else {
+                return
+            }
+            toast = ToastModel(type: .warning, message: new)
+        })
         .animation(.easeInOut(duration: 0.1), value: viewModel.step)
     }
     private func goBack() {
