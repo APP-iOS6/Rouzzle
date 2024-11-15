@@ -11,6 +11,7 @@ struct NewTaskSheet: View {
     
     let routine: RoutineItem
     @Binding var detents: Set<PresentationDetent>
+    let uploadDatabase: Bool = false
     let action: (RecommendTodoTask) -> Void
     
     @State private var vm: NewTaskSheetViewModel = .init()
@@ -28,7 +29,6 @@ struct NewTaskSheet: View {
         if vm.second > 0 {
             components.append("\(vm.second)초")
         }
-        
         return components.joined(separator: " ")
     }
     
@@ -45,10 +45,9 @@ struct NewTaskSheet: View {
                         return
                     }
                     let timer = vm.hour * 3600 + vm.min * 60 + vm.second
-                    let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer).toRoutineTask()
-                    Task {
-                        await vm.updateRoutineTask(routine, task: task)
-                    }
+                    let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer)
+                    action(task)
+                    dismiss()
                 }
                 
                 TimeSelectionView(
@@ -92,19 +91,6 @@ struct NewTaskSheet: View {
         .animation(.smooth, value: vm.sheetType)
         .onAppear {
             focusField = .task
-        }
-        .overlay {
-            if vm.loadState == .loading {
-                ProgressView()
-            }
-        }
-        .onChange(of: vm.loadState) { _, new in
-            if new == .completed {
-                let timer = vm.hour * 3600 + vm.min * 60 + vm.second
-                let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer)
-                action(task)
-                dismiss()
-            }
         }
         .padding()
     }
