@@ -29,34 +29,34 @@ struct PuzzleView: View {
         let screenHeight = screenSize.height
         
         switch (screenWidth, screenHeight) {
-        case (440, 860): // iPhone 16 Pro Max
+        case (440, 821...822): // iPhone 16 Pro Max
             return 0.18
-        case (402, 778): // iPhone 16 Pro
+        case (402, 739...740): // iPhone 16 Pro
             return 0.17
-        case (430, 839): // iPhone 14 Pro Max, iPhone 15 Plus, iPhone 15 Pro Max, iPhone 16 Plus
+        case (430, 800...801): // iPhone 14 Pro Max, iPhone 15 Plus, iPhone 15 Pro Max, iPhone 16 Plus
             return 0.18
-        case (393, 759): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro, iPhone 16
+        case (393, 720...721): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro, iPhone 16
             return 0.17
-        case (428, 845): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
-            return 0.17
-        case (390, 763): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
+        case (428, 801): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
+            return 0.18
+        case (390, 719): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
             return 0.16
-        case (375, 728): // iPhone 13 mini, iPhone 12 mini
-            return 0.17
-        case (414, 814): // iPhone XR, iPhone 11
-            return 0.17
-        case (414, 818): // iPhone Xs Max, iPhone 11 Pro Max
-            return 0.17
-        case (375, 734): // iPhone Xs, iPhone 11 Pro, iPhone 12
+        case (375, 684): // iPhone 13 mini, iPhone 12 mini
             return 0.16
-        case (375, 647): // iPhone SE
+        case (414, 770): // iPhone XR, iPhone 11
             return 0.17
+        case (414, 774): // iPhone Xs Max, iPhone 11 Pro Max
+            return 0.17
+        case (375, 690): // iPhone Xs, iPhone 11 Pro, iPhone 12
+            return 0.16
+        case (375, 603): // iPhone SE
+            return 0.18
         default:
             return 0.17
         }
     }
     
-    // Y축 위치 계산 - 뺀 기준으로 숫자 높을수록 위 / 숫자 낮을수록 아래
+    // Y축 위치 계산
     private func calculateYPosition(for piece: PuzzlePiece) -> CGFloat {
         let availableHeight = screenSize.height - getPuzzleAreaHeight()
         let verticalCenter = availableHeight * 0.5
@@ -66,28 +66,28 @@ struct PuzzleView: View {
         
         let deviceAdjustment: CGFloat
         switch (screenWidth, screenHeight) {
-        case (440, 860): // iPhone 16 Pro Max
-            deviceAdjustment = -394
-        case (402, 778): // iPhone 16 Pro
-            deviceAdjustment = -394
-        case (430, 839): // iPhone 14 Pro Max, iPhone 15 Plus
-            deviceAdjustment = -397.4
-        case (393, 759): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro
-            deviceAdjustment = -385.4
-        case (428, 845): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
-            deviceAdjustment = -394.8
-        case (390, 763): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
-            deviceAdjustment = -379.5
-        case (375, 728): // iPhone 13 mini, iPhone 12 mini
-            deviceAdjustment = -367
-        case (414, 814): // iPhone XR, iPhone 11
-            deviceAdjustment = -400.5
-        case (414, 818): // iPhone Xs Max, iPhone 11 Pro Max
-            deviceAdjustment = -399
-        case (375, 734): // iPhone Xs, iPhone 11 Pro, iPhone 12
-            deviceAdjustment = -364.6
-        case (375, 647): // iPhone SE
-            deviceAdjustment = -380.5
+        case (440, 821...822): // iPhone 16 Pro Max
+            deviceAdjustment = -455
+        case (402, 739...740): // iPhone 16 Pro
+            deviceAdjustment = -412
+        case (430, 800...801): // iPhone 14 Pro Max, iPhone 15 Plus
+            deviceAdjustment = -444.3
+        case (393, 720...721): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro
+            deviceAdjustment = -402.35
+        case (428, 801): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
+            deviceAdjustment = -441.4
+        case (390, 719): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
+            deviceAdjustment = -396.7
+        case (375, 684): // iPhone 13 mini, iPhone 12 mini
+            deviceAdjustment = -381
+        case (414, 770): // iPhone XR, iPhone 11
+            deviceAdjustment = -424.5
+        case (414, 774): // iPhone Xs Max, iPhone 11 Pro Max
+            deviceAdjustment = -423.8
+        case (375, 690): // iPhone Xs, iPhone 11 Pro, iPhone 12
+            deviceAdjustment = -380
+        case (375, 603): // iPhone SE
+            deviceAdjustment = -397
         default:
             deviceAdjustment = -400
         }
@@ -95,34 +95,34 @@ struct PuzzleView: View {
         return verticalCenter + piece.correctFrame.midY + deviceAdjustment
     }
     
-    // X축 조정값 계산 - 뺀 기준으로 숫자높을수록 왼쪽 숫자 낮을수록 오른쪽
+    // X축 조정값 계산
     private func calculateXAdjustment() -> CGFloat {
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
         
         switch (screenWidth, screenHeight) {
-        case (440, 860): // iPhone 16 Pro Max
-            return -16.0
-        case (402, 778): // iPhone 16 Pro
-            return -15.5
-        case (430, 839): // iPhone 14 Pro Max, iPhone 15 Plus
-            return -16.0
-        case (393, 759): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro
-            return -15.2
-        case (428, 845): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
-            return -15.95
-        case (390, 763): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
-            return -15.175
-        case (375, 728): // iPhone 13 mini, iPhone 12 mini
-            return -14.6
-        case (414, 814): // iPhone XR, iPhone 11
-            return -15.8
-        case (414, 818): // iPhone Xs Max, iPhone 11 Pro Max
-            return -15.9
-        case (375, 734): // iPhone Xs, iPhone 11 Pro, iPhone 12
-            return -14.5
-        case (375, 647): // iPhone SE
-            return -14.1
+        case (440, 821...822): // iPhone 16 Pro Max
+            return -18
+        case (402, 739...740): // iPhone 16 Pro
+            return -16
+        case (430, 800...801): // iPhone 14 Pro Max, iPhone 15 Plus
+            return -17.3
+        case (393, 720...721): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro
+            return -15.6
+        case (428, 801): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
+            return -17.1
+        case (390, 719): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
+            return -15.4
+        case (375, 684): // iPhone 13 mini, iPhone 12 mini
+            return -14.95
+        case (414, 770): // iPhone XR, iPhone 11
+            return -16.5
+        case (414, 774): // iPhone Xs Max, iPhone 11 Pro Max
+            return -16.5
+        case (375, 690): // iPhone Xs, iPhone 11 Pro, iPhone 12
+            return -14.7
+        case (375, 603): // iPhone SE
+            return -14.7
         default:
             return -15.2
         }

@@ -398,9 +398,9 @@
 			children = (
 				23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */,
 				23BC99BD2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift */,
-				23BC99BF2CE6E033009BE074 /* PuzzleGame.swift */,
 				23BC99C12CE6E2B5009BE074 /* PuzzleView.swift */,
 				23BC99C32CE6E31D009BE074 /* DraggablePuzzlePiece.swift */,
+				23BC99BF2CE6E033009BE074 /* PuzzleGame.swift */,
 				23BC99C92CE70400009BE074 /* PuzzleInfoBox.swift */,
 			);
 			path = View;

@@ -50,19 +50,9 @@ struct DraggablePuzzlePiece: View {
                     DragGesture()
                         .updating($dragOffset) { value, state, _ in
                             state = value.translation
-                            
-                            let currentX = position.x + value.translation.width
-                            let currentY = position.y + value.translation.height
-                            let targetY = calculateYPosition(piece)
-                            
-                            print("""
-                                    === 현재 드래그 위치 ===
-                                    현재 X좌표: \(String(format: "%.1f", currentX))
-                                    현재 Y좌표: \(String(format: "%.1f", currentY))
-                                    목표 Y좌표: \(String(format: "%.1f", targetY))
-                                    Y좌표 차이: \(String(format: "%.1f", abs(currentY - targetY)))
-                                    ====================
-                                    """)
+                            _ = position.x + value.translation.width
+                            _ = position.y + value.translation.height
+                            _ = calculateYPosition(piece)
                         }
                         .onEnded { value in
                             let newPosition = CGPoint(
@@ -113,13 +103,7 @@ struct DraggablePuzzlePiece: View {
                                 onPieceMoved(updatedPiece)
                                 print("❌ 퍼즐 조각이 제자리와 너무 멀리 있습니다")
                             }
-                            
-                            // X, Y 조정값 출력
-                            print("""
-                                === 좌표 조정값 ===
-                                X축 조정값: \(calculateXAdjustment())
-                                ==================
-                                """)
+
                         }
                 )
             
