@@ -18,11 +18,15 @@ struct RecommendTaskItem {
     }
 }
 
-enum RoutineCategoryByTime: String, CaseIterable {
+enum RoutineCategoryByTime: String, CaseIterable, Identifiable {
     case morning = "아침"
     case afternoon = "오후"
     case evening = "저녁"
     case rest = "휴식"
+    
+    var id: String {
+        self.rawValue
+    }
     
     var imageName: String {
         return "RecommendTaskTitle_\(self.rawValue)"

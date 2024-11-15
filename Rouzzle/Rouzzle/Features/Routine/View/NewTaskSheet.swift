@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NewTaskSheet: View {
     
-    let routine: RoutineItem
     @Binding var detents: Set<PresentationDetent>
     let action: (RecommendTodoTask) -> Void
     
@@ -28,7 +27,6 @@ struct NewTaskSheet: View {
         if vm.second > 0 {
             components.append("\(vm.second)초")
         }
-        
         return components.joined(separator: " ")
     }
     
@@ -45,10 +43,9 @@ struct NewTaskSheet: View {
                         return
                     }
                     let timer = vm.hour * 3600 + vm.min * 60 + vm.second
-                    let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer).toRoutineTask()
-                    Task {
-                        await vm.updateRoutineTask(routine, task: task)
-                    }
+                    let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer)
+                    action(task)
+                    dismiss()
                 }
                 
                 TimeSelectionView(
@@ -92,19 +89,6 @@ struct NewTaskSheet: View {
         .animation(.smooth, value: vm.sheetType)
         .onAppear {
             focusField = .task
-        }
-        .overlay {
-            if vm.loadState == .loading {
-                ProgressView()
-            }
-        }
-        .onChange(of: vm.loadState) { _, new in
-            if new == .completed {
-                let timer = vm.hour * 3600 + vm.min * 60 + vm.second
-                let task = RecommendTodoTask(emoji: vm.emoji ?? "🧩", title: vm.text, timer: timer)
-                action(task)
-                dismiss()
-            }
         }
         .padding()
     }
@@ -287,7 +271,7 @@ struct CustomTimePickerView: View {
 }
 
 #Preview {
-    NewTaskSheet(routine: .init(title: "", emoji: "", dayStartTime: [:]), detents: .constant([.fraction(0.12)]), action: { _ in
+    NewTaskSheet(detents: .constant([.fraction(0.12)]), action: { _ in
         
     })
 }

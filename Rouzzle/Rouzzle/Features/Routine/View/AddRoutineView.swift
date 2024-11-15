@@ -10,27 +10,12 @@ import SwiftUI
 struct AddRoutineView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @State private var viewModel: AddRoutineViewModel = .init()
+    @Bindable var viewModel: AddRoutineViewModel
+    @State private var weekSetTimeView: Bool = false
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                // 상단 바
-                HStack {
-                    Spacer()
-                    Text("루틴 등록")
-                        .padding(.leading, 30)
-                        .font(.regular18)
-                    Spacer()
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.semibold24)
-                    }
-                    .frame(alignment: .trailing)
-                }
-                
+        GeometryReader { proxy in
+            NavigationStack {
                 ScrollView {
                     VStack(alignment: .center, spacing: 20) {
                         // 이모지 입력
@@ -40,33 +25,40 @@ struct AddRoutineView: View {
                         ) { selectedEmoji in
                             print("Selected Emoji: \(selectedEmoji)")
                         }
-                        .frame(maxWidth: .infinity, minHeight: 90)
+                        .padding(.top, 20)
+                        .frame(maxWidth: .infinity, minHeight: proxy.size.height * 0.05)
                         
-                        RoutineBasicSettingView(viewModel: viewModel)
+                        RoutineBasicSettingView(viewModel: viewModel, weekSetTimeView: $weekSetTimeView)
                         
                         RoutineNotificationView(viewModel: viewModel)
+                            .frame(minHeight: proxy.size.height * 0.28, alignment: .top)
+                        
+                        RouzzleButton(buttonType: .next, disabled: viewModel.disabled, action: {
+                            viewModel.getRecommendTask()
+                            viewModel.step = .task
+                        })
+                        .frame(alignment: .bottom)
+                        .animation(.smooth, value: viewModel.disabled)
                     }
-                    .padding(.top, 20)
                 }
-                
-                RouzzleButton(buttonType: .save, disabled: viewModel.disabled, action: {
-                    print("루틴 등록 버튼")
-                    viewModel.uploadRoutine(context: context)
+                .overlay {
+                    if viewModel.loadState == .loading {
+                        ProgressView()
+                    }
+                }
+                .onChange(of: viewModel.loadState, { _, newValue in
+                    if newValue == .completed {
+                        dismiss()
+                    }
                 })
-                .animation(.smooth, value: viewModel.disabled)
+                .fullScreenCover(isPresented: $weekSetTimeView, content: {
+                    WeekSetTimeView(selectedDateWithTime: $viewModel.selectedDateWithTime) { allTime in
+                        viewModel.selectedDayChangeDate(allTime)
+                    }
+                })
+                .padding(.horizontal)
+                .toolbar(.hidden, for: .tabBar)
             }
-            .overlay {
-                if viewModel.loadState == .loading {
-                    ProgressView()
-                }
-            }
-            .onChange(of: viewModel.loadState, { _, newValue in
-                if newValue == .completed {
-                    dismiss()
-                }
-            })
-            .padding()
-            .toolbar(.hidden, for: .tabBar)
         }
     }
     // 요일 선택 버튼
@@ -88,6 +80,7 @@ struct AddRoutineView: View {
 
 struct RoutineBasicSettingView: View {
     @Bindable var viewModel: AddRoutineViewModel
+    @Binding var weekSetTimeView: Bool
     var body: some View {
         VStack(spacing: 20) {
             RouzzleTextField(text: $viewModel.title, placeholder: "제목을 입력해주세요")
@@ -127,10 +120,8 @@ struct RoutineBasicSettingView: View {
                     VStack(spacing: 4) {
                         if let firstDay = viewModel.selectedDateWithTime.sorted(by: { $0.key.rawValue < $1.key.rawValue }).first {
                             // 선택된 요일 중 가장 첫 번째 요일의 시간을 보여줄 거임
-                            NavigationLink {
-                                WeekSetTimeView(selectedDateWithTime: $viewModel.selectedDateWithTime) { allTime in
-                                    viewModel.selectedDayChangeDate(allTime)
-                                }
+                            Button {
+                                weekSetTimeView.toggle()
                             } label: {
                                 Text(firstDay.value, style: .time)
                                     .foregroundStyle(.black)
@@ -308,6 +299,6 @@ struct DayButton: View {
 
 #Preview {
     NavigationStack {
-        AddRoutineView()
+        AddRoutineView(viewModel: .init())
     }
 }
