@@ -26,26 +26,6 @@ final class NewTaskSheetViewModel {
     var second: Int = 0
     var errorMessage: String?
     var sheetType: SheetType = .task
-    var loadState: LoadState = .none
-    
-    @MainActor
-    func updateRoutineTask(_ routine: RoutineItem, task: RoutineTask) async {
-        loadState = .loading
-        // 스데 루틴 모델을 파베 루틴 모델로 변환 후 할일 추가해서 업데이트하기
-        var routine = routine.toRoutine()
-        routine.routineTask.append(task)
-        print(routine.documentId ?? "없음")
-        
-        let result = await routineService.updateRoutine(routine)
-        switch result {
-        case .success(()):
-            loadState = .completed
-        case let .failure(error):
-            errorMessage = "할일 추가에 실패했습니다 다시 시도해 주세요."
-            loadState = .failed
-            print(error.localizedDescription)
-        }
-    }
 }
 
 enum SheetType: Hashable {

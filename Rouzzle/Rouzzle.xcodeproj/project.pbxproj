@@ -171,6 +171,8 @@
 		FBDC52D22CE2426E0038243D /* EditRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */; };
 		FBDC52D92CE321B60038243D /* RoutineEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52D82CE321B60038243D /* RoutineEditData.swift */; };
 		FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52DE2CE594250038243D /* RecommendSheet.swift */; };
+		FBDC52E32CE666B90038243D /* AddRoutineContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52E22CE666B90038243D /* AddRoutineContainerView.swift */; };
+		FBDC52E72CE6D4F80038243D /* AddRoutineTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52E62CE6D4F80038243D /* AddRoutineTaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -329,6 +331,8 @@
 		FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineViewModel.swift; sourceTree = "<group>"; };
 		FBDC52D82CE321B60038243D /* RoutineEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditData.swift; sourceTree = "<group>"; };
 		FBDC52DE2CE594250038243D /* RecommendSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendSheet.swift; sourceTree = "<group>"; };
+		FBDC52E22CE666B90038243D /* AddRoutineContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineContainerView.swift; sourceTree = "<group>"; };
+		FBDC52E62CE6D4F80038243D /* AddRoutineTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineTaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -698,6 +702,8 @@
 				4BDCEDA82CDCED39009E924E /* EditRoutineView.swift */,
 				4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */,
 				FB2A5AC52CD9D5B500CB981A /* NewTaskSheet.swift */,
+				FBDC52E22CE666B90038243D /* AddRoutineContainerView.swift */,
+				FBDC52E62CE6D4F80038243D /* AddRoutineTaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1117,6 +1123,7 @@
 				974596DD2CE1F6A6004C346B /* PassView.swift in Sources */,
 				BDFBC3372CE6369B00ED8A81 /* ImageCache.swift in Sources */,
 				FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */,
+				FBDC52E32CE666B90038243D /* AddRoutineContainerView.swift in Sources */,
 				972FEC512CE319650041F1A5 /* ProfileImage.swift in Sources */,
 				FB2A5AA62CD7E66E00CB981A /* randomNonceString.swift in Sources */,
 				974596DF2CE28300004C346B /* ShopView.swift in Sources */,
@@ -1190,6 +1197,7 @@
 				4BAE5DB32CE4866E00F01153 /* ToastModel.swift in Sources */,
 				4BAE5DB42CE4866E00F01153 /* ToastModifier.swift in Sources */,
 				4BAE5DB52CE4866E00F01153 /* ToastStyle.swift in Sources */,
+				FBDC52E72CE6D4F80038243D /* AddRoutineTaskView.swift in Sources */,
 				4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
