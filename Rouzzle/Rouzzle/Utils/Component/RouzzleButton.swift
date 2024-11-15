@@ -13,6 +13,7 @@ enum ButtonType: String {
     case refreshRecommendations = "추천 새로고침"
     case save = "저장하기"
     case complete = "완료"
+    case next = "다음"
 }
 
 /// 버튼은 type 만을 넘겨주고 동일하게 사용할 수 있도록

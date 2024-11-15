@@ -47,43 +47,75 @@ struct TaskStatusPuzzle: View {
     }
     
     var body: some View {
-        ZStack {
-            taskStatus.image
-                .resizable()
-                .frame(maxWidth: .infinity)
-                .aspectRatio(370/105, contentMode: .fit)
-                .shadow(color: taskStatus == .pending ? .black.opacity(0.1) : .clear, radius: 2)
+        HStack {
+            Text(task.emoji)
+                .font(.bold40)
+                .padding(.leading, 25)
             
-            HStack {
-                Text(task.emoji)
-                    .font(.bold40)
-                    .padding(.leading, 25)
-                
-                HStack(spacing: 10) {
-                    Text(task.title)
-                        .font(.semibold18)
-                        .lineLimit(1)
-                }
-                .padding(.horizontal, 7)
-                .overlay {
-                    taskStatus == .completed ?
-                    Rectangle()
-                        .frame(height: 2)
-                        .foregroundColor(.gray)
-                    : nil
-                }
-                
-                Spacer()
-                
-                Text(task.timer.formattedTimer)
-                    .font(.regular14)
-                    .foregroundColor(Color.subHeadlineFontColor)
-                    .padding(.trailing, 25)
-                
+            HStack(spacing: 10) {
+                Text(task.title)
+                    .font(.semibold18)
+                    .strikethrough(taskStatus == .completed)
+                    .lineLimit(1)
             }
-            .offset(y: -5)
+            .padding(.horizontal, 7)
+            
+            Spacer()
+            
+            Text(task.timer.formattedTimer)
+                .font(.regular14)
+                .foregroundColor(Color.subHeadlineFontColor)
+                .padding(.trailing, 25)
+            
+        }
+        .padding()
+        .overlay {
+            ZStack {
+                if taskStatus == .completed {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.grayborderline)
+                        .opacity(0.5)
+
+                }
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(style: StrokeStyle(lineWidth: 1))
+                    .foregroundStyle(.grayborderline)
+            }
         }
         .opacity(taskStatus == .completed ? 0.7 : 1)
+    }
+}
+
+struct AddTaskPuzzle: View {
+    var task: RoutineTask
+    
+    var body: some View {
+        HStack {
+            Text(task.emoji)
+                .font(.bold40)
+                .padding(.leading, 25)
+            
+            HStack(spacing: 10) {
+                Text(task.title)
+                    .font(.semibold18)
+                    .lineLimit(1)
+            }
+            .padding(.horizontal, 7)
+            
+            Spacer()
+            
+            Text(task.timer.formattedTimer)
+                .font(.regular14)
+                .foregroundColor(Color.subHeadlineFontColor)
+                .padding(.trailing, 25)
+            
+        }
+        .padding(.vertical, 8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(style: StrokeStyle(lineWidth: 1))
+                .foregroundStyle(.gray)
+        )
     }
 }
 
@@ -106,42 +138,42 @@ struct TaskRecommendPuzzle: View {
     var recommendTask: RecommendTodoTask
     var onAddTap: () -> Void
     var body: some View {
-        ZStack {
-            Image(.recommendTask)
-                .resizable()
-                .frame(maxWidth: .infinity)
-                .aspectRatio(370/105, contentMode: .fit)
+        HStack {
+            Text(recommendTask.emoji)
+                .font(.bold40)
+                .padding(.leading, 25)
             
-            HStack {
-                Text(recommendTask.emoji)
-                    .font(.bold40)
-                    .padding(.leading, 25)
+            HStack(spacing: 10) {
+                Text(recommendTask.title)
+                    .font(.semibold18)
+                    .lineLimit(1)
                 
-                HStack(spacing: 10) {
-                    Text(recommendTask.title)
-                        .font(.semibold18)
-                        .lineLimit(1)
-                    
-                    Text(recommendTask.timer.formattedTimer)
-                        .font(.regular12)
-                        .foregroundColor(Color.subHeadlineFontColor)
-                    
-                }
-                .padding(.horizontal, 7)
+                Text(recommendTask.timer.formattedTimer)
+                    .font(.regular12)
+                    .foregroundColor(Color.subHeadlineFontColor)
                 
-                Spacer()
-                
+            }
+            .padding(.horizontal, 7)
+            
+            Spacer()
+            
+            Button {
+                onAddTap()
+            } label: {
                 Image(systemName: "plus")
                     .foregroundColor(Color.subHeadlineFontColor)
                     .font(.title2)
                     .padding(.trailing, 25)
-                    .onTapGesture {
-                        onAddTap()
-                    }
                 
             }
-            .offset(y: -5)
         }
+        .padding(.vertical, 8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [10, 5]))
+                .foregroundStyle(.grayborderline)
+        )
+        
     }
 }
 
@@ -150,7 +182,7 @@ struct TaskStatusRow: View {
     private(set) var taskStatus: TaskStatus
     private(set) var emojiText: String = "💊"
     private(set) var title: String = "유산균 먹기"
-    private(set) var timeInterval: Int? 
+    private(set) var timeInterval: Int?
     
     @Binding var showEditIcon: Bool // 리스트 수정일 때 보이는 아이콘
     @Binding var showDeleteIcon: Bool // 리스트 삭제할 때 보이는 버튼
@@ -173,11 +205,13 @@ struct TaskStatusRow: View {
     var body: some View {
         HStack {
             Text(emojiText)
-                .font(.bold30)
+                .font(.bold40)
+                .padding(.horizontal, 8)
             
             Text(title)
-                .font(.semibold16)
+                .font(.semibold18)
                 .strikethrough(taskStatus == .completed)
+                .padding(.trailing, 12)
             
             Spacer()
             
@@ -225,11 +259,10 @@ struct TaskStatusRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(backgroundColor)
                 .stroke(
-                    taskStatus == .inProgress ? Color.themeColor.opacity(0.3) : Color.clear, // inProgress일 때만 테두리
-                    lineWidth: taskStatus == .inProgress ? 2 : 0
+                    taskStatus == .inProgress ? Color.themeColor.opacity(0.3) : .grayborderline, // inProgress일 때만 테두리
+                    lineWidth: 1
                 )
         )
-        .shadow(color: .black.opacity(0.1), radius: 2)
     }
 }
 

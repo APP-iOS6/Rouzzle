@@ -74,7 +74,7 @@ struct RoutineListView: View {
                 })
                 .padding()
                 .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
-                    AddRoutineView()
+                    AddRoutineContainerView()
                 }
             }
             .toolbar {

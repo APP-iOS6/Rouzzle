@@ -14,9 +14,15 @@ import SwiftData
 @Observable
 class AddRoutineViewModel {
     
+    enum Step: Double {
+        case info = 0.5
+        case task = 1.0
+    }
+    
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
     
+    var step: Step = .info
     var title: String = ""
     var selectedEmoji: String? = "🧩"
     var selectedDateWithTime: [Day: Date] = [:]
@@ -24,10 +30,11 @@ class AddRoutineViewModel {
     var isNotificationEnabled: Bool = false
     var repeatCount: Int?  // 예: 1, 3, 5
     var interval: Int?  // 분 단위, 예: 1, 3, 5
-    
+    var routineTask: [RoutineTask] = []
+    var recommendTodoTask: [RecommendTodoTask] = [] // 추천 할일 리스트 목록
     var errorMessage: String?
     var loadState: LoadState = .none
-    
+
     var disabled: Bool {
         selectedDateWithTime.isEmpty || title.isEmpty
     }
@@ -74,6 +81,16 @@ class AddRoutineViewModel {
     func selectedDateWithTimeTypeChange() -> [Int: String] {
         return selectedDateWithTime.mapKeys { $0.rawValue }
             .mapValues { $0.formattedToTime() }
+    }
+    
+    /// 시간 대에 따른 추천 task 리스트 셋 가져오는 함수
+    func getRecommendTask() {
+        guard let time = selectedDateWithTime.first?.value else {
+            return
+        }
+        let timeSet = time.getTimeCategory()
+        let routineTitles = routineTask.map { $0.title }
+        recommendTodoTask = DummyData.getRecommendedTasks(for: timeSet, excluding: routineTitles)
     }
     
     @MainActor
