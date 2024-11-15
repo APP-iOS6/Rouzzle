@@ -11,6 +11,13 @@ struct RouzzleChallengeView: View {
     @State private var selectedPuzzleType: PuzzleType?
     @State private var showPuzzle: Bool = false
     
+    private var gridItemSize: CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        let horizontalPadding: CGFloat = 16
+        let middleSpacing: CGFloat = 32
+        return (screenWidth - horizontalPadding - middleSpacing) / 2
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
@@ -22,7 +29,6 @@ struct RouzzleChallengeView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 15) {
-                    // 참여 안내
                     HStack(spacing: 5) {
                         Image(systemName: "info.circle")
                             .font(.light12)
@@ -56,7 +62,13 @@ struct RouzzleChallengeView: View {
                     .padding(.top, 0)
                     
                     // 퍼즐 이미지 목록
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 24) {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16)
+                        ],
+                        spacing: 24
+                    ) {
                         let puzzleImages = [
                             ("ned", 1.0, PuzzleType.ned),
                             ("chan", 1.0, PuzzleType.chan),
@@ -78,7 +90,7 @@ struct RouzzleChallengeView: View {
                                         Image(imageName)
                                             .resizable()
                                             .aspectRatio(1, contentMode: .fit)
-                                            .frame(width: 173, height: 173)
+                                            .frame(width: gridItemSize, height: gridItemSize)
                                             .opacity(opacity)
                                         
                                         RouzzleChallengePlayButton(style: .small)
@@ -90,7 +102,7 @@ struct RouzzleChallengeView: View {
                                     Image(imageName)
                                         .resizable()
                                         .aspectRatio(1, contentMode: .fit)
-                                        .frame(width: 173, height: 173)
+                                        .frame(width: gridItemSize, height: gridItemSize)
                                         .opacity(opacity)
                                     
                                     PuzzleLockButton()
