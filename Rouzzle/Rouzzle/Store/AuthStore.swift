@@ -84,4 +84,21 @@ class AuthStore {
             authState = .login
         }
     }
+    
+    /// 계정 탈퇴 함수
+    func deleteAccount() {
+        print("탈퇴 버튼 눌림")
+        Task {
+            let result = await authService.deleteAccount()
+            switch result {
+            case .success:
+                // 탈퇴 후 로그아웃 상태로 전환
+                isLoggedIn = false
+                authState = .login
+                print("계정이 성공적으로 삭제되었습니다.")
+            case .failure(let error):
+                print("계정 삭제 중 오류 발생: \(error.localizedDescription)")
+            }
+        }
+    }
 }
