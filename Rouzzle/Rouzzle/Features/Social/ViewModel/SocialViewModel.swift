@@ -54,4 +54,13 @@ class SocialViewModel {
             self.error = DBError.firebaseError(error)
         }
     }
+    
+    func deleteFavorite(userID: String) async {
+        do {
+            try await self.socialService.deleteFavoriteUser(userID: userID)
+            print("User \(userID) removed from favorites.")
+        } catch {
+            self.error = DBError.firebaseError(error)
+        }
+    }
 }

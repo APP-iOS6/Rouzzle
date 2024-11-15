@@ -15,6 +15,8 @@ protocol SocialServiceType {
     
     func addFavoriteUser(userID: String) async throws
     
+    func deleteFavoriteUser(userID: String) async throws 
+
 }
 
 class SocialService: SocialServiceType {
@@ -29,6 +31,33 @@ class SocialService: SocialServiceType {
             try await db.collection("User").document(currentUserID).updateData([
                 "isFavoriteUser": FieldValue.arrayUnion([userID])
             ])
+        } catch {
+            throw DBError.firebaseError(error)
+        }
+    }
+    
+    func deleteFavoriteUser(userID: String) async throws {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            throw DBError.documenetIdError
+        }
+        
+        let userDocumentRef = db.collection("User").document(currentUserID)
+        
+        do {
+            let document = try await userDocumentRef.getDocument()
+            guard var favorites = document.data()?["isFavoriteUser"] as? [String] else {
+                throw DBError.serializationError
+            }
+            
+            if let index = favorites.firstIndex(of: userID) {
+                favorites.remove(at: index)
+            } else {
+                print("User ID \(userID) is not in the favorites list.")
+                return
+            }
+            
+            try await userDocumentRef.updateData(["isFavoriteUser": favorites])
+            print("Successfully deleted user \(userID) from favorites.")
         } catch {
             throw DBError.firebaseError(error)
         }
