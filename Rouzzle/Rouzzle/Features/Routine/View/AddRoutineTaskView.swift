@@ -77,6 +77,7 @@ struct AddRoutineTaskView: View {
                     isCustomTaskSheet.toggle()
                 } label: {
                     Text("추가")
+                        .font(.bold20)
                         .modifier(BorderButtonModifier())
                 }
                 .padding(.horizontal)

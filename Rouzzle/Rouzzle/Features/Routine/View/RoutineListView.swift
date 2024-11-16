@@ -29,7 +29,8 @@ struct RoutineListView: View {
                         
                         // 랜덤 명언 텍스트 애니메이션
                         TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
-                            .frame(width: .infinity, height: 50, alignment: .top)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50, alignment: .top)
                         
                         NavigationLink(destination: RouzzleChallengeView()) {
                             ZStack {
