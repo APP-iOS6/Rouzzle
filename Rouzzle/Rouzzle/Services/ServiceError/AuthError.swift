@@ -12,5 +12,4 @@ enum AuthError: Error {
     case tokenError
     case invalidate
     case signInError
-    case reauthenticationError
 }
