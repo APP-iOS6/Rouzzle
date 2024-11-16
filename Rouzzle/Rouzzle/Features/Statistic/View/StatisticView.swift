@@ -8,34 +8,36 @@
 import SwiftUI
 
 struct StatisticView: View {
-    @State var viewModel = StatisticViewModel()
+    @Environment(\.modelContext) private var context
+    @State private var viewModel: StatisticViewModel?
     @State private var selectedCategory: String = "요약"
     @State private var isShowingGuide = false
-    let routines = RoutineItem.sampleData
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    HStack {
-                        Text("통계")
-                            .font(.semibold18)
+                if let viewModel = viewModel {
+                    VStack(spacing: 20) {
+                        HStack {
+                            Text("통계")
+                                .font(.semibold18)
+                            
+                            Spacer()
+                            
+                            PieceCounter(count: 9)
+                        }
+                        .padding(.horizontal)
+                        .padding(.top, 15)
                         
-                        Spacer()
-                        
-                        PieceCounter(count: 9)
+                        StatisticContentView(
+                            selectedCategory: $selectedCategory,
+                            isShowingGuide: $isShowingGuide,
+                            routines: viewModel.routines,
+                            viewModel: viewModel
+                        )
                     }
-                    .padding(.horizontal)
-                    .padding(.top, 15)
-                    
-                    StatisticContentView(
-                        selectedCategory: $selectedCategory,
-                        isShowingGuide: $isShowingGuide,
-                        routines: routines,
-                        viewModel: viewModel
-                    )
+                    .padding(.bottom, 200)
                 }
-                .padding(.bottom, 200)
             }
             .scrollIndicators(.hidden)
         }
@@ -45,9 +47,10 @@ struct StatisticView: View {
                 StatisticGuideOverlay(isShowingGuide: $isShowingGuide)
             }
         }
+        .onAppear {
+            if viewModel == nil {
+                viewModel = StatisticViewModel(context: context)
+            }
+        }
     }
-}
-
-#Preview {
-    StatisticView()
 }

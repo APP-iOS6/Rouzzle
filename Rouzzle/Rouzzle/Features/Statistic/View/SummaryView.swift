@@ -8,21 +8,7 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @State private var viewModel = StatisticViewModel()
-    // 임시 데이터 구조
-    struct RoutineData: Identifiable {
-        let id = UUID()
-        let emoji: String
-        let title: String
-        let progress: Double
-    }
-    
-    // 샘플 데이터 (임시 데이터로만 사용)
-    private let routines = [
-        RoutineData(emoji: "☀️", title: "아침 루틴", progress: 0.8),
-        RoutineData(emoji: "🌙", title: "저녁 루틴", progress: 0.5),
-        RoutineData(emoji: "🏃‍♀️", title: "운동 루틴", progress: 0.62)
-    ]
+    let viewModel: StatisticViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -78,43 +64,15 @@ struct SummaryView: View {
                     }
                 }
             }
-            // 루틴별 성공률 한 박스
+            
+            // 루틴별 성공률 표시
             VStack(spacing: 20) {
-                ForEach(Array(routines.enumerated()), id: \.1.id) { index, routine in
-                    HStack(spacing: 4) {
-                        // 이모지
-                        Text(routine.emoji)
-                            .font(.system(size: 16))
-                            .frame(width: 20)
-                        
-                        // 루틴 이름
-                        Text(routine.title)
-                            .font(.regular16)
-                            .frame(width: 70, alignment: .leading)
-                        
-                        // 프로그레스바와 퍼센트를 묶어서 처리
-                        ZStack(alignment: .leading) {
-                            GeometryReader { geometry in
-                                ZStack(alignment: .trailing) {
-                                    Rectangle()
-                                        .fill(index % 2 == 0 ? Color.accentColor : Color.themeColor)
-                                        .frame(width: geometry.size.width * routine.progress, height: 10)
-                                    
-                                    Text("\(Int(routine.progress * 100))%")
-                                        .font(.medium11)
-                                        .foregroundStyle(.gray.opacity(0.7))
-                                        .offset(x: 26)
-                                }
-                            }
-                            .frame(height: 10)
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
+                ForEach(viewModel.routines) { routine in
+                    RoutineSuccessRateRow(routine: routine, viewModel: viewModel)
                 }
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity)
-            .frame(height: 145)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.backgroundLightGray)
@@ -124,6 +82,38 @@ struct SummaryView: View {
     }
 }
 
-#Preview {
-    SummaryView()
+// 루틴별 성공률을 보여주는 새로운 컴포넌트
+struct RoutineSuccessRateRow: View {
+    let routine: RoutineItem
+    let viewModel: StatisticViewModel
+    
+    var body: some View {
+        HStack(spacing: 4) {
+            Text(routine.emoji)
+                .font(.system(size: 16))
+                .frame(width: 20)
+            
+            Text(routine.title)
+                .font(.regular16)
+                .frame(width: 70, alignment: .leading)
+            
+            // 프로그레스바와 퍼센트 표시
+            ZStack(alignment: .leading) {
+                GeometryReader { geometry in
+                    ZStack(alignment: .trailing) {
+                        Rectangle()
+                            .fill(Color.accentColor)
+                            .frame(width: geometry.size.width * 0.8, height: 10) // 성공률에 따라 조정 필요
+                        
+                        Text("80%")  // 성공률에 따라 조정 필요
+                            .font(.medium11)
+                            .foregroundStyle(.gray.opacity(0.7))
+                            .offset(x: 26)
+                    }
+                }
+                .frame(height: 10)
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
 }

@@ -9,16 +9,11 @@ import SwiftUI
 
 struct StatisticCategoryView: View {
     @Binding var selectedCategory: String
-    @State private var viewModel: StatisticViewModel
-    
-    init(selectedCategory: Binding<String>, viewModel: StatisticViewModel) {
-        self._selectedCategory = selectedCategory
-        self._viewModel = State(initialValue: viewModel)
-    }
+    let routines: [RoutineItem]
     
     var allCategories: [String] {
         let defaultCategories = ["요약"]
-        let routineTitles = viewModel.routines.map { "\($0.emoji) \($0.title)" }
+        let routineTitles = routines.map { "\($0.emoji) \($0.title)" }
         return defaultCategories + routineTitles
     }
     

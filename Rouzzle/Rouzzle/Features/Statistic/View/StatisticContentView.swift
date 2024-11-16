@@ -20,16 +20,22 @@ struct StatisticContentView: View {
                 .foregroundColor(.gray)
                 .padding(.horizontal)
         } else {
-            StatisticCategoryView(selectedCategory: $selectedCategory)
-                .padding(.top, 20)
+            StatisticCategoryView(
+                selectedCategory: $selectedCategory,
+                routines: routines
+            )
+            .padding(.top, 20)
             
             if selectedCategory == "요약" {
-                SummaryView()
+                SummaryView(viewModel: viewModel)
                     .padding(.horizontal)
                     .padding(.top, 20)
             } else {
                 VStack(spacing: 20) {
-                    CalendarView(viewModel: viewModel.calendarViewModel, isShowingGuide: $isShowingGuide)
+                    CalendarView(
+                        viewModel: viewModel.calendarViewModel,
+                        isShowingGuide: $isShowingGuide
+                    )
                 }
             }
         }

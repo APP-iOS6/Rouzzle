@@ -5,8 +5,10 @@
 //  Created by Hyeonjeong Sim on 11/13/24.
 //
 
-import Foundation
 import Factory
+import Foundation
+import Observation
+import SwiftData
 
 @Observable
 class StatisticViewModel {
@@ -17,28 +19,28 @@ class StatisticViewModel {
     var currentDate: Date
     var taskManager: CalendarTaskManager
     var calendarViewModel: CalendarViewModel
+    var context: ModelContext
     
-    init(currentDate: Date = Date(), taskManager: CalendarTaskManager = CalendarTaskManager()) {
+    init(currentDate: Date = Date(), taskManager: CalendarTaskManager = CalendarTaskManager(), context: ModelContext) {
         self.currentDate = currentDate
         self.taskManager = taskManager
         self.calendarViewModel = CalendarViewModel(
             currentDate: currentDate,
             taskManager: taskManager
         )
+        self.context = context
         
-        // 루틴 데이터 로드
-        loadRoutines()
+        loadLocalRoutines()
     }
-    func loadRoutines() {
-        Task {
-            do {
-                let fetchedRoutines = try await routineService.getAllRoutines()
-                await MainActor.run {
-                    self.routines = fetchedRoutines.map { RoutineItem(from: $0) }
-                }
-            } catch {
-                print("루틴 데이터 로딩 실패: \(error)")
-            }
+    
+    // SwiftData에서 로컬 루틴 데이터 로드
+    func loadLocalRoutines() {
+        let descriptor = FetchDescriptor<RoutineItem>()
+        do {
+            let localRoutines = try context.fetch(descriptor)
+            self.routines = localRoutines
+        } catch {
+            print("로컬 루틴 데이터 로딩 실패: \(error)")
         }
     }
     
