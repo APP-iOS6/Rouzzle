@@ -140,15 +140,10 @@ extension AuthService {
         try await withCheckedThrowingContinuation { continuation in
             UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                 if let error {
-                    print("🟨 Auth DEBUG: 카카오톡 로그인 에러 발생 \(error.localizedDescription)")
                     continuation.resume(throwing: error)
                 }
                 
                 if let oauthToken {
-                    print("🟨 Auth DEBUG: 카카오톡 로그인 성공")
-                    print("🟨 OAuthToken: \(oauthToken)")
-                    print("🟨 ID Token: \(oauthToken.idToken ?? "nil")")
-                    print("🟨 Access Token: \(oauthToken.accessToken)")
                     continuation.resume(returning: oauthToken)
                 }
             }
@@ -191,7 +186,6 @@ extension AuthService {
 
         let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
         
-        // Firebase 인증 처리
         do {
             return try await authenticationUserWithFirebase(credential: credential)
         } catch {
