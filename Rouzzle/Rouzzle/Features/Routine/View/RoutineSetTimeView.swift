@@ -92,6 +92,6 @@ struct TimePickerSheet: View {
 
 #Preview {
     NavigationStack {
-        AddRoutineView()
+        AddRoutineContainerView()
     }
 }

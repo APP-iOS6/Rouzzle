@@ -40,6 +40,7 @@ struct AddTaskView: View {
                     
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
+                            .padding(.vertical, 6)
                     }
                     
                     HStack {
@@ -137,8 +138,10 @@ struct AddTaskView: View {
                     }
                  }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
-                    NewTaskSheet(routine: store.routineItem, detents: $detents) { task in
-                        store.addTaskSwiftData(task, context: modelContext)
+                    NewTaskSheet(detents: $detents) { task in
+                        Task {
+                           await store.addTask(task, context: modelContext)
+                        }
                     }
                     .presentationDetents(detents)
                 }
