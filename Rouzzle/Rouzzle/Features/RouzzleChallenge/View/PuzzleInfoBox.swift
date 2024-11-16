@@ -51,7 +51,7 @@ struct PuzzleInfoBox: View {
             VStack(spacing: 0) {
                 // Info Box
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white)
+                    .fill(Color.backgroundLightGray)
                     .frame(width: screenWidth - 32)
                     .frame(height: boxHeight)
                     .overlay(
@@ -94,11 +94,10 @@ struct PuzzleInfoBox: View {
                         }
                             .padding(.horizontal)
                     )
-                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
                 
                 // Badge Box
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white)
+                    .fill(Color.backgroundLightGray)
                     .frame(width: screenWidth - 32, height: badgeHeight)
                     .overlay(
                         HStack {
@@ -114,7 +113,6 @@ struct PuzzleInfoBox: View {
                         }
                             .padding(.horizontal)
                     )
-                    .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
                     .padding(.top, padding)
             }
             .padding(.top, topPadding)
