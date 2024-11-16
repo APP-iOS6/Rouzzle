@@ -10,15 +10,30 @@ import SwiftUI
 struct StatisticContentView: View {
     @Binding var selectedCategory: String
     @Binding var isShowingGuide: Bool
+    
     let routines: [RoutineItem]
     let viewModel: StatisticViewModel
+    @State private var isShowingRoutineSettings = false
     
     var body: some View {
         if routines.isEmpty {
-            Text("등록된 루틴이 없습니다")
-                .font(.medium16)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
+            VStack {
+                Spacer(minLength: 250)
+                
+                VStack(spacing: 16) {
+                    Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
+                        .font(.system(size: 60))
+                        .foregroundColor(.graymedium)
+                    
+                    VStack(spacing: 8) {
+                        Text("등록된 루틴이 없습니다.")
+                            .font(.medium16)
+                            .foregroundStyle(.graymedium)
+                    }
+                }
+                
+                Spacer()
+            }
         } else {
             StatisticCategoryView(
                 selectedCategory: $selectedCategory,

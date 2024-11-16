@@ -113,7 +113,7 @@ class CalendarTaskManager {
                         isComplete: true
                     )
                 ]
-            ),
+            )
         ]
         updateFromRoutineCompletions(dummyCompletions)
     }
