@@ -31,7 +31,7 @@ struct SummaryView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("나의 최대 연속 기록이에요!")
                         .font(.medium16)
-                    HStack(alignment: .bottom, spacing: 4) {
+                    HStack(alignment: .bottom, spacing: 8) {
                         Text("0일")
                             .font(.bold36)
                         Text("아침 루틴")
@@ -46,7 +46,7 @@ struct SummaryView: View {
                 .frame(maxWidth: .infinity)
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.gray.opacity(0.1))
+                        .fill(Color.backgroundLightGray)
                 )
             }
             .padding(.bottom, 20)
@@ -117,7 +117,7 @@ struct SummaryView: View {
             .frame(height: 145)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.gray.opacity(0.1))
+                    .fill(Color.backgroundLightGray)
             )
         }
         .frame(maxWidth: .infinity)

@@ -18,13 +18,15 @@ struct StatisticContentView: View {
             Text("등록된 루틴이 없습니다")
                 .font(.medium16)
                 .foregroundColor(.gray)
-                .padding(.horizontal, 16)
+                .padding(.horizontal)
         } else {
             StatisticCategoryView(selectedCategory: $selectedCategory)
                 .padding(.top, 20)
             
             if selectedCategory == "요약" {
                 SummaryView()
+                    .padding(.horizontal)
+                    .padding(.top, 20)
             } else {
                 VStack(spacing: 20) {
                     CalendarView(viewModel: viewModel.calendarViewModel, isShowingGuide: $isShowingGuide)

@@ -25,7 +25,8 @@ struct StatisticView: View {
                         
                         PieceCounter(count: 9)
                     }
-                    .padding(.top, 25)
+                    .padding(.horizontal)
+                    .padding(.top, 15)
                     
                     StatisticContentView(
                         selectedCategory: $selectedCategory,

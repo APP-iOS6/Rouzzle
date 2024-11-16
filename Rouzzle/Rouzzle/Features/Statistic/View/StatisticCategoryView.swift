@@ -25,16 +25,17 @@ struct StatisticCategoryView: View {
                     let isSelected = (category == selectedCategory)
                     Text(category)
                         .font(.semibold16)
-                        .foregroundStyle(isSelected ? .white : .accentColor)
+                        .foregroundStyle(isSelected ? .accent : .graymedium)
                         .padding(.horizontal)
                         .padding(.vertical, 10)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
-                                .fill(isSelected ? Color.accentColor : Color.white)
+                                .fill(isSelected ? Color.opacitygreen : Color.white)
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
-                                .stroke(Color.accent, lineWidth: 1)
+                                .stroke(isSelected ? Color.accent : .graymedium, lineWidth: 1)
+
                         )
                         .onTapGesture {
                             selectedCategory = category
