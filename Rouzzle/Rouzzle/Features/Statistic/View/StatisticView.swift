@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Charts
 
 struct StatisticView: View {
     @Environment(\.modelContext) private var context
     @State private var viewModel: StatisticViewModel?
     @State private var selectedCategory: String = "요약"
-    @State private var isShowingGuide = false
+    @State private var isShowingGuide: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -21,9 +22,7 @@ struct StatisticView: View {
                         HStack {
                             Text("통계")
                                 .font(.semibold18)
-                            
                             Spacer()
-                            
                             PieceCounter(count: 9)
                         }
                         .padding(.horizontal)
