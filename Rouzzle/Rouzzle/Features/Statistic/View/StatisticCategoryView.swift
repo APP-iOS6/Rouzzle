@@ -9,16 +9,20 @@ import SwiftUI
 
 struct StatisticCategoryView: View {
     @Binding var selectedCategory: String
-    let routines = RoutineItem.sampleData
+    @State private var viewModel: StatisticViewModel
+    
+    init(selectedCategory: Binding<String>, viewModel: StatisticViewModel) {
+        self._selectedCategory = selectedCategory
+        self._viewModel = State(initialValue: viewModel)
+    }
     
     var allCategories: [String] {
         let defaultCategories = ["요약"]
-        let routineTitles = routines.map { "\($0.emoji) \($0.title)" }
+        let routineTitles = viewModel.routines.map { "\($0.emoji) \($0.title)" }
         return defaultCategories + routineTitles
     }
     
     var body: some View {
-        // 카테고리 목록
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 ForEach(allCategories, id: \.self) { category in
@@ -35,7 +39,6 @@ struct StatisticCategoryView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
                                 .stroke(isSelected ? Color.accent : .graymedium, lineWidth: 1)
-
                         )
                         .onTapGesture {
                             selectedCategory = category
