@@ -51,5 +51,10 @@ struct StatisticView: View {
                 viewModel = StatisticViewModel(context: context)
             }
         }
+        .refreshable {
+            await MainActor.run {
+                viewModel?.loadLocalRoutines()
+            }
+        }
     }
 }

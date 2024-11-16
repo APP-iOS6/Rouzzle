@@ -34,7 +34,7 @@ class AddRoutineViewModel {
     var recommendTodoTask: [RecommendTodoTask] = [] // 추천 할일 리스트 목록
     var toastMessage: String?
     var loadState: LoadState = .none
-
+    
     var disabled: Bool {
         selectedDateWithTime.isEmpty || title.isEmpty
     }
@@ -97,7 +97,7 @@ class AddRoutineViewModel {
     func uploadRoutine(context: ModelContext) {
         let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
-        // TODO: AlarmIds 추가
+        
         let createRoutine = Routine(
             title: title,
             emoji: selectedEmoji ?? "🧩",
@@ -107,7 +107,7 @@ class AddRoutineViewModel {
             dayStartTime: selectedDateWithTimeTypeChange(),
             userId: userUid
         )
-
+        
         Task {
             let routine = await routineService.addRoutine(createRoutine)
             switch routine {
@@ -119,6 +119,12 @@ class AddRoutineViewModel {
                     for task in routineTask.map({ $0.toTaskList() }) {
                         try SwiftDataService.addTask(to: routineItem, task, context: context)
                     }
+                    try context.save()
+                    // 여기에 알림 추가
+                    NotificationCenter.default.post(
+                        name: NSNotification.Name("RoutineUpdated"),
+                        object: nil
+                    )
                     self.loadState = .completed
                 } catch {
                     self.loadState = .failed
