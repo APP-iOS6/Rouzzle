@@ -12,9 +12,10 @@ struct RoutineSuccessRateChart: View {
     let routine: RoutineItem
     let viewModel: StatisticViewModel
     @State private var animatedValue: Double = 0
+    private let maxWidth: Double = 220
     
     var body: some View {
-        HStack(alignment: .center, spacing: -15) { // alignment 추가
+        HStack(alignment: .center, spacing: -15) {
             HStack(spacing: 2) {
                 Text(routine.emoji)
                     .font(.system(size: 16))
@@ -28,32 +29,34 @@ struct RoutineSuccessRateChart: View {
             }
             .frame(width: 110, alignment: .leading)
             
+            let percentage = Double(viewModel.calculateSuccessRate(for: routine))
+            
             Chart {
                 BarMark(
-                    x: .value("Percentage", animatedValue),
+                    x: .value("성공률", min(animatedValue, 100)),  // 최대값을 100으로 제한
                     y: .value("Label", "성공률"),
-                    height: 10
+                    width: .fixed(maxWidth)
                 )
                 .foregroundStyle(getBarColor(for: routine).gradient)
                 .annotation(position: .trailing) {
-                    Text("\(viewModel.calculateSuccessRate(for: routine))%")
+                    Text("\(Int(percentage))%")
                         .font(.medium11)
                         .foregroundStyle(.gray.opacity(0.7))
                         .padding(.leading, -2)
                 }
             }
-            .frame(height: 10)
-            .frame(maxWidth: 220)
+            .frame(width: maxWidth)
+            .frame(height: 14)
             .chartXAxis(.hidden)
             .chartYAxis(.hidden)
-            .chartXScale(domain: 0...100)
+            .chartXScale(domain: 0...100)  // 도메인을 0-100으로 고정
             .chartPlotStyle { plotArea in
                 plotArea
                     .background(.clear)
                     .border(.clear, width: 0)
             }
         }
-        .padding(.vertical)
+        .padding(.vertical, 10)
         .onAppear {
             animateGraph()
         }
@@ -70,10 +73,10 @@ struct RoutineSuccessRateChart: View {
     }
     
     private func animateGraph() {
-        let targetValue = Double(viewModel.calculateSuccessRate(for: routine))
+        let percentage = Double(viewModel.calculateSuccessRate(for: routine))
         animatedValue = 0
         withAnimation(.easeOut(duration: 0.8)) {
-            animatedValue = targetValue
+            animatedValue = percentage
         }
     }
 }

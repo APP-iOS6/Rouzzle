@@ -48,11 +48,12 @@ struct SummaryView: View {
             }
             
             // 루틴별 성공률 차트
-            VStack(spacing: 12) {
+            VStack(spacing: 8) {
                 ForEach(viewModel.routines) { routine in
                     RoutineSuccessRateChart(routine: routine, viewModel: viewModel)
                 }
             }
+            .padding(.vertical, 12)
             .padding(.leading, -25)
             .frame(maxWidth: .infinity)
             .background(
