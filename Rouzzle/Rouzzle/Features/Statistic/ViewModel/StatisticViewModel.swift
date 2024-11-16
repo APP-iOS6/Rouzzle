@@ -79,8 +79,9 @@ class StatisticViewModel {
     }
     
     // MARK: - 차트 관련 메서드들
+    // 월간 성공률
     func calculateSuccessRate(for routine: RoutineItem) -> Int {
-        // 테스트용 랜덤값 - 각 루틴별로 다른 값을 반환하도록 설정
+        // 테스트용 랜덤값
         if let index = routines.firstIndex(where: { $0.id == routine.id }) {
             switch index {
             case 0:
@@ -98,7 +99,7 @@ class StatisticViewModel {
         return Int.random(in: 48...52)
     }
     
-    /* 일단 UI 확인용 테스트 값 설정 나중에 주석 풀고 확인
+    /* 위에는 그래프 확인용 테스트 값 설정 나중에 주석 풀고 확인 해봐야 함
         let calendar = Calendar.current
         
         // 현재 달의 시작일과 마지막일 구하기
@@ -135,15 +136,55 @@ class StatisticViewModel {
         return totalRoutineDays > 0 ? Int((Double(completedDays) / Double(totalRoutineDays)) * 100) : 0
     }
     */
+    
+    // 최대 연속일
     func getMaxConsecutiveDays() -> Int {
-        // TODO: 최대 연속 일수 계산 로직 구현
-        return 0
-    }
-    
-    func getMaxConsecutiveRoutineName() -> String {
-        return routines.first?.title ?? "없음"
-    }
-    
+           var maxConsecutiveDays = 0
+           var currentMaxRoutineId: String?
+           
+           for routine in routines {
+               var consecutiveDays = 0
+               let currentDate = Date()
+               
+               // 최대 30일 전까지 체크
+               for dayOffset in 0..<30 {
+                   let checkDate = Calendar.current.date(byAdding: .day, value: -dayOffset, to: currentDate)!
+                   let weekday = Calendar.current.component(.weekday, from: checkDate)
+                   
+                   // 해당 루틴이 이 요일에 설정되어 있는지 확인
+                   if routine.dayStartTime.keys.contains(weekday) {
+                       if let status = taskManager.getTaskStatus(for: checkDate),
+                          status == .fullyComplete {
+                           consecutiveDays += 1
+                       } else {
+                           break // 연속 중단
+                       }
+                   }
+               }
+               
+               // 최대 연속일 업데이트
+               if consecutiveDays > maxConsecutiveDays {
+                   maxConsecutiveDays = consecutiveDays
+                   currentMaxRoutineId = routine.id
+               }
+           }
+           
+           // 최대 연속일을 기록한 루틴 ID 저장
+           if let maxRoutineId = currentMaxRoutineId {
+               UserDefaults.standard.set(maxRoutineId, forKey: "MaxConsecutiveRoutineId")
+           }
+           
+           return maxConsecutiveDays
+       }
+       
+       func getMaxConsecutiveRoutineName() -> String {
+           guard let maxRoutineId = UserDefaults.standard.string(forKey: "MaxConsecutiveRoutineId"),
+                 let routine = routines.first(where: { $0.id == maxRoutineId }) else {
+               return "없음"
+           }
+           return routine.title
+       }
+
     deinit {
         // observer 정리
         if let observer = observer {
