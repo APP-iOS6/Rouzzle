@@ -178,10 +178,12 @@ extension AuthService {
     @MainActor
     func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error> {
         guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
+            print("🍎 Apple ID Credential이 없음")
             return (.failure(AuthError.tokenError))
         }
         
         guard let appleIDToken = appleIdCredential.identityToken else {
+            print("🍎 Apple ID Token이 없음")
             return (.failure(AuthError.tokenError))
         }
         
@@ -189,29 +191,15 @@ extension AuthService {
             return (.failure(AuthError.tokenError))
         }
         
-        let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
-        
-        // Refresh Token 가져오기
-        if let authorizationCode = appleIdCredential.authorizationCode,
-           let codeString = String(data: authorizationCode, encoding: .utf8) {
-            let urlString = "https://us-central1-Rouzzle.cloudfunctions.net/getRefreshToken?code=\(codeString)"
-            if let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
-                do {
-                    let (data, response) = try await URLSession.shared.data(from: url)
-                    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                        let refreshToken = String(data: data, encoding: .utf8) ?? ""
-                        UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
-                        print("🍎 APPLE DEBUG: Refresh Token 저장 완료: \(refreshToken)")
-                    } else {
-                        print("🍎 APPLE DEBUG: Refresh Token 가져오기 실패")
-                    }
-                } catch {
-                    print("🍎 APPLE DEBUG: Refresh Token 요청 중 에러 발생 \(error.localizedDescription)")
-                }
-            }
+        // Refresh Token 저장
+        if let refreshToken = appleIdCredential.authorizationCode.flatMap({ String(data: $0, encoding: .utf8) }) {
+            UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+            print("🍎 APPLE DEBUG: Refresh Token 저장 완료")
         } else {
-            print("🍎 APPLE DEBUG: Authorization Code가 없습니다.")
+            print("🍎 APPLE DEBUG: Refresh Token 저장 실패")
         }
+        
+        let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
         
         // Firebase 인증 처리
         do {
@@ -303,18 +291,18 @@ extension AuthService {
         }
     }
     
-    /// 구글 계정 연결 해제
+    /// 구글 계정 탈퇴
     private func unlinkGoogleAccount() async throws {
         guard let user = Auth.auth().currentUser else {
             throw AuthError.signInError // 로그인된 유저가 없으면 에러 반환
         }
 
-        // Firebase에서 구글 계정 연결 해제
+        // Firebase에서 구글 계정 탈퇴
         _ = try await user.unlink(fromProvider: "google.com")
         print("🟩 Auth DEBUG: 구글 계정 연결 해제 성공")
     }
     
-    /// 카카오 계정 연결 해제
+    /// 카카오 계정 탈퇴
     private func unlinkKakaoAccount() async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             UserApi.shared.unlink { error in
@@ -329,25 +317,47 @@ extension AuthService {
         }
     }
     
-    /// 애플 계정 연결 해제
+    /// 애플 계정 탈퇴
     private func unlinkAppleAccount() async throws {
-        guard let token = UserDefaults.standard.string(forKey: "refreshToken") else {
-            print("🍎 APPLE DEBUG: Refresh Token이 존재하지 않습니다. 로그인을 다시 시도하세요.")
+        // UserDefaults에서 refreshToken 가져오기 (Apple 로그인 시 저장해야 함)
+        guard let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") else {
+            print("🍎 APPLE DEBUG: Refresh Token이 없습니다.")
             throw AuthError.tokenError
         }
         
-        let urlString = "https://us-central1-your-app.cloudfunctions.net/revokeToken?refresh_token=\(token)"
-        guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {
-            throw AuthError.invalidate
+        // Apple Revoke URL 구성
+        guard let url = URL(string: "https://us-central1-speakyourmind-5001b.cloudfunctions.net/revokeToken?refresh_token=\(refreshToken)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") else {
+            print("🍎 APPLE DEBUG: URL 생성 실패")
+            throw AuthError.tokenError
         }
         
-        let (data, response) = try await URLSession.shared.data(from: url)
-        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-            print("🍎 APPLE DEBUG: 애플 계정 해제 성공")
-        } else {
-            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown Error"
-            print("🍎 APPLE DEBUG: 애플 계정 해제 실패 \(errorMessage)")
-            throw AuthError.invalidate
+        // URLSession을 사용하여 Revoke 요청
+        do {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            // HTTP 상태 코드 확인
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                print("🍎 APPLE DEBUG: 애플 계정 Revoke 성공")
+            } else {
+                print("🍎 APPLE DEBUG: 애플 계정 Revoke 실패, 상태 코드: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+                throw AuthError.invalidate
+            }
+            
+            // Firebase Authentication에서 Apple 계정 탈퇴
+            guard let user = Auth.auth().currentUser else {
+                print("🍎 APPLE DEBUG: Firebase 사용자가 존재하지 않습니다.")
+                throw AuthError.signInError
+            }
+            _ = try await user.unlink(fromProvider: "apple.com")
+            print("🍎 APPLE DEBUG: Firebase에서 애플 계정 탈퇴 성공!!")
+            
+        } catch {
+            print("🍎 APPLE DEBUG: Apple Revoke 요청 중 에러 발생 \(error.localizedDescription)")
+            throw error
         }
     }
 }
