@@ -25,7 +25,13 @@ struct RoutineSuccessRateChart: View {
                     .font(.regular16)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                    .frame(width: 80, alignment: .leading)
+                    .frame(width: 60, alignment: .leading)
+                    .overlay(
+                        Text(routine.title.count > 5 ? routine.title.prefix(5) + "..." : routine.title)
+                            .font(.regular16)
+                            .lineLimit(1)
+                            .opacity(0)
+                    )
             }
             .frame(width: 110, alignment: .leading)
             
