@@ -26,6 +26,7 @@ class SocialViewModel {
         return favoriteProfiles
     }
     var error: DBError?
+    var isSelectedUserUUIDs = Set<String>()
     
     init() {
         Task {
@@ -44,15 +45,18 @@ class SocialViewModel {
         }
     }
     
-    func addFavorite(userID: String) async {
-        do {
-            try await socialService.addFavoriteUser(userID: userID)
-            print("User \(userID) added to favorites.")
-        } catch let dbError as DBError {
-            self.error = dbError
-        } catch {
-            self.error = DBError.firebaseError(error)
+    func addFavoriteUsers() async {
+        for userID in isSelectedUserUUIDs {
+            do {
+                try await socialService.addFavoriteUser(userID: userID)
+                print("User \(userID) added to favorites.")
+            } catch let dbError as DBError {
+                self.error = dbError
+            } catch {
+                self.error = DBError.firebaseError(error)
+            }
         }
+        self.isSelectedUserUUIDs.removeAll()
     }
     
     func deleteFavorite(userID: String) async {
@@ -61,6 +65,14 @@ class SocialViewModel {
             print("User \(userID) removed from favorites.")
         } catch {
             self.error = DBError.firebaseError(error)
+        }
+    }
+    
+    func setSelectedUser(userID: String) {
+        if isSelectedUserUUIDs.contains(userID) {
+            self.isSelectedUserUUIDs.remove(userID)
+        } else {
+            self.isSelectedUserUUIDs.insert(userID)
         }
     }
 }

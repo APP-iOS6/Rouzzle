@@ -12,9 +12,10 @@ struct RoutineCardView: View {
     @State var isExpanded: Bool = false
     @State private var isStarred: Bool = false
     @State private var selectedRoutineIndex: Int?
+    @State private var viewModel: SocialViewModel = SocialViewModel()
     var userProfile: UserProfile
-    let action: () -> Void
-    
+    let action: (String) -> Void
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 15) {
@@ -53,7 +54,7 @@ struct RoutineCardView: View {
                 // 즐겨찾기
                 Button(action: {
                     isStarred.toggle()
-                    action()
+                    action(userProfile.documentId!)
                 }, label: {
                     Image(systemName: isStarred ? "star.fill" : "star")
                         .foregroundColor(isStarred ? .yellow : .gray)

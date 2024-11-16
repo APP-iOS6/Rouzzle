@@ -11,7 +11,7 @@ struct SocialView: View {
     @State private var viewModel: SocialViewModel = SocialViewModel()
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -58,22 +58,23 @@ struct SocialView: View {
                         // 사용자 랜덤으로 보여주기
                         LazyVStack(spacing: 15) {
                             ForEach(viewModel.userProfiles, id: \.self) { user in
-                                if viewModel.userFavorites.contains(where: { $0.documentId != user.documentId }) && !user.routines.isEmpty {
+                                if !viewModel.userFavorites.contains(where: { $0.documentId == user.documentId! }) && !user.routines.isEmpty {
                                     if user.documentId != Utils.getUserUUID() {
-                                        RoutineCardView(userProfile: user) {
-                                            Task {
-                                                await viewModel.addFavorite(userID: user.documentId!)
-                                            }
+                                        RoutineCardView(userProfile: user) { id in
+                                            viewModel.setSelectedUser(userID: id)
                                         }
                                     }
                                 }
                             }
                         }
-                        
                     }
                 }
                 .padding()
             }
+        }
+        .refreshable {
+            await viewModel.addFavoriteUsers()
+            await viewModel.fetchUserProfiles()
         }
     }
 }
