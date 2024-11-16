@@ -58,10 +58,12 @@ struct SocialView: View {
                         // 사용자 랜덤으로 보여주기
                         LazyVStack(spacing: 15) {
                             ForEach(viewModel.userProfiles, id: \.self) { user in
-                                if viewModel.userFavorites.contains(where: { $0.documentId != user.documentId }) {
-                                    RoutineCardView(userProfile: user) {
-                                        Task {
-                                            await viewModel.addFavorite(userID: user.documentId!)
+                                if viewModel.userFavorites.contains(where: { $0.documentId != user.documentId }) && !user.routines.isEmpty {
+                                    if user.documentId != Utils.getUserUUID() {
+                                        RoutineCardView(userProfile: user) {
+                                            Task {
+                                                await viewModel.addFavorite(userID: user.documentId!)
+                                            }
                                         }
                                     }
                                 }
