@@ -44,11 +44,14 @@ final class CalendarViewStateManager {
         guard !isLoading else { return }
         isLoading = true
         
+        currentMonth += direction
+        
         let calendar = Calendar.current
-        if let newDate = calendar.date(byAdding: .month, value: direction, to: currentDate) {
-            currentDate = newDate
-            currentMonth += direction
-            extractDate()
+        if let newDate = calendar.date(byAdding: .month, value: currentMonth, to: Date()) {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                currentDate = newDate
+                extractDate()
+            }
             await loadRoutineCompletions()
         }
         

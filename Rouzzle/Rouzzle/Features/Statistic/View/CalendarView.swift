@@ -75,6 +75,7 @@ struct CalendarView: View {
             .cornerRadius(10)
             #endif
         }
+        .padding(.horizontal)
         .task {
             await calendarState.loadRoutineCompletions()
         }

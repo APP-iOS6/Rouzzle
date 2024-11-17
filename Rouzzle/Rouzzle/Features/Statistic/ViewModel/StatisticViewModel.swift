@@ -45,6 +45,24 @@ class StatisticViewModel {
     }
     
     func calculateSuccessRate(for routine: RoutineItem) -> Int {
+        // 테스트용 랜덤값
+        if let index = routines.firstIndex(where: { $0.id == routine.id }) {
+            switch index {
+            case 0:
+                return Int.random(in: 70...73)
+            case 1:
+                return Int.random(in: 50...53)
+            case 2:
+                return Int.random(in: 60...63)
+            case 3:
+                return Int.random(in: 40...43)
+            default:
+                return Int.random(in: 90...93)
+            }
+        }
+        return Int.random(in: 48...52)
+    }
+        /*
         let calendar = Calendar.current
         
         guard let interval = calendar.dateInterval(of: .month, for: calendarState.currentDate)
@@ -75,6 +93,7 @@ class StatisticViewModel {
         
         return totalRoutineDays > 0 ? Int((Double(completedDays) / Double(totalRoutineDays)) * 100) : 0
     }
+         */
     
     func getMaxConsecutiveDays() -> Int {
         var maxConsecutiveDays = 0
