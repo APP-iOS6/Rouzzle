@@ -31,6 +31,10 @@
 		23BC99882CE49223009BE074 /* StatisticCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99872CE49223009BE074 /* StatisticCategoryView.swift */; };
 		23BC998A2CE49C66009BE074 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99892CE49C66009BE074 /* SummaryView.swift */; };
 		23BC998C2CE49C94009BE074 /* RegisteredRoutinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */; };
+		23BC99EA2CE82C11009BE074 /* StatisticGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99E92CE82C11009BE074 /* StatisticGuideOverlay.swift */; };
+		23BC99EE2CE82CC2009BE074 /* StatisticContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99ED2CE82CC2009BE074 /* StatisticContentView.swift */; };
+		23BC9A0C2CE85810009BE074 /* RoutineSuccessRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC9A0B2CE85810009BE074 /* RoutineSuccessRateChart.swift */; };
+		23BC9A0E2CE85856009BE074 /* MonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC9A0D2CE85856009BE074 /* MonthSelector.swift */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -199,6 +203,10 @@
 		23BC99872CE49223009BE074 /* StatisticCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCategoryView.swift; sourceTree = "<group>"; };
 		23BC99892CE49C66009BE074 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredRoutinesView.swift; sourceTree = "<group>"; };
+		23BC99E92CE82C11009BE074 /* StatisticGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticGuideOverlay.swift; sourceTree = "<group>"; };
+		23BC99ED2CE82CC2009BE074 /* StatisticContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticContentView.swift; sourceTree = "<group>"; };
+		23BC9A0B2CE85810009BE074 /* RoutineSuccessRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSuccessRateChart.swift; sourceTree = "<group>"; };
+		23BC9A0D2CE85856009BE074 /* MonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSelector.swift; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -715,10 +723,14 @@
 			isa = PBXGroup;
 			children = (
 				BD1546542CD9AA090098AD7B /* StatisticView.swift */,
-				23BC99812CE46B56009BE074 /* CalendarView.swift */,
 				23BC99872CE49223009BE074 /* StatisticCategoryView.swift */,
-				23BC99892CE49C66009BE074 /* SummaryView.swift */,
+				23BC99E92CE82C11009BE074 /* StatisticGuideOverlay.swift */,
+				23BC99ED2CE82CC2009BE074 /* StatisticContentView.swift */,
 				23BC998B2CE49C94009BE074 /* RegisteredRoutinesView.swift */,
+				23BC99812CE46B56009BE074 /* CalendarView.swift */,
+				23BC99892CE49C66009BE074 /* SummaryView.swift */,
+				23BC9A0B2CE85810009BE074 /* RoutineSuccessRateChart.swift */,
+				23BC9A0D2CE85856009BE074 /* MonthSelector.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1091,9 +1103,11 @@
 				BD912F8D2CDD32F5007B8503 /* SwiftDataError.swift in Sources */,
 				FB4174ED2CDB59BF0084BC19 /* RoutineService.swift in Sources */,
 				974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */,
+				23BC99EE2CE82CC2009BE074 /* StatisticContentView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
 				23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */,
+				23BC9A0E2CE85856009BE074 /* MonthSelector.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
 				FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */,
@@ -1111,6 +1125,7 @@
 				BD3B03932CDA03A70006F5AD /* TaskStatusPuzzle.swift in Sources */,
 				23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */,
 				FBDC52E92CE71F530038243D /* BorderButtonModifier.swift in Sources */,
+				23BC9A0C2CE85810009BE074 /* RoutineSuccessRateChart.swift in Sources */,
 				97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */,
 				FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */,
 				FB2A5AC22CD933C500CB981A /* StrokeTextFieldModifier.swift in Sources */,
@@ -1207,6 +1222,7 @@
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */,
+				23BC99EA2CE82C11009BE074 /* StatisticGuideOverlay.swift in Sources */,
 				BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */,
 				97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */,
 				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
