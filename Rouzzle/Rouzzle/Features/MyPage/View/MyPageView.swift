@@ -241,6 +241,7 @@ struct MyPageView: View {
                         }
                         .frame(width: 370, height: 45, alignment: .leading)
                     }
+                    .padding(.bottom) // 탭바와 너무 붙어서 버튼 잘못 눌리는 거 방지용
                 }
                 .padding(.horizontal)
             }

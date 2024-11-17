@@ -75,134 +75,30 @@ class CalendarTaskManager {
 
     /// 더미 데이터를 추가하는 함수
     func loadDummyData() {
-        let dummyCompletions = [
-            RoutineCompletion(
-                routineId: "routine2",
+        var dummyCompletions: [RoutineCompletion] = []
+
+        for dayOffset in 1...30 {
+            // 랜덤한 taskCompletion 데이터 생성
+            let randomTask = TaskList.sampleData.randomElement()!
+            let isComplete = Bool.random()
+
+            let completion = RoutineCompletion(
+                documentId: "routine1_20241116",
+                routineId: "routine1",
                 userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, // 12일
+                date: Calendar.current.date(byAdding: .day, value: -dayOffset, to: Date())!,
                 taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: false)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, // 11일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -3, to: Date())!, // 10일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -4, to: Date())!, // 9일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: false)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -5, to: Date())!, // 8일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -6, to: Date())!, // 7일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -7, to: Date())!, // 6일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -8, to: Date())!, // 5일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -9, to: Date())!, // 4일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: false)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -10, to: Date())!, // 3일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -11, to: Date())!, // 2일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: false)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -12, to: Date())!, // 1일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -13, to: Date())!, // 31일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
-                ]
-            ),
-            RoutineCompletion(
-                routineId: "routine2",
-                userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -14, to: Date())!, // 30일
-                taskCompletions: [
-                    TaskCompletion(title: "Task 3", emoji: "✅", timer: 120, isComplete: true),
-                    TaskCompletion(title: "Task 4", emoji: "🚶‍♂️", timer: 900, isComplete: true)
+                    TaskCompletion(
+                        title: randomTask.title,
+                        emoji: randomTask.emoji,
+                        timer: randomTask.timer,
+                        isComplete: isComplete
+                    )
                 ]
             )
-        ]
+            dummyCompletions.append(completion)
+        }
+
         updateFromRoutineCompletions(dummyCompletions)
     }
 }

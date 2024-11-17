@@ -38,7 +38,7 @@ struct RecommendDetailView: View {
                     Text(card.title)
                         .font(.bold30)
                         .bold()
-                        .foregroundColor(.basic)
+                        .foregroundStyle(.basic)
                         .lineLimit(1)
                         .matchedGeometryEffect(id: "title\(card.id)", in: animation)
                         .padding(.horizontal)
@@ -56,7 +56,7 @@ struct RecommendDetailView: View {
                 
                 Text(card.fullText)
                     .font(.light16)
-                    .foregroundColor(.descriptioncolor)
+                    .foregroundStyle(.descriptioncolor)
                     .lineSpacing(5)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
@@ -70,7 +70,7 @@ struct RecommendDetailView: View {
                 }
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .foregroundColor(allCheckBtn ? .black : .gray)
+                .foregroundStyle(allCheckBtn ? .black : .gray)
                 .onTapGesture {
                     if allCheckBtn {
                         allCheckBtn.toggle()

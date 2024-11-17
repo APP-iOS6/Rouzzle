@@ -11,6 +11,7 @@ struct AccountManagementView: View {
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingDeleteRoutineAlert: Bool = false
     @State private var viewModel = AccountManagementViewModel()
+    @Environment(AuthStore.self) private var authStore
 
     var body: some View {
         ScrollView {
@@ -62,12 +63,17 @@ struct AccountManagementView: View {
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)
+        .overlay {
+            if authStore.loadState == .loading {
+                ProgressView()
+            }
+        }
         .customNavigationBar(title: "계정 관리")
         .customAlert(isPresented: $isShowingDeleteAccountAlert,
                      title: "정말 탈퇴하시겠어요?",
                      message: "탈퇴 버튼 선택 시, 계정은\n삭제되며 복구되지 않습니다.",
                      primaryButtonTitle: "탈퇴",
-                     primaryAction: { /* 로직 추가 예정 */ })
+                     primaryAction: { authStore.deleteAccount() })
         .customAlert(isPresented: $isShowingDeleteRoutineAlert,
                      title: "모든 루틴을 초기화합니다",
                      message: "초기화 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.",
@@ -79,5 +85,6 @@ struct AccountManagementView: View {
 #Preview {
     NavigationStack {
         AccountManagementView()
+            .environment(AuthStore())
     }
 }
