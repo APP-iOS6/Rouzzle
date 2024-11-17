@@ -17,8 +17,8 @@ final class MyPageViewModel {
     @ObservationIgnored
     @Injected(\.userService) private var userService
     
-    var userInfo = RoutineUser(name: "",
-                               profileUrlString: "https://firebasestorage.googleapis.com/v0/b/rouzzle-e4c69.firebasestorage.app/o/UserProfile%2FProfile.png?alt=media&token=94dc34d2-e7dd-4518-bd23-9c7866cfda2e",
+    private var userInfo = RoutineUser(name: "",
+                               profileUrlString: nil,
                                introduction: "")
     
     var name: String {
