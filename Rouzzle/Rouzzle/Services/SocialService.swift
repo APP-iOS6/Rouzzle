@@ -7,60 +7,97 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 protocol SocialServiceType {
-    /// 모든 루틴을 사용자별로 그룹화 한다.
-    func fetchRoutinesGroupedByUser() async throws -> [String: [Routine]]
-        
-    /// userId 로 닉네임 패치
-    func fetchAllUserNicknames() async throws -> [String: String]
     
-    func fetchUserProfileImage(userID: String) async throws -> String?
+    func fetchUserInfo() async throws -> [UserProfile]
+    
+    func addFavoriteUser(userID: String) async throws
+    
+    func deleteFavoriteUser(userID: String) async throws 
+
 }
 
 class SocialService: SocialServiceType {
     private let db = Firestore.firestore()
-
-    func fetchAllUserNicknames() async throws -> [String: String] {
+    
+    func addFavoriteUser(userID: String) async throws {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            throw DBError.firebaseError(NSError(domain: "User Not Logged In", code: 401, userInfo: nil))
+        }
+        
         do {
-            let snapshot = try await db.collection("User").getDocuments()
+            try await db.collection("User").document(currentUserID).updateData([
+                "isFavoriteUser": FieldValue.arrayUnion([userID])
+            ])
+        } catch {
+            throw DBError.firebaseError(error)
+        }
+    }
+    
+    func deleteFavoriteUser(userID: String) async throws {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            throw DBError.documenetIdError
+        }
+        
+        let userDocumentRef = db.collection("User").document(currentUserID)
+        
+        do {
+            let document = try await userDocumentRef.getDocument()
+            guard var favorites = document.data()?["isFavoriteUser"] as? [String] else {
+                throw DBError.serializationError
+            }
             
-            let idToNameMap = snapshot.documents.reduce(into: [String: String]()) { result, document in
-                if let nickname = document.data()["name"] as? String {
-                    result[document.documentID] = nickname
-                } else {
-                    print("Nickname field is missing for userID \(document.documentID)")
+            if let index = favorites.firstIndex(of: userID) {
+                favorites.remove(at: index)
+            } else {
+                print("User ID \(userID) is not in the favorites list.")
+                return
+            }
+            
+            try await userDocumentRef.updateData(["isFavoriteUser": favorites])
+            print("Successfully deleted user \(userID) from favorites.")
+        } catch {
+            throw DBError.firebaseError(error)
+        }
+    }
+    
+    func fetchUserInfo() async throws -> [UserProfile] {
+        do {
+            let userSnapshot = try await db.collection("User").getDocuments()
+            let users = userSnapshot.documents.compactMap { document -> UserProfile? in
+                do {
+                    let userProfile = try document.data(as: UserProfile.self)
+                    return userProfile
+                } catch {
+                    print("Error decoding UserProfile: \(error)")
+                    return nil
                 }
             }
             
-            print("Fetched user nicknames: \(idToNameMap)")
-            return idToNameMap
-        } catch {
-            throw DBError.firebaseError(error)
-        }
-    }
-    
-    func fetchUserProfileImage(userID: String) async throws -> String? {
-        do {
-            let document = try await db.collection("User").document(userID).getDocument()
-            
-            if let imageStr = document.data()?["profileUrlString"] as? String {
-                return imageStr
-            } else {
-                return nil
+            let routineSnapshot = try await db.collection("Routine").getDocuments()
+            let routines = routineSnapshot.documents.compactMap { document -> Routine? in
+                do {
+                    return try document.data(as: Routine.self)
+                } catch {
+                    print("Error decoding Routine: \(error)")
+                    return nil
+                }
             }
-        } catch {
-            throw DBError.firebaseError(error)
-        }
-    }
-    
-    func fetchRoutinesGroupedByUser() async throws -> [String: [Routine]] {
-        
-        do {
-            let snapshot = try await db.collection("Routine").getDocuments()
-            let routines = try snapshot.documents.compactMap { try $0.data(as: Routine.self) }
-            let groupedRoutines = Dictionary(grouping: routines, by: { $0.userId })
-            return groupedRoutines
+
+            let routinesByUser = Dictionary(grouping: routines, by: { $0.userId })
+
+            let completeUserProfiles = users.map { user -> UserProfile in
+                var user = user
+                if let userId = user.documentId, let userRoutines = routinesByUser[userId] {
+                    user.routines = userRoutines
+                }
+                return user
+            }
+            
+            print("Fetched user profiles: \(completeUserProfiles)")
+            return completeUserProfiles
         } catch {
             throw DBError.firebaseError(error)
         }

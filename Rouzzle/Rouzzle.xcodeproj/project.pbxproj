@@ -133,6 +133,9 @@
 		BDFBC3222CE3B14A00ED8A81 /* SocialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC3212CE3B14A00ED8A81 /* SocialViewModel.swift */; };
 		BDFBC3372CE6369B00ED8A81 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */; };
 		BDFBC3392CE638B900ED8A81 /* CacheImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC3382CE638B900ED8A81 /* CacheImage.swift */; };
+		BDFBC33B2CE65FF200ED8A81 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC33A2CE65FF200ED8A81 /* UserProfile.swift */; };
+		BDFBC33E2CE71F6400ED8A81 /* RoutineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC33D2CE71F6400ED8A81 /* RoutineCardView.swift */; };
+		BDFBC3402CE7207200ED8A81 /* RoutineTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFBC33F2CE7207200ED8A81 /* RoutineTaskView.swift */; };
 		FB2A5A672CD5F67000CB981A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A662CD5F67000CB981A /* Factory */; };
 		FB2A5A6A2CD5F69A00CB981A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A692CD5F69A00CB981A /* GoogleSignIn */; };
 		FB2A5A6C2CD5F69A00CB981A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB2A5A6B2CD5F69A00CB981A /* GoogleSignInSwift */; };
@@ -156,7 +159,7 @@
 		FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AAE2CD909A500CB981A /* LaunchView.swift */; };
 		FB2A5AB12CD909E400CB981A /* Halo Dek.otf in Resources */ = {isa = PBXBuildFile; fileRef = FB2A5AB02CD909E400CB981A /* Halo Dek.otf */; };
 		FB2A5AB42CD90A6C00CB981A /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */; };
-		FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */; };
+		FB2A5AB62CD912CD00CB981A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5AB52CD912CD00CB981A /* Utils.swift */; };
 		FB2A5ABC2CD92C1700CB981A /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABB2CD92C1700CB981A /* SignUpView.swift */; };
 		FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */; };
 		FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2A5ABF2CD92C6C00CB981A /* UserService.swift */; };
@@ -307,6 +310,9 @@
 		BDFBC3212CE3B14A00ED8A81 /* SocialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewModel.swift; sourceTree = "<group>"; };
 		BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		BDFBC3382CE638B900ED8A81 /* CacheImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheImage.swift; sourceTree = "<group>"; };
+		BDFBC33A2CE65FF200ED8A81 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		BDFBC33D2CE71F6400ED8A81 /* RoutineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCardView.swift; sourceTree = "<group>"; };
+		BDFBC33F2CE7207200ED8A81 /* RoutineTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTaskView.swift; sourceTree = "<group>"; };
 		FB2A5A7B2CD5F96600CB981A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB2A5A8F2CD7A2C400CB981A /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		FB2A5A912CD7A31200CB981A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -322,7 +328,7 @@
 		FB2A5AAE2CD909A500CB981A /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		FB2A5AB02CD909E400CB981A /* Halo Dek.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Halo Dek.otf"; sourceTree = "<group>"; };
 		FB2A5AB32CD90A6C00CB981A /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
-		FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getDeviceUUID.swift; sourceTree = "<group>"; };
+		FB2A5AB52CD912CD00CB981A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FB2A5ABB2CD92C1700CB981A /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		FB2A5ABD2CD92C2500CB981A /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FB2A5ABF2CD92C6C00CB981A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -775,6 +781,7 @@
 		BD15465A2CD9AA740098AD7B /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				BDFBC33C2CE65FF600ED8A81 /* Model */,
 				BD15465B2CD9AA7D0098AD7B /* View */,
 				BDFBC3202CE3B13A00ED8A81 /* ViewModel */,
 			);
@@ -785,9 +792,11 @@
 			isa = PBXGroup;
 			children = (
 				BD15465C2CD9AA880098AD7B /* SocialView.swift */,
+				BDFBC33D2CE71F6400ED8A81 /* RoutineCardView.swift */,
 				4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */,
 				4BE439992CE1C8FE007E0272 /* SearchBarView.swift */,
 				4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */,
+				BDFBC33F2CE7207200ED8A81 /* RoutineTaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -857,6 +866,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		BDFBC33C2CE65FF600ED8A81 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BDFBC33A2CE65FF200ED8A81 /* UserProfile.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FB2A5A8E2CD7A2B300CB981A /* ServiceError */ = {
 			isa = PBXGroup;
 			children = (
@@ -883,7 +900,7 @@
 			children = (
 				FB2A5AA52CD7E66E00CB981A /* randomNonceString.swift */,
 				FB2A5AA82CD7F1F200CB981A /* sha256.swift */,
-				FB2A5AB52CD912CD00CB981A /* getDeviceUUID.swift */,
+				FB2A5AB52CD912CD00CB981A /* Utils.swift */,
 				BD6301B72CDE73550000203C /* ConvertDays.swift */,
 				BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */,
 			);
@@ -1194,6 +1211,7 @@
 				974596E12CE2978C004C346B /* PieceCounter.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */,
+				BDFBC33E2CE71F6400ED8A81 /* RoutineCardView.swift in Sources */,
 				23BC998A2CE49C66009BE074 /* SummaryView.swift in Sources */,
 				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
 				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,
@@ -1202,7 +1220,7 @@
 				23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
-				FB2A5AB62CD912CD00CB981A /* getDeviceUUID.swift in Sources */,
+				FB2A5AB62CD912CD00CB981A /* Utils.swift in Sources */,
 				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,
@@ -1211,6 +1229,7 @@
 				BD1545C92CD92F5D0098AD7B /* RoutineListView.swift in Sources */,
 				BD912EF82CDB3857007B8503 /* RecommendTask.swift in Sources */,
 				BD1187072CD600E800FF4180 /* RoutineUser.swift in Sources */,
+				BDFBC33B2CE65FF200ED8A81 /* UserProfile.swift in Sources */,
 				4BAE5DB82CE4F1AD00F01153 /* QuotesProvider.swift in Sources */,
 				23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */,
 				BD6301B62CDE52E90000203C /* String+Extension.swift in Sources */,
@@ -1221,6 +1240,7 @@
 				4BAE5DB42CE4866E00F01153 /* ToastModifier.swift in Sources */,
 				4BAE5DB52CE4866E00F01153 /* ToastStyle.swift in Sources */,
 				FBDC52E72CE6D4F80038243D /* AddRoutineTaskView.swift in Sources */,
+				BDFBC3402CE7207200ED8A81 /* RoutineTaskView.swift in Sources */,
 				4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
