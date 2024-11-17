@@ -219,9 +219,8 @@ extension AuthService {
         
         do {
             try await deleteFirestoreData(for: userId)
-            
             try await deleteStorageData(for: userId)
-            
+              
             // 카카오/애플/구글 계정 탈퇴
             if let providerId = user.providerData.first?.providerID {
                 switch providerId {
@@ -238,6 +237,7 @@ extension AuthService {
             
             // Firebase Authentication에서 계정 삭제
             try await user.delete()
+            print("🟩 Firebase Auth 계정 삭제 성공")
             
             return .success(())
         } catch {
@@ -245,6 +245,53 @@ extension AuthService {
         }
     }
     
+    // 구글 계정 탈퇴
+    private func removeGoogleAccount() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw AuthError.signInError
+        }
+
+        do {
+            _ = try await user.unlink(fromProvider: "google.com")
+            print("🟩 Auth DEBUG: 구글 계정 탈퇴 성공!!")
+        } catch let error {
+            print("🟩 Auth DEBUG: 구글 계정 탈퇴 중 에러 발생 \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    // 카카오 계정 탈퇴
+    private func removeKakaoAccount() async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            UserApi.shared.unlink { error in
+                if let error = error {
+                    print("🟨 Auth DEBUG: 카카오톡 탈퇴 중 에러 발생 \(error.localizedDescription)")
+                    continuation.resume(throwing: error)
+                } else {
+                    print("🟨 Auth DEBUG: 카카오톡 탈퇴 성공!!")
+                    continuation.resume(returning: ())
+                }
+            }
+        }
+    }
+    
+    // 애플 계정 탈퇴
+    private func removeAppleAccount() async throws {
+        let token = UserDefaults.standard.string(forKey: "refreshToken")
+        
+        if let token = token {
+            let url = URL(string: "https://us-central1-speakyourmind-5001b.cloudfunctions.net/revokeToken?refresh_token=\(token)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
+            let task = URLSession.shared.dataTask(with: url) { (data, _, _) in
+                guard data != nil else { return }
+                print("🍎 APPLE DEBUG: 탈퇴 성공!!")
+            }
+            task.resume()
+        }
+    }
+}
+
+// MARK: 데이터 삭제(Firestore, Storage)
+extension AuthService {
     // Firestore 데이터 삭제
     private func deleteFirestoreData(for userId: String) async throws {
         let firestore = Firestore.firestore()
@@ -284,51 +331,6 @@ extension AuthService {
                 print("Error deleting profile image: \(error.localizedDescription)")
                 throw error
             }
-        }
-    }
-    
-    // 구글 계정 탈퇴
-    private func removeGoogleAccount() async throws {
-        guard let user = Auth.auth().currentUser else {
-            throw AuthError.signInError
-        }
-
-        _ = try await user.unlink(fromProvider: "google.com")
-        print("🟩 Auth DEBUG: 구글 계정 탈퇴 성공!!")
-    }
-    
-    // 카카오 계정 탈퇴
-    private func removeKakaoAccount() async throws {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            UserApi.shared.unlink { error in
-                if let error = error {
-                    print("🟨 Auth DEBUG: 카카오톡 탈퇴 중 에러 발생 \(error.localizedDescription)")
-                    continuation.resume(throwing: error)
-                } else {
-                    print("🟨 Auth DEBUG: 카카오톡 탈퇴 성공!!")
-                    continuation.resume(returning: ())
-                }
-            }
-        }
-    }
-    
-    // 애플 계정 탈퇴
-    private func removeAppleAccount() async throws {
-        let token = UserDefaults.standard.string(forKey: "refreshToken")
-        
-        if let token = token {
-            let url = URL(string: "https://us-central1-speakyourmind-5001b.cloudfunctions.net/revokeToken?refresh_token=\(token)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "https://apple.com")!
-            let task = URLSession.shared.dataTask(with: url) { (data, _, _) in
-                guard data != nil else { return }
-                print("🍎 APPLE DEBUG: 탈퇴 성공!!")
-            }
-            task.resume()
-        }
-        
-        do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print("🍎 APPLE DEBUG: Apple 탈퇴/로그아웃 에러 발생 \(signOutError.localizedDescription)")
         }
     }
 }
