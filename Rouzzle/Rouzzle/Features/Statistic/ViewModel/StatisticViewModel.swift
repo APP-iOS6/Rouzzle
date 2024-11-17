@@ -15,93 +15,67 @@ class StatisticViewModel {
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
     
-    var routines: [RoutineItem]
-    var currentDate: Date
-    var taskManager: CalendarTaskManager
-    var calendarViewModel: CalendarViewModel
-    var context: ModelContext
+    let routines: [RoutineItem]
+    let context: ModelContext
+    let calendarState: CalendarViewStateManager
+    var isLoading: Bool = false
     
-    init(routines: [RoutineItem], currentDate: Date = Date(), taskManager: CalendarTaskManager = CalendarTaskManager(), context: ModelContext) {
+    init(routines: [RoutineItem], context: ModelContext) {
+        print("📊 StatisticViewModel 초기화")
         self.routines = routines
-        self.currentDate = currentDate
-        self.taskManager = taskManager
-        self.calendarViewModel = CalendarViewModel(
-            currentDate: currentDate,
-            taskManager: taskManager
-        )
         self.context = context
+        self.calendarState = .shared
         
-        // 초기 통계 데이터 로드
-        loadRoutineCompletions()
+        Task {
+            await loadRoutineCompletions()
+        }
     }
     
-    // 루틴 완료 데이터 로드
-    func loadRoutineCompletions() {
-        Task {
-            let result = await routineService.getRoutineCompletions(for: currentDate)
-            if case .success(let completions) = result {
-                await MainActor.run {
-                    taskManager.updateFromRoutineCompletions(completions)
+    @MainActor
+    func loadRoutineCompletions() async {
+        guard !isLoading else { return }
+        isLoading = true
+        
+        let result = await routineService.getRoutineCompletions(for: calendarState.currentDate)
+        if case .success(let completions) = result {
+            calendarState.taskManager.updateFromRoutineCompletions(completions)
+        }
+        
+        isLoading = false
+    }
+    
+    func calculateSuccessRate(for routine: RoutineItem) -> Int {
+        let calendar = Calendar.current
+        
+        guard let interval = calendar.dateInterval(of: .month, for: calendarState.currentDate)
+        else { return 0 }
+        
+        let startOfMonth = interval.start
+        let endOfMonth = interval.end
+        
+        let routineDays = routine.dayStartTime.keys
+        var totalRoutineDays = 0
+        var completedDays = 0
+        
+        var currentDay = startOfMonth
+        while currentDay < endOfMonth {
+            let weekday = calendar.component(.weekday, from: currentDay)
+            
+            if routineDays.contains(weekday) {
+                totalRoutineDays += 1
+                
+                if let status = calendarState.taskManager.getTaskStatus(for: currentDay),
+                   status == .fullyComplete {
+                    completedDays += 1
                 }
             }
+            
+            currentDay = calendar.date(byAdding: .day, value: 1, to: currentDay) ?? endOfMonth
         }
+        
+        return totalRoutineDays > 0 ? Int((Double(completedDays) / Double(totalRoutineDays)) * 100) : 0
     }
     
-    // MARK: - 차트 관련 메서드들
-    // 월간 성공률 계산
-    func calculateSuccessRate(for routine: RoutineItem) -> Int {
-        // 테스트용 랜덤값
-        if let index = routines.firstIndex(where: { $0.id == routine.id }) {
-            switch index {
-            case 0:
-                return Int.random(in: 70...80)
-            case 1:
-                return Int.random(in: 50...60)
-            case 2:
-                return Int.random(in: 60...70)
-            case 3:
-                return Int.random(in: 40...50)
-            default:
-                return Int.random(in: 90...100)
-            }
-        }
-        return Int.random(in: 48...52)
-    }
-    
-    /* 위에는 그래프 확인용 테스트 값 설정 나중에 주석 풀고 확인 해봐야 함
-     let calendar = Calendar.current
-     
-     guard let interval = calendar.dateInterval(of: .month, for: calendarViewModel.currentDate)
-     else { return 0 }
-     
-     let startOfMonth = interval.start
-     let endOfMonth = interval.end
-     
-     let routineDays = routine.dayStartTime.keys
-     var totalRoutineDays = 0
-     var completedDays = 0
-     
-     var currentDay = startOfMonth
-     while currentDay < endOfMonth {
-     let weekday = calendar.component(.weekday, from: currentDay)
-     
-     if routineDays.contains(weekday) {
-     totalRoutineDays += 1
-     
-     if let status = taskManager.getTaskStatus(for: currentDay),
-     status == .fullyComplete {
-     completedDays += 1
-     }
-     }
-     
-     currentDay = calendar.date(byAdding: .day, value: 1, to: currentDay) ?? endOfMonth
-     }
-     
-     return totalRoutineDays > 0 ? Int((Double(completedDays) / Double(totalRoutineDays)) * 100) : 0
-     }
-     */
-    
-    // 최대 연속일 계산
     func getMaxConsecutiveDays() -> Int {
         var maxConsecutiveDays = 0
         var currentMaxRoutineId: String?
@@ -110,13 +84,12 @@ class StatisticViewModel {
             var consecutiveDays = 0
             let currentDate = Date()
             
-            // 최대 30일 전까지 체크
             for dayOffset in 0..<30 {
                 let checkDate = Calendar.current.date(byAdding: .day, value: -dayOffset, to: currentDate)!
                 let weekday = Calendar.current.component(.weekday, from: checkDate)
                 
                 if routine.dayStartTime.keys.contains(weekday) {
-                    if let status = taskManager.getTaskStatus(for: checkDate),
+                    if let status = calendarState.taskManager.getTaskStatus(for: checkDate),
                        status == .fullyComplete {
                         consecutiveDays += 1
                     } else {
@@ -146,7 +119,6 @@ class StatisticViewModel {
         return routine.title
     }
     
-    // 루틴별 새로 추가되는 메서드들
     func getCurrentStreak(for routine: RoutineItem) -> Int {
         var streak = 0
         let calendar = Calendar.current
@@ -156,7 +128,7 @@ class StatisticViewModel {
             let weekday = calendar.component(.weekday, from: currentDate)
             
             if routine.dayStartTime.keys.contains(weekday) {
-                if let status = taskManager.getTaskStatus(for: currentDate),
+                if let status = calendarState.taskManager.getTaskStatus(for: currentDate),
                    status == .fullyComplete {
                     streak += 1
                     currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate) ?? Date()
@@ -182,7 +154,7 @@ class StatisticViewModel {
             let weekday = calendar.component(.weekday, from: checkDate)
             
             if routine.dayStartTime.keys.contains(weekday) {
-                if let status = taskManager.getTaskStatus(for: checkDate),
+                if let status = calendarState.taskManager.getTaskStatus(for: checkDate),
                    status == .fullyComplete {
                     currentStreak += 1
                     maxStreak = max(maxStreak, currentStreak)
@@ -203,7 +175,7 @@ class StatisticViewModel {
             let weekday = calendar.component(.weekday, from: checkDate)
             
             if routine.dayStartTime.keys.contains(weekday) {
-                if let status = taskManager.getTaskStatus(for: checkDate),
+                if let status = calendarState.taskManager.getTaskStatus(for: checkDate),
                    status == .fullyComplete {
                     total += 1
                 }

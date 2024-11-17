@@ -52,7 +52,7 @@ struct StatisticContentView: View {
                             .padding(.horizontal)
                         
                         CalendarView(
-                            viewModel: viewModel.calendarViewModel,
+                            calendarState: viewModel.calendarState,
                             isShowingGuide: $isShowingGuide
                         )
                     }
