@@ -27,6 +27,7 @@ final class CalendarViewStateManager {
         self.currentDate = Date()
         self.taskManager = CalendarTaskManager()
         extractDate()
+        loadDummyData()
     }
     
     // 현재 월로 초기화
