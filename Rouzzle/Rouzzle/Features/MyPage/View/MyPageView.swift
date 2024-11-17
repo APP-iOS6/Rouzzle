@@ -13,6 +13,8 @@ struct MyPageView: View {
     @Environment(AuthStore.self) private var authStore
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingPassView: Bool = false
+    @State private var showTermsOfService = false
+    @State private var showPrivacyPolicy = false
     
     var body: some View {
         NavigationStack {
@@ -170,8 +172,8 @@ struct MyPageView: View {
                         .frame(width: 370, height: 45)
                     }
                     
-                    NavigationLink {
-                        Text("이용 약관 노션으로 띄어줄 예정")
+                    Button {
+                        showTermsOfService.toggle()
                     } label: {
                         HStack {
                             Text("이용 약관")
@@ -185,9 +187,8 @@ struct MyPageView: View {
                         .frame(width: 370, height: 45)
                     }
                     
-                    // 사파리 링크로 노션 띄어줄 예정
-                    NavigationLink {
-                        Text("개인정보 처리방침 노션으로 띄어줄 예정")
+                    Button {
+                        showPrivacyPolicy.toggle()
                     } label: {
                         HStack {
                             Text("개인정보 처리방침")
@@ -233,6 +234,12 @@ struct MyPageView: View {
                          primaryAction: { authStore.logOut() })
             .fullScreenCover(isPresented: $isShowingPassView) {
                 PassView()
+            }
+            .sheet(isPresented: $showTermsOfService) {
+                SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/ae2c4d8c27044967ae9772294f58c428?pvs=74")!)
+            }
+            .sheet(isPresented: $showPrivacyPolicy) {
+                SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/1358843116e6463c805fda45dac76ce0?pvs=4")!)
             }
         }
     }

@@ -9,8 +9,23 @@ import SwiftUI
 
 struct PieceCounter: View {
     let count: Int
-    
+    var isButtonEnabled: Bool = true
+
     var body: some View {
+        Group {
+            if isButtonEnabled {
+                NavigationLink {
+                    ShopView()
+                } label: {
+                    counterContent
+                }
+            } else {
+                counterContent
+            }
+        }
+    }
+
+    private var counterContent: some View {
         HStack {
             Image(.piece)
                 .resizable()
@@ -19,6 +34,7 @@ struct PieceCounter: View {
             
             Text("\(count)")
                 .font(.medium16)
+                .foregroundStyle(.black)
         }
         .frame(width: 70, height: 30)
         .background(
