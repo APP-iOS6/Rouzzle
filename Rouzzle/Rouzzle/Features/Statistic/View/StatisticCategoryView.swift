@@ -29,7 +29,7 @@ struct StatisticCategoryView: View {
                         .padding(.vertical, 10)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
-                                .fill(isSelected ? Color.opacitygreen : Color.white)
+                                .fill(isSelected ? Color.opacityGreen : Color.white)
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
