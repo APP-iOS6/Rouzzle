@@ -27,6 +27,7 @@ class AuthStore {
     }
     
     var authState: AuthState = .splash
+    var loadState: LoadState = .none
     
     ///  자동 로그인 함수
     func autoLogin() {
@@ -82,6 +83,24 @@ class AuthStore {
             authState = .login
         } catch {
             authState = .login
+        }
+    }
+    
+    /// 계정 탈퇴 함수
+    func deleteAccount() {
+        Task {
+            loadState = .loading
+            
+            let result = await authService.deleteAccount()
+            switch result {
+            case .success:
+                isLoggedIn = false
+                authState = .login
+                loadState = .completed
+            case .failure(let error):
+                print("계정 삭제 중 오류 발생: \(error.localizedDescription)")
+                loadState = .none
+            }
         }
     }
 }
