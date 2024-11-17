@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		237BBD8B2CE9973E00D4A44F /* RoutineDetailStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */; };
 		23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */; };
 		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
@@ -176,6 +177,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailStatsView.swift; sourceTree = "<group>"; };
 		23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleLogin.riv; sourceTree = "<group>"; };
 		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 				23BC99892CE49C66009BE074 /* SummaryView.swift */,
 				23BC9A0B2CE85810009BE074 /* RoutineSuccessRateChart.swift */,
 				23BC9A0D2CE85856009BE074 /* MonthSelector.swift */,
+				237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1089,6 +1092,7 @@
 				23BC99EE2CE82CC2009BE074 /* StatisticContentView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
+				237BBD8B2CE9973E00D4A44F /* RoutineDetailStatsView.swift in Sources */,
 				23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */,
 				23BC9A0E2CE85856009BE074 /* MonthSelector.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
