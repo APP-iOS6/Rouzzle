@@ -28,7 +28,7 @@ struct RoutineDetailStatsView: View {
                     }
                     .frame(maxWidth: .infinity)
                     
-                    DashedDivider()
+                    StatisticDashedDivider()
                     
                     // 최대 연속일
                     VStack(spacing: 8) {
@@ -40,7 +40,7 @@ struct RoutineDetailStatsView: View {
                     }
                     .frame(maxWidth: .infinity)
                     
-                    DashedDivider()
+                    StatisticDashedDivider()
                     
                     // 누적일
                     VStack(spacing: 8) {
@@ -57,7 +57,7 @@ struct RoutineDetailStatsView: View {
     }
 }
 
-struct DashedDivider: View {
+struct StatisticDashedDivider: View {
     var body: some View {
         VStack(spacing: 4) {
             ForEach(0..<8, id: \.self) { _ in

@@ -46,11 +46,17 @@ struct StatisticContentView: View {
                     .padding(.horizontal)
                     .padding(.top, 20)
             } else {
-                VStack(spacing: 20) {
-                    CalendarView(
-                        viewModel: viewModel.calendarViewModel,
-                        isShowingGuide: $isShowingGuide
-                    )
+                if let selectedRoutine = routines.first(where: { "\($0.emoji) \($0.title)" == selectedCategory }) {
+                    VStack(spacing: 20) {
+                        RoutineDetailStatsView(routine: selectedRoutine, viewModel: viewModel)
+                            .padding(.horizontal)
+                        
+                        CalendarView(
+                            viewModel: viewModel.calendarViewModel,
+                            isShowingGuide: $isShowingGuide
+                        )
+                    }
+                    .padding(.top, 20)
                 }
             }
         }
