@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct RouzzleChallengeView: View {
+    @State private var selectedPuzzleType: PuzzleType?
+    @State private var showPuzzle: Bool = false
+    
+    private var gridItemSize: CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        let horizontalPadding: CGFloat = 16
+        let middleSpacing: CGFloat = 32
+        return (screenWidth - horizontalPadding - middleSpacing) / 2
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
@@ -18,8 +28,7 @@ struct RouzzleChallengeView: View {
             .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 20) {
-                    // 참여 안내
+                VStack(alignment: .leading, spacing: 15) {
                     HStack(spacing: 5) {
                         Image(systemName: "info.circle")
                             .font(.light12)
@@ -30,48 +39,72 @@ struct RouzzleChallengeView: View {
                             .underline()
                             .foregroundStyle(.gray)
                     }
-                    .padding(.top, 27)
+                    .padding(.top, 20)
                     .onTapGesture {
                         print("참여 안내 탭눌림")
                     }
                     
                     // 메인 챌린지
-                    ZStack(alignment: .bottomTrailing) {
-                        Image(.tuna)
-                            .resizable()
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(370/278, contentMode: .fit)
-                        
-                        RouzzleChallengePlayButton(style: .large) {
-                            print("tuna 퍼즐로 이동")
+                    Button {
+                        selectedPuzzleType = .tuna
+                        showPuzzle = true
+                    } label: {
+                        ZStack(alignment: .bottomTrailing) {
+                            Image(.tuna)
+                                .resizable()
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(370/278, contentMode: .fit)
+                            
+                            RouzzleChallengePlayButton(style: .large)
+                                .padding([.bottom, .trailing], 16)
                         }
-                        .padding([.bottom, .trailing], 16)
                     }
                     .padding(.top, 0)
                     
                     // 퍼즐 이미지 목록
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 16), count: 2), spacing: 24) {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16)
+                        ],
+                        spacing: 24
+                    ) {
                         let puzzleImages = [
-                            ("ned", 1.0), ("chan", 1.0),
-                            ("siyeon", 0.3), ("dongbao", 0.3),
-                            ("baengho", 0.3), ("yoshi", 0.3),
-                            ("gadi", 0.3), ("maple", 0.3)
+                            ("ned", 1.0, PuzzleType.ned),
+                            ("chan", 1.0, PuzzleType.chan),
+                            ("siyeon", 0.3, nil),
+                            ("dongbao", 0.3, nil),
+                            ("baengho", 0.3, nil),
+                            ("yoshi", 0.3, nil),
+                            ("gadi", 0.3, nil),
+                            ("maple", 0.3, nil)
                         ]
                         
-                        ForEach(puzzleImages, id: \.0) { (imageName, opacity) in
-                            ZStack(alignment: .bottomTrailing) {
-                                Image(imageName)
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .frame(width: 173, height: 173)
-                                    .opacity(opacity)
-                                
-                                if opacity == 1.0 {
-                                    RouzzleChallengePlayButton(style: .small) {
-                                        print("\(imageName) 퍼즐로 이동")
+                        ForEach(puzzleImages, id: \.0) { (imageName, opacity, puzzleType) in
+                            if let puzzleType = puzzleType {
+                                Button {
+                                    selectedPuzzleType = puzzleType
+                                    showPuzzle = true
+                                } label: {
+                                    ZStack(alignment: .bottomTrailing) {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .frame(width: gridItemSize, height: gridItemSize)
+                                            .opacity(opacity)
+                                        
+                                        RouzzleChallengePlayButton(style: .small)
+                                            .padding([.bottom, .trailing], 8)
                                     }
-                                    .padding([.bottom, .trailing], 8)
-                                } else {
+                                }
+                            } else {
+                                ZStack(alignment: .bottomTrailing) {
+                                    Image(imageName)
+                                        .resizable()
+                                        .aspectRatio(1, contentMode: .fit)
+                                        .frame(width: gridItemSize, height: gridItemSize)
+                                        .opacity(opacity)
+                                    
                                     PuzzleLockButton()
                                         .padding([.bottom, .trailing], 8)
                                 }
@@ -88,6 +121,12 @@ struct RouzzleChallengeView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
+            .navigationDestination(isPresented: $showPuzzle) {
+                if let puzzleType = selectedPuzzleType {
+                    let game = PuzzleGame(puzzleType: puzzleType)
+                    RouzzleChallengePuzzleView(puzzleGame: game)
+                }
+            }
             .customNavigationBar(title: "루즐 챌린지")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -95,11 +134,6 @@ struct RouzzleChallengeView: View {
                 }
             }
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        RouzzleChallengeView()
+        .hideTabBar(true)
     }
 }
