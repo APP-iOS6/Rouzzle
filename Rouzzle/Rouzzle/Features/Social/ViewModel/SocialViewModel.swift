@@ -14,8 +14,8 @@ import FirebaseAuth
 class SocialViewModel {
     @ObservationIgnored
     @Injected(\.socialService) private var socialService
-    var userProfiles: [UserProfile] = []
-    var userFavorites: [UserProfile] {
+    var userProfiles = Set<UserProfile>()
+    var userFavorites: Set<UserProfile> {
         let favoriteIDs = userProfiles
             .first(where: { $0.documentId == Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID() })?
             .isFavoriteUser ?? []
@@ -37,7 +37,7 @@ class SocialViewModel {
     @MainActor
     func fetchUserProfiles() async {
         do {
-            self.userProfiles = try await socialService.fetchUserInfo()
+            self.userProfiles = try await Set(socialService.fetchUserInfo())
             print("유저 프로필 \(userProfiles)")
         } catch {
             self.error = DBError.firebaseError(error)
@@ -59,6 +59,7 @@ class SocialViewModel {
         self.isSelectedUserUUIDs.removeAll()
     }
     
+    @MainActor
     func deleteFavorite(userID: String) async {
         do {
             try await self.socialService.deleteFavoriteUser(userID: userID)
@@ -74,5 +75,9 @@ class SocialViewModel {
         } else {
             self.isSelectedUserUUIDs.insert(userID)
         }
+    }
+    
+    func judgeFavoriteUsers(userID: String) -> Bool {
+        return !userFavorites.filter { $0.documentId == userID }.isEmpty
     }
 }

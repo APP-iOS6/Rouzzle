@@ -35,8 +35,8 @@ struct SocialView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
-                                ForEach(viewModel.userFavorites, id: \.self) { user in
-                                    NavigationLink(destination: SocialMarkDetailView(userProfile: user)) {
+                                ForEach(Array(viewModel.userFavorites), id: \.self) { user in
+                                    NavigationLink(destination: SocialMarkDetailView(userProfile: user, isStarred: viewModel.judgeFavoriteUsers(userID: user.documentId!))) {
                                         VStack {
                                             ProfileCachedImage(imageUrl: user.profileImageUrl)
                                                 .frame(width: 60, height: 60)
@@ -57,8 +57,8 @@ struct SocialView: View {
                         
                         // 사용자 랜덤으로 보여주기
                         LazyVStack(spacing: 15) {
-                            ForEach(viewModel.userProfiles, id: \.self) { user in
-                                if !viewModel.userFavorites.contains(where: { $0.documentId == user.documentId! }) && !user.routines.isEmpty {
+                            ForEach(Array(viewModel.userProfiles), id: \.self) { user in
+                                if !viewModel.userFavorites.contains(where: { $0.documentId == user.documentId!}) && !user.routines.isEmpty {
                                     if user.documentId != Utils.getUserUUID() {
                                         RoutineCardView(userProfile: user) { id in
                                             viewModel.setSelectedUser(userID: id)
