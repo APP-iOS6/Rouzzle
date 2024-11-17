@@ -23,7 +23,7 @@ struct StatisticContentView: View {
                 VStack(spacing: 16) {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                         .font(.system(size: 60))
-                        .foregroundColor(.graymedium)
+                        .foregroundStyle(.graymedium)
                     
                     VStack(spacing: 8) {
                         Text("등록된 루틴이 없습니다.")
@@ -46,11 +46,17 @@ struct StatisticContentView: View {
                     .padding(.horizontal)
                     .padding(.top, 20)
             } else {
-                VStack(spacing: 20) {
-                    CalendarView(
-                        viewModel: viewModel.calendarViewModel,
-                        isShowingGuide: $isShowingGuide
-                    )
+                if let selectedRoutine = routines.first(where: { "\($0.emoji) \($0.title)" == selectedCategory }) {
+                    VStack(spacing: 20) {
+                        RoutineDetailStatsView(routine: selectedRoutine, viewModel: viewModel)
+                            .padding(.horizontal)
+                        
+                        CalendarView(
+                            calendarState: viewModel.calendarState,
+                            isShowingGuide: $isShowingGuide
+                        )
+                    }
+                    .padding(.top, 20)
                 }
             }
         }

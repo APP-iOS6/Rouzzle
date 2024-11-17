@@ -29,8 +29,17 @@ enum CalendarTaskStatus {
 }
 
 // 달력의 각 날짜
-struct DateValue: Identifiable {
-    var id = UUID().uuidString    // 각 날짜를 구분하기 위한 고유 ID
-    var day: Int                  // 일(1~31)
-    var date: Date                // 전체 날짜 정보
+struct DateValue: Identifiable, Equatable, Hashable {
+    var id = UUID().uuidString
+    var day: Int
+    var date: Date
+    
+    static func == (lhs: DateValue, rhs: DateValue) -> Bool {
+        return lhs.day == rhs.day && Calendar.current.isDate(lhs.date, inSameDayAs: rhs.date)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(day)
+        hasher.combine(date)
+    }
 }

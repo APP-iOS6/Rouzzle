@@ -35,7 +35,7 @@ struct StatisticGuideOverlay: View {
                     HStack(spacing: 8) {
                         Image(systemName: "puzzlepiece.extension.fill")
                             .font(.system(size: 24))
-                            .foregroundColor(.partiallyCompletePuzzle)
+                            .foregroundStyle(Color.partiallyCompletePuzzle)
                         Text("할 일 일부만 완료")
                             .font(.medium11)
                     }
@@ -43,7 +43,7 @@ struct StatisticGuideOverlay: View {
                     HStack(spacing: 8) {
                         Image(systemName: "puzzlepiece.extension.fill")
                             .font(.system(size: 24))
-                            .foregroundColor(.accentColor)
+                            .foregroundStyle(Color.accent)
                         Text("할 일 전부 완료")
                             .font(.medium11)
                     }
