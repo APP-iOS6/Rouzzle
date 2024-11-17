@@ -23,7 +23,7 @@ struct StatisticContentView: View {
                 VStack(spacing: 16) {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                         .font(.system(size: 60))
-                        .foregroundColor(.graymedium)
+                        .foregroundStyle(.graymedium)
                     
                     VStack(spacing: 8) {
                         Text("등록된 루틴이 없습니다.")

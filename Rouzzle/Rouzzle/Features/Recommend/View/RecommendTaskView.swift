@@ -29,7 +29,7 @@ struct RecommendTaskView: View {
                             .font(.headline)
                         Text("\(task.timer)분")
                             .font(.regular12)
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
                     }
                 }
                 
@@ -38,7 +38,7 @@ struct RecommendTaskView: View {
                 Button(action: onTap) {
                     Image(systemName: isSelected ? "checkmark.circle.fill" : "plus.circle.fill")
                         .font(.system(size: 24))
-                        .foregroundColor(isSelected ? .accentColor : .graylight)
+                        .foregroundStyle(isSelected ? .accent : .graylight)
                 }
             }
             .padding(.horizontal, 16)

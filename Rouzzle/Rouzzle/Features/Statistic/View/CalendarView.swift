@@ -18,7 +18,7 @@ struct CalendarView: View {
                     .font(.bold16)
                 Image(systemName: "questionmark.circle")
                     .frame(width: 15, height: 15)
-                    .foregroundStyle(.graymedium)
+                    .foregroundStyle(Color.graymedium)
                     .onTapGesture {
                         isShowingGuide.toggle()
                     }
@@ -30,7 +30,7 @@ struct CalendarView: View {
                     } label: {
                         Image(systemName: "chevron.left")
                             .font(.regular14)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(Color.gray)
                     }
                     
                     Text(viewModel.extraData()[1] + "년 " + viewModel.extraData()[0] + "월")
@@ -41,7 +41,7 @@ struct CalendarView: View {
                     } label: {
                         Image(systemName: "chevron.right")
                             .font(.regular14)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(Color.gray)
                     }
                 }
             }
@@ -52,7 +52,7 @@ struct CalendarView: View {
                     Text(day)
                         .font(.medium12)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(viewModel.getDayColor(for: index))
+                        .foregroundStyle(viewModel.getDayColor(for: index))
                 }
             }
             
@@ -67,24 +67,24 @@ struct CalendarView: View {
                                     if status == .fullyComplete {
                                         Image(systemName: "puzzlepiece.extension.fill")
                                             .font(.system(size: 35))
-                                            .foregroundColor(.accentColor)
+                                            .foregroundStyle(Color.accentColor)
                                         Text("\(value.day)")
                                             .font(.medium16)
-                                            .foregroundColor(.white)
+                                            .foregroundStyle(Color.white)
                                             .frame(width: 35, height: 35)
                                     } else {
                                         Image(systemName: "puzzlepiece.extension.fill")
                                             .font(.system(size: 35))
-                                            .foregroundColor(.partiallyCompletePuzzle)
+                                            .foregroundStyle(Color.partiallyCompletePuzzle)
                                         Text("\(value.day)")
                                             .font(.medium16)
-                                            .foregroundStyle(.primary)
+                                            .foregroundStyle(Color.primary)
                                             .frame(width: 35, height: 35)
                                     }
                                 } else {
                                     Text("\(value.day)")
                                         .font(.medium16)
-                                        .foregroundColor(.primary)
+                                        .foregroundStyle(Color.primary)
                                         .frame(width: 35, height: 35)
                                         .background(
                                             Circle()
