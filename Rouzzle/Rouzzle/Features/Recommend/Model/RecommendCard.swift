@@ -229,7 +229,6 @@ struct DummyCardData {
     static let petCards: [Card] = [
         Card(
             title: "아침 반려동물 케어",
-            subTitle: "라이프 스타일",
             imageName: "🌅",
             fullText: "반려동물이 상쾌한 아침을 시작할 수 있도록 돌보는 루틴입니다.",
             routines: [
@@ -288,7 +287,6 @@ struct DummyCardData {
         ),
         Card(
             title: "집중력 높이기",
-            subTitle: "효율적인 업무",
             imageName: "🎯",
             fullText: "집중력을 유지하며 업무와 학습을 효율적으로 처리하는 루틴입니다.",
             routines: [
@@ -325,7 +323,6 @@ struct DummyCardData {
     static let restCards: [Card] = [
         Card(
             title: "완전한 휴식",
-            subTitle: "힐링",
             imageName: "🛋",
             fullText: "몸과 마음의 피로를 풀고 에너지를 재충전할 수 있는 휴식 루틴입니다.",
             routines: [
