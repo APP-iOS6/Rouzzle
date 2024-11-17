@@ -34,7 +34,8 @@ struct RecommendView: View {
                 allCheckBtn: $allCheckBtn
             ) { title, emoji, rotineItem in
                 guard let routine = rotineItem else {
-                    addNewRoutine = RoutineItem(title: title, emoji: emoji, dayStartTime: [:])
+                    let userUid = Utils.getUserUUID()
+                    addNewRoutine = RoutineItem(title: title, emoji: emoji, dayStartTime: [:], userId: userUid)
                     addNewRoutine?.taskList = viewModel.selectedRecommend.map { $0.toTaskList() }
                     return
                 }
