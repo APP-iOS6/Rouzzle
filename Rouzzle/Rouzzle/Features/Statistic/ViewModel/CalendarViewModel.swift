@@ -25,6 +25,7 @@ class CalendarViewModel {
         self.currentDate = currentDate
         self.taskManager = taskManager
         extractDate()
+        loadDummyData()
     }
     
     func moveMonth(direction: Int) {
