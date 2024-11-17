@@ -83,22 +83,22 @@ class StatisticViewModel {
      
      var currentDay = startOfMonth
      while currentDay < endOfMonth {
-         let weekday = calendar.component(.weekday, from: currentDay)
-         
-         if routineDays.contains(weekday) {
-             totalRoutineDays += 1
-             
-             if let status = taskManager.getTaskStatus(for: currentDay),
-                status == .fullyComplete {
-                 completedDays += 1
-             }
-         }
-         
-         currentDay = calendar.date(byAdding: .day, value: 1, to: currentDay) ?? endOfMonth
+     let weekday = calendar.component(.weekday, from: currentDay)
+     
+     if routineDays.contains(weekday) {
+     totalRoutineDays += 1
+     
+     if let status = taskManager.getTaskStatus(for: currentDay),
+     status == .fullyComplete {
+     completedDays += 1
+     }
+     }
+     
+     currentDay = calendar.date(byAdding: .day, value: 1, to: currentDay) ?? endOfMonth
      }
      
      return totalRoutineDays > 0 ? Int((Double(completedDays) / Double(totalRoutineDays)) * 100) : 0
- }
+     }
      */
     
     // 최대 연속일 계산
@@ -144,5 +144,71 @@ class StatisticViewModel {
             return "없음"
         }
         return routine.title
+    }
+    
+    // 루틴별 새로 추가되는 메서드들
+    func getCurrentStreak(for routine: RoutineItem) -> Int {
+        var streak = 0
+        let calendar = Calendar.current
+        var currentDate = Date()
+        
+        while true {
+            let weekday = calendar.component(.weekday, from: currentDate)
+            
+            if routine.dayStartTime.keys.contains(weekday) {
+                if let status = taskManager.getTaskStatus(for: currentDate),
+                   status == .fullyComplete {
+                    streak += 1
+                    currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate) ?? Date()
+                } else {
+                    break
+                }
+            } else {
+                currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate) ?? Date()
+            }
+            
+            if streak >= 30 { break }
+        }
+        return streak
+    }
+    
+    func getMaxStreak(for routine: RoutineItem) -> Int {
+        var maxStreak = 0
+        var currentStreak = 0
+        let calendar = Calendar.current
+        
+        for dayOffset in 0..<30 {
+            let checkDate = calendar.date(byAdding: .day, value: -dayOffset, to: Date()) ?? Date()
+            let weekday = calendar.component(.weekday, from: checkDate)
+            
+            if routine.dayStartTime.keys.contains(weekday) {
+                if let status = taskManager.getTaskStatus(for: checkDate),
+                   status == .fullyComplete {
+                    currentStreak += 1
+                    maxStreak = max(maxStreak, currentStreak)
+                } else {
+                    currentStreak = 0
+                }
+            }
+        }
+        return maxStreak
+    }
+    
+    func getTotalCompletedDays(for routine: RoutineItem) -> Int {
+        var total = 0
+        let calendar = Calendar.current
+        
+        for dayOffset in 0..<30 {
+            let checkDate = calendar.date(byAdding: .day, value: -dayOffset, to: Date()) ?? Date()
+            let weekday = calendar.component(.weekday, from: checkDate)
+            
+            if routine.dayStartTime.keys.contains(weekday) {
+                if let status = taskManager.getTaskStatus(for: checkDate),
+                   status == .fullyComplete {
+                    total += 1
+                }
+            }
+        }
+        return total
     }
 }
