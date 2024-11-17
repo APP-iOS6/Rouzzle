@@ -90,11 +90,6 @@ class EditRoutineViewModel {
                 }
                 saveRoutine()
                 try context.save()
-                // 여기에 알림 추가
-                NotificationCenter.default.post(
-                    name: NSNotification.Name("RoutineUpdated"),
-                    object: nil
-                )
                 loadState = .completed
             } catch {
                 loadState = .failed
@@ -123,12 +118,6 @@ class EditRoutineViewModel {
                 for task in uploadRoutine.routineTask.map({ $0.toTaskList() }) {
                     try SwiftDataService.addTask(to: routineItem, task, context: context)
                 }
-                try context.save()
-                // 여기에 알림 추가
-                NotificationCenter.default.post(
-                    name: NSNotification.Name("RoutineUpdated"),
-                    object: nil
-                )
                 loadState = .completed
             } catch {
                 errorMessage = "루틴 등록에 실패했습니디."
