@@ -10,6 +10,7 @@ import SwiftUI
 struct AccountManagementView: View {
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingDeleteRoutineAlert: Bool = false
+    @State private var isShowingLinkEmailSheet: Bool = false
     @State private var viewModel = AccountManagementViewModel()
     @Environment(AuthStore.self) private var authStore
 
@@ -22,8 +23,8 @@ struct AccountManagementView: View {
                 Spacer()
                 
                 if viewModel.isGuestUser {
-                    NavigationLink {
-                        
+                    Button {
+                        isShowingLinkEmailSheet.toggle()
                     } label: {
                         HStack {
                             Text("이메일 연동하기")
@@ -79,6 +80,9 @@ struct AccountManagementView: View {
                      message: "초기화 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.",
                      primaryButtonTitle: "초기화",
                      primaryAction: { /* 로직 추가 예정 */ })
+        .fullScreenCover(isPresented: $isShowingLinkEmailSheet) {
+            LinkEmailView()
+        }
     }
 }
 

@@ -82,6 +82,8 @@
 		974596DF2CE28300004C346B /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596DE2CE28300004C346B /* ShopView.swift */; };
 		974596E12CE2978C004C346B /* PieceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596E02CE2978C004C346B /* PieceCounter.swift */; };
 		9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9791BB812CDDCB00007BD566 /* FloatingButton.swift */; };
+		97D295E42CEB156700B8B5D5 /* LinkEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D295E32CEB156700B8B5D5 /* LinkEmailView.swift */; };
+		97D295E62CEB196C00B8B5D5 /* LinkEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D295E52CEB196C00B8B5D5 /* LinkEmailViewModel.swift */; };
 		97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */; };
 		97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */; };
 		97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */; };
@@ -260,6 +262,8 @@
 		974596DE2CE28300004C346B /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		974596E02CE2978C004C346B /* PieceCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceCounter.swift; sourceTree = "<group>"; };
 		9791BB812CDDCB00007BD566 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
+		97D295E32CEB156700B8B5D5 /* LinkEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmailView.swift; sourceTree = "<group>"; };
+		97D295E52CEB196C00B8B5D5 /* LinkEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmailViewModel.swift; sourceTree = "<group>"; };
 		97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingSheet.swift; sourceTree = "<group>"; };
@@ -540,6 +544,7 @@
 				97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */,
 				97E575592CE64C560070FC84 /* FAQViewModel.swift */,
 				97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */,
+				97D295E52CEB196C00B8B5D5 /* LinkEmailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -826,6 +831,7 @@
 				974596DE2CE28300004C346B /* ShopView.swift */,
 				97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */,
 				97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */,
+				97D295E32CEB156700B8B5D5 /* LinkEmailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1177,6 +1183,7 @@
 				23BC99C82CE6ECC4009BE074 /* TabBarModifier.swift in Sources */,
 				23BC99BE2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
+				97D295E62CEB196C00B8B5D5 /* LinkEmailViewModel.swift in Sources */,
 				97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */,
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
@@ -1229,6 +1236,7 @@
 				9740ABD52CEA816200B36F34 /* SafariView.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* Utils.swift in Sources */,
+				97D295E42CEB156700B8B5D5 /* LinkEmailView.swift in Sources */,
 				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,

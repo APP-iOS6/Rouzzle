@@ -17,9 +17,9 @@ import FirebaseStorage
 
 protocol AuthServiceType {
     func checkFirstUser(_ userUid: String) async -> Result<Bool, Error>
-    func signInWithGoogle() async -> Result<String, Error>
-    func signInWithKakao() async -> Result<String, Error>
-    func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error>
+    func signInWithGoogle(shouldLink: Bool) async -> Result<String, Error>
+    func signInWithKakao(shouldLink: Bool) async -> Result<String, Error>
+    func signInWithApple(_ authorization: ASAuthorization, nonce: String, shouldLink: Bool) async -> Result<String, Error>
     func deleteAccount() async -> Result<Void, Error>
 }
 
@@ -38,7 +38,7 @@ class AuthService: AuthServiceType {
 // MARK: 구글 로그인 구현
 extension AuthService {
     @MainActor
-    func signInWithGoogle() async -> Result<String, Error> {
+    func signInWithGoogle(shouldLink: Bool = false) async -> Result<String, Error> {
         
         guard let clientId = FirebaseApp.app()?.options.clientID else {
             return (.failure(AuthError.clientIdError))
@@ -63,10 +63,14 @@ extension AuthService {
             // accessToken 생성
             let accessToken = user.accessToken.tokenString
             
-            // creential 생성
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-            
-            return try await authenticationUserWithFirebase(credential: credential)
+            if shouldLink {
+                // 이메일 연동을 위한 토큰으로 linkWithSocial 호출
+                return await linkWithSocial(provider: .google(idToken: idToken, accessToken: accessToken))
+            } else {
+                // 기존 로그인 흐름 유지
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+                return try await authenticationUserWithFirebase(credential: credential)
+            }
         } catch {
             return .failure(AuthError.invalidate)
         }
@@ -76,7 +80,7 @@ extension AuthService {
 // MARK: 카카오 로그인 구현을 위한 extension
 extension AuthService {
     @MainActor
-    func signInWithKakao() async -> Result<String, Error> {
+    func signInWithKakao(shouldLink: Bool = false) async -> Result<String, Error> {
         if UserApi.isKakaoTalkLoginAvailable() {
             do {
                 let oauthToken = try await loginWithKakaoTalkAsync()
@@ -88,10 +92,14 @@ extension AuthService {
                 
                 let accessToken = oauthToken.accessToken
                 
-                let crendential = OAuthProvider.credential(providerID: .custom("oidc.oidc.kakao"), idToken: idToken, accessToken: accessToken)
-                
-                return try await authenticationUserWithFirebase(credential: crendential)
-                
+                if shouldLink {
+                    // 이메일 연동을 위한 토큰으로 linkWithSocial 호출
+                    return await linkWithSocial(provider: .kakao(idToken: idToken, accessToken: accessToken))
+                } else {
+                    // 기존 로그인 흐름 유지
+                    let crendential = OAuthProvider.credential(providerID: .custom("oidc.oidc.kakao"), idToken: idToken, accessToken: accessToken)
+                    return try await authenticationUserWithFirebase(credential: crendential)
+                }
             } catch {
                 return .failure(AuthError.clientIdError)
             }
@@ -171,7 +179,7 @@ extension AuthService {
 // MARK: 애플 로그인 구현
 extension AuthService {
     @MainActor
-    func signInWithApple(_ authorization: ASAuthorization, nonce: String) async -> Result<String, Error> {
+    func signInWithApple(_ authorization: ASAuthorization, nonce: String, shouldLink: Bool = false) async -> Result<String, Error> {
         guard let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
             return (.failure(AuthError.tokenError))
         }
@@ -184,12 +192,17 @@ extension AuthService {
             return (.failure(AuthError.tokenError))
         }
 
-        let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
-        
-        do {
-            return try await authenticationUserWithFirebase(credential: credential)
-        } catch {
-            return .failure(AuthError.invalidate)
+        if shouldLink {
+            // 이메일 연동을 위한 토큰으로 linkWithSocial 호출
+            return await linkWithSocial(provider: .apple(idToken: idTokenString, nonce: nonce))
+        } else {
+            // 기존 로그인 흐름 유지
+            let credential = OAuthProvider.credential(providerID: .apple, idToken: idTokenString, rawNonce: nonce)
+            do {
+                return try await authenticationUserWithFirebase(credential: credential)
+            } catch {
+                return .failure(AuthError.invalidate)
+            }
         }
     }
 }
@@ -332,5 +345,42 @@ extension AuthService {
                 throw error
             }
         }
+    }
+}
+
+extension AuthService {
+    /// 이메일 연동 함수
+    @MainActor
+    func linkWithSocial(provider: AuthProvider) async -> Result<String, Error> {
+        guard let user = Auth.auth().currentUser else {
+            return .failure(AuthError.signInError) // 여전히 nil이라면 실패 반환
+        }
+        
+        do {
+            let credential: AuthCredential
+            switch provider {
+            case .google(let idToken, let accessToken):
+                credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+            case .apple(let idToken, let nonce):
+                credential = OAuthProvider.credential(providerID: .apple, idToken: idToken, rawNonce: nonce)
+            case .kakao(let idToken, let accessToken):
+                credential = OAuthProvider.credential(providerID: .custom("oidc.oidc.kakao"), idToken: idToken, accessToken: accessToken)
+            }
+            
+            // 현재 사용자에 소셜 계정 연동
+            let result = try await user.link(with: credential)
+            let linkedUserId = result.user.uid
+            print("✅ 이메일 연동 성공: \(user.uid)")
+            return .success(linkedUserId)
+        } catch {
+            print("⛔️ 이메일 연동 실패: \(error.localizedDescription)")
+            return .failure(error)
+        }
+    }
+    
+    enum AuthProvider {
+        case google(idToken: String, accessToken: String)
+        case apple(idToken: String, nonce: String)
+        case kakao(idToken: String, accessToken: String)
     }
 }
