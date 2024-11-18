@@ -54,7 +54,7 @@ struct ShopView: View {
         .customNavigationBar(title: "SHOP")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                PieceCounter(count: 9)
+                PieceCounter(count: 9, isButtonEnabled: false)
             }
         }
     }

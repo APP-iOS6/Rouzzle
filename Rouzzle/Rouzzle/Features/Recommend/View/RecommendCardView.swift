@@ -20,7 +20,8 @@ struct RecommendCardView: View {
                 .matchedGeometryEffect(id: "image\(card.id)", in: animation)
             
             Text(card.title)
-                .font(.semibold18)
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(.basic)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .matchedGeometryEffect(id: "title\(card.id)", in: animation)
@@ -34,13 +35,14 @@ struct RecommendCardView: View {
                     .clipShape(.rect(cornerRadius: 18))
             }
             
-            Spacer()
             Image(systemName: "chevron.down")
                 .foregroundStyle(.graymedium)
+                .font(.system(size: 20, weight: .bold))
         }
         .padding()
+        .frame(width: 370, height: 100)
         .background(
-            RoundedRectangle(cornerRadius: 13)
+            RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.graylight, lineWidth: 1)
                 .matchedGeometryEffect(id: "background\(card.id)", in: animation)
         )
@@ -49,9 +51,5 @@ struct RecommendCardView: View {
 }
 
 #Preview {
-    RecommendCardView(
-        card: DummyCardData.celebrityCards.first!,
-        animation: Namespace().wrappedValue,
-        onTap: {}
-    )
+    RecommendView()
 }

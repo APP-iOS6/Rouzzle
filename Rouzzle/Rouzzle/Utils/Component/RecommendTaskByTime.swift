@@ -12,19 +12,18 @@ struct RecommendTaskByTime: View {
     
     var body: some View {
         ZStack {
-            Image(.recommendTaskByTime)
-                .resizable()
-                .frame(maxWidth: .infinity)
-                .aspectRatio(370 / 71, contentMode: .fit)
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.themeColor)
             
             Text(category.description)
                 .font(.bold20)
                 .padding()
         }
-        .frame(width: 370)
+        .frame(maxWidth: .infinity)
+        .frame(height: 68)
     }
 }
 
 #Preview {
-        RecommendTaskByTime(category: .morning)
+    RecommendTaskByTime(category: .morning)
 }

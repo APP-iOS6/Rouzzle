@@ -13,7 +13,6 @@
 		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
 		23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */; };
-		23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC212CDC134B00C4C44A /* DashedVerticalLine.swift */; };
 		23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */; };
 		23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */; };
 		23BC98D52CE1D56E009BE074 /* RecommendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D42CE1D56E009BE074 /* RecommendCard.swift */; };
@@ -74,6 +73,7 @@
 		9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */; };
 		97370D1D2CDA8A5600E90D65 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */; };
 		97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */; };
+		9740ABD52CEA816200B36F34 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9740ABD42CEA816200B36F34 /* SafariView.swift */; };
 		974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596D22CE1C892004C346B /* ProfileEditView.swift */; };
 		974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596D62CE1D61A004C346B /* CustomAlert.swift */; };
 		974596DB2CE1E721004C346B /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596DA2CE1E721004C346B /* FAQView.swift */; };
@@ -192,7 +192,6 @@
 		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
 		23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskByTime.swift; sourceTree = "<group>"; };
-		23B7CC212CDC134B00C4C44A /* DashedVerticalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedVerticalLine.swift; sourceTree = "<group>"; };
 		23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCategoryView.swift; sourceTree = "<group>"; };
 		23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardView.swift; sourceTree = "<group>"; };
 		23BC98D42CE1D56E009BE074 /* RecommendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCard.swift; sourceTree = "<group>"; };
@@ -251,6 +250,7 @@
 		9736FA782CDB41A0009C2E60 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		9736FA7A2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSettingsSheet.swift; sourceTree = "<group>"; };
 		97370D1C2CDA8A5600E90D65 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		9740ABD42CEA816200B36F34 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		974596D22CE1C892004C346B /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		974596D62CE1D61A004C346B /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		974596DA2CE1E721004C346B /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
@@ -580,7 +580,6 @@
 				BD3B03922CDA03A70006F5AD /* TaskStatusPuzzle.swift */,
 				BD912EF72CDB3857007B8503 /* RecommendTask.swift */,
 				23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */,
-				23B7CC212CDC134B00C4C44A /* DashedVerticalLine.swift */,
 				BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */,
 				23BC99C72CE6ECC4009BE074 /* TabBarModifier.swift */,
 				BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */,
@@ -593,6 +592,7 @@
 				23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */,
 				23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */,
 				BDFBC3382CE638B900ED8A81 /* CacheImage.swift */,
+				9740ABD42CEA816200B36F34 /* SafariView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1223,6 +1223,7 @@
 				23BC998C2CE49C94009BE074 /* RegisteredRoutinesView.swift in Sources */,
 				23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */,
 				BD1186F62CD5531400FF4180 /* Font+Extension.swift in Sources */,
+				9740ABD52CEA816200B36F34 /* SafariView.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* Utils.swift in Sources */,
 				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
@@ -1248,7 +1249,6 @@
 				4BAE5DB62CE4866E00F01153 /* ToastView.swift in Sources */,
 				FB2A5ABE2CD92C2500CB981A /* SignUpViewModel.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
-				23B7CC222CDC134B00C4C44A /* DashedVerticalLine.swift in Sources */,
 				23BC99EA2CE82C11009BE074 /* StatisticGuideOverlay.swift in Sources */,
 				BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */,
 				97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */,
