@@ -9,65 +9,108 @@ import SwiftUI
 
 struct TimeBasedRecommendSetView: View {
     @Environment(\.dismiss) private var dismiss
-    let category: RoutineCategoryByTime // 카테고리 아침, 오후, 저녁, 휴식을 전달받음
+    let category: RoutineCategoryByTime
     let action: ([RecommendTodoTask]) -> Void
     @State var addRecommendTask: [RecommendTodoTask] = []
+    @State var allCheckBtn: Bool = false
+    @State private var selectedTasks: [String: Bool] = [:]
+
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("subbackgroundcolor")
+                Color(.subbackgroundcolor)
                     .edgesIgnoringSafeArea(.all)
                 
-                ScrollView {
-                    VStack(alignment: .center, spacing: 8) {
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .center, spacing: 30) {
                         RecommendTaskByTime(category: category)
-                            .frame(width: 370)
+                            .frame(maxWidth: .infinity)
                             .padding(.top, 20)
-                        
-                        DashedVerticalLine()
-                            .frame(maxHeight: 40)
-                            .padding(.vertical, 5)
+                            .padding(.bottom, 20)
                         
                         ForEach(category.tasks.indices, id: \.self) { index in
-                            VStack {
-                                RecommendTask(
-                                    emojiTxt: category.tasks[index].emoji,
-                                    title: category.tasks[index].title,
-                                    timeInterval: category.tasks[index].timeInterval.formattedTimer,
-                                    isPlus: false,
-                                    description: category.tasks[index].description
-                                ) {
-                                    let recommendTodoTask = RecommendTodoTask(emoji: category.tasks[index].emoji, title: category.tasks[index].title, timer: category.tasks[index].timeInterval)
-                                    if addRecommendTask.contains(where: { $0.title == recommendTodoTask.title}) {
-                                        addRecommendTask.removeAll(where: { $0.title == recommendTodoTask.title })
-                                    } else {
-                                        addRecommendTask.append(recommendTodoTask)
+                            let task = category.tasks[index]
+                            RecommendTask(
+                                isPlus: Binding(
+                                    get: { addRecommendTask.contains(where: { $0.title == task.title }) },
+                                    set: { isSelected in
+                                        if isSelected {
+                                            let recommendTodoTask = RecommendTodoTask(
+                                                emoji: task.emoji,
+                                                title: task.title,
+                                                timer: task.timeInterval
+                                            )
+                                            addRecommendTask.append(recommendTodoTask)
+                                        } else {
+                                            addRecommendTask.removeAll(where: { $0.title == task.title })
+                                        }
+                                        allCheckBtn = (addRecommendTask.count == category.tasks.count)
                                     }
+                                ),
+                                emojiTxt: task.emoji,
+                                title: task.title,
+                                timeInterval: task.timeInterval.formattedTimer,
+                                description: task.description
+                            ) {
+                                let recommendTodoTask = RecommendTodoTask(
+                                    emoji: task.emoji,
+                                    title: task.title,
+                                    timer: task.timeInterval
+                                )
+                                if addRecommendTask.contains(where: { $0.title == recommendTodoTask.title }) {
+                                    addRecommendTask.removeAll(where: { $0.title == recommendTodoTask.title })
+                                } else {
+                                    addRecommendTask.append(recommendTodoTask)
                                 }
                                 
-                                if index < category.tasks.count - 1 {
-                                    DashedVerticalLine()
-                                        .frame(maxHeight: 40)
-                                        .padding(.vertical, 5)
-                                }
+                                allCheckBtn = (addRecommendTask.count == category.tasks.count)
                             }
-                            .frame(width: 370)
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, index < category.tasks.count - 1 ? 25 : 0)
                         }
                         
-                        Spacer()
-                        
+                        HStack {
+                            Spacer()
+                            HStack {
+                                Image(systemName: allCheckBtn ? "checkmark.square.fill" : "square")
+                                    .foregroundColor(allCheckBtn ? .accentColor : .gray)
+                                Text("전체선택")
+                                    .font(.regular16)
+                                    .foregroundColor(.gray)
+                            }
+                            .onTapGesture {
+                                toggleAllTasks()
+                            }
+                        }
+                        .padding(.bottom, 20)
+
                         RouzzleButton(buttonType: .save) {
                             action(addRecommendTask)
                             dismiss()
                         }
-                        .frame(width: 370)
+                        .frame(maxWidth: .infinity)
                         .padding(.vertical, 20)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 0)
                     .padding(.bottom, 30)
-                    .customNavigationBar(title: "추천 세트")
                 }
+                .customNavigationBar(title: "추천 세트")
+            }
+        }
+    }
+    
+    private func toggleAllTasks() {
+        if allCheckBtn {
+            allCheckBtn = false
+            addRecommendTask.removeAll()
+        } else {
+            allCheckBtn = true
+            addRecommendTask = category.tasks.map {
+                RecommendTodoTask(
+                    emoji: $0.emoji,
+                    title: $0.title,
+                    timer: $0.timeInterval
+                )
             }
         }
     }
@@ -75,6 +118,6 @@ struct TimeBasedRecommendSetView: View {
 
 #Preview {
     NavigationStack {
-        TimeBasedRecommendSetView(category: .morning) { _ in}
+        TimeBasedRecommendSetView(category: .morning) { _ in }
     }
 }
