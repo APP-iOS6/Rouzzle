@@ -11,6 +11,7 @@ struct ComponentView: View {
     @State var text: String = ""
     @State private var emojiText = ""
     @State private var selectedEmoji: String? = "🧩"
+    @State private var isPlus: Bool = true
     
     var body: some View {
         ScrollView {
@@ -35,9 +36,7 @@ struct ComponentView: View {
                 
                 RecommendTaskByTime(category: .morning)
                 
-                DashedVerticalLine()
-                
-                RecommendTask(isPlus: false) {}
+                RecommendTask(isPlus: $isPlus) {}
                 
                 FloatingButton(action: {})
             }

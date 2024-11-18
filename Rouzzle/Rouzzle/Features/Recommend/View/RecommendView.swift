@@ -16,7 +16,7 @@ struct RecommendView: View {
     @State private var allCheckBtn: Bool = false
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) { // spacing을 0으로 설정
             HStack {
                 Text("추천")
                     .font(.semibold18)
@@ -25,8 +25,10 @@ struct RecommendView: View {
                 Spacer()
             }
             .padding(.top, 20)
+            .padding(.bottom, 12) // 상단 타이틀과 카테고리 사이 간격
 
             RecommendCategoryView(selectedCategory: $viewModel.selectedCategory)
+                .padding(.bottom, 20) // 카테고리와 카드리스트 사이 간격 고정
             
             RecommendCardListView(
                 cards: $viewModel.filteredCards,
@@ -45,18 +47,17 @@ struct RecommendView: View {
                     allCheckBtn = false
                 }
             }
+            
             Spacer()
         }
-        .toastView(toast: $toast) // ToastModifier 적용
+        .toastView(toast: $toast)
         .overlay {
             if viewModel.loadState == .loading {
                 ProgressView()
             }
         }
         .onChange(of: viewModel.toastMessage) { _, new in
-            guard let new else {
-                return
-            }
+            guard let new else { return }
             if viewModel.loadState == .completed {
                 toast = ToastModel(type: .success, message: new)
                 viewModel.toastMessage = nil
@@ -74,8 +75,4 @@ struct RecommendView: View {
             }
         }
     }
-}
-
-#Preview {
-    RecommendView()
 }
