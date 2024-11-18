@@ -359,7 +359,11 @@ extension AuthService {
             let linkedUserId = result.user.uid
             print("✅ 이메일 연동 성공: \(user.uid)")
             return .success(linkedUserId)
-        } catch {
+        } catch let error as NSError {
+            if error.code == AuthErrorCode.credentialAlreadyInUse.rawValue {
+                print("⛔️ 이미 연동된 계정")
+                return .failure(AuthError.credentialAlreadyInUse)
+            }
             print("⛔️ 이메일 연동 실패: \(error.localizedDescription)")
             return .failure(error)
         }

@@ -122,6 +122,9 @@ struct LinkEmailView: View {
                 }
                 .padding()
                 .frame(width: geometry.size.width)
+                .alert(isPresented: $viewModel.showErrorAlert) {
+                    Alert(title: Text("연동 실패"), message: Text(viewModel.errorMessage), dismissButton: .default(Text("확인")))
+                }
             }
         }
     }
