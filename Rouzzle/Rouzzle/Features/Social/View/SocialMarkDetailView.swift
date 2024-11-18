@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SocialMarkDetailView: View {
     var userProfile: UserProfile
-    @State private var isStarred: Bool = false
+    @State var isStarred: Bool
+    @State private var viewModel: SocialViewModel = SocialViewModel()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -29,6 +30,7 @@ struct SocialMarkDetailView: View {
                         
                         Button(action: {
                             isStarred.toggle()
+                            viewModel.setSelectedUser(userID: userProfile.documentId!)
                         }, label: {
                             Image(systemName: isStarred ? "star.fill" : "star")
                                 .foregroundColor(isStarred ? .yellow : .gray)
@@ -64,6 +66,13 @@ struct SocialMarkDetailView: View {
                     .background(
                         RoundedRectangle(cornerRadius: 12)
                     )
+                }
+            }
+        }
+        .onDisappear {
+            if !isStarred {
+                Task {
+                    await viewModel.deleteFavorite(userID: userProfile.documentId!)
                 }
             }
         }

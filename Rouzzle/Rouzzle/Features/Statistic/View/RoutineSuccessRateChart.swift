@@ -27,7 +27,7 @@ struct RoutineSuccessRateChart: View {
                     .truncationMode(.tail)
                     .frame(width: 60, alignment: .leading)
                     .overlay(
-                        Text(routine.title.count > 5 ? routine.title.prefix(5) + "..." : routine.title)
+                        Text(routine.title.count > 5 ? String(routine.title.prefix(5)) + "..." : routine.title)
                             .font(.regular16)
                             .lineLimit(1)
                             .opacity(0)
@@ -35,11 +35,12 @@ struct RoutineSuccessRateChart: View {
             }
             .frame(width: 110, alignment: .leading)
             
+            // 성공률 차트
             let percentage = Double(viewModel.calculateSuccessRate(for: routine))
             
             Chart {
                 BarMark(
-                    x: .value("성공률", min(animatedValue, 100)),  // 최대값을 100으로 제한
+                    x: .value("성공률", min(animatedValue, 100)),
                     y: .value("Label", "성공률"),
                     width: .fixed(maxWidth)
                 )
@@ -51,11 +52,10 @@ struct RoutineSuccessRateChart: View {
                         .padding(.leading, -2)
                 }
             }
-            .frame(width: maxWidth)
-            .frame(height: 14)
+            .frame(width: maxWidth, height: 14)
             .chartXAxis(.hidden)
             .chartYAxis(.hidden)
-            .chartXScale(domain: 0...100)  // 도메인을 0-100으로 고정
+            .chartXScale(domain: 0...100)
             .chartPlotStyle { plotArea in
                 plotArea
                     .background(.clear)
@@ -64,10 +64,13 @@ struct RoutineSuccessRateChart: View {
         }
         .padding(.vertical, 10)
         .onAppear {
-            animateGraph()
+            startAnimation()
         }
-        .onChange(of: viewModel.calendarViewModel.currentMonth) {
-            animateGraph()
+        .onChange(of: viewModel.calendarState.currentMonth) {
+            startAnimation()
+        }
+        .onChange(of: viewModel.calendarState.currentDate) {
+            startAnimation()
         }
     }
     
@@ -78,11 +81,17 @@ struct RoutineSuccessRateChart: View {
         return Color.accent
     }
     
-    private func animateGraph() {
+    private func startAnimation() {
         let percentage = Double(viewModel.calculateSuccessRate(for: routine))
-        animatedValue = 0
-        withAnimation(.easeOut(duration: 0.8)) {
-            animatedValue = percentage
+        
+        withAnimation(nil) {
+            animatedValue = 0
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation(.easeOut(duration: 0.8)) {
+                animatedValue = percentage
+            }
         }
     }
 }

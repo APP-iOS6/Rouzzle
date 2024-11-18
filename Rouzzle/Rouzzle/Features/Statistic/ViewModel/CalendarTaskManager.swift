@@ -75,46 +75,30 @@ class CalendarTaskManager {
 
     /// 더미 데이터를 추가하는 함수
     func loadDummyData() {
-        let dummyCompletions = [
-            RoutineCompletion(
-                documentId: "routine1_20241113",
+        var dummyCompletions: [RoutineCompletion] = []
+
+        for dayOffset in 1...30 {
+            // 랜덤한 taskCompletion 데이터 생성
+            let randomTask = TaskList.sampleData.randomElement()!
+            let isComplete = Bool.random()
+
+            let completion = RoutineCompletion(
+                documentId: "routine1_20241116",
                 routineId: "routine1",
                 userId: "user1",
-                date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
+                date: Calendar.current.date(byAdding: .day, value: -dayOffset, to: Date())!,
                 taskCompletions: [
                     TaskCompletion(
-                        title: TaskList.sampleData[0].title,
-                        emoji: TaskList.sampleData[0].emoji,
-                        timer: TaskList.sampleData[0].timer,
-                        isComplete: true
-                    ),
-                    TaskCompletion(
-                        title: TaskList.sampleData[0].title,
-                        emoji: TaskList.sampleData[0].emoji,
-                        timer: TaskList.sampleData[0].timer,
-                        isComplete: false
-                    ),
-                    TaskCompletion(
-                        title: TaskList.sampleData[0].title,
-                        emoji: TaskList.sampleData[0].emoji,
-                        timer: TaskList.sampleData[0].timer,
-                        isComplete: false
-                    ),
-                    TaskCompletion(
-                        title: TaskList.sampleData[0].title,
-                        emoji: TaskList.sampleData[0].emoji,
-                        timer: TaskList.sampleData[0].timer,
-                        isComplete: true
-                    ),
-                    TaskCompletion(
-                        title: TaskList.sampleData[1].title,
-                        emoji: TaskList.sampleData[1].emoji,
-                        timer: TaskList.sampleData[1].timer,
-                        isComplete: true
+                        title: randomTask.title,
+                        emoji: randomTask.emoji,
+                        timer: randomTask.timer,
+                        isComplete: isComplete
                     )
                 ]
             )
-        ]
+            dummyCompletions.append(completion)
+        }
+
         updateFromRoutineCompletions(dummyCompletions)
     }
 }

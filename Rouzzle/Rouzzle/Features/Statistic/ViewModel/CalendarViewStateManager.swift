@@ -1,36 +1,62 @@
 //
-//  CalendarViewModel.swift
+//  CalendarViewStateManager.swift
 //  Rouzzle
 //
-//  Created by Hyeonjeong Sim on 11/13/24.
+//  Created by Hyeonjeong Sim on 11/17/24.
 //
 
-import Foundation
-import Factory
 import SwiftUI
+import Factory
 
 @Observable
-class CalendarViewModel {
-    private var taskManager: CalendarTaskManager
-    @ObservationIgnored
-    @Injected(\.routineService) private var routineService
+final class CalendarViewStateManager {
+    static let shared = CalendarViewStateManager()
     
     var currentDate: Date
     var currentMonth: Int = 0
     var days: [DateValue] = []
+    let taskManager: CalendarTaskManager
+    var isLoading: Bool = false
+    
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
     
     let koreanDays = ["월", "화", "수", "목", "금", "토", "일"]
     
-    init(currentDate: Date = Date(), taskManager: CalendarTaskManager) {
-        self.currentDate = currentDate
-        self.taskManager = taskManager
+    private init() {
+        self.currentDate = Date()
+        self.taskManager = CalendarTaskManager()
         extractDate()
         loadDummyData()
     }
     
-    func moveMonth(direction: Int) {
-        currentMonth += direction
+    // 현재 월로 초기화
+    func resetToCurrentMonth() {
+        currentMonth = 0
+        currentDate = Date()
         extractDate()
+        Task {
+            await loadRoutineCompletions()
+        }
+    }
+    
+    @MainActor
+    func moveMonth(direction: Int) async {
+        guard !isLoading else { return }
+        isLoading = true
+        
+        currentMonth += direction
+        
+        let calendar = Calendar.current
+        if let newDate = calendar.date(byAdding: .month, value: currentMonth, to: Date()) {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                currentDate = newDate
+                extractDate()
+            }
+            await loadRoutineCompletions()
+        }
+        
+        isLoading = false
     }
     
     func getDayColor(for index: Int) -> Color {
@@ -94,18 +120,16 @@ class CalendarViewModel {
         return [month, year]
     }
     
-    func loadRoutineCompletions() {
-        Task {
-            let result = await routineService.getRoutineCompletions(for: currentDate)
-            if case .success(let completions) = result {
-                await MainActor.run {
-                    taskManager.updateFromRoutineCompletions(completions)
-                }
+    @MainActor
+    func loadRoutineCompletions() async {
+        let result = await routineService.getRoutineCompletions(for: currentDate)
+        if case .success(let completions) = result {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                taskManager.updateFromRoutineCompletions(completions)
             }
         }
     }
     
-    // 테스트용 더미 데이터 로드
     func loadDummyData() {
         taskManager.loadDummyData()
     }
