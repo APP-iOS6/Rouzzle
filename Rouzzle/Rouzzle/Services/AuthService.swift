@@ -81,47 +81,34 @@ extension AuthService {
 extension AuthService {
     @MainActor
     func signInWithKakao(shouldLink: Bool = false) async -> Result<String, Error> {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            do {
-                let oauthToken = try await loginWithKakaoTalkAsync()
-                _ = try await loginWithEmailPermissionAsync()
-                
-                guard let idToken = oauthToken.idToken else {
-                    return .failure(AuthError.tokenError)
-                }
-                
-                let accessToken = oauthToken.accessToken
-                
-                if shouldLink {
-                    // 이메일 연동을 위한 토큰으로 linkWithSocial 호출
-                    return await linkWithSocial(provider: .kakao(idToken: idToken, accessToken: accessToken))
-                } else {
-                    // 기존 로그인 흐름 유지
-                    let crendential = OAuthProvider.credential(providerID: .custom("oidc.oidc.kakao"), idToken: idToken, accessToken: accessToken)
-                    return try await authenticationUserWithFirebase(credential: crendential)
-                }
-            } catch {
-                return .failure(AuthError.clientIdError)
+        do {
+            let oauthToken: OAuthToken
+            if UserApi.isKakaoTalkLoginAvailable() {
+                oauthToken = try await loginWithKakaoTalkAsync()
+            } else {
+                oauthToken = try await loginWithKakaoTalkAccountAsync()
             }
-        } else {
-            do {
-                let oauthToken = try await loginWithKakaoTalkAccountAsync()
-                _ = try await loginWithEmailPermissionAsync()
-                
-                guard let idToken = oauthToken.idToken else {
-                    return .failure(AuthError.tokenError)
-                }
-                
-                let accessToken = oauthToken.accessToken
-                
-                let credential = OAuthProvider.credential(providerID: .custom("oidc.oidc.kakao"), idToken: idToken, rawNonce: randomNonceString(), accessToken: accessToken)
-
+            
+            _ = try await loginWithEmailPermissionAsync()
+            
+            guard let idToken = oauthToken.idToken else {
+                return .failure(AuthError.tokenError)
+            }
+            let accessToken = oauthToken.accessToken
+            
+            if shouldLink {
+                print("🔗 카카오 계정을 익명 사용자와 연동합니다.")
+                // 이메일 연동을 위한 토큰으로 linkWithSocial 호출
+                return await linkWithSocial(provider: .kakao(idToken: idToken, accessToken: accessToken))
+            } else {
+                print("🔑 카카오 계정으로 로그인합니다.")
+                // 기존 로그인 흐름 유지
+                let credential = OAuthProvider.credential(providerID: .custom("oidc.oidc.kakao"), idToken: idToken, accessToken: accessToken)
                 return try await authenticationUserWithFirebase(credential: credential)
-                
-            } catch {
-                print(error.localizedDescription)
-                return .failure(AuthError.clientIdError)
             }
+        } catch {
+            print("⛔️ 카카오 로그인 실패: \(error.localizedDescription)")
+            return .failure(AuthError.clientIdError)
         }
     }
     

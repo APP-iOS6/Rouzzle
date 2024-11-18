@@ -81,7 +81,7 @@ struct AccountManagementView: View {
                      primaryButtonTitle: "초기화",
                      primaryAction: { /* 로직 추가 예정 */ })
         .fullScreenCover(isPresented: $isShowingLinkEmailSheet) {
-            LinkEmailView()
+            LinkEmailView { viewModel.updateUserStatus() }
         }
     }
 }

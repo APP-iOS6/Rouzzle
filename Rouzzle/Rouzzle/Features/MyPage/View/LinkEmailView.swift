@@ -13,6 +13,7 @@ struct LinkEmailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AuthStore.self) private var authStore
     @State private var viewModel = LinkEmailViewModel()
+    let action: () -> Void
 
     private let riveAnimation = RiveViewModel(fileName: "RouzzleLogin", stateMachineName: "State Machine 1")
     
@@ -46,7 +47,9 @@ struct LinkEmailView: View {
                     Button {
                         Task {
                             await viewModel.kakaoLinkAction { dismiss() }
+                            action()
                         }
+                        action()
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
@@ -86,6 +89,7 @@ struct LinkEmailView: View {
                                         nonce: nonce,
                                         dismiss: { dismiss() }
                                     )
+                                    action()
                                 }
                             case .failure(let error):
                                 print("⛔️ 애플 로그인 실패: \(error.localizedDescription)")
@@ -98,7 +102,10 @@ struct LinkEmailView: View {
                     // MARK: 구글 로그인 버튼
                     Button {
                         Task {
-                            await viewModel.googleLinkAction { dismiss() }
+                            await viewModel.googleLinkAction {
+                                dismiss()
+                            }
+                            action()
                         }
                     } label: {
                         HStack {
@@ -121,5 +128,5 @@ struct LinkEmailView: View {
 }
 
 #Preview {
-    LinkEmailView()
+    LinkEmailView(action: {})
 }
