@@ -259,6 +259,7 @@ struct MyPageView: View {
                     tempProfileImage = nil
                 }
                 isImageChanged = false
+            }
             .sheet(isPresented: $showTermsOfService) {
                 SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/ae2c4d8c27044967ae9772294f58c428?pvs=74")!)
             }
