@@ -12,18 +12,17 @@ import Factory
 struct AddTaskView: View {
     var store: RoutineStore
     @Environment(\.modelContext) private var modelContext
-    @State var isShowingAddTaskSheet: Bool = false
-    @State var isShowingTimerView: Bool = false
-    @State var isShowingRoutineSettingsSheet: Bool = false
+    @State private var isShowingAddTaskSheet: Bool = false
+    @State private var isShowingTimerView: Bool = false
+    @State private var isShowingRoutineSettingsSheet: Bool = false
     @State var isShowingEditRoutineSheet: Bool = false
     @State var isShowingDeleteAlert = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
     @Environment(\.dismiss) private var dismiss
-    @ObservationIgnored
-    @Injected(\.routineService) private var routineService
     @State private var taskManager = CalendarTaskManager()
     let completeAction: (String) -> Void
+    @State var viewModel = AddTaskViewModel()
     
     var body: some View {
         ZStack {
@@ -163,7 +162,10 @@ struct AddTaskView: View {
         }
         .toastView(toast: $toast) // ToastModifier 적용
         .customAlert(isPresented: $isShowingDeleteAlert, title: "해당 루틴을 삭제합니다", message: "삭제 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.", primaryButtonTitle: "삭제", primaryAction: {
-            deleteRoutine()
+            viewModel.deleteRoutine(routineItem: store.routineItem,
+                                    modelContext: modelContext,
+                                    completeAction: completeAction,
+                                    dismiss: { dismiss() })
             dismiss()
         })
         .overlay {
@@ -184,53 +186,6 @@ struct AddTaskView: View {
             }
         })
         .animation(.smooth, value: store.taskList)
-    }
-    // Task를 추가
-    private func addTaskToRoutine(_ task: RecommendTodoTask) {
-        do {
-            try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
-        } catch {
-            print("할일 추가 실패")
-        }
-    }
-    
-    private func deleteRoutine() {
-        Task {
-            store.loadState = .loading
-            let routineToDelete = store.routineItem.toRoutine()
-            
-            // 파이어베이스에서 RoutineCompletion 삭제
-            let completionDeleteResult = await routineService.removeRoutineCompletions(for: routineToDelete.documentId ?? "")
-            switch completionDeleteResult {
-            case .success:
-                print("✅ RoutineCompletion 삭제 성공")
-            case .failure(let error):
-                print("❌ RoutineCompletion 삭제 실패: \(error.localizedDescription)")
-                toast = ToastModel(type: .warning, message: "RoutineCompletion 삭제에 실패했습니다.")
-                return
-            }
-            
-            // 파이어베이스에서 먼저 삭제
-            let firebaseResult = await routineService.removeRoutine(routineToDelete)
-            switch firebaseResult {
-            case .success:
-                print("✅ 파이어베이스 루틴 삭제 성공")
-            case .failure(let error):
-                print("❌ 파이어베이스 루틴 삭제 실패: \(error.localizedDescription)")
-                return
-            }
-
-            // 스위프트 데이터에서 삭제
-            do {
-                try SwiftDataService.deleteRoutine(routine: store.routineItem, context: modelContext)
-                print("✅ 스위프트 데이터 루틴 삭제 성공")
-                completeAction("루틴이 삭제되었습니다.")
-            } catch {
-                print("❌ 스위프트 데이터 루틴 삭제 실패: \(error.localizedDescription)")
-                return
-            }
-            dismiss()
-        }
     }
 }
 
