@@ -14,7 +14,7 @@ struct TimeBasedRecommendSetView: View {
     @State var addRecommendTask: [RecommendTodoTask] = []
     @State var allCheckBtn: Bool = false
     @State private var selectedTasks: [String: Bool] = [:]
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -22,7 +22,7 @@ struct TimeBasedRecommendSetView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .center, spacing: 30) {
+                    VStack(alignment: .center, spacing: 10) {
                         RecommendTaskByTime(category: category)
                             .frame(maxWidth: .infinity)
                             .padding(.top, 20)
@@ -34,13 +34,15 @@ struct TimeBasedRecommendSetView: View {
                                 isPlus: Binding(
                                     get: { addRecommendTask.contains(where: { $0.title == task.title }) },
                                     set: { isSelected in
+                                        let recommendTodoTask = RecommendTodoTask(
+                                            emoji: task.emoji,
+                                            title: task.title,
+                                            timer: task.timeInterval
+                                        )
                                         if isSelected {
-                                            let recommendTodoTask = RecommendTodoTask(
-                                                emoji: task.emoji,
-                                                title: task.title,
-                                                timer: task.timeInterval
-                                            )
-                                            addRecommendTask.append(recommendTodoTask)
+                                            if !addRecommendTask.contains(where: { $0.title == task.title }) {
+                                                addRecommendTask.append(recommendTodoTask)
+                                            }
                                         } else {
                                             addRecommendTask.removeAll(where: { $0.title == task.title })
                                         }
@@ -52,44 +54,33 @@ struct TimeBasedRecommendSetView: View {
                                 timeInterval: task.timeInterval.formattedTimer,
                                 description: task.description
                             ) {
-                                let recommendTodoTask = RecommendTodoTask(
-                                    emoji: task.emoji,
-                                    title: task.title,
-                                    timer: task.timeInterval
-                                )
-                                if addRecommendTask.contains(where: { $0.title == recommendTodoTask.title }) {
-                                    addRecommendTask.removeAll(where: { $0.title == recommendTodoTask.title })
-                                } else {
-                                    addRecommendTask.append(recommendTodoTask)
-                                }
-                                
-                                allCheckBtn = (addRecommendTask.count == category.tasks.count)
                             }
                             .frame(maxWidth: .infinity)
-                            .padding(.bottom, index < category.tasks.count - 1 ? 25 : 0)
+                            .padding(.bottom, index < category.tasks.count - 1 ? 10 : 5)
                         }
                         
-                        HStack {
+                        HStack(spacing: 4) {
                             Spacer()
-                            HStack {
+                            HStack(spacing: 2) {
                                 Image(systemName: allCheckBtn ? "checkmark.square.fill" : "square")
-                                    .foregroundColor(allCheckBtn ? .accentColor : .gray)
+                                    .foregroundStyle(allCheckBtn ? Color.accent : Color.gray)
                                 Text("전체선택")
-                                    .font(.regular16)
-                                    .foregroundColor(.gray)
+                                    .font(.regular12)
+                                    .foregroundStyle(.gray)
                             }
                             .onTapGesture {
                                 toggleAllTasks()
                             }
                         }
                         .padding(.bottom, 20)
-
-                        RouzzleButton(buttonType: .save) {
+                        .padding(.top, 10)
+                        
+                        RouzzleButton(buttonType: .addtoroutine) {
                             action(addRecommendTask)
                             dismiss()
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 10)
                     }
                     .padding(.horizontal, 0)
                     .padding(.bottom, 30)

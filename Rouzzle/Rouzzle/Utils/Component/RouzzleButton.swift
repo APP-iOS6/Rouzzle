@@ -14,6 +14,7 @@ enum ButtonType: String {
     case save = "저장하기"
     case complete = "완료"
     case next = "다음"
+    case addtoroutine = "내 루틴에 추가하기"
 }
 
 /// 버튼은 type 만을 넘겨주고 동일하게 사용할 수 있도록
