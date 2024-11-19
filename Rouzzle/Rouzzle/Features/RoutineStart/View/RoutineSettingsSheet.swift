@@ -8,10 +8,7 @@
 import SwiftUI
 import Factory
 
-struct RoutineSettingsSheet: View {
-    @ObservationIgnored
-    @Injected(\.routineService) private var routineService
-    
+struct RoutineSettingsSheet: View {    
     @Environment(\.dismiss) private var dismiss
     @Binding var isShowingEditRoutineSheet: Bool
     @Binding var isShowingDeleteAlert: Bool

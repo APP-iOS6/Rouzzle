@@ -15,6 +15,7 @@ struct RoutineListView: View {
     @State private var currentQuote: String = ""
     @State private var selectedFilter: FilterOption = .today // 필터 상태 추가
     @State private var isShowingChallengeView: Bool = false //
+    @State private var toast: ToastModel?
 
     init() {
         // 초기 명언 설정
@@ -42,7 +43,9 @@ struct RoutineListView: View {
                     // 필터링된 루틴 목록 표시
                     ForEach(filteredRoutines()) { routine in
                         NavigationLink {
-                            AddTaskView(store: RoutineStore(routineItem: routine))
+                            AddTaskView(store: RoutineStore(routineItem: routine)) { message in
+                                toast = ToastModel(type: .success, message: message)
+                            }
                         } label: {
                             RoutineStatusPuzzle(routineItem: routine)
                                 .padding(.horizontal)
@@ -70,6 +73,7 @@ struct RoutineListView: View {
                     AddRoutineContainerView()
                 }
             }
+            .toastView(toast: $toast)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     PieceCounter(count: 9)

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Factory
 
 struct AddTaskView: View {
     var store: RoutineStore
@@ -19,8 +20,10 @@ struct AddTaskView: View {
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
     @Environment(\.dismiss) private var dismiss
-
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
     @State private var taskManager = CalendarTaskManager()
+    let completeAction: (String) -> Void
     
     var body: some View {
         ZStack {
@@ -192,18 +195,37 @@ struct AddTaskView: View {
     }
     
     private func deleteRoutine() {
-        do {
-            try SwiftDataService.deleteRoutine(routine: store.routineItem, context: modelContext)
+        Task {
+            store.loadState = .loading
+            let routineToDelete = store.routineItem.toRoutine()
+            
+            // 파이어베이스에서 먼저 삭제
+            let firebaseResult = await routineService.removeRoutine(routineToDelete)
+            switch firebaseResult {
+            case .success:
+                print("✅ 파이어베이스 루틴 삭제 성공")
+            case .failure(let error):
+                print("❌ 파이어베이스 루틴 삭제 실패: \(error.localizedDescription)")
+                return
+            }
+
+            // 스위프트 데이터에서 삭제
+            do {
+                try SwiftDataService.deleteRoutine(routine: store.routineItem, context: modelContext)
+                print("✅ 스위프트 데이터 루틴 삭제 성공")
+                completeAction("루틴이 삭제되었습니다.")
+            } catch {
+                print("❌ 스위프트 데이터 루틴 삭제 실패: \(error.localizedDescription)")
+                return
+            }
             dismiss()
-        } catch {
-            print("❌ 루틴 삭제 실패: \(error.localizedDescription)")
         }
     }
 }
 
 #Preview {
     NavigationStack {
-        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]))
+        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]), completeAction: {_ in })
             .modelContainer(SampleData.shared.modelContainer)
     }
 }
