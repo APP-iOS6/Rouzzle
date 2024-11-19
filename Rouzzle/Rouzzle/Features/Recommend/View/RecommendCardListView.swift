@@ -164,7 +164,7 @@ struct RecommendCardListView: View {
                             }
                         }
                     }, label: {
-                        HStack {
+                        HStack(spacing: 2) {
                             Image(systemName: allCheckBtn ? "checkmark.square" : "square")
                             Text("전체선택")
                                 .font(.regular12)
@@ -230,7 +230,7 @@ struct RecommendCardListView: View {
                     }
                 },
                 label: {
-                    HStack {
+                    HStack(spacing: 2) {
                         Image(systemName: allCheckBtn ? "checkmark.square" : "square")
                         Text("전체선택")
                             .font(.regular14)
