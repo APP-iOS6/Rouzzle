@@ -10,15 +10,15 @@ import SwiftUI
 struct SocialMarkDetailView: View {
     var userProfile: UserProfile
     @State var isStarred: Bool
-    @State private var viewModel: SocialViewModel = SocialViewModel()
-    
+    @Environment(SocialViewModel.self) private var viewModel
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 ProfileCachedImage(imageUrl: userProfile.profileImageUrl)
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
-                
+
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
                         Text(userProfile.nickname)
@@ -27,16 +27,18 @@ struct SocialMarkDetailView: View {
                             .font(.regular14)
                             .foregroundColor(.accent)
                         Spacer()
-                        
+
                         Button(action: {
                             isStarred.toggle()
-                            viewModel.setSelectedUser(userID: userProfile.documentId!)
+                            Task {
+                                await viewModel.toggleFavoriteUser(userID: userProfile.documentId!)
+                            }
                         }, label: {
                             Image(systemName: isStarred ? "star.fill" : "star")
                                 .foregroundColor(isStarred ? .yellow : .gray)
                         })
                     }
-                    
+
                     HStack {
                         Text("🧩 루틴 10일차")
                         Text("🔥 연속 성공 5일차")
@@ -47,7 +49,7 @@ struct SocialMarkDetailView: View {
                 Spacer()
             }
             .padding(.top, 40)
-            
+
             VStack(alignment: .leading) {
                 Text("자기소개")
                     .font(.regular14)
@@ -55,7 +57,7 @@ struct SocialMarkDetailView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .topLeading)
-            
+
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(userProfile.routines, id: \.self) { routine in
@@ -69,12 +71,8 @@ struct SocialMarkDetailView: View {
                 }
             }
         }
-        .onDisappear {
-            if !isStarred {
-                Task {
-                    await viewModel.deleteFavorite(userID: userProfile.documentId!)
-                }
-            }
+        .onAppear {
+            isStarred = viewModel.isUserFavorited(userID: userProfile.documentId!)
         }
         .customNavigationBar(title: userProfile.nickname)
     }
