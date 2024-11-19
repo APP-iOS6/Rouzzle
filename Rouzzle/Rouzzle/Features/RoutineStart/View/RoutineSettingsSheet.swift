@@ -14,7 +14,7 @@ struct RoutineSettingsSheet: View {
     
     @Environment(\.dismiss) private var dismiss
     @Binding var isShowingEditRoutineSheet: Bool
-    var routineItem: RoutineItem
+    @Binding var isShowingDeleteAlert: Bool
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
@@ -31,7 +31,8 @@ struct RoutineSettingsSheet: View {
             Divider()
             
             Button {
-                deleteRoutine()
+                dismiss()
+                isShowingDeleteAlert = true
             } label: {
                 Text("삭제하기")
                     .foregroundStyle(.red)
@@ -51,17 +52,8 @@ struct RoutineSettingsSheet: View {
         .font(.regular18)
         .padding(.horizontal, 16)
     }
-    
-    private func deleteRoutine() {
-        do {
-            try SwiftDataService.deleteRoutine(routine: routineItem, context: modelContext)
-            dismiss()
-        } catch {
-            print("❌ 루틴 삭제 실패: \(error.localizedDescription)")
-        }
-    }
 }
 
 #Preview {
-    RoutineSettingsSheet(isShowingEditRoutineSheet: .constant(false), routineItem: RoutineItem.sampleData[0])
+    RoutineSettingsSheet(isShowingEditRoutineSheet: .constant(false), isShowingDeleteAlert: .constant(false))
 }

@@ -15,6 +15,7 @@ struct AddTaskView: View {
     @State var isShowingTimerView: Bool = false
     @State var isShowingRoutineSettingsSheet: Bool = false
     @State var isShowingEditRoutineSheet: Bool = false
+    @State var isShowingDeleteAlert = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
     @Environment(\.dismiss) private var dismiss
@@ -147,8 +148,7 @@ struct AddTaskView: View {
                     .presentationDetents(detents)
                 }
                 .sheet(isPresented: $isShowingRoutineSettingsSheet) {
-                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet,
-                                         routineItem: store.routineItem)
+                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet, isShowingDeleteAlert: $isShowingDeleteAlert)
                         .presentationDetents([.fraction(0.25)])
                 }
             }
@@ -159,6 +159,10 @@ struct AddTaskView: View {
             .padding()
         }
         .toastView(toast: $toast) // ToastModifier 적용
+        .customAlert(isPresented: $isShowingDeleteAlert, title: "해당 루틴을 삭제합니다", message: "삭제 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.", primaryButtonTitle: "삭제", primaryAction: {
+            deleteRoutine()
+            dismiss()
+        })
         .overlay {
             if store.loadState == .loading {
                 ProgressView()
@@ -184,6 +188,15 @@ struct AddTaskView: View {
             try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
         } catch {
             print("할일 추가 실패")
+        }
+    }
+    
+    private func deleteRoutine() {
+        do {
+            try SwiftDataService.deleteRoutine(routine: store.routineItem, context: modelContext)
+            dismiss()
+        } catch {
+            print("❌ 루틴 삭제 실패: \(error.localizedDescription)")
         }
     }
 }
