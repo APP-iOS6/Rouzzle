@@ -49,22 +49,39 @@ class AuthStore {
     
     /// 로그인 함수
     func login() {
-        let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
-        
         Task {
-            switch await authService.checkFirstUser(userUid) {
-            case let .success(first):
-                if first {
-                    // 예전에 사용한 기록이 있던 유저이므로 홈화면으로
-                    performLogin()
-                } else {
-                    // 처음인 유저이기 때문에 회원가입 절차 로직으로
-                    authState = .signup
+            if let currentUser = Auth.auth().currentUser {
+                // 현재 사용자가 있는 경우 UID를 사용
+                let userUid = currentUser.uid
+                await checkAndNavigate(for: userUid)
+            } else {
+                do {
+                    // 익명 사용자 생성
+                    let authResult = try await Auth.auth().signInAnonymously()
+                    let userUid = authResult.user.uid
+                    print("✅ 익명 사용자 생성 성공: \(userUid)")
+                    await checkAndNavigate(for: userUid)
+                } catch {
+                    print("⛔️ 익명 사용자 생성 실패: \(error.localizedDescription)")
                 }
-            case let .failure(error):
-                // 이미 예전에 로그인 했던 유저인지 확인 도중 에러가 발생했을 경우(ex 네트워크 오류) 토스트 메시지 띄어줘야 할 듯
-                print(error.localizedDescription)
             }
+        }
+    }
+
+    // Firestore 데이터 확인 및 화면 전환 처리
+    private func checkAndNavigate(for userUid: String) async {
+        switch await authService.checkFirstUser(userUid) {
+        case let .success(first):
+            if first {
+                // 예전에 사용한 기록이 있던 유저이므로 홈화면으로
+                performLogin()
+            } else {
+                // 처음인 유저이기 때문에 회원가입 절차 로직으로
+                authState = .signup
+            }
+        case let .failure(error):
+            // 이미 예전에 로그인 했던 유저인지 확인 도중 에러가 발생했을 경우(ex 네트워크 오류) 토스트 메시지 띄어줘야 할 듯
+            print(error.localizedDescription)
         }
     }
     
