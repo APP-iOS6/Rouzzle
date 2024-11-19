@@ -14,11 +14,9 @@
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
 		23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */; };
 		23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */; };
-		23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */; };
 		23BC98D52CE1D56E009BE074 /* RecommendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D42CE1D56E009BE074 /* RecommendCard.swift */; };
 		23BC98D82CE1D65B009BE074 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */; };
 		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
-		23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */; };
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
 		23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */; };
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
@@ -82,6 +80,8 @@
 		974596E12CE2978C004C346B /* PieceCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974596E02CE2978C004C346B /* PieceCounter.swift */; };
 		9791BB822CDDCB00007BD566 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9791BB812CDDCB00007BD566 /* FloatingButton.swift */; };
 		97D295E82CEC654E00B8B5D5 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D295E72CEC654E00B8B5D5 /* AddTaskViewModel.swift */; };
+		97D295E42CEB156700B8B5D5 /* LinkEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D295E32CEB156700B8B5D5 /* LinkEmailView.swift */; };
+		97D295E62CEB196C00B8B5D5 /* LinkEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D295E52CEB196C00B8B5D5 /* LinkEmailViewModel.swift */; };
 		97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */; };
 		97DAF1512CE477A300D27592 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */; };
 		97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */; };
@@ -194,11 +194,9 @@
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
 		23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskByTime.swift; sourceTree = "<group>"; };
 		23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCategoryView.swift; sourceTree = "<group>"; };
-		23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardView.swift; sourceTree = "<group>"; };
 		23BC98D42CE1D56E009BE074 /* RecommendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCard.swift; sourceTree = "<group>"; };
 		23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
 		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
-		23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailView.swift; sourceTree = "<group>"; };
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
 		23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeWriterTextView.swift; sourceTree = "<group>"; };
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
@@ -260,6 +258,8 @@
 		974596E02CE2978C004C346B /* PieceCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceCounter.swift; sourceTree = "<group>"; };
 		9791BB812CDDCB00007BD566 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		97D295E72CEC654E00B8B5D5 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
+		97D295E32CEB156700B8B5D5 /* LinkEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmailView.swift; sourceTree = "<group>"; };
+		97D295E52CEB196C00B8B5D5 /* LinkEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmailViewModel.swift; sourceTree = "<group>"; };
 		97DAF14D2CE43BE200D27592 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSettingSheet.swift; sourceTree = "<group>"; };
@@ -541,6 +541,7 @@
 				97DAF1502CE477A300D27592 /* ProfileEditViewModel.swift */,
 				97E575592CE64C560070FC84 /* FAQViewModel.swift */,
 				97E5755D2CE667F10070FC84 /* AccountManagementViewModel.swift */,
+				97D295E52CEB196C00B8B5D5 /* LinkEmailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -775,9 +776,7 @@
 				BD1546582CD9AA630098AD7B /* RecommendView.swift */,
 				BD6301B32CDE3FD50000203C /* RoutineSDView.swift */,
 				23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */,
-				23BC98D12CE1CDF3009BE074 /* RecommendCardView.swift */,
 				23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */,
-				23BC98DD2CE1E7F8009BE074 /* RecommendDetailView.swift */,
 				23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */,
 				FBDC52DE2CE594250038243D /* RecommendSheet.swift */,
 			);
@@ -826,6 +825,7 @@
 				974596DE2CE28300004C346B /* ShopView.swift */,
 				97DAF1522CE4E64300D27592 /* ProfileImageSettingSheet.swift */,
 				97E5755B2CE6521D0070FC84 /* AccountManagementView.swift */,
+				97D295E32CEB156700B8B5D5 /* LinkEmailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1139,7 +1139,6 @@
 				BD912F892CDD2B24007B8503 /* Item.swift in Sources */,
 				23BC99C22CE6E2B5009BE074 /* PuzzleView.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
-				23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */,
 				BD6301B82CDE73550000203C /* ConvertDays.swift in Sources */,
 				23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */,
 				23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */,
@@ -1178,6 +1177,7 @@
 				23BC99C82CE6ECC4009BE074 /* TabBarModifier.swift in Sources */,
 				23BC99BE2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift in Sources */,
 				FB2A5AC02CD92C6C00CB981A /* UserService.swift in Sources */,
+				97D295E62CEB196C00B8B5D5 /* LinkEmailViewModel.swift in Sources */,
 				97DAF14E2CE43BE200D27592 /* MyPageViewModel.swift in Sources */,
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
@@ -1213,7 +1213,6 @@
 				4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */,
 				23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */,
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
-				23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
 				BDFBC31F2CE3AAAB00ED8A81 /* SocialService.swift in Sources */,
 				974596E12CE2978C004C346B /* PieceCounter.swift in Sources */,
@@ -1230,6 +1229,7 @@
 				9740ABD52CEA816200B36F34 /* SafariView.swift in Sources */,
 				BD912F8B2CDD2C6E007B8503 /* SwiftDataService.swift in Sources */,
 				FB2A5AB62CD912CD00CB981A /* Utils.swift in Sources */,
+				97D295E42CEB156700B8B5D5 /* LinkEmailView.swift in Sources */,
 				4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */,
 				23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */,
 				FB2A5A982CD7B60300CB981A /* AuthService.swift in Sources */,

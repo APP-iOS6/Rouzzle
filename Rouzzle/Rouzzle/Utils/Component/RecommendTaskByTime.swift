@@ -11,16 +11,15 @@ struct RecommendTaskByTime: View {
     let category: RoutineCategoryByTime
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.themeColor)
-            
-            Text(category.description)
-                .font(.bold20)
-                .padding()
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 68)
+        Text(category.description)
+            .font(.bold20)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .frame(height: 68)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.themeColor)
+            )
     }
 }
 

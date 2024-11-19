@@ -30,4 +30,9 @@ extension Color {
     static var partiallyCompletePuzzle: Color {
         return .fromRGB(r: 191, g: 223, b: 143)
     }
+    
+    /// 121212
+    static var subBlack: Color {
+        return .fromRGB(r: 18, g: 18, b: 18)
+    }
 }

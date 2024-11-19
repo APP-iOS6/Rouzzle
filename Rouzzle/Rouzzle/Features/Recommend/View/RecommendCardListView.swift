@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct RecommendCardListView: View {
-    @Namespace private var animationNamespace
     @Binding var cards: [Card]
     @Binding var selectedRecommendTask: [RecommendTodoTask]
     @Binding var allCheckBtn: Bool
     @State private var selectedCardID: UUID?
+    @State private var showingRoutineSheet = false
     let addRoutine: (String, String, RoutineItem?) -> Void
     
     var body: some View {
@@ -20,173 +20,197 @@ struct RecommendCardListView: View {
             ScrollView {
                 LazyVStack(spacing: 24) {
                     ForEach(cards) { card in
-                        if selectedCardID == card.id {
-                            expandedCard(card)
-                                .id(card.id)
-                                .transition(.opacity)
-                        } else {
-                            collapsedCard(card)
-                                .id(card.id)
+                        Group {
+                            if selectedCardID == card.id {
+                                expandedCard(card)
+                                    .id("\(card.id)-expanded")
+                            } else {
+                                collapsedCard(card)
+                                    .id("\(card.id)-collapsed")
+                            }
                         }
+                        .animation(.easeInOut(duration: 0.3), value: selectedCardID)
                     }
                 }
                 .padding(.top, 2)
+                .padding(.horizontal)
                 .padding(.bottom, 50)
             }
             .scrollIndicators(.hidden)
-            .onChange(of: selectedCardID) { _, newValue in
-                if let newValue {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        proxy.scrollTo(newValue, anchor: .top)
+            .onChange(of: selectedCardID) { _, _ in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    allCheckBtn = false
+                    selectedRecommendTask.removeAll()
+                    
+                    if let selectedID = selectedCardID {
+                        proxy.scrollTo("\(selectedID)-expanded", anchor: .top)
                     }
                 }
-                allCheckBtn = false
-                selectedRecommendTask.removeAll()
-            }
-            .onChange(of: cards) { _, _ in
-                allCheckBtn = false
-                selectedRecommendTask.removeAll()
             }
         }
+    }
+    private func cardContainer<Content: View>(_ content: Content) -> some View {
+        content
+            .padding(.horizontal, 20)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.graylight, lineWidth: 1)
+            )
+            .frame(maxWidth: .infinity)
     }
     
     private func collapsedCard(_ card: Card) -> some View {
-        HStack(spacing: 15) {
-            Text(card.imageName)
-                .font(.system(size: 50))
-                .frame(width: 60, height: 60)
-                .matchedGeometryEffect(id: "image\(card.id)", in: animationNamespace)
-            
-            Text(card.title)
-                .font(.system(size: 20, weight: .bold))
-                .foregroundColor(.basic)
-                .lineLimit(1)
+        cardContainer(
+            HStack(spacing: 16) {
+                Text(card.imageName)
+                    .font(.system(size: 35))
+                    .frame(width: 40, height: 40)
+                
+                VStack(alignment: .leading, spacing: 6) {
+                    if let subTitle = card.subTitle {
+                        Text(subTitle)
+                            .font(.medium11)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 2)
+                            .frame(height: 16)
+                            .background(
+                                Capsule()
+                                    .fill(Color.themeColor)
+                            )
+                            .padding(.top, 5)
+                    }
+                    
+                    Text(card.title)
+                        .font(.bold16)
+                        .foregroundStyle(Color.subBlack)
+                        .lineLimit(1)
+                }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .matchedGeometryEffect(id: "title\(card.id)", in: animationNamespace)
-            
-            if let subTitle = card.subTitle {
-                Text(subTitle)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .font(.semibold14)
-                    .background(.secondcolor)
-                    .clipShape(.rect(cornerRadius: 12))
+                
+                Image(systemName: "chevron.down")
+                    .foregroundStyle(.graymedium)
+                    .font(.system(size: 20, weight: .regular))
+                    .padding(.trailing, 8)
+                    .rotationEffect(.degrees(selectedCardID == card.id ? 180 : 0))
+                    .animation(.easeInOut, value: selectedCardID)
             }
-            
-            Image(systemName: "chevron.down")
-                .foregroundStyle(.graymedium)
-                .font(.system(size: 20, weight: .bold))
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .frame(height: 100)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.graylight, lineWidth: 1)
-                .matchedGeometryEffect(id: "background\(card.id)", in: animationNamespace)
+            .padding(.vertical, 12)
         )
         .onTapGesture {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.3)) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 selectedCardID = card.id
             }
         }
-        .padding(.horizontal)
     }
     
     private func expandedCard(_ card: Card) -> some View {
-        VStack(spacing: 0) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.graylight, lineWidth: 1)
-                    .padding(.top, 2)
-                    .matchedGeometryEffect(id: "background\(card.id)", in: animationNamespace)
+        cardContainer(
+            VStack(spacing: 0) {
+                HStack(spacing: 16) {
+                    Text(card.imageName)
+                        .font(.system(size: 35))
+                        .frame(width: 40, height: 40)
+                    
+                    VStack(alignment: .leading, spacing: 6) {
+                        if let subTitle = card.subTitle {
+                            Text(subTitle)
+                                .font(.medium11)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .frame(height: 16)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.themeColor)
+                                )
+                                .padding(.top, 5)
+                        }
+                        
+                        Text(card.title)
+                            .font(.bold16)
+                            .foregroundStyle(Color.subBlack)
+                            .lineLimit(1)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Image(systemName: "chevron.up")
+                        .foregroundStyle(.graymedium)
+                        .font(.system(size: 20, weight: .regular))
+                        .padding(.trailing, 8)
+                        .animation(.easeInOut, value: selectedCardID)
+                }
+                .padding(.vertical, 12)
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        selectedCardID = nil
+                    }
+                }
                 
-                VStack(alignment: .leading, spacing: 14) {
-                    HStack {
-                        Spacer()
-                        Button(
-                            action: {
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.3)) {
-                                    selectedCardID = nil
+                Text(card.fullText)
+                    .font(.light16)
+                    .foregroundStyle(.descriptioncolor)
+                    .lineSpacing(5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top)
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if allCheckBtn {
+                            allCheckBtn.toggle()
+                            selectedRecommendTask.removeAll()
+                        } else {
+                            allCheckBtn.toggle()
+                            selectedRecommendTask = card.routines.map {
+                                RecommendTodoTask(emoji: $0.emoji, title: $0.title, timer: $0.timer)
+                            }
+                        }
+                    }, label: {
+                        HStack(spacing: 2) {
+                            Image(systemName: allCheckBtn ? "checkmark.square" : "square")
+                            Text("전체선택")
+                                .font(.regular12)
+                        }
+                        .foregroundStyle(allCheckBtn ? .black : .gray)
+                    })
+                }
+                .padding(.vertical, 12)
+                
+                VStack(spacing: 8) {
+                    ForEach(card.routines, id: \.title) { task in
+                        RecommendTaskView(
+                            task: task,
+                            isSelected: selectedRecommendTask.contains(where: { $0.title == task.title }),
+                            onTap: {
+                                let task = RecommendTodoTask(emoji: task.emoji, title: task.title, timer: task.timer)
+                                if selectedRecommendTask.contains(task) {
+                                    selectedRecommendTask.removeAll { $0.title == task.title }
+                                } else {
+                                    selectedRecommendTask.append(task)
                                 }
-                            },
-                            label: {
-                                Image(systemName: "chevron.up")
-                                    .foregroundColor(.graymedium)
-                                    .font(.system(size: 20, weight: .bold))
-                                    .padding()
+                                allCheckBtn = selectedRecommendTask.count == card.routines.count
                             }
                         )
                     }
-                    
-                    Text(card.imageName)
-                        .font(.system(size: 120))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .shadow(color: .black.opacity(0.2), radius: 5)
-                        .matchedGeometryEffect(id: "image\(card.id)", in: animationNamespace)
-                    
-                    Text(card.title)
-                        .font(.system(size: 30, weight: .bold))
-                        .foregroundColor(.basic)
-                        .lineLimit(1)
-                        .matchedGeometryEffect(id: "title\(card.id)", in: animationNamespace)
-                        .padding(.horizontal)
-                    
-                    if let subTitle = card.subTitle {
-                        Text(subTitle)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .font(.semibold14)
-                            .background(.secondcolor)
-                            .clipShape(.rect(cornerRadius: 18))
-                            .padding(.horizontal)
-                    }
-                    
-                    Text(card.fullText)
-                        .font(.light16)
-                        .foregroundColor(.descriptioncolor)
-                        .lineSpacing(5)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.horizontal)
-                        .padding(.bottom, 15)
-                    
-                    selectionSection(card)
-                    
-                    VStack(spacing: 8) {
-                        ForEach(card.routines, id: \.title) { task in
-                            RecommendTaskView(
-                                task: task,
-                                isSelected: selectedRecommendTask.contains(where: { $0.title == task.title }),
-                                onTap: {
-                                    let task = RecommendTodoTask(emoji: task.emoji, title: task.title, timer: task.timer)
-                                    if selectedRecommendTask.contains(task) {
-                                        selectedRecommendTask.removeAll { $0.title == task.title }
-                                        allCheckBtn = selectedRecommendTask.count == card.routines.count
-                                    } else {
-                                        selectedRecommendTask.append(task)
-                                        allCheckBtn = selectedRecommendTask.count == card.routines.count
-                                    }
-                                }
-                            )
-                        }
-                    }
-                    .padding(.horizontal, 8)
-                    
-                    RouzzleButton(
-                        buttonType: .save,
-                        disabled: selectedRecommendTask.isEmpty,
-                        action: {
-                            addRoutine(cards[0].title, cards[0].imageName, nil)
-                        }
-                    )
-                    .padding(.horizontal)
-                    .padding(.vertical)
                 }
+                .padding(.vertical, 8)
+                
+                RouzzleButton(
+                    buttonType: .addtoroutine,
+                    disabled: selectedRecommendTask.isEmpty,
+                    action: {
+                        showingRoutineSheet = true
+                    }
+                )
                 .padding(.vertical)
             }
-            .frame(maxWidth: .infinity)
+        )
+        .sheet(isPresented: $showingRoutineSheet) {
+            RecommendSheet(tasks: selectedRecommendTask) { routine in
+                addRoutine(card.title, card.imageName, routine)
+            }
+            .presentationDetents([.fraction(0.3)])
+            .interactiveDismissDisabled()
         }
-        .padding(.horizontal)
     }
     
     private func selectionSection(_ card: Card) -> some View {
@@ -207,12 +231,12 @@ struct RecommendCardListView: View {
                     }
                 },
                 label: {
-                    HStack {
+                    HStack(spacing: 2) {
                         Image(systemName: allCheckBtn ? "checkmark.square" : "square")
                         Text("전체선택")
-                            .font(.regular18)
+                            .font(.regular14)
                     }
-                    .foregroundColor(allCheckBtn ? .black : .gray)
+                    .foregroundStyle(allCheckBtn ? .black : .gray)
                 }
             )
         }
