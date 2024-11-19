@@ -43,9 +43,9 @@ struct RoutineListView: View {
                     .padding(.horizontal)
 
                     ForEach(filteredRoutines()) { routine in
-                        Button(action: {
-                            path.append(NavigationDestination.addTaskView(routineItem: routine)) // 경로에 추가
-                        }) {
+                        Button {
+                            path.append(NavigationDestination.addTaskView(routineItem: routine))
+                        } label: {
                             RoutineStatusPuzzle(routineItem: routine)
                                 .padding(.horizontal)
                         }
