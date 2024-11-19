@@ -199,6 +199,17 @@ struct AddTaskView: View {
             store.loadState = .loading
             let routineToDelete = store.routineItem.toRoutine()
             
+            // 파이어베이스에서 RoutineCompletion 삭제
+            let completionDeleteResult = await routineService.removeRoutineCompletions(for: routineToDelete.documentId ?? "")
+            switch completionDeleteResult {
+            case .success:
+                print("✅ RoutineCompletion 삭제 성공")
+            case .failure(let error):
+                print("❌ RoutineCompletion 삭제 실패: \(error.localizedDescription)")
+                toast = ToastModel(type: .warning, message: "RoutineCompletion 삭제에 실패했습니다.")
+                return
+            }
+            
             // 파이어베이스에서 먼저 삭제
             let firebaseResult = await routineService.removeRoutine(routineToDelete)
             switch firebaseResult {
