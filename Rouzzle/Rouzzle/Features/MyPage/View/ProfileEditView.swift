@@ -11,17 +11,19 @@ import PhotosUI
 struct ProfileEditView: View {
     @State var name: String
     @State var introduction: String
+    @State var profileUrlString: String?
     @State var profileImage: UIImage?
-        
+    
     @State private var viewModel = ProfileEditViewModel()
     @State private var selectedItem: PhotosPickerItem?
     @State private var showPicker: Bool = false
     @State private var isNameEmpty: Bool = false
     @State private var isCameraOverlayVisible: Bool = true
     @State private var showSheet: Bool = false
+    @State private var isImageChanged: Bool = false
 
     @Environment(\.dismiss) private var dismiss
-    let action: () -> Void
+    let action: (UIImage?) -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -29,8 +31,21 @@ struct ProfileEditView: View {
                 showSheet.toggle()
             } label: {
                 ZStack {
-                    ProfileImageView(frameSize: 72, profileImage: profileImage)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                    if let profileImage = profileImage, isImageChanged {
+                        // PhotosPicker로 선택된 이미지가 있으면 ProfileImageView 사용
+                        ProfileImageView(frameSize: 72, profileImage: profileImage)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        // 선택된 이미지가 없으면 ProfileCachedImage 사용
+                        ProfileCachedImage(imageUrl: profileUrlString)
+                            .frame(width: 72, height: 72)
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.accentColor, lineWidth: 2)
+                            )
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
                     
                     // 처음 진입 시에만 오버레이 보이도록 설정
                     if isCameraOverlayVisible {
@@ -50,6 +65,7 @@ struct ProfileEditView: View {
                     showPicker.toggle()
                     isCameraOverlayVisible = false
                 }, deleteAction: {
+                    profileUrlString = nil
                     profileImage = nil
                     isCameraOverlayVisible = false
                 })
@@ -98,7 +114,8 @@ struct ProfileEditView: View {
                                 introduction: introduction,
                                 image: profileImage
                             )
-                            action()
+                            profileUrlString = viewModel.userInfo.profileUrlString
+                            action(profileImage)
                             dismiss()
                         }
                     }
@@ -129,6 +146,7 @@ struct ProfileEditView: View {
                 if let data = try? await selectedItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
                     profileImage = uiImage
+                    isImageChanged = true
                 } else {
                     print("⛔️ 지원하지 않는 이미지 형식이거나 파일을 불러오는 데 실패했습니다.")
                 }
@@ -144,6 +162,6 @@ struct ProfileEditView: View {
 
 #Preview {
     NavigationStack {
-        ProfileEditView(name: "", introduction: "", action: {})
+        ProfileEditView(name: "", introduction: "", action: { _  in })
     }
 }
