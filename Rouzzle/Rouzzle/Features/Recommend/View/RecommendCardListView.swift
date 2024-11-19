@@ -91,6 +91,8 @@ struct RecommendCardListView: View {
                     .foregroundStyle(.graymedium)
                     .font(.system(size: 20, weight: .regular))
                     .padding(.trailing, 8)
+                    .rotationEffect(.degrees(selectedCardID == card.id ? 180 : 0))
+                    .animation(.easeInOut, value: selectedCardID)
             }
             .padding(.vertical, 12)
         )
@@ -134,7 +136,6 @@ struct RecommendCardListView: View {
                         .foregroundStyle(.graymedium)
                         .font(.system(size: 20, weight: .regular))
                         .padding(.trailing, 8)
-                        .rotationEffect(.degrees(selectedCardID == card.id ? 180 : 0))
                         .animation(.easeInOut, value: selectedCardID)
                 }
                 .padding(.vertical, 12)
