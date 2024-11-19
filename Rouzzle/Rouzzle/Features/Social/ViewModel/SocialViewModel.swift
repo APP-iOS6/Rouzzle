@@ -44,19 +44,15 @@ class SocialViewModel {
             })
             
             // 즐겨찾기 업데이트
-            await fetchFavoritesUser()
+            fetchFavoritesUser()
             print("유저 프로필 \(otherUserProfiles)")
         } catch {
-            await MainActor.run {
-                self.error = DBError.firebaseError(error)
-            }
             print("Error fetching user profiles: \(error)")
         }
     }
     
     // 좋아요한 유저 프로필 가져오기
-    @MainActor
-    func fetchFavoritesUser() async {
+    private func fetchFavoritesUser() {
         guard let currentUserProfile = self.currentUserProfile else {
             self.userFavorites = []
             return
@@ -73,20 +69,16 @@ class SocialViewModel {
     func toggleFavoriteUser(userID: String) async {
         do {
             if isUserFavorited(userID: userID) {
-                // 서버에만 반영하고 로컬 데이터는 업데이트하지 않음
                 try await socialService.deleteFavoriteUser(userID: userID)
+                userFavorites.remove(otherUserProfiles.filter({ $0.documentId == userID }).first!)
                 print("User \(userID) removed from favorites.")
             } else {
-                // 서버에만 반영하고 로컬 데이터는 업데이트하지 않음
+
                 try await socialService.addFavoriteUser(userID: userID)
+                userFavorites.insert(otherUserProfiles.filter({ $0.documentId == userID }).first!)
                 print("User \(userID) added to favorites.")
             }
-            
-            await fetchUserProfiles()
         } catch {
-            await MainActor.run {
-                self.error = DBError.firebaseError(error)
-            }
             print("Error toggling favorite user: \(error)")
         }
     }
