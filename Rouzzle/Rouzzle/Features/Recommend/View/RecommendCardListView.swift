@@ -16,35 +16,39 @@ struct RecommendCardListView: View {
     let addRoutine: (String, String, RoutineItem?) -> Void
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 24) {
-                ForEach(cards) { card in
-                    Group {  // Group으로 감싸기
-                        if selectedCardID == card.id {
-                            expandedCard(card)
-                                .id("\(card.id)-expanded")
-                                .transition(.opacity)
-                        } else {
-                            collapsedCard(card)
-                                .id("\(card.id)-collapsed")
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 24) {
+                    ForEach(cards) { card in
+                        Group {
+                            if selectedCardID == card.id {
+                                expandedCard(card)
+                                    .id("\(card.id)-expanded")
+                            } else {
+                                collapsedCard(card)
+                                    .id("\(card.id)-collapsed")
+                            }
                         }
+                        .animation(.easeInOut(duration: 0.3), value: selectedCardID)
                     }
-                    .animation(.default, value: selectedCardID)
                 }
+                .padding(.top, 2)
+                .padding(.horizontal)
+                .padding(.bottom, 50)
             }
-            .padding(.top, 2)
-            .padding(.horizontal)
-            .padding(.bottom, 50)
-        }
-        .scrollIndicators(.hidden)
-        .onChange(of: selectedCardID) { _, _ in
-            withAnimation {
-                allCheckBtn = false
-                selectedRecommendTask.removeAll()
+            .scrollIndicators(.hidden)
+            .onChange(of: selectedCardID) { _, _ in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    allCheckBtn = false
+                    selectedRecommendTask.removeAll()
+                    
+                    if let selectedID = selectedCardID {
+                        proxy.scrollTo("\(selectedID)-expanded", anchor: .top)
+                    }
+                }
             }
         }
     }
-    
     private func cardContainer<Content: View>(_ content: Content) -> some View {
         content
             .padding(.horizontal, 20)
@@ -73,7 +77,7 @@ struct RecommendCardListView: View {
                                 Capsule()
                                     .fill(Color.themeColor)
                             )
-                            .padding(.top, 4)
+                            .padding(.top, 5)
                     }
                     
                     Text(card.title)
@@ -91,7 +95,9 @@ struct RecommendCardListView: View {
             .padding(.vertical, 12)
         )
         .onTapGesture {
-            selectedCardID = card.id
+            withAnimation(.easeInOut(duration: 0.3)) {
+                selectedCardID = card.id
+            }
         }
     }
     
@@ -114,7 +120,7 @@ struct RecommendCardListView: View {
                                     Capsule()
                                         .fill(Color.themeColor)
                                 )
-                                .padding(.top, 4)
+                                .padding(.top, 5)
                         }
                         
                         Text(card.title)
@@ -128,10 +134,14 @@ struct RecommendCardListView: View {
                         .foregroundStyle(.graymedium)
                         .font(.system(size: 20, weight: .regular))
                         .padding(.trailing, 8)
+                        .rotationEffect(.degrees(selectedCardID == card.id ? 180 : 0))
+                        .animation(.easeInOut, value: selectedCardID)
                 }
                 .padding(.vertical, 12)
                 .onTapGesture {
-                    selectedCardID = nil
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        selectedCardID = nil
+                    }
                 }
                 
                 Text(card.fullText)

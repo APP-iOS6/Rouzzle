@@ -19,7 +19,7 @@ struct RecommendView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("추천 테스트")
+                Text("추천")
                     .font(.semibold18)
                     .foregroundStyle(.basic)
                     .padding(.leading)
