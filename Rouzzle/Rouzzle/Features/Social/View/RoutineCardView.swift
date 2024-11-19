@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RoutineCardView: View {
-    @State var isExpanded: Bool = false
-   // @State var isStarred: Bool
-    @State private var selectedRoutineIndex: Int?
+    
     @Environment(SocialViewModel.self) private var viewModel
+    @State var isExpanded: Bool = false
+    @State private var selectedRoutineIndex: Int?
     private var isStarred: Bool {
         viewModel.isUserFavorited(userID: userProfile.documentId!)
     }
@@ -88,7 +88,7 @@ struct RoutineCardView: View {
                     Spacer()
 
                 }
-                .padding(.top, 2)
+                .padding(.top, 8)
 
                 // 선택된 루틴의 세부 정보 표시
                 if let selectedIndex = selectedRoutineIndex, selectedIndex < userProfile.routines.count {
