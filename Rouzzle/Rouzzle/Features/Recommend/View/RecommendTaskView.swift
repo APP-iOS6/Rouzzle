@@ -13,7 +13,6 @@ struct RecommendTaskView: View {
     let onTap: () -> Void
 
     var body: some View {
-        // 전체 컨테이너를 frame으로 먼저 잡습니다
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.grayultralight)
@@ -22,7 +21,7 @@ struct RecommendTaskView: View {
                 HStack {
                     Text(task.emoji)
                         .font(.title)
-                        .frame(width: 40) // 이모지 영역 고정
+                        .frame(width: 40)
                     
                     VStack(alignment: .leading, spacing: 4) {
                         Text(task.title)
@@ -41,7 +40,7 @@ struct RecommendTaskView: View {
                         .foregroundStyle(isSelected ? .accent : .graylight)
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal)
         }
         .frame(height: 60)
     }

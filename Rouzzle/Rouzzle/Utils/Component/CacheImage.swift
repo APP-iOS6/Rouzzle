@@ -19,7 +19,7 @@ struct CacheImage: View {
             if let image = imageLoader.image {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFill()
+                    .aspectRatio(contentMode: .fill)
             } else {
                 ProgressView()
             }

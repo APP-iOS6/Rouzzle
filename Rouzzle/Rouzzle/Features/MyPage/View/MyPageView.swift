@@ -13,6 +13,10 @@ struct MyPageView: View {
     @Environment(AuthStore.self) private var authStore
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingPassView: Bool = false
+    @State private var tempProfileImage: UIImage? // 변경된 이미지 임시 저장
+    @State private var isImageChanged: Bool = false // 이미지 변경 여부 추적
+    @State private var showTermsOfService = false
+    @State private var showPrivacyPolicy = false
     
     var body: some View {
         NavigationStack {
@@ -26,9 +30,23 @@ struct MyPageView: View {
                     // MARK: 프사, 닉, 편집 버튼, 자기소개 부분
                     HStack(alignment: .top) {
                         ZStack {
-                            ProfileImageView(frameSize: 53, profileImage: viewModel.profileImage)
-                                .padding(.trailing, 12)
-                                .padding(.top, -2)
+                            if let tempProfileImage = tempProfileImage {
+                                // PhotosPicker로 변경된 이미지가 있으면 ProfileImageView 사용
+                                ProfileImageView(frameSize: 53, profileImage: tempProfileImage)
+                                    .padding(.trailing, 12)
+                                    .padding(.top, -2)
+                            } else {
+                                // 변경된 이미지가 없으면 ProfileCachedImage 사용
+                                ProfileCachedImage(imageUrl: viewModel.profileUrl)
+                                    .frame(width: 53, height: 53)
+                                    .clipShape(Circle())
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.accentColor, lineWidth: 2)
+                                    )
+                                    .padding(.trailing, 12)
+                                    .padding(.top, -2)
+                            }
 
                             if viewModel.loadState == .loading {
                                 ProgressView()
@@ -58,7 +76,10 @@ struct MyPageView: View {
                         NavigationLink {
                             ProfileEditView(name: viewModel.name,
                                             introduction: viewModel.introduction,
-                                            profileImage: viewModel.profileImage) {
+                                            profileUrlString: viewModel.profileUrl,
+                                            profileImage: tempProfileImage) { updatedImage in
+                                tempProfileImage = updatedImage
+                                isImageChanged = true
                                 viewModel.loadUserData()
                             }
                         } label: {
@@ -170,8 +191,8 @@ struct MyPageView: View {
                         .frame(width: 370, height: 45)
                     }
                     
-                    NavigationLink {
-                        Text("이용 약관 노션으로 띄어줄 예정")
+                    Button {
+                        showTermsOfService.toggle()
                     } label: {
                         HStack {
                             Text("이용 약관")
@@ -185,9 +206,8 @@ struct MyPageView: View {
                         .frame(width: 370, height: 45)
                     }
                     
-                    // 사파리 링크로 노션 띄어줄 예정
-                    NavigationLink {
-                        Text("개인정보 처리방침 노션으로 띄어줄 예정")
+                    Button {
+                        showPrivacyPolicy.toggle()
                     } label: {
                         HStack {
                             Text("개인정보 처리방침")
@@ -233,6 +253,18 @@ struct MyPageView: View {
                          primaryAction: { authStore.logOut() })
             .fullScreenCover(isPresented: $isShowingPassView) {
                 PassView()
+            }
+            .onAppear {
+                if !isImageChanged {
+                    tempProfileImage = nil
+                }
+                isImageChanged = false
+            }
+            .sheet(isPresented: $showTermsOfService) {
+                SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/ae2c4d8c27044967ae9772294f58c428?pvs=74")!)
+            }
+            .sheet(isPresented: $showPrivacyPolicy) {
+                SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/1358843116e6463c805fda45dac76ce0?pvs=4")!)
             }
         }
     }

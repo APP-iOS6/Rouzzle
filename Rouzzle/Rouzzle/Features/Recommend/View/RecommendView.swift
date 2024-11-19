@@ -14,9 +14,10 @@ struct RecommendView: View {
     @State private var toast: ToastModel?
     @State private var addNewRoutine: RoutineItem?
     @State private var allCheckBtn: Bool = false
+    @State private var refreshID = UUID()
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             HStack {
                 Text("추천")
                     .font(.semibold18)
@@ -25,8 +26,10 @@ struct RecommendView: View {
                 Spacer()
             }
             .padding(.top, 20)
+            .padding(.bottom, 25)
 
             RecommendCategoryView(selectedCategory: $viewModel.selectedCategory)
+                .padding(.bottom, 25)
             
             RecommendCardListView(
                 cards: $viewModel.filteredCards,
@@ -45,18 +48,21 @@ struct RecommendView: View {
                     allCheckBtn = false
                 }
             }
+            .id(refreshID)
+            
             Spacer()
         }
-        .toastView(toast: $toast) // ToastModifier 적용
+        .toastView(toast: $toast)
         .overlay {
             if viewModel.loadState == .loading {
                 ProgressView()
             }
         }
+        .onChange(of: viewModel.selectedCategory) { _, _ in
+            refreshID = UUID()
+        }
         .onChange(of: viewModel.toastMessage) { _, new in
-            guard let new else {
-                return
-            }
+            guard let new else { return }
             if viewModel.loadState == .completed {
                 toast = ToastModel(type: .success, message: new)
                 viewModel.toastMessage = nil
@@ -74,8 +80,4 @@ struct RecommendView: View {
             }
         }
     }
-}
-
-#Preview {
-    RecommendView()
 }
