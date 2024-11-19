@@ -19,6 +19,7 @@ struct RoutineListView: View {
     @State private var isShowingAddRoutineSheet: Bool = false
     @State private var currentQuote: String = ""
     @State private var selectedFilter: FilterOption = .today
+    @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
 
@@ -77,7 +78,27 @@ struct RoutineListView: View {
                     PieceCounter(count: 9)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    // 챌린지 버튼 생략
+                    Button(action: {
+                        isShowingChallengeView.toggle()
+                    }, label: {
+                        HStack {
+                            Image(systemName: "trophy.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.yellow)
+                                .frame(width: 18, height: 18)
+                            Text("챌린지")
+                                .font(.medium16)
+                                .foregroundColor(.black)
+                        }
+                        .frame(width: 90, height: 30)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.white)
+                                .shadow(color: .black.opacity(0.1), radius: 2)
+                        )
+                        
+                    })
                 }
             }
             .navigationDestination(for: NavigationDestination.self) { destination in
@@ -95,6 +116,9 @@ struct RoutineListView: View {
                         path: $path, routineItem: routineItem
                     )
                 }
+            }
+            .navigationDestination(isPresented: $isShowingChallengeView) {
+                RouzzleChallengeView()
             }
         }
     }
