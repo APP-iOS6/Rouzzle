@@ -11,6 +11,7 @@ import Factory
 
 struct AddTaskView: View {
     var store: RoutineStore
+    @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     @Environment(\.modelContext) private var modelContext
     @State private var isShowingAddTaskSheet: Bool = false
     @State private var isShowingTimerView: Bool = false
@@ -110,7 +111,7 @@ struct AddTaskView: View {
                                             .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
                                     )
                             }
-
+                            
                         }
                     }
                     .padding(.top, 10)
@@ -132,7 +133,7 @@ struct AddTaskView: View {
                         viewModel: RoutineStartViewModel(
                             routineItem: store.routineItem,
                             taskManager: taskManager  // taskManager 전달
-                        )
+                        ), path: $path
                     )
                 }
                 .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
@@ -140,11 +141,11 @@ struct AddTaskView: View {
                         store.loadState = .completed
                         store.toastMessage = "수정에 성공했습니다."
                     }
-                 }
+                }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(detents: $detents) { task in
                         Task {
-                           await store.addTask(task, context: modelContext)
+                            await store.addTask(task, context: modelContext)
                         }
                     }
                     .presentationDetents(detents)
@@ -191,7 +192,7 @@ struct AddTaskView: View {
 
 #Preview {
     NavigationStack {
-        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]), completeAction: {_ in })
+        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]), path: .constant(NavigationPath()), completeAction: {_ in })
             .modelContainer(SampleData.shared.modelContainer)
     }
 }
