@@ -19,13 +19,17 @@ struct RecommendCardListView: View {
         ScrollView {
             LazyVStack(spacing: 24) {
                 ForEach(cards) { card in
-                    if selectedCardID == card.id {
-                        expandedCard(card)
-                            .id(card.id)
-                    } else {
-                        collapsedCard(card)
-                            .id(card.id)
+                    Group {  // Group으로 감싸기
+                        if selectedCardID == card.id {
+                            expandedCard(card)
+                                .id("\(card.id)-expanded")
+                                .transition(.opacity)
+                        } else {
+                            collapsedCard(card)
+                                .id("\(card.id)-collapsed")
+                        }
                     }
+                    .animation(.default, value: selectedCardID)
                 }
             }
             .padding(.top, 2)
@@ -34,8 +38,10 @@ struct RecommendCardListView: View {
         }
         .scrollIndicators(.hidden)
         .onChange(of: selectedCardID) { _, _ in
-            allCheckBtn = false
-            selectedRecommendTask.removeAll()
+            withAnimation {
+                allCheckBtn = false
+                selectedRecommendTask.removeAll()
+            }
         }
     }
     
