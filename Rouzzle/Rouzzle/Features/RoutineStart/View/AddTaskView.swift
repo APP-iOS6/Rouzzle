@@ -17,7 +17,8 @@ struct AddTaskView: View {
     @State var isShowingEditRoutineSheet: Bool = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-    
+    @Environment(\.dismiss) private var dismiss
+
     @State private var taskManager = CalendarTaskManager()
     
     var body: some View {
@@ -146,7 +147,8 @@ struct AddTaskView: View {
                     .presentationDetents(detents)
                 }
                 .sheet(isPresented: $isShowingRoutineSettingsSheet) {
-                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet)
+                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet,
+                                         routineItem: store.routineItem)
                         .presentationDetents([.fraction(0.25)])
                 }
             }

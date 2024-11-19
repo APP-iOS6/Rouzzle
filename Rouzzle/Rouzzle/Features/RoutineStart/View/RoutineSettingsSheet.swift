@@ -6,11 +6,17 @@
 //
 
 import SwiftUI
+import Factory
 
 struct RoutineSettingsSheet: View {
+    @ObservationIgnored
+    @Injected(\.routineService) private var routineService
+    
     @Environment(\.dismiss) private var dismiss
     @Binding var isShowingEditRoutineSheet: Bool
-
+    var routineItem: RoutineItem
+    @Environment(\.modelContext) private var modelContext
+    
     var body: some View {
         VStack(spacing: 20) {
             Button {
@@ -25,7 +31,7 @@ struct RoutineSettingsSheet: View {
             Divider()
             
             Button {
-                
+                deleteRoutine()
             } label: {
                 Text("삭제하기")
                     .foregroundStyle(.red)
@@ -45,8 +51,17 @@ struct RoutineSettingsSheet: View {
         .font(.regular18)
         .padding(.horizontal, 16)
     }
+    
+    private func deleteRoutine() {
+        do {
+            try SwiftDataService.deleteRoutine(routine: routineItem, context: modelContext)
+            dismiss()
+        } catch {
+            print("❌ 루틴 삭제 실패: \(error.localizedDescription)")
+        }
+    }
 }
 
 #Preview {
-    RoutineSettingsSheet(isShowingEditRoutineSheet: .constant(false))
+    RoutineSettingsSheet(isShowingEditRoutineSheet: .constant(false), routineItem: RoutineItem.sampleData[0])
 }
