@@ -81,7 +81,8 @@ class SocialViewModel {
                 try await socialService.addFavoriteUser(userID: userID)
                 print("User \(userID) added to favorites.")
             }
-            // 로컬 데이터 업데이트는 하지 않음
+            
+            await fetchUserProfiles()
         } catch {
             await MainActor.run {
                 self.error = DBError.firebaseError(error)

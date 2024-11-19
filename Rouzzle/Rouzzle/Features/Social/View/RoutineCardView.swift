@@ -9,8 +9,12 @@ import SwiftUI
 
 struct RoutineCardView: View {
     @State var isExpanded: Bool = false
-    @State var isStarred: Bool
+   // @State var isStarred: Bool
     @State private var selectedRoutineIndex: Int?
+    @Environment(SocialViewModel.self) private var viewModel
+    private var isStarred: Bool {
+        viewModel.isUserFavorited(userID: userProfile.documentId!)
+    }
     var userProfile: UserProfile
     let action: (String) -> Void
 
@@ -52,7 +56,6 @@ struct RoutineCardView: View {
 
                     // 즐겨찾기
                     Button(action: {
-                        isStarred.toggle()
                         action(userProfile.documentId!)
                     }, label: {
                         Image(systemName: isStarred ? "star.fill" : "star")
@@ -84,23 +87,6 @@ struct RoutineCardView: View {
                     }
                     Spacer()
 
-                    // 더보기 버튼 (선택된 루틴이 있을 때만 작동)
-                    Button {
-                        withAnimation(.easeInOut) {
-                            if selectedRoutineIndex != nil {
-                                // 선택된 루틴이 있으면 선택 해제
-                                selectedRoutineIndex = nil
-                            } else {
-                                // 선택된 루틴이 없으면 첫 번째 루틴 선택
-                                selectedRoutineIndex = 0
-                            }
-                        }
-                    } label: {
-                        Image(systemName: selectedRoutineIndex != nil ? "chevron.up" : "chevron.down")
-                            .foregroundColor(.gray)
-                            .rotationEffect(.degrees(selectedRoutineIndex != nil ? 180 : 0))
-                            .animation(.easeInOut, value: selectedRoutineIndex != nil)
-                    }
                 }
                 .padding(.top, 2)
 

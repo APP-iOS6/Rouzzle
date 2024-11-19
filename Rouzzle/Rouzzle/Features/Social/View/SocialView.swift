@@ -11,7 +11,7 @@ struct SocialView: View {
     @Environment(SocialViewModel.self) private var viewModel
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -71,7 +71,7 @@ struct SocialView: View {
                                     !viewModel.isUserFavorited(userID: user.documentId ?? "")
                                 }, id: \.self) { user in
                                     RoutineCardView(
-                                        isStarred: viewModel.isUserFavorited(userID: user.documentId ?? ""), userProfile: user,
+                                        userProfile: user,
                                         action: { id in
                                             Task {
                                                 await viewModel.toggleFavoriteUser(userID: id)
