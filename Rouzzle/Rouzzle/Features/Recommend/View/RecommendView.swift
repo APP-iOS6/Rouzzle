@@ -14,9 +14,10 @@ struct RecommendView: View {
     @State private var toast: ToastModel?
     @State private var addNewRoutine: RoutineItem?
     @State private var allCheckBtn: Bool = false
+    @State private var refreshID = UUID()
 
     var body: some View {
-        VStack(spacing: 0) { // spacing을 0으로 설정
+        VStack(spacing: 0) {
             HStack {
                 Text("추천")
                     .font(.semibold18)
@@ -25,10 +26,10 @@ struct RecommendView: View {
                 Spacer()
             }
             .padding(.top, 20)
-            .padding(.bottom, 12) // 상단 타이틀과 카테고리 사이 간격
+            .padding(.bottom, 25)
 
             RecommendCategoryView(selectedCategory: $viewModel.selectedCategory)
-                .padding(.bottom, 20) // 카테고리와 카드리스트 사이 간격 고정
+                .padding(.bottom, 25)
             
             RecommendCardListView(
                 cards: $viewModel.filteredCards,
@@ -47,6 +48,7 @@ struct RecommendView: View {
                     allCheckBtn = false
                 }
             }
+            .id(refreshID)
             
             Spacer()
         }
@@ -55,6 +57,9 @@ struct RecommendView: View {
             if viewModel.loadState == .loading {
                 ProgressView()
             }
+        }
+        .onChange(of: viewModel.selectedCategory) { _, _ in
+            refreshID = UUID()
         }
         .onChange(of: viewModel.toastMessage) { _, new in
             guard let new else { return }
