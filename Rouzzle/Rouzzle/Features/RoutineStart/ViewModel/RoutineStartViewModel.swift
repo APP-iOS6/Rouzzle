@@ -104,7 +104,7 @@ class RoutineStartViewModel {
         }
         
         timer?.invalidate()
-        currentTaskIndex += 1
+        moveToNextIncompleteTask()
         
         if currentTaskIndex < viewTasks.count {
             timerState = .running
@@ -126,8 +126,7 @@ class RoutineStartViewModel {
         }
         
         timer?.invalidate()
-        currentTaskIndex += 1
-
+        moveToNextIncompleteTask()
         // 현재 작업을 건너뛰고 다음 작업으로 이동
         if currentTaskIndex < viewTasks.count {
             timerState = .running
@@ -145,6 +144,18 @@ class RoutineStartViewModel {
             for task in routineItem.taskList {
                 task.isCompleted = false
             }
+        }
+    }
+    
+    func moveToNextIncompleteTask() {
+        currentTaskIndex += 1
+
+        while currentTaskIndex < viewTasks.count && viewTasks[currentTaskIndex].isCompleted {
+            currentTaskIndex += 1
+        }
+
+        if currentTaskIndex >= viewTasks.count {
+            isRoutineCompleted = true
         }
     }
     
