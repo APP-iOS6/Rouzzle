@@ -71,7 +71,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             
             // 반복 알림 메시지
             let elapsedTime = intervalMinutes * i
-            let repeatBody = "\(elapsedTime)분이 지났어요! \(title)을(를) 시작하세요!"
+            let repeatBody = "\(elapsedTime)분이 지났어요! \(title)을 시작하세요!"
             
             // 디버깅: 각 알림 시간 및 메시지 출력
             let dateFormatter = DateFormatter()
