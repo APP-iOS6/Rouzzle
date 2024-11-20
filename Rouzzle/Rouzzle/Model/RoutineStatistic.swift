@@ -5,14 +5,10 @@
 //  Created by 김동경 on 11/20/24.
 //
 
-import SwiftUI
+import Foundation
 
-struct RoutineStatistic: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    RoutineStatistic()
+struct RoutineStatistic {
+    let currentStreak: Int // 현재 연속일
+    let maxStreak: Int // 누적 연속일
+    let totalCompletedDays: Int // 누적일
 }
