@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TaskListSheet: View {
-    // @State var viewModel: RoutineStartViewModel
     @Binding var tasks: [TaskList] // viewTasks
     @Binding var detents: Set<PresentationDetent>
     @State private var draggedItem: TaskList?
