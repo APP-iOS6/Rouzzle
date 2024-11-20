@@ -23,7 +23,6 @@ struct SocialView: View {
                                 .foregroundStyle(.basic)
                             Spacer()
                         }
-                        .padding(.top, 20)
                         
                         SearchBarView(text: $query)
                             .animation(.easeInOut, value: query)
@@ -49,9 +48,7 @@ struct SocialView: View {
                                             ForEach(Array(viewModel.userFavorites), id: \.self) { user in
                                                 NavigationLink(destination: SocialMarkDetailView(userProfile: user, isStarred: true)) {
                                                     VStack {
-                                                        ProfileCachedImage(imageUrl: user.profileImageUrl)
-                                                            .frame(width: 60, height: 60)
-                                                            .clipShape(Circle())
+                                                        ProfileCachedImage(frameSize: 60, imageUrl: user.profileImageUrl)
                                                         Text(user.nickname)
                                                             .font(.regular12)
                                                             .foregroundColor(.black)
@@ -59,10 +56,13 @@ struct SocialView: View {
                                                 }
                                             }
                                         }
+                                        .padding(.leading, 5)
+                                        .padding(.top, 5)
                                     }
                                 }
                             }
                             .padding(.top, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             
                             VStack(alignment: .leading) {
                                 Text("루즐러 둘러보기")
@@ -104,9 +104,8 @@ struct SocialView: View {
                                         ), isStarred: false)
                                     } label: {
                                         HStack {
-                                            ProfileCachedImage(imageUrl: user.profileUrlString)
-                                                .frame(width: 44, height: 44)
-                                                .clipShape(Circle())
+                                            ProfileCachedImage(frameSize: 44, imageUrl: user.profileUrlString)
+
                                             Text(user.name)
                                                 .font(.semibold16)
                                                 .foregroundStyle(.black)

@@ -23,9 +23,7 @@ struct RoutineCardView: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .top, spacing: 15) {
                     // 프로필 이미지
-                    ProfileCachedImage(imageUrl: userProfile.profileImageUrl)
-                        .frame(width: 44, height: 44)
-                        .clipShape(Circle())
+                    ProfileCachedImage(frameSize: 44, imageUrl: userProfile.profileImageUrl)
 
                     VStack(alignment: .leading, spacing: 3) {
                         HStack {
@@ -97,7 +95,7 @@ struct RoutineCardView: View {
                 }
             }
             .padding()
-            .background(Color(.systemGray6).opacity(0.6))
+            .background(Color(.graylittlelight))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(PlainButtonStyle()) // 기본 버튼 스타일 제거

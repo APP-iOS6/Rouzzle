@@ -16,16 +16,14 @@ struct SocialMarkDetailView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                ProfileCachedImage(imageUrl: userProfile.profileImageUrl)
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
+                ProfileCachedImage(frameSize: 50, imageUrl: userProfile.profileImageUrl)
 
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
                         Text(userProfile.nickname)
                             .font(.bold16)
                         Text("루즐러")
-                            .font(.regular14)
+                            .font(.medium14)
                             .foregroundColor(.accent)
                         Spacer()
 
@@ -49,7 +47,7 @@ struct SocialMarkDetailView: View {
                 }
                 Spacer()
             }
-            .padding(.top, 40)
+            .padding(.top, 20)
 
             VStack(alignment: .leading) {
                 Text(userProfile.introduction ?? "")
@@ -57,7 +55,7 @@ struct SocialMarkDetailView: View {
                     .foregroundColor(.black)
                 Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: 40, alignment: .topLeading)
+            .frame(maxWidth: .infinity, maxHeight: 20, alignment: .topLeading)
 
             ScrollView {
                 VStack(spacing: 16) {
@@ -66,10 +64,8 @@ struct SocialMarkDetailView: View {
                             RoutineDetailCardView2(routine: routine) // 각 할 일 목록 카드
                         }
                     }
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                    )
                 }
+                .padding(.bottom) // 탭바랑 안 붙게
             }
         }
         .onAppear {
@@ -122,7 +118,7 @@ struct RoutineDetailCardView2: View {
             .padding(.vertical, 4)
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color(.graylittlelight))
         .cornerRadius(12)
     }
 }
