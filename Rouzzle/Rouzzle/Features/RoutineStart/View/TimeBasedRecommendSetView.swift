@@ -20,7 +20,6 @@ struct TimeBasedRecommendSetView: View {
             ZStack {
                 Color(.subbackgroundcolor)
                     .edgesIgnoringSafeArea(.all)
-                
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .center, spacing: 10) {
                         RecommendTaskByTime(category: category)
@@ -85,7 +84,18 @@ struct TimeBasedRecommendSetView: View {
                     .padding(.horizontal, 0)
                     .padding(.bottom, 30)
                 }
-                .customNavigationBar(title: "추천 세트")
+                .padding()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.bold24)
+                    }
+                    .padding()
+                }
             }
         }
     }
