@@ -20,15 +20,11 @@ struct AddTaskView: View {
     @State var isShowingDeleteAlert = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-<<<<<<< HEAD
-        
-=======
+
     @Environment(\.dismiss) private var dismiss
-    @State private var taskManager = CalendarTaskManager()
     let completeAction: (String) -> Void
     @State var viewModel = AddTaskViewModel()
     
->>>>>>> 832b813b3a048d5c75a1571bc3adcfb11f5268e4
     var body: some View {
         ZStack {
             ScrollView {
@@ -136,7 +132,7 @@ struct AddTaskView: View {
                     RoutineStartView(
                         viewModel: RoutineStartViewModel(
                             routineItem: store.routineItem
-                        )
+                        ), path: $path
                     )
                 }
                 .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
