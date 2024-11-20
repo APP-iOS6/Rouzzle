@@ -48,10 +48,8 @@ class RoutineStartViewModel {
         print("타이머 뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
-        initializeCurrentTaskIndex()
-        resetTask()
     }
-    // 타이머 시작
+    // MARK: - 타이머 관련 메서드
     func startTimer() {
         guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
@@ -89,7 +87,7 @@ class RoutineStartViewModel {
         }
     }
     
-    // 완료 버튼 로직 수정 - 루틴 완료 시 Firebase 저장 및 캘린더 업데이트 추가
+    // MARK: - 테스크 관리 메서드
     func markTaskAsCompleted() {
         guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
@@ -99,9 +97,9 @@ class RoutineStartViewModel {
         
         let currentTask = viewTasks[currentTaskIndex]
         currentTask.isCompleted = true
-        viewTasks[currentTaskIndex].isCompleted = true
         if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == currentTask.id }) {
             routineItem.taskList[modelIndex].isCompleted = true
+            viewTasks[currentTaskIndex].isCompleted = true
         }
         
         timer?.invalidate()
@@ -112,6 +110,9 @@ class RoutineStartViewModel {
             startTimer()
         } else {
             initializeCurrentTaskIndex()
+            if currentTaskIndex == viewTasks.count {
+                isRoutineCompleted = true
+            }
         }
     }
     
@@ -138,6 +139,7 @@ class RoutineStartViewModel {
     
     func resetTask() {
         print("리셋 테스크")
+    
         if routineItem.taskList.filter({!$0.isCompleted}).isEmpty && !routineItem.taskList.isEmpty { // 모든일이 완료되었다면 초기화 시켜준다.
             for task in routineItem.taskList {
                 task.isCompleted = false
@@ -148,12 +150,12 @@ class RoutineStartViewModel {
     func initializeCurrentTaskIndex() {
         if let index = viewTasks.firstIndex(where: { !$0.isCompleted }) {
             currentTaskIndex = index
-        } else {
-            currentTaskIndex = viewTasks.count
-            isRoutineCompleted = true
+            return
         }
+        isRoutineCompleted = true
     }
     
+    // MARK: - 저장 관련 메서드
     func saveRoutineCompletion() async {
         let routine = routineItem.toRoutineCompletion(Date())
         _ = await updateRoutineCompletion(routine)
@@ -178,21 +180,4 @@ class RoutineStartViewModel {
     deinit {
         timer?.invalidate()
     }
-}
-
-// MARK: - 테스트용 더미 데이터
-struct DummyTask: Identifiable {
-    let id = UUID()
-    var taskStatus: TaskStatus
-    let emoji: String
-    let title: String
-    let timer: Int?
-    
-    static var tasks = [
-        DummyTask(taskStatus: .completed, emoji: "☕️", title: "커피/차 마시기", timer: 600),
-        DummyTask(taskStatus: .inProgress, emoji: "💊", title: "유산균 먹기", timer: 10),
-        DummyTask(taskStatus: .pending, emoji: "🐱", title: "시간 없는 테스트 할일", timer: nil),
-        DummyTask(taskStatus: .pending, emoji: "🧼", title: "설거지 하기", timer: 600),
-        DummyTask(taskStatus: .pending, emoji: "👕", title: "옷 갈아입기", timer: 300)
-    ]
 }
