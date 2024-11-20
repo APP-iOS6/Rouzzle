@@ -92,7 +92,7 @@ struct RoutineStartView: View {
                     // 할일 완료 버튼
                     Button {
                         viewModel.markTaskAsCompleted()
-                        viewModel.toggleTimer()
+                        //viewModel.toggleTimer()
                     } label: {
                         Image(.checkIcon)
                             .frame(width: 72, height: 72)

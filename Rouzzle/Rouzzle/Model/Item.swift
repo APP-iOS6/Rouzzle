@@ -169,8 +169,8 @@ extension RoutineItem {
 
 extension TaskList {
     static let sampleData: [TaskList] = [
-        TaskList(title: "밥 먹기", emoji: "🍚", timer: 3, isCompleted: true),
-        TaskList(title: "양치 하기", emoji: "🪥", timer: 3, isCompleted: true),
+        TaskList(title: "밥 먹기", emoji: "🍚", timer: 3, isCompleted: false),
+        TaskList(title: "양치 하기", emoji: "🪥", timer: 3, isCompleted: false),
         TaskList(title: "술 마시기", emoji: "🍺", timer: 30, isCompleted: false)
     ]
 }
