@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		237BBDB72CEA358400D4A44F /* CalendarViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */; };
 		23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */; };
 		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
@@ -25,8 +24,6 @@
 		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
 		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
 		23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99782CE46370009BE074 /* CalendarTask.swift */; };
-		23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */; };
-		23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99852CE47232009BE074 /* StatisticViewModel.swift */; };
 		23BC99882CE49223009BE074 /* StatisticCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99872CE49223009BE074 /* StatisticCategoryView.swift */; };
 		23BC99BE2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99BD2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift */; };
 		23BC99C02CE6E033009BE074 /* PuzzleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99BF2CE6E033009BE074 /* PuzzleGame.swift */; };
@@ -187,7 +184,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewStateManager.swift; sourceTree = "<group>"; };
 		23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleLogin.riv; sourceTree = "<group>"; };
 		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
@@ -205,8 +201,6 @@
 		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
 		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
 		23BC99782CE46370009BE074 /* CalendarTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTask.swift; sourceTree = "<group>"; };
-		23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTaskManager.swift; sourceTree = "<group>"; };
-		23BC99852CE47232009BE074 /* StatisticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewModel.swift; sourceTree = "<group>"; };
 		23BC99872CE49223009BE074 /* StatisticCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticCategoryView.swift; sourceTree = "<group>"; };
 		23BC99BD2CE6D82B009BE074 /* RouzzleChallengePuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePuzzleView.swift; sourceTree = "<group>"; };
 		23BC99BF2CE6E033009BE074 /* PuzzleGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleGame.swift; sourceTree = "<group>"; };
@@ -437,9 +431,6 @@
 		23BC997A2CE46744009BE074 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				23BC997F2CE469B1009BE074 /* CalendarTaskManager.swift */,
-				237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */,
-				23BC99852CE47232009BE074 /* StatisticViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1183,7 +1174,6 @@
 				97E5755E2CE667F10070FC84 /* AccountManagementViewModel.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
 				FB4174E92CDB475F0084BC19 /* RoutineCompletion.swift in Sources */,
-				23BC99862CE47232009BE074 /* StatisticViewModel.swift in Sources */,
 				23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */,
 				FBDC52FA2CEC50730038243D /* RoutineSuccessRateChart.swift in Sources */,
 				FBDC52EE2CEB18290038243D /* StatisticView.swift in Sources */,
@@ -1199,7 +1189,6 @@
 				23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
-				237BBDB72CEA358400D4A44F /* CalendarViewStateManager.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */,
 				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
@@ -1210,7 +1199,6 @@
 				BD1186FE2CD5FC5500FF4180 /* RouzzleButton.swift in Sources */,
 				FB2A5AAF2CD909A500CB981A /* LaunchView.swift in Sources */,
 				4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */,
-				23BC99802CE469B1009BE074 /* CalendarTaskManager.swift in Sources */,
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23BC98DE2CE1E7F8009BE074 /* RecommendDetailView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
