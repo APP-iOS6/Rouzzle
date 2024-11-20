@@ -52,7 +52,7 @@ struct AddTaskView: View {
                                 .font(.bold40)
                             
                             Text("할 일을 추가해 보세요")
-                                .font(.semibold18)
+                                .font(.medium16)
                                 .padding(.leading, 10)
                             
                             Spacer()
@@ -80,10 +80,10 @@ struct AddTaskView: View {
                         isShowingTimerView.toggle()
                     } label: {
                         Text("START")
-                            .frame(maxWidth: .infinity, minHeight: 65)
+                            .frame(maxWidth: .infinity, minHeight: 60)
                             .background(.accent)
                             .foregroundStyle(.white)
-                            .font(.bold24)
+                            .font(.bold20)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .padding(.top)

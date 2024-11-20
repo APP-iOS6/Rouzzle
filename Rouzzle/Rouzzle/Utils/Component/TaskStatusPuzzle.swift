@@ -54,7 +54,7 @@ struct TaskStatusPuzzle: View {
             
             HStack(spacing: 10) {
                 Text(task.title)
-                    .font(.semibold18)
+                    .font(.medium16)
                     .strikethrough(taskStatus == .completed)
                     .lineLimit(1)
             }
@@ -141,11 +141,11 @@ struct TaskRecommendPuzzle: View {
             
             HStack(spacing: 10) {
                 Text(recommendTask.title)
-                    .font(.semibold18)
+                    .font(.medium16)
                     .lineLimit(1)
                 
                 Text(recommendTask.timer.formattedTimer)
-                    .font(.regular12)
+                    .font(.regular14)
                     .foregroundColor(Color.subHeadlineFontColor)
                 
             }
@@ -166,7 +166,7 @@ struct TaskRecommendPuzzle: View {
         .padding(.vertical, 8)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: [10, 5]))
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [6, 3]))
                 .foregroundStyle(.grayborderline)
         )
         
@@ -205,7 +205,7 @@ struct TaskStatusRow: View {
                 .padding(.horizontal, 8)
             
             Text(title)
-                .font(.semibold18)
+                .font(.medium16)
                 .strikethrough(taskStatus == .completed)
                 .padding(.trailing, 12)
             

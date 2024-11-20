@@ -66,11 +66,12 @@ struct RoutineStatusPuzzle: View {
             HStack {
                 Text("\(routineItem.emoji)")
                     .font(.bold40)
-                    .padding(.horizontal, 10)
+                    .padding(.trailing, 10)
+                    .padding(.bottom, 7)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(routineItem.title)
-                        .font(.semibold20)
+                        .font(.semibold18)
                         .foregroundStyle(.black)
                         .bold()
                         .strikethrough(status == .completed)
@@ -87,27 +88,40 @@ struct RoutineStatusPuzzle: View {
                         Image(systemName: alarmImageName) // 알림 이미지 동적으로 업데이트
                         Text(todayStartTime)
                     }
-                    .font(.regular16)
+                    .font(.regular14)
                     Text(convertDaysToString(days: routineItem.dayStartTime.keys.sorted()))
                         .font(.regular14)
                 }
                 .foregroundStyle(Color.subHeadlineFontColor)
             }
             .padding(.horizontal, 20)
-            .offset(y: -5)
+            .offset(y: -7)
         }
         .opacity(status == .pending ? 1 : 0.6)
     }
     
     func convertDaysToString(days: [Int]) -> String {
-        var str = ""
-        for day in days {
-            str += " \(dayOfWeek[day, default: ""])"
+        // 요일 데이터 매핑 (Int -> String)
+        let dayNames = ["일", "월", "화", "수", "목", "금", "토"]
+        
+        // 요일 인덱스를 텍스트로 변환
+        let dayStrings = days.compactMap { dayIndex -> String? in
+            guard dayIndex >= 1 && dayIndex <= 7 else { return nil }
+            return dayNames[dayIndex - 1]
         }
-        return str
+        
+        // 조건에 따라 텍스트 반환
+        if days.contains(1) && days.contains(7) && days.count == 7 {
+            return "매일"
+        } else if Set([2, 3, 4, 5, 6]).isSubset(of: days) && !days.contains(1) && !days.contains(7) {
+            return "평일"
+        } else if Set([1, 7]).isSubset(of: days) && days.count == 2 {
+            return "주말"
+        } else {
+            return dayStrings.joined(separator: " ")
+        }
     }
 }
-
 
 // #Preview("2") {
 //    RoutineStatusPuzzle2()

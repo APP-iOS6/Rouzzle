@@ -96,7 +96,7 @@ struct StatisticDetailView: View {
                 selectedCategory: $selectedCategory,
                 routines: routines
             )
-            .padding(.vertical, 20)
+            .padding(.bottom, 20)
             .padding(.trailing, -16)
             
             if selectedCategory == "요약" {
