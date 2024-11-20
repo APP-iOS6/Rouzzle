@@ -2,55 +2,43 @@
 //  MonthSelector.swift
 //  Rouzzle
 //
-//  Created by Hyeonjeong Sim on 11/16/24.
+//  Created by 김동경 on 11/19/24.
 //
 
 import SwiftUI
 
 struct MonthSelector: View {
-    let viewModel: StatisticViewModel
-    @State private var isMoving = false
+    
+    let title: String
+    @Binding var isLoading: Bool
+    let action: (Int) -> Void
     
     var body: some View {
         HStack(spacing: 8) {
             Button {
-                moveMonth(-1)
+                action(-1)
             } label: {
                 Image(systemName: "chevron.left")
                     .font(.regular14)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(Color.gray)
             }
-            .disabled(isMoving)
+            .disabled(isLoading)
             
-            Text("\(viewModel.calendarState.extraData()[1])년 \(viewModel.calendarState.extraData()[0])월")
+            Text(title)
                 .font(.regular14)
             
             Button {
-                moveMonth(1)
+                action(1)
             } label: {
                 Image(systemName: "chevron.right")
                     .font(.regular14)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(Color.gray)
             }
-            .disabled(isMoving)
+            .disabled(isLoading)
         }
     }
-    
-    private func moveMonth(_ direction: Int) {
-        guard !isMoving else { return }
-        
-        isMoving = true
-        
-        Task {
-            // 월 이동
-            await viewModel.calendarState.moveMonth(direction: direction)
-            // 데이터 다시 로드
-            await viewModel.loadRoutineCompletions()
-            
-            // UI 업데이트를 위해 메인 스레드에서 실행
-            await MainActor.run {
-                isMoving = false
-            }
-        }
-    }
+}
+
+#Preview {
+    MonthSelector(title: "2024년 10월", isLoading: .constant(false)) { _ in }
 }

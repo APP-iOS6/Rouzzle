@@ -44,6 +44,10 @@ class RoutineStartViewModel {
         }
     }
     
+    var isRoutineCompleted = false // 모든 작업 완료 여부 체크
+    private var isResuming = false // 일시정지 후 재개 상태를 추적
+    
+    // taskManager 파라미터 추가
     init(routineItem: RoutineItem) {
         print("타이머 뷰모델 생성")
         self.routineItem = routineItem
