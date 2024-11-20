@@ -44,10 +44,36 @@ struct AddTaskView: View {
                                 .font(.title)
                         }
                     }
+                    .padding(.bottom, 5)
                     
-                    ForEach(store.taskList) { task in
-                        TaskStatusPuzzle(task: task)
-                            .padding(.top, 5)
+                    if store.taskList .isEmpty {
+                        HStack {
+                            Text("🧩")
+                                .font(.bold40)
+                            
+                            Text("할 일을 추가해 보세요")
+                                .font(.semibold18)
+                                .padding(.leading, 10)
+                            
+                            Spacer()
+                            
+                            Text("example")
+                                .font(.medium14)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .background(RoundedRectangle(cornerRadius: 15).fill(.secondcolor))
+                        }
+                        .padding(.horizontal, 25)
+                        .padding(.vertical, 8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(style: StrokeStyle(lineWidth: 1))
+                                .foregroundStyle(.grayborderline)
+                        )
+                    } else {
+                        ForEach(store.taskList) { task in
+                            TaskStatusPuzzle(task: task)
+                        }
                     }
  
                     Button {
@@ -124,7 +150,7 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 10)
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, 20)
                 .customNavigationBar(title: "\(store.routineItem.emoji) \(store.routineItem.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
