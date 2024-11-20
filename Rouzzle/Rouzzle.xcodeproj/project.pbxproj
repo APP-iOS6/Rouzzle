@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		237BBD8B2CE9973E00D4A44F /* RoutineDetailStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */; };
+		237BBDB72CEA358400D4A44F /* CalendarViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */; };
+		238AE1EB2CEC82F500FF918C /* PuzzleGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238AE1EA2CEC82F500FF918C /* PuzzleGuideOverlay.swift */; };
 		23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */; };
 		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
@@ -188,6 +191,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailStatsView.swift; sourceTree = "<group>"; };
+		237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewStateManager.swift; sourceTree = "<group>"; };
+		238AE1EA2CEC82F500FF918C /* PuzzleGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleGuideOverlay.swift; sourceTree = "<group>"; };
 		23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleLogin.riv; sourceTree = "<group>"; };
 		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
@@ -424,6 +430,7 @@
 				23BC99C32CE6E31D009BE074 /* DraggablePuzzlePiece.swift */,
 				23BC99BF2CE6E033009BE074 /* PuzzleGame.swift */,
 				23BC99C92CE70400009BE074 /* PuzzleInfoBox.swift */,
+				238AE1EA2CEC82F500FF918C /* PuzzleGuideOverlay.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1137,6 +1144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD912F8D2CDD32F5007B8503 /* SwiftDataError.swift in Sources */,
+				238AE1EB2CEC82F500FF918C /* PuzzleGuideOverlay.swift in Sources */,
 				FB4174ED2CDB59BF0084BC19 /* RoutineService.swift in Sources */,
 				974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,

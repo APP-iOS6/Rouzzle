@@ -10,6 +10,7 @@ import SwiftUI
 struct RouzzleChallengeView: View {
     @State private var selectedPuzzleType: PuzzleType?
     @State private var showPuzzle: Bool = false
+    @State private var isShowingGuide: Bool = false  // 가이드 오버레이 상태 추가
     
     private var gridItemSize: CGFloat {
         let screenWidth = UIScreen.main.bounds.width
@@ -19,7 +20,8 @@ struct RouzzleChallengeView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .top) {
+        ZStack {
+            // 메인 콘텐츠
             LinearGradient(
                 colors: [.white, Color.fromRGB(r: 252, g: 255, b: 240)],
                 startPoint: .top,
@@ -39,9 +41,9 @@ struct RouzzleChallengeView: View {
                             .underline()
                             .foregroundStyle(.gray)
                     }
-                    .padding(.top, 20)
+                    .padding(.top, 30)
                     .onTapGesture {
-                        print("참여 안내 탭눌림")
+                        isShowingGuide = true
                     }
                     
                     // 메인 챌린지
@@ -128,10 +130,31 @@ struct RouzzleChallengeView: View {
                 }
             }
             .customNavigationBar(title: "루즐 챌린지")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+            
+            VStack {
+                HStack {
+                    Spacer()
                     PieceCounter(count: 9)
+                        .padding(.top, -35)
+                        .padding(.trailing, 16)
+                        .background(Color.clear)
+                        .zIndex(1)
                 }
+                Spacer()
+            }
+            
+            if isShowingGuide {
+                ZStack {
+                    Color.black.opacity(0.5)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            isShowingGuide = false
+                        }
+                    
+                    PuzzleGuideOverlay(isShowingGuide: $isShowingGuide)
+                        .frame(maxWidth: 320, maxHeight: 247)
+                }
+                .zIndex(2)
             }
         }
         .hideTabBar(true)
