@@ -29,26 +29,25 @@ struct CacheImage: View {
 }
 
 struct ProfileCachedImage: View {
+    private(set) var frameSize: CGFloat
     private(set) var imageUrl: String?
-
+    
     var body: some View {
-        ZStack {
-            if let imageUrl = imageUrl {
-                CacheImage(url: imageUrl)
-            } else {
-                Group {
-                    Image(.defaultProfile)
-                        .resizable()
-                        .scaleEffect(0.4)
-                }
+        if let imageUrl = imageUrl {
+            CacheImage(url: imageUrl)
+                .frame(width: frameSize, height: frameSize)
+                .clipShape(Circle())
+        } else {
+            Image(.defaultProfile)
+                .resizable()
+                .scaleEffect(0.5)
                 .scaledToFill()
+                .frame(width: frameSize, height: frameSize)
                 .clipShape(Circle())
                 .overlay(
                     Circle()
                         .stroke(Color.accentColor, lineWidth: 2)
                 )
-            }
         }
-
     }
 }
