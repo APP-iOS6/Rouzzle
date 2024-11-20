@@ -22,35 +22,51 @@ class RoutineStartViewModel {
     var timeRemaining: Int = 0
     var routineItem: RoutineItem
     var viewTasks: [TaskList]
+    var currentTaskIndex: Int = 0
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     private var isResuming = false // 일시정지 후 재개 상태를 추적
     
     // 기존 computed properties 유지
     var inProgressTask: TaskList? {
-        viewTasks.first { !$0.isCompleted }
+        if currentTaskIndex < viewTasks.count {
+            return viewTasks[currentTaskIndex]
+        } else {
+            return nil
+        }
     }
     
     var nextPendingTask: TaskList? {
-        viewTasks
-            .drop(while: { $0.isCompleted })
-            .dropFirst()
-            .first(where: { !$0.isCompleted })
+        let nextIndex = currentTaskIndex + 1
+        if nextIndex < viewTasks.count {
+            return viewTasks[nextIndex]
+        } else {
+            return nil
+        }
     }
     
     init(routineItem: RoutineItem) {
         print("타이머 뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
+        initializeCurrentTaskIndex()
+        resetTask()
     }
     // 타이머 시작
     func startTimer() {
-        if !isResuming {
-            self.timeRemaining = inProgressTask?.timer ?? 0
+        guard currentTaskIndex < viewTasks.count else {
+            isRoutineCompleted = true
+            return
         }
-        isResuming = false // 설정 후 초기화
-                
+
+        let currentTask = viewTasks[currentTaskIndex]
+
+        if !isResuming {
+            self.timeRemaining = currentTask.timer
+        }
+        isResuming = false
+
         guard timerState == .running || timerState == .overtime else { return }
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             print("Timer: \(self.timeRemaining)")
@@ -75,44 +91,48 @@ class RoutineStartViewModel {
     
     // 완료 버튼 로직 수정 - 루틴 완료 시 Firebase 저장 및 캘린더 업데이트 추가
     func markTaskAsCompleted() {
-        guard let currentIndex = viewTasks.firstIndex(where: { !$0.isCompleted }) else {
+        guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
             timer?.invalidate()
             return
         }
         
-        viewTasks[currentIndex].isCompleted = true
-        timer?.invalidate()
-
-        if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == viewTasks[currentIndex].id }) {
+        let currentTask = viewTasks[currentTaskIndex]
+        currentTask.isCompleted = true
+        viewTasks[currentTaskIndex].isCompleted = true
+        if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == currentTask.id }) {
             routineItem.taskList[modelIndex].isCompleted = true
         }
         
-        if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
-            timeRemaining = nextTask.timer
+        timer?.invalidate()
+        currentTaskIndex += 1
+        
+        if currentTaskIndex < viewTasks.count {
             timerState = .running
             startTimer()
         } else {
-            isRoutineCompleted = true
-            timer?.invalidate()
+            initializeCurrentTaskIndex()
         }
     }
     
     // 스킵 버튼 로직(inProgress 상태에서 pending으로 변경)
     func skipTask() {
-        guard let currentIndex = viewTasks.firstIndex(where: { !$0.isCompleted }) else {
+        guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
             timer?.invalidate()
             return
         }
         
+        timer?.invalidate()
+        currentTaskIndex += 1
+
         // 현재 작업을 건너뛰고 다음 작업으로 이동
-        if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
-            timeRemaining = nextTask.timer
+        if currentTaskIndex < viewTasks.count {
+            timerState = .running
+            isResuming = false
             startTimer()
         } else {
-            isRoutineCompleted = true
-            timer?.invalidate()
+            initializeCurrentTaskIndex()
         }
     }
     
@@ -122,6 +142,15 @@ class RoutineStartViewModel {
             for task in routineItem.taskList {
                 task.isCompleted = false
             }
+        }
+    }
+    
+    func initializeCurrentTaskIndex() {
+        if let index = viewTasks.firstIndex(where: { !$0.isCompleted }) {
+            currentTaskIndex = index
+        } else {
+            currentTaskIndex = viewTasks.count
+            isRoutineCompleted = true
         }
     }
     
