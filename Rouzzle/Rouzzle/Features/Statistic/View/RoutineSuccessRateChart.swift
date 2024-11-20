@@ -41,6 +41,7 @@ struct RoutineSuccessRateChart: View {
                         x: .value("성공률", min(animatedValue, 100)),
                         y: .value("Label", "성공률")
                     )
+                    .foregroundStyle(getColor(for: animatedValue))
                     .annotation(position: .trailing) {
                         Text("\(Int(percentage))%")
                             .font(.medium11)
@@ -48,7 +49,7 @@ struct RoutineSuccessRateChart: View {
                             .padding(.leading, -2)
                     }
                 }
-                .frame(height: 15)
+                .frame(height: 20)
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
                 .chartXScale(domain: 0...100)
@@ -77,6 +78,17 @@ struct RoutineSuccessRateChart: View {
             withAnimation(.easeOut(duration: 0.8)) {
                 animatedValue = percentage
             }
+        }
+    }
+    
+    private func getColor(for value: Double) -> Color {
+        switch value {
+        case 100:
+            return Color.chart
+        case 50...:
+            return Color.chart.opacity(0.7)
+        default:
+            return Color.chart.opacity(0.36)
         }
     }
 }

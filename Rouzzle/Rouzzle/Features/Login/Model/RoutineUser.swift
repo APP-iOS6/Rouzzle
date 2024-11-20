@@ -7,7 +7,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct RoutineUser: Codable {
+struct RoutineUser: Codable, Equatable {
     @DocumentID var id: String?
     var name: String
     var profileUrlString: String?

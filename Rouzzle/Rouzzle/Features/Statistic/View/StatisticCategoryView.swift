@@ -53,6 +53,7 @@ struct StatisticCategoryView: View {
             }
             .padding(.horizontal, 6)
             .padding(.vertical, 1)
+            .padding(.trailing, 16)
         }
     }
 }
