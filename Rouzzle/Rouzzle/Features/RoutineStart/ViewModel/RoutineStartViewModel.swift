@@ -22,6 +22,8 @@ class RoutineStartViewModel {
     var timeRemaining: Int = 0
     var routineItem: RoutineItem
     var viewTasks: [TaskList]
+    var isRoutineCompleted = false // 모든 작업 완료 여부 체크
+    private var isResuming = false // 일시정지 후 재개 상태를 추적
     
     // 기존 computed properties 유지
     var inProgressTask: TaskList? {
@@ -35,12 +37,8 @@ class RoutineStartViewModel {
             .first(where: { !$0.isCompleted })
     }
     
-    var isRoutineCompleted = false // 모든 작업 완료 여부 체크
-    private var isResuming = false // 일시정지 후 재개 상태를 추적
-    
-    // taskManager 파라미터 추가
     init(routineItem: RoutineItem) {
-        print("뷰모델 생성")
+        print("타이머 뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
     }
@@ -50,9 +48,7 @@ class RoutineStartViewModel {
             self.timeRemaining = inProgressTask?.timer ?? 0
         }
         isResuming = false // 설정 후 초기화
-        
-        timer?.invalidate()
-        
+                
         guard timerState == .running || timerState == .overtime else { return }
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
@@ -66,6 +62,7 @@ class RoutineStartViewModel {
     }
     
     func toggleTimer() {
+        // 일시정지 관련
         if timerState == .running || timerState == .overtime {
             timerState = .paused
             timer?.invalidate()
@@ -85,13 +82,13 @@ class RoutineStartViewModel {
         }
         
         viewTasks[currentIndex].isCompleted = true
-        
+        timer?.invalidate()
+
         if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == viewTasks[currentIndex].id }) {
             routineItem.taskList[modelIndex].isCompleted = true
         }
         
         if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
-            print("담작겁이승ㅁ")
             timeRemaining = nextTask.timer
             timerState = .running
             startTimer()
@@ -112,7 +109,6 @@ class RoutineStartViewModel {
         // 현재 작업을 건너뛰고 다음 작업으로 이동
         if let nextTask = viewTasks.dropFirst(currentIndex + 1).first(where: { !$0.isCompleted }) {
             timeRemaining = nextTask.timer
-            timerState = .running
             startTimer()
         } else {
             isRoutineCompleted = true
