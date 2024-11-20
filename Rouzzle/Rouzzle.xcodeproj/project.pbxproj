@@ -181,6 +181,8 @@
 		FBDC52F82CEC49690038243D /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52F72CEC49690038243D /* SummaryView.swift */; };
 		FBDC52FA2CEC50730038243D /* RoutineSuccessRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52F92CEC50730038243D /* RoutineSuccessRateChart.swift */; };
 		FBDC52FC2CED61E30038243D /* RoutineCompletionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52FB2CED61E30038243D /* RoutineCompletionOverlay.swift */; };
+		FBDC53002CEDA99C0038243D /* RoutineStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52FF2CEDA99C0038243D /* RoutineStatistic.swift */; };
+		FBDC53022CEDB3B60038243D /* RoutineStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC53012CEDB3B60038243D /* RoutineStatisticView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -349,6 +351,8 @@
 		FBDC52F72CEC49690038243D /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		FBDC52F92CEC50730038243D /* RoutineSuccessRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSuccessRateChart.swift; sourceTree = "<group>"; };
 		FBDC52FB2CED61E30038243D /* RoutineCompletionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCompletionOverlay.swift; sourceTree = "<group>"; };
+		FBDC52FF2CEDA99C0038243D /* RoutineStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatistic.swift; sourceTree = "<group>"; };
+		FBDC53012CEDB3B60038243D /* RoutineStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatisticView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -746,6 +750,7 @@
 				FBDC52FB2CED61E30038243D /* RoutineCompletionOverlay.swift */,
 				23BC99872CE49223009BE074 /* StatisticCategoryView.swift */,
 				23BC99E92CE82C11009BE074 /* StatisticGuideOverlay.swift */,
+				FBDC53012CEDB3B60038243D /* RoutineStatisticView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -955,6 +960,7 @@
 				BD912F882CDD2B24007B8503 /* Item.swift */,
 				BDAC7C472CE09D5200BF0379 /* SampleData.swift */,
 				FBDC52CC2CE088780038243D /* TimeCategory.swift */,
+				FBDC52FF2CEDA99C0038243D /* RoutineStatistic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1128,7 +1134,6 @@
 				23BC99C22CE6E2B5009BE074 /* PuzzleView.swift in Sources */,
 				4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */,
 				FBDC52EB2CEAC2390038243D /* StatisticStore.swift in Sources */,
-				23BC98D22CE1CDF3009BE074 /* RecommendCardView.swift in Sources */,
 				BD6301B82CDE73550000203C /* ConvertDays.swift in Sources */,
 				23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */,
 				23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */,
@@ -1173,6 +1178,7 @@
 				23D7BD2F2CDD360A000B3DD9 /* EmojiSearchKeywords.swift in Sources */,
 				FB2A5A9A2CD7BF9200CB981A /* LoadState.swift in Sources */,
 				BD1545CB2CD937F20098AD7B /* AddRoutineView.swift in Sources */,
+				FBDC53002CEDA99C0038243D /* RoutineStatistic.swift in Sources */,
 				97E5755E2CE667F10070FC84 /* AccountManagementViewModel.swift in Sources */,
 				4BDCEDA92CDCED39009E924E /* EditRoutineView.swift in Sources */,
 				FB4174E92CDB475F0084BC19 /* RoutineCompletion.swift in Sources */,
@@ -1181,6 +1187,7 @@
 				FBDC52EE2CEB18290038243D /* StatisticView.swift in Sources */,
 				9736FA7B2CDB5D5F009C2E60 /* RoutineSettingsSheet.swift in Sources */,
 				974596D72CE1D61A004C346B /* CustomAlert.swift in Sources */,
+				FBDC53022CEDB3B60038243D /* RoutineStatisticView.swift in Sources */,
 				974596DB2CE1E721004C346B /* FAQView.swift in Sources */,
 				FBDC52F02CEB25790038243D /* CalendarView.swift in Sources */,
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
