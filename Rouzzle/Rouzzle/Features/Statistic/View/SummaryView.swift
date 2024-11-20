@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SummaryView2: View {
+struct SummaryView: View {
     
     @ObservedObject var store: StatisticStore
     let routines: [RoutineItem]
@@ -21,7 +21,7 @@ struct SummaryView2: View {
                 
                 Spacer()
                 
-                MonthSelector2(
+                MonthSelector(
                     title: store.currentDate.extraData,
                     isLoading: $store.isLoading
                 ) { value in
@@ -33,7 +33,7 @@ struct SummaryView2: View {
                     let targetDay: Set<Int> = Set(routine.dayStartTime.keys)
                     let percentage: Double = Double(store.summaryData[routine.id]?.filter { $0.isCompleted }.count ?? 0) / Double(store.countMTTDays(targetDay)) * 100
                     
-                    RoutineSuccessRateChart2(
+                    RoutineSuccessRateChart(
                         percentage: percentage,
                         emoji: routine.emoji,
                         title: routine.title
@@ -54,5 +54,5 @@ struct SummaryView2: View {
 }
 
 #Preview {
-    SummaryView2(store: .init(), routines: [])
+    SummaryView(store: .init(), routines: [])
 }

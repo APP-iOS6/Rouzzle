@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CalendarView2: View {
+struct CalendarView: View {
     
     @ObservedObject var store: StatisticStore
     let routine: RoutineItem
@@ -27,7 +27,7 @@ struct CalendarView2: View {
                     }
                 Spacer()
                 
-                MonthSelector2(
+                MonthSelector(
                     title: store.currentDate.extraData,
                     isLoading: $store.isLoading
                 ) { value in
@@ -51,7 +51,7 @@ struct CalendarView2: View {
                 ForEach(store.days) { value in
                     if value.day != -1 {
                         let completionStatus = store.getDayCompleteState(value.date, routineId: routine.id)
-                        CalendarDayView2(
+                        CalendarDayView(
                             completionStatus: completionStatus,
                             value: value
                         ) {
@@ -72,5 +72,5 @@ struct CalendarView2: View {
 }
 
 #Preview {
-    CalendarView2(store: .init(), routine: RoutineItem.sampleData[0])
+    CalendarView(store: .init(), routine: RoutineItem.sampleData[0])
 }

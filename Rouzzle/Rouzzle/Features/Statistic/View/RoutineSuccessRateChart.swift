@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct RoutineSuccessRateChart2: View {
+struct RoutineSuccessRateChart: View {
     
     let percentage: Double
     let emoji: String

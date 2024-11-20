@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct StatisticView2: View {
+struct StatisticView: View {
     
     @Query private var routinesQuery: [RoutineItem]
     @StateObject private var store: StatisticStore = StatisticStore()
@@ -97,9 +97,9 @@ struct StatisticDetailView: View {
             .padding(.vertical, 20)
             
             if selectedCategory == "요약" {
-                SummaryView2(store: store, routines: routines)
+                SummaryView(store: store, routines: routines)
             } else if let selectedRoutine = routines.first(where: { "\($0.emoji) \($0.title)" == selectedCategory }) {
-                CalendarView2(
+                CalendarView(
                     store: store,
                     routine: selectedRoutine
                 )
@@ -117,7 +117,7 @@ struct StatisticDetailView: View {
                             completion.isComplete && completion.title == task.title
                         }}.count ?? 0) / Double(store.countMTTDays(targetDay)) * 100
                         
-                        RoutineSuccessRateChart2(
+                        RoutineSuccessRateChart(
                             percentage: percentage,
                             emoji: task.emoji,
                             title: task.title
@@ -146,5 +146,5 @@ struct StatisticDetailView: View {
 }
 
 #Preview {
-    StatisticView2()
+    StatisticView()
 }
