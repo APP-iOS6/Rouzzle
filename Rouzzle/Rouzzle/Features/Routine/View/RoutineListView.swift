@@ -22,6 +22,17 @@ struct RoutineListView: View {
     @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
+    
+    var filterRoutineItem: [RoutineItem] {
+        if selectedFilter == .today {
+            let todayWeekday = Calendar.current.component(.weekday, from: Date())
+            return routinesQuery.filter { routine in
+                return routine.dayStartTime.keys.contains(todayWeekday)
+            }
+        } else {
+            return routinesQuery
+        }
+    }
 
     init() {
         _currentQuote = State(initialValue: QuotesProvider.randomQuote())
@@ -43,7 +54,7 @@ struct RoutineListView: View {
                     }
                     .padding(.horizontal)
 
-                    ForEach(filteredRoutines()) { routine in
+                    ForEach(filterRoutineItem) { routine in
                         Button {
                             path.append(NavigationDestination.addTaskView(routineItem: routine))
                         } label: {
@@ -120,18 +131,6 @@ struct RoutineListView: View {
             .navigationDestination(isPresented: $isShowingChallengeView) {
                 RouzzleChallengeView()
             }
-        }
-    }
-
-    private func filteredRoutines() -> [RoutineItem] {
-        let routines = Array(routinesQuery)
-        if selectedFilter == .today {
-            let todayWeekday = Calendar.current.component(.weekday, from: Date())
-            return routines.filter { routine in
-                return routine.dayStartTime.keys.contains(todayWeekday)
-            }
-        } else {
-            return routines
         }
     }
 }
