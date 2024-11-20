@@ -6,17 +6,39 @@
 //
 
 import SwiftUI
+import RiveRuntime
 
 struct RouzzleChallengeView: View {
     @State private var selectedPuzzleType: PuzzleType?
     @State private var showPuzzle: Bool = false
-    @State private var isShowingGuide: Bool = false  // 가이드 오버레이 상태 추가
+    @State private var isShowingGuide: Bool = false
+    @State private var showFirstPlayToast: Bool = false
+    let riveViewModel = RiveViewModel(fileName: "AchievementStart")
+    
+    private let hasShownFirstPlayToastKey = "hasShownFirstPlayToast"
     
     private var gridItemSize: CGFloat {
         let screenWidth = UIScreen.main.bounds.width
         let horizontalPadding: CGFloat = 16
         let middleSpacing: CGFloat = 32
         return (screenWidth - horizontalPadding - middleSpacing) / 2
+    }
+    
+    private func handlePlayButton(puzzleType: PuzzleType) {
+        selectedPuzzleType = puzzleType
+        
+        // 첫 실행 체크
+        if !UserDefaults.standard.bool(forKey: hasShownFirstPlayToastKey) {
+            showFirstPlayToast = true
+            UserDefaults.standard.set(true, forKey: hasShownFirstPlayToastKey)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                showPuzzle = true
+            }
+        } else {
+            // 이미 한 번 실행했던 경우 바로 다음 화면으로
+            showPuzzle = true
+        }
     }
     
     var body: some View {
@@ -48,8 +70,7 @@ struct RouzzleChallengeView: View {
                     
                     // 메인 챌린지
                     Button {
-                        selectedPuzzleType = .tuna
-                        showPuzzle = true
+                        handlePlayButton(puzzleType: .tuna)
                     } label: {
                         ZStack(alignment: .bottomTrailing) {
                             Image(.tuna)
@@ -85,8 +106,7 @@ struct RouzzleChallengeView: View {
                         ForEach(puzzleImages, id: \.0) { (imageName, opacity, puzzleType) in
                             if let puzzleType = puzzleType {
                                 Button {
-                                    selectedPuzzleType = puzzleType
-                                    showPuzzle = true
+                                    handlePlayButton(puzzleType: puzzleType)
                                 } label: {
                                     ZStack(alignment: .bottomTrailing) {
                                         Image(imageName)
@@ -148,6 +168,14 @@ struct RouzzleChallengeView: View {
                     .ignoresSafeArea()
                     .zIndex(1)
             }
+            
+            // Achievement 토스트 뷰
+            AchievementView(
+                message: "＂시작이 반이다!＂",
+                riveViewModel: riveViewModel,
+                isShowing: $showFirstPlayToast
+            )
+            .animation(.easeInOut, value: showFirstPlayToast)
         }
         .hideTabBar(true)
     }
