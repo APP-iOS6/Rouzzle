@@ -99,6 +99,11 @@ struct StatisticDetailView: View {
             if selectedCategory == "요약" {
                 SummaryView(store: store, routines: routines)
             } else if let selectedRoutine = routines.first(where: { "\($0.emoji) \($0.title)" == selectedCategory }) {
+                
+                let routineStatistic = store.getRoutineStatistic(routineId: selectedRoutine.id)
+                RoutineStatisticView(routineStatistic: routineStatistic, proxy: proxy)
+                    .padding(.bottom, 24)
+
                 CalendarView(
                     store: store,
                     routine: selectedRoutine
