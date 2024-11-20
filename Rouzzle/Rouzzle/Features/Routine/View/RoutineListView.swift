@@ -8,60 +8,62 @@
 import SwiftUI
 import SwiftData
 
+enum NavigationDestination: Hashable {
+    case addTaskView(routineItem: RoutineItem)
+    case routineCompleteView(routineItem: RoutineItem)
+}
+
 struct RoutineListView: View {
     @Query private var routinesQuery: [RoutineItem]
     @Environment(\.modelContext) private var modelContext
     @State private var isShowingAddRoutineSheet: Bool = false
     @State private var currentQuote: String = ""
-    @State private var selectedFilter: FilterOption = .today // 필터 상태 추가
-    @State private var isShowingChallengeView: Bool = false //
+    @State private var selectedFilter: FilterOption = .today
+    @State private var isShowingChallengeView: Bool = false
+    @State private var toast: ToastModel?
+    @State private var path = NavigationPath() // NavigationPath 추가
 
     init() {
-        // 초기 명언 설정
         _currentQuote = State(initialValue: QuotesProvider.randomQuote())
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) { // NavigationStack에 path 바인딩
             ZStack {
                 ScrollView {
                     VStack(spacing: 20) {
                         Spacer().frame(height: 5)
-                        
-                        // 랜덤 명언 텍스트 애니메이션
                         TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
                     }
-                    
+
                     VStack(alignment: .leading) {
                         RoutineFilterToggle(selectedFilter: $selectedFilter)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .padding(.horizontal)
-                    
-                    // 필터링된 루틴 목록 표시
+
                     ForEach(filteredRoutines()) { routine in
-                        NavigationLink {
-                            AddTaskView(store: RoutineStore(routineItem: routine))
+                        Button {
+                            path.append(NavigationDestination.addTaskView(routineItem: routine))
                         } label: {
                             RoutineStatusPuzzle(routineItem: routine)
                                 .padding(.horizontal)
                         }
                     }
-                    
+
                     Image(.requestRoutine)
                         .resizable()
                         .frame(maxWidth: .infinity)
                         .aspectRatio(contentMode: .fit)
                         .padding(.horizontal)
-                    
+
                     Spacer()
                 }
                 .refreshable {
-                    // 새로고침 시 랜덤 명언 선택
                     currentQuote = QuotesProvider.randomQuote()
                 }
-                
+
                 FloatingButton(action: {
                     isShowingAddRoutineSheet.toggle()
                 })
@@ -70,6 +72,7 @@ struct RoutineListView: View {
                     AddRoutineContainerView()
                 }
             }
+            .toastView(toast: $toast)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     PieceCounter(count: 9)
@@ -98,32 +101,42 @@ struct RoutineListView: View {
                     })
                 }
             }
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination {
+                case .addTaskView(let routineItem):
+                    AddTaskView(
+                        store: RoutineStore(routineItem: routineItem),
+                        path: $path,
+                        completeAction: { message in
+                            toast = ToastModel(type: .success, message: message)
+                        }
+                    )
+                case .routineCompleteView(let routineItem):
+                    RoutineCompleteView(
+                        path: $path, routineItem: routineItem
+                    )
+                }
+            }
             .navigationDestination(isPresented: $isShowingChallengeView) {
                 RouzzleChallengeView()
             }
         }
     }
-    
-    // 선택한 필터에 따라 루틴을 필터링하는 함수
+
     private func filteredRoutines() -> [RoutineItem] {
-        let routines = Array(routinesQuery) // @Query 결과를 일반 배열로 변환
-        
+        let routines = Array(routinesQuery)
         if selectedFilter == .today {
             let todayWeekday = Calendar.current.component(.weekday, from: Date())
             return routines.filter { routine in
-                // RoutineItem의 dayStartTime에 오늘의 요일이 포함된 경우 반환
                 return routine.dayStartTime.keys.contains(todayWeekday)
             }
         } else {
-            // "All" 선택 시 모든 루틴 반환
             return routines
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-        RoutineListView()
-            .modelContainer(SampleData.shared.modelContainer)
-    }
+    RoutineListView()
+        .modelContainer(SampleData.shared.modelContainer)
 }

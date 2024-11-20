@@ -11,20 +11,18 @@ struct RecommendTaskByTime: View {
     let category: RoutineCategoryByTime
     
     var body: some View {
-        ZStack {
-            Image(.recommendTaskByTime)
-                .resizable()
-                .frame(maxWidth: .infinity)
-                .aspectRatio(370 / 71, contentMode: .fit)
-            
-            Text(category.description)
-                .font(.bold20)
-                .padding()
-        }
-        .frame(width: 370)
+        Text(category.description)
+            .font(.bold20)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .frame(height: 68)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.themeColor)
+            )
     }
 }
 
 #Preview {
-        RecommendTaskByTime(category: .morning)
+    RecommendTaskByTime(category: .morning)
 }

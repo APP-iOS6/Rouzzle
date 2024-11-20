@@ -19,7 +19,7 @@ struct CacheImage: View {
             if let image = imageLoader.image {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFill()
+                    .aspectRatio(contentMode: .fill)
             } else {
                 ProgressView()
             }
@@ -36,7 +36,17 @@ struct ProfileCachedImage: View {
             if let imageUrl = imageUrl {
                 CacheImage(url: imageUrl)
             } else {
-                Image("defaultProfileImage")
+                Group {
+                    Image(.defaultProfile)
+                        .resizable()
+                        .scaleEffect(0.4)
+                }
+                .scaledToFill()
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color.accentColor, lineWidth: 2)
+                )
             }
         }
 

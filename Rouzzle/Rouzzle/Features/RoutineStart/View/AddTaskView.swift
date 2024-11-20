@@ -7,17 +7,28 @@
 
 import SwiftUI
 import SwiftData
+import Factory
 
 struct AddTaskView: View {
     var store: RoutineStore
+    @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     @Environment(\.modelContext) private var modelContext
-    @State var isShowingAddTaskSheet: Bool = false
-    @State var isShowingTimerView: Bool = false
-    @State var isShowingRoutineSettingsSheet: Bool = false
+    @State private var isShowingAddTaskSheet: Bool = false
+    @State private var isShowingTimerView: Bool = false
+    @State private var isShowingRoutineSettingsSheet: Bool = false
     @State var isShowingEditRoutineSheet: Bool = false
+    @State var isShowingDeleteAlert = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+<<<<<<< HEAD
         
+=======
+    @Environment(\.dismiss) private var dismiss
+    @State private var taskManager = CalendarTaskManager()
+    let completeAction: (String) -> Void
+    @State var viewModel = AddTaskViewModel()
+    
+>>>>>>> 832b813b3a048d5c75a1571bc3adcfb11f5268e4
     var body: some View {
         ZStack {
             ScrollView {
@@ -104,7 +115,7 @@ struct AddTaskView: View {
                                             .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
                                     )
                             }
-
+                            
                         }
                     }
                     .padding(.top, 10)
@@ -133,17 +144,17 @@ struct AddTaskView: View {
                         store.loadState = .completed
                         store.toastMessage = "수정에 성공했습니다."
                     }
-                 }
+                }
                 .sheet(isPresented: $isShowingAddTaskSheet) {
                     NewTaskSheet(detents: $detents) { task in
                         Task {
-                           await store.addTask(task, context: modelContext)
+                            await store.addTask(task, context: modelContext)
                         }
                     }
                     .presentationDetents(detents)
                 }
                 .sheet(isPresented: $isShowingRoutineSettingsSheet) {
-                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet)
+                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet, isShowingDeleteAlert: $isShowingDeleteAlert)
                         .presentationDetents([.fraction(0.25)])
                 }
             }
@@ -154,6 +165,13 @@ struct AddTaskView: View {
             .padding()
         }
         .toastView(toast: $toast) // ToastModifier 적용
+        .customAlert(isPresented: $isShowingDeleteAlert, title: "해당 루틴을 삭제합니다", message: "삭제 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.", primaryButtonTitle: "삭제", primaryAction: {
+            viewModel.deleteRoutine(routineItem: store.routineItem,
+                                    modelContext: modelContext,
+                                    completeAction: completeAction,
+                                    dismiss: { dismiss() })
+            dismiss()
+        })
         .overlay {
             if store.loadState == .loading {
                 ProgressView()
@@ -173,19 +191,11 @@ struct AddTaskView: View {
         })
         .animation(.smooth, value: store.taskList)
     }
-    // Task를 추가
-    private func addTaskToRoutine(_ task: RecommendTodoTask) {
-        do {
-            try SwiftDataService.addTask(to: store.routineItem, TaskList(title: task.title, emoji: task.emoji, timer: Int(exactly: task.timer)!), context: modelContext)
-        } catch {
-            print("할일 추가 실패")
-        }
-    }
 }
 
 #Preview {
     NavigationStack {
-        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]))
+        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]), path: .constant(NavigationPath()), completeAction: {_ in })
             .modelContainer(SampleData.shared.modelContainer)
     }
 }

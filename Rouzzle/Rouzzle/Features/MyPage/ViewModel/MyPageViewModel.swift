@@ -17,8 +17,8 @@ final class MyPageViewModel {
     @ObservationIgnored
     @Injected(\.userService) private var userService
     
-    var userInfo = RoutineUser(name: "",
-                               profileUrlString: "https://firebasestorage.googleapis.com/v0/b/rouzzle-e4c69.firebasestorage.app/o/UserProfile%2FProfile.png?alt=media&token=94dc34d2-e7dd-4518-bd23-9c7866cfda2e",
+    private var userInfo = RoutineUser(name: "",
+                               profileUrlString: nil,
                                introduction: "")
     
     var name: String {
@@ -31,7 +31,9 @@ final class MyPageViewModel {
         set { userInfo.introduction = newValue }
     }
     
-    var profileImage: UIImage?
+    var profileUrl: String? {
+        userInfo.profileUrlString
+    }
     
     var loadState: LoadState = .none
     
@@ -56,7 +58,7 @@ final class MyPageViewModel {
             switch result {
             case .success(let user):
                 self.userInfo = user
-                await loadProfileImage(from: user.profileUrlString) // 프로필 이미지 다운로드
+                
                 loadState = .completed
                 print("♻️ 데이터 로드")
             case .failure(let error):
@@ -65,17 +67,5 @@ final class MyPageViewModel {
             }
         }
     }
-    
-    // Firebase Storage에서 프로필 이미지 로드
-    private func loadProfileImage(from urlString: String) async {
-        let result = await userService.loadProfileImage(from: urlString)
-        
-        switch result {
-        case .success(let image):
-            self.profileImage = image
-        case .failure(let error):
-            loadState = .none
-            print("⛔️ Failed to load profile image: \(error)")
-        }
-    }
+
 }
