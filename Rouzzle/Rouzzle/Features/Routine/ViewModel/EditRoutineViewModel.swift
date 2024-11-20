@@ -90,6 +90,12 @@ class EditRoutineViewModel {
                 }
                 saveRoutine()
                 try context.save()
+                // 알림 설정 로직 추가
+                if isNotificationEnabled {
+                    scheduleNotifications()
+                } else {
+                    NotificationManager.shared.removeAllNotifications()
+                }
                 loadState = .completed
             } catch {
                 loadState = .failed
@@ -118,13 +124,19 @@ class EditRoutineViewModel {
                 for task in uploadRoutine.routineTask.map({ $0.toTaskList() }) {
                     try SwiftDataService.addTask(to: routineItem, task, context: context)
                 }
+                // 알림 설정 로직 추가
+                if isNotificationEnabled {
+                    scheduleNotifications()
+                } else {
+                    NotificationManager.shared.removeAllNotifications()
+                }
                 loadState = .completed
             } catch {
-                errorMessage = "루틴 등록에 실패했습니디."
+                errorMessage = "루틴 등록에 실패했습니다."
                 loadState = .failed
             }
         case .failure:
-            errorMessage = "루틴 등록에 실패했습니디."
+            errorMessage = "루틴 등록에 실패했습니다."
             loadState = .failed
         }
     }
@@ -137,5 +149,31 @@ class EditRoutineViewModel {
         routine.interval = editRoutine.interval
         routine.repeatCount = editRoutine.repeatCount
         routine.alarmIDs = editRoutine.alarmIDs
+    }
+    
+    // 알림 스케줄링
+    func scheduleNotifications() {
+        guard let interval = editRoutine.interval,
+              let repeatCount = editRoutine.repeatCount,
+              !tempdayStartTime.isEmpty else {
+            print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았거나 시작 시간이 없음")
+            return
+        }
+        
+        for (day, time) in tempdayStartTime {
+            guard let routineStartDate = Calendar.current.nextDate(
+                after: Date(),
+                matching: Calendar.current.dateComponents([.hour, .minute], from: time),
+                matchingPolicy: .nextTime
+            ) else { continue }
+            
+            NotificationManager.shared.scheduleMultipleNotifications(
+                id: UUID().uuidString,
+                title: editRoutine.title,
+                startDate: routineStartDate,
+                intervalMinutes: interval,
+                repeatCount: repeatCount
+            )
+        }
     }
 }
