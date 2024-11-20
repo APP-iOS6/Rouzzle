@@ -15,7 +15,9 @@ struct StatisticGuideOverlay: View {
             Color.black.opacity(0.5)
                 .ignoresSafeArea(edges: .all)
                 .onTapGesture {
-                    isShowingGuide = false
+                    withAnimation {
+                        isShowingGuide = false
+                    }
                 }
             
             VStack(spacing: 20) {
@@ -52,7 +54,9 @@ struct StatisticGuideOverlay: View {
                 Spacer()
                 
                 Button {
-                    isShowingGuide = false
+                    withAnimation {
+                        isShowingGuide = false
+                    }
                 } label: {
                     Text("확인")
                         .font(.medium16)

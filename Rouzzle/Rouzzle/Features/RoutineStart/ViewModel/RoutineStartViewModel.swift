@@ -39,7 +39,7 @@ class RoutineStartViewModel {
     private var isResuming = false // 일시정지 후 재개 상태를 추적
     
     // taskManager 파라미터 추가
-    init(routineItem: RoutineItem, taskManager: CalendarTaskManager) {
+    init(routineItem: RoutineItem) {
         print("뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList

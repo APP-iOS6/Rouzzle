@@ -1,66 +1,84 @@
 //
-//  SummaryView.swift
+//  SummaryView2.swift
 //  Rouzzle
 //
-//  Created by Hyeonjeong Sim on 11/13/24.
+//  Created by 김동경 on 11/19/24.
 //
 
 import SwiftUI
-import Charts
 
 struct SummaryView: View {
-    let viewModel: StatisticViewModel
+    
+    @ObservedObject var store: StatisticStore
+    let routines: [RoutineItem]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            // 최대 연속기록 박스
-            HStack {
-                VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: 20) {
+            VStack(spacing: 20) {
+                if let (routineId, count) = store.findRoutineWithMaxStreak() {
                     Text("나의 최대 연속 기록이에요!")
                         .font(.medium16)
-                    HStack(alignment: .bottom, spacing: 8) {
-                        Text("\(viewModel.getMaxConsecutiveDays())일")
-                            .font(.bold36)
-                        Text(viewModel.getMaxConsecutiveRoutineName())
-                            .font(.regular16)
-                            .foregroundStyle(.gray)
-                            .alignmentGuide(.bottom) { $0[.bottom] + 4 }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    HStack(alignment: .center) {
+                        Text("\(count)회")
+                            .font(.semibold24)
+                        if let routine = routines.first(where: { $0.id == routineId }) {
+                            Text(routine.title)
+                                .font(.regular14)
+                                .foregroundStyle(.secondary)
+                        }
                         Spacer()
                     }
                 }
-                .padding()
-                .frame(height: 107)
-                .frame(maxWidth: .infinity)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.backgroundLightGray)
-                )
             }
-            .padding(.bottom, 20)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.backgroundLightGray)
+            )
             
             HStack {
+                
                 Text("월간 성공률")
                     .font(.bold16)
                 
                 Spacer()
                 
-                MonthSelector(viewModel: viewModel)
-            }
-            
-            // 루틴별 성공률 차트
-            VStack(spacing: 8) {
-                ForEach(viewModel.routines) { routine in
-                    RoutineSuccessRateChart(routine: routine, viewModel: viewModel)
+                MonthSelector(
+                    title: store.currentDate.extraData,
+                    isLoading: $store.isLoading
+                ) { value in
+                    store.moveMonth(direction: value)
                 }
             }
-            .padding(.vertical, 12)
-            .padding(.leading, -25)
+            VStack {
+                ForEach(routines, id: \.id) { routine in
+                    let targetDay: Set<Int> = Set(routine.dayStartTime.keys)
+                    let percentage: Double = Double(store.summaryData[routine.id]?.filter { $0.isCompleted }.count ?? 0) / Double(store.countMTTDays(targetDay)) * 100
+                    
+                    RoutineSuccessRateChart(
+                        percentage: percentage,
+                        emoji: routine.emoji,
+                        title: routine.title
+                    )
+                    .padding(.vertical, 12)
+                }
+                Spacer()
+                    .frame(height: 12)
+            }
+            .padding(.horizontal)
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.backgroundLightGray)
             )
         }
-        .frame(maxWidth: .infinity)
     }
+}
+
+#Preview {
+    SummaryView(store: .init(), routines: [])
 }

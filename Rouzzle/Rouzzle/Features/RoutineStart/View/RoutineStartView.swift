@@ -163,12 +163,10 @@ struct RoutineStartView: View {
 }
 
 #Preview {
-    let taskManager = CalendarTaskManager() // taskManager 생성
     RoutineStartView(
         viewModel: RoutineStartViewModel(
-            routineItem: RoutineItem.sampleData[0],
-            taskManager: taskManager // 전달
-        ), path: .constant(NavigationPath())
+            routineItem: RoutineItem.sampleData[0]),
+        path: .constant(NavigationPath())
     )
     .modelContainer(SampleData.shared.modelContainer)
 }
