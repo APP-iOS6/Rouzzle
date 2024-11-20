@@ -12,24 +12,25 @@ struct ProfileImageView: View {
     var profileImage: UIImage?
     
     var body: some View {
-        Group {
-            if let profileImage = profileImage {
-                // 프로필 사진이 있으면 표시
-                Image(uiImage: profileImage)
-                    .resizable()
-            } else {
-                Image(.defaultProfile)
-                    .resizable()
-                    .scaleEffect(0.5)
-            }
+        if let profileImage = profileImage {
+            // 프로필 사진이 있으면 표시
+            Image(uiImage: profileImage)
+                .resizable()
+                .frame(width: frameSize, height: frameSize)
+                .scaledToFill()
+                .clipShape(Circle())
+        } else {
+            Image(.defaultProfile)
+                .resizable()
+                .scaleEffect(0.5)
+                .frame(width: frameSize, height: frameSize)
+                .scaledToFill()
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(Color.accentColor, lineWidth: 2)
+                )
         }
-        .scaledToFill()
-        .frame(width: frameSize, height: frameSize)
-        .clipShape(Circle())
-        .overlay(
-            Circle()
-                .stroke(Color.accentColor, lineWidth: 2)
-        )
     }
 }
 

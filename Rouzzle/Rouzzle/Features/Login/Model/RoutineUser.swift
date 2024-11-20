@@ -13,3 +13,17 @@ struct RoutineUser: Codable {
     var profileUrlString: String?
     var introduction = ""
 }
+
+struct AlgoliaUser: Codable {
+    var id: String? // Algolia의 objectID를 매핑
+    var name: String
+    var profileUrlString: String?
+    var introduction: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "objectID" // Algolia objectID와 매핑
+        case name
+        case profileUrlString
+        case introduction
+    }
+}

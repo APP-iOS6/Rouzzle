@@ -37,13 +37,7 @@ struct ProfileEditView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         // 선택된 이미지가 없으면 ProfileCachedImage 사용
-                        ProfileCachedImage(imageUrl: profileUrlString)
-                            .frame(width: 72, height: 72)
-                            .clipShape(Circle())
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.accentColor, lineWidth: 2)
-                            )
+                        ProfileCachedImage(frameSize: 72, imageUrl: profileUrlString)
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
                     
