@@ -42,7 +42,6 @@ struct ContentView: View {
                     Image(systemName: "person.circle.fill")
                 }
         }
-        .environment(tabBarState)
     }
 }
 

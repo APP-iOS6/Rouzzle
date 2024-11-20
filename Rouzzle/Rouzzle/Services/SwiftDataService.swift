@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 enum SwiftDataService {
     // 루틴 관련 메서드
@@ -41,6 +42,7 @@ enum SwiftDataService {
         }
     }
 
+    // 개별 루틴 삭제
     static func deleteTask(from routineItem: RoutineItem, task: TaskList, context: ModelContext) throws {
         // routineItem의 taskList에서 task를 제거
         if let index = routineItem.taskList.firstIndex(of: task) {
@@ -51,6 +53,28 @@ enum SwiftDataService {
         do {
             try context.save()
         } catch {
+            throw SwiftDataServiceError.deleteFailed(error)
+        }
+    }
+    
+    // 루틴 일괄 삭제
+    static func deleteAllRoutines(for userId: String, context: ModelContext) throws {
+        // 1. 해당 유저의 모든 루틴 가져오기
+        let fetchDescriptor = FetchDescriptor<RoutineItem>(
+            predicate: #Predicate { $0.userId == userId }
+        )
+        
+        do {
+            let userRoutines = try context.fetch(fetchDescriptor)
+
+            for routine in userRoutines {
+                context.delete(routine)
+            }
+            
+            try context.save()
+            print("✅ SwiftData: 모든 루틴 삭제 성공 for userId: \(userId)")
+        } catch {
+            print("❌ SwiftData: 루틴 삭제 실패 for userId: \(userId): \(error.localizedDescription)")
             throw SwiftDataServiceError.deleteFailed(error)
         }
     }

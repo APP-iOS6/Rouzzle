@@ -14,7 +14,7 @@ struct RoutineStartView: View {
     
     @State var isShowingTaskListSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
-    
+    @Binding var path: NavigationPath
     var body: some View {
         ZStack(alignment: .top) {
             // MARK: 그라데이션 배경
@@ -147,7 +147,7 @@ struct RoutineStartView: View {
             .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
-            RoutineCompleteView(routineItem: viewModel.routineItem)
+            RoutineCompleteView(path: $path, routineItem: viewModel.routineItem)
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
@@ -163,12 +163,10 @@ struct RoutineStartView: View {
 }
 
 #Preview {
-    let taskManager = CalendarTaskManager() // taskManager 생성
-    return RoutineStartView(
+    RoutineStartView(
         viewModel: RoutineStartViewModel(
-            routineItem: RoutineItem.sampleData[0],
-            taskManager: taskManager // 전달
-        )
+            routineItem: RoutineItem.sampleData[0]),
+        path: .constant(NavigationPath())
     )
     .modelContainer(SampleData.shared.modelContainer)
 }

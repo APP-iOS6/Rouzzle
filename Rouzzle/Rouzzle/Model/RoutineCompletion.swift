@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct RoutineCompletion: Codable {
+struct RoutineCompletion: Codable, Hashable {
     @DocumentID var documentId: String?
     var routineId: String // 루틴 id
     var userId: String // 유저 uid
@@ -21,7 +21,7 @@ struct RoutineCompletion: Codable {
     }
 }
 
-struct TaskCompletion: Codable {
+struct TaskCompletion: Codable, Hashable {
     var title: String // 할일 제목
     var emoji: String // 이모지
     var timer: Int // 할일 타이머

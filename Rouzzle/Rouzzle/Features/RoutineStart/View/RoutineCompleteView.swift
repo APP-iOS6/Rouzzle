@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
+    @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
+
     var routineItem: RoutineItem
     var tasks: [TaskList] {
         routineItem.taskList
@@ -87,7 +89,7 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
-                dismiss()
+                path.removeLast(path.count) // 네비게이션 스택 초기화
             }
             .padding(.bottom)
             .padding()
@@ -97,5 +99,7 @@ struct RoutineCompleteView: View {
 }
 
 #Preview {
-    RoutineCompleteView(routineItem: RoutineItem.sampleData[0])
+    RoutineCompleteView(
+        path: .constant(NavigationPath()), routineItem: RoutineItem.sampleData[0]
+    )
 }

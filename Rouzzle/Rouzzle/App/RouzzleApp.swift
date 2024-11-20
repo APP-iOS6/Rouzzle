@@ -16,7 +16,7 @@ struct RouzzleApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     // authStore = 로그인 상태를 전역적으로 관리하기 위해 @main에서 인스턴스 생성 후 enviroment로 관리
     private let authStore: AuthStore = AuthStore()
-    
+
     init() {
         let kakaoAppkey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] ?? ""
         // Kakao SDK 초기화
@@ -28,6 +28,7 @@ struct RouzzleApp: App {
         WindowGroup {
             LaunchView()
                 .environment(authStore)
+                .environment(SocialViewModel())
                 .modelContainer(for: [RoutineItem.self, TaskList.self])
         }
     }

@@ -57,7 +57,7 @@ class LoginViewModel {
     @MainActor
     func googleLogin() {
         Task {
-            switch await authService.signInWithGoogle() {
+            switch await authService.signInWithGoogle(shouldLink: false) {
             case let .success(uid):
                 self.loadState = .completed
                 print(uid)
@@ -71,7 +71,7 @@ class LoginViewModel {
     @MainActor
     func kakaoLogin() {
         Task {
-            switch await authService.signInWithKakao() {
+            switch await authService.signInWithKakao(shouldLink: false) {
             case let .success(uid):
                 self.loadState = .completed
                 print(uid)
@@ -85,7 +85,7 @@ class LoginViewModel {
     @MainActor
     func appleLogin(_ authorization: ASAuthorization, nonce: String) {
         Task {
-            switch await authService.signInWithApple(authorization, nonce: nonce) {
+            switch await authService.signInWithApple(authorization, nonce: nonce, shouldLink: false) {
             case let .success(uid):
                 self.loadState = .completed
                 print(uid)

@@ -15,6 +15,8 @@ protocol RoutineServiceType {
     func addRoutine(_ routine: Routine) async -> Result<Routine, DBError>
     /// 루틴 컬렉션에 루틴 데이터를 삭제하는 함수
     func removeRoutine(_ routine: Routine) async -> Result<Void, DBError>
+    /// 루틴 컴플리션 컬렉션에 루틴 데이터를 삭제하는 함수
+    func removeRoutineCompletions(for routineId: String) async -> Result<Void, DBError>
     /// 루틴에 할 일을 추가하거나 삭제하거나 업데이트하는 함수
     func updateRoutine(_ routine: Routine) async -> Result<Void, DBError>
     /// 루틴 완료 상태 저장 함수
@@ -59,6 +61,26 @@ class RoutineService: RoutineServiceType {
             return .success(())
         } catch {
             return .failure(DBError.firebaseError(error))
+        }
+    }
+    
+    func removeRoutineCompletions(for routineId: String) async -> Result<Void, DBError> {
+        do {
+            // RoutineCompletion 컬렉션에서 routineId로 문서 검색
+            let snapshot = try await db.collection("RoutineCompletion")
+                .whereField("routineId", isEqualTo: routineId)
+                .getDocuments()
+            
+            // 각 문서를 삭제
+            for document in snapshot.documents {
+                try await document.reference.delete()
+            }
+            
+            print("✅ 모든 RoutineCompletion 삭제 성공")
+            return .success(())
+        } catch {
+            print("❌ RoutineCompletion 삭제 실패: \(error.localizedDescription)")
+            return .failure(.firebaseError(error))
         }
     }
     

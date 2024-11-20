@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Factory
 
-struct RoutineSettingsSheet: View {
+struct RoutineSettingsSheet: View {    
     @Environment(\.dismiss) private var dismiss
     @Binding var isShowingEditRoutineSheet: Bool
-
+    @Binding var isShowingDeleteAlert: Bool
+    @Environment(\.modelContext) private var modelContext
+    
     var body: some View {
         VStack(spacing: 20) {
             Button {
@@ -25,7 +28,8 @@ struct RoutineSettingsSheet: View {
             Divider()
             
             Button {
-                
+                dismiss()
+                isShowingDeleteAlert = true
             } label: {
                 Text("삭제하기")
                     .foregroundStyle(.red)
@@ -48,5 +52,5 @@ struct RoutineSettingsSheet: View {
 }
 
 #Preview {
-    RoutineSettingsSheet(isShowingEditRoutineSheet: .constant(false))
+    RoutineSettingsSheet(isShowingEditRoutineSheet: .constant(false), isShowingDeleteAlert: .constant(false))
 }
