@@ -144,17 +144,9 @@ struct RouzzleChallengeView: View {
             }
             
             if isShowingGuide {
-                ZStack {
-                    Color.black.opacity(0.5)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            isShowingGuide = false
-                        }
-                    
-                    PuzzleGuideOverlay(isShowingGuide: $isShowingGuide)
-                        .frame(maxWidth: 320, maxHeight: 247)
-                }
-                .zIndex(2)
+                PuzzleGuideOverlay(isShowingGuide: $isShowingGuide)
+                    .ignoresSafeArea()
+                    .zIndex(1)
             }
         }
         .hideTabBar(true)
