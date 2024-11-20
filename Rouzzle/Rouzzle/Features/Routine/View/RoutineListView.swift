@@ -48,12 +48,23 @@ struct RoutineListView: View {
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
                     }
 
-                    VStack(alignment: .leading) {
+                    // 토글, 루틴 등록 버튼
+                    HStack {
                         RoutineFilterToggle(selectedFilter: $selectedFilter)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Button {
+                            isShowingAddRoutineSheet.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title)
+                        }
+
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, 5)
 
+                    // 루틴 목록
                     ForEach(filterRoutineItem) { routine in
                         Button {
                             path.append(NavigationDestination.addTaskView(routineItem: routine))
@@ -63,22 +74,20 @@ struct RoutineListView: View {
                         }
                     }
 
-                    Image(.requestRoutine)
-                        .resizable()
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.horizontal)
-
-                    Spacer()
+                    // 루틴을 등록해 주세요 버튼
+                    Button {
+                        isShowingAddRoutineSheet.toggle()
+                    } label: {
+                        Image(.requestRoutine)
+                            .resizable()
+                            .frame(maxWidth: .infinity)
+                            .aspectRatio(contentMode: .fit)
+                            .padding(.horizontal)
+                    }
                 }
                 .refreshable {
                     currentQuote = QuotesProvider.randomQuote()
                 }
-
-                FloatingButton(action: {
-                    isShowingAddRoutineSheet.toggle()
-                })
-                .padding()
                 .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                     AddRoutineContainerView()
                 }

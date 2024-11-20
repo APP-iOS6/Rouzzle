@@ -66,23 +66,19 @@ struct TaskStatusPuzzle: View {
                 .font(.regular14)
                 .foregroundColor(Color.subHeadlineFontColor)
                 .padding(.trailing, 25)
-            
         }
-        .padding()
-        .overlay {
-            ZStack {
-                if taskStatus == .completed {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.grayborderline)
-                        .opacity(0.5)
-
-                }
+        .padding(.vertical, 8)
+        .background {
+            if taskStatus == .completed {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(style: StrokeStyle(lineWidth: 1))
-                    .foregroundStyle(.grayborderline)
+                    .fill(.grayborderline)
+                    .opacity(0.5)
             }
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(style: StrokeStyle(lineWidth: 1))
+                .foregroundStyle(.grayborderline)
         }
-        .opacity(taskStatus == .completed ? 0.7 : 1)
+        .opacity(taskStatus == .completed ? 0.5 : 1)
     }
 }
 
@@ -268,4 +264,9 @@ struct TaskStatusRow: View {
 
 #Preview("TaskStatusRow") {
     TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false), showDeleteIcon: .constant(false))
+}
+
+#Preview("TaskStatusPuzzle") {
+    let sampleTask = TaskList(title: "테스트 작업", emoji: "✅", timer: 25, isCompleted: false)
+    TaskStatusPuzzle(task: sampleTask)
 }

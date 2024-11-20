@@ -29,24 +29,38 @@ struct AddTaskView: View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    Label(store.todayStartTime, systemImage: "clock")
-                        .font(.regular14)
-                        .foregroundStyle(Color.subHeadlineFontColor)
-                        .padding(.top, 15)
-                    
-                    Button {
-                        isShowingTimerView.toggle()
-                    } label: {
-                        Image(.routineStart)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                    HStack(alignment: .bottom) {
+                        Label(store.todayStartTime, systemImage: "clock")
+                            .font(.medium16)
+                            .foregroundStyle(Color.subHeadlineFontColor)
+                            .padding(.top, 15)
+                        
+                        Spacer()
+                        
+                        Button {
+                            isShowingAddTaskSheet.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title)
+                        }
                     }
-                    .padding(.top, -2)
                     
                     ForEach(store.taskList) { task in
                         TaskStatusPuzzle(task: task)
-                            .padding(.vertical, 6)
+                            .padding(.top, 5)
                     }
+ 
+                    Button {
+                        isShowingTimerView.toggle()
+                    } label: {
+                        Text("START")
+                            .frame(maxWidth: .infinity, minHeight: 65)
+                            .background(.accent)
+                            .foregroundStyle(.white)
+                            .font(.bold24)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .padding(.top)
                     
                     HStack {
                         Text("추천 할 일")
@@ -58,13 +72,7 @@ struct AddTaskView: View {
                             store.getRecommendTask()
                         } label: {
                             Image(systemName: "arrow.clockwise")
-                                .frame(width: 25, height: 25)
-                                .foregroundStyle(.white)
-                                .font(.caption)
-                                .background(
-                                    Circle()
-                                        .fill(Color.subHeadlineFontColor)
-                                )
+                                .font(.title3)
                         }
                     }
                     .padding(.top, 30)
@@ -91,7 +99,7 @@ struct AddTaskView: View {
                             .font(.regular12)
                             .foregroundStyle(Color.subHeadlineFontColor)
                     }
-                    .padding(.top, 10)
+                    .padding(.top, 30)
                     
                     HStack(spacing: 14) {
                         ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
@@ -105,7 +113,7 @@ struct AddTaskView: View {
                                 Text(category.rawValue)
                                     .font(.semibold16)
                                     .foregroundStyle(.black)
-                                    .frame(width: 82, height: 67)
+                                    .frame(width: 82, height: 46)
                                     .background(
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
@@ -153,10 +161,6 @@ struct AddTaskView: View {
                     RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet, isShowingDeleteAlert: $isShowingDeleteAlert)
                         .presentationDetents([.fraction(0.25)])
                 }
-            }
-            
-            FloatingButton {
-                isShowingAddTaskSheet.toggle()
             }
             .padding()
         }
