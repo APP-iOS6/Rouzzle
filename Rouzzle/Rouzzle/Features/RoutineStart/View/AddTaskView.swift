@@ -17,9 +17,7 @@ struct AddTaskView: View {
     @State var isShowingEditRoutineSheet: Bool = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-    
-    @State private var taskManager = CalendarTaskManager()
-    
+        
     var body: some View {
         ZStack {
             ScrollView {
@@ -126,8 +124,7 @@ struct AddTaskView: View {
                 .fullScreenCover(isPresented: $isShowingTimerView) {
                     RoutineStartView(
                         viewModel: RoutineStartViewModel(
-                            routineItem: store.routineItem,
-                            taskManager: taskManager  // taskManager 전달
+                            routineItem: store.routineItem
                         )
                     )
                 }

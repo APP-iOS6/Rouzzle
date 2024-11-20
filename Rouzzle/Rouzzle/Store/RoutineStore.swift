@@ -31,7 +31,7 @@ class RoutineStore {
     }
     
     init(routineItem: RoutineItem) {
-        print(routineItem.title)
+        print("\(routineItem.title) test")
         self.routineItem = routineItem
         self.taskList = routineItem.taskList
         fetchAllRoutines() // 모든 루틴 로드
@@ -118,7 +118,6 @@ class RoutineStore {
             return
         }
         let timeSet = time.getTimeCategory()
-        print(timeSet)
         let routineTitles = routineItem.taskList.map { $0.title }
         recommendTodoTask = DummyData.getRecommendedTasks(for: timeSet, excluding: routineTitles)
     }

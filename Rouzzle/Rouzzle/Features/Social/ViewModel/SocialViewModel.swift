@@ -38,7 +38,6 @@ class SocialViewModel {
     func fetchUserProfiles() async {
         do {
             self.userProfiles = try await Set(socialService.fetchUserInfo())
-            print("유저 프로필 \(userProfiles)")
         } catch {
             self.error = DBError.firebaseError(error)
             print("Error fetching user profiles: \(error)")
