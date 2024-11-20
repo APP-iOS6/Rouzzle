@@ -32,17 +32,6 @@ struct AddRoutineView: View {
                         
                         RoutineNotificationView(viewModel: viewModel)
                             .frame(minHeight: proxy.size.height * 0.28, alignment: .top)
-//                            .onChange(of: viewModel.isNotificationEnabled) { _, newValue in
-//                                if newValue {
-//                                    print("알림 활성화됨")
-//                                    viewModel.repeatCount = viewModel.repeatCount ?? 1
-//                                    viewModel.interval = viewModel.interval ?? 1
-//                                    viewModel.scheduleRoutineNotifications()
-//                                } else {
-//                                    print("알림 비활성화됨. 모든 알림 제거")
-//                                    NotificationManager.shared.removeAllNotifications()
-//                                }
-//                            }
                         
                         RouzzleButton(buttonType: .next, disabled: viewModel.disabled, action: {
                             viewModel.getRecommendTask()
@@ -143,9 +132,11 @@ struct RoutineBasicSettingView: View {
                                     .clipShape(.rect(cornerRadius: 8))
                             }
                         }
-                        Text("(요일별로 다름)")
-                            .font(.regular12)
-                            .foregroundStyle(.gray)
+                        if areTimesDifferent(viewModel.selectedDateWithTime) {
+                            Text("(요일별로 다름)")
+                                .font(.regular12)
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
             }
@@ -154,6 +145,13 @@ struct RoutineBasicSettingView: View {
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
         .clipShape(.rect(cornerRadius: 20)) // .cornerRadius 대신 clipShape 사용
+    }
+    
+    // 요일별 시간 다른지 체크
+    private func areTimesDifferent(_ times: [Day: Date]) -> Bool {
+        let uniqueTimes = Set(times.values.map { Calendar.current.dateComponents([.hour, .minute], from: $0) })
+        // 서로 다른 시간 있으면 true
+        return uniqueTimes.count > 1
     }
 }
 
