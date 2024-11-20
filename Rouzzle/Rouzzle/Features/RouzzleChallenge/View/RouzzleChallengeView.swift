@@ -13,6 +13,7 @@ struct RouzzleChallengeView: View {
     @State private var showPuzzle: Bool = false
     @State private var isShowingGuide: Bool = false
     @State private var showFirstPlayToast: Bool = false
+    @State private var toast: ToastModel?
     let riveViewModel = RiveViewModel(fileName: "AchievementStart")
     
     private let hasShownFirstPlayToastKey = "hasShownFirstPlayToast"
@@ -120,15 +121,23 @@ struct RouzzleChallengeView: View {
                                     }
                                 }
                             } else {
-                                ZStack(alignment: .bottomTrailing) {
-                                    Image(imageName)
-                                        .resizable()
-                                        .aspectRatio(1, contentMode: .fit)
-                                        .frame(width: gridItemSize, height: gridItemSize)
-                                        .opacity(opacity)
-                                    
-                                    PuzzleLockButton()
-                                        .padding([.bottom, .trailing], 8)
+                                Button {
+                                    // 잠긴 퍼즐 클릭 시 토스트 메시지 표시
+                                    toast = ToastModel(
+                                        type: .info,
+                                        message: "이전 챌린지를 완료해야 진행 가능합니다."
+                                    )
+                                } label: {
+                                    ZStack(alignment: .bottomTrailing) {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .frame(width: gridItemSize, height: gridItemSize)
+                                            .opacity(opacity)
+                                        
+                                        PuzzleLockButton()
+                                            .padding([.bottom, .trailing], 8)
+                                    }
                                 }
                             }
                         }
@@ -177,6 +186,7 @@ struct RouzzleChallengeView: View {
             )
             .animation(.easeInOut, value: showFirstPlayToast)
         }
+        .toastView(toast: $toast)
         .hideTabBar(true)
     }
 }

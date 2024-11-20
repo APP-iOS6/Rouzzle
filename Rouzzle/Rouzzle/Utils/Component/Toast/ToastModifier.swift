@@ -47,7 +47,7 @@ struct ToastModifier: ViewModifier {
                     .background(toast.type.themeColor)
                     .shadow(radius: 5)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .padding(.top, 50)
+                    .padding(.top, 1)
                     .onAppear {
                         print("getPuzzle toast 띄우기")
                     }
@@ -63,7 +63,7 @@ struct ToastModifier: ViewModifier {
                             set: { isShowing in if !isShowing { self.toast = nil } }
                         )
                     )
-                    .padding(.top, 50)
+                    .padding(.top, 1)
                 }
                 Spacer()
             }
