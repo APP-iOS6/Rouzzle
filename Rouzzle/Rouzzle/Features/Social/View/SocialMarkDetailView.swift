@@ -11,6 +11,7 @@ struct SocialMarkDetailView: View {
     var userProfile: UserProfile
     @State var isStarred: Bool
     @Environment(SocialViewModel.self) private var viewModel
+    @State private var routines: [Routine] = []
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -51,7 +52,7 @@ struct SocialMarkDetailView: View {
             .padding(.top, 40)
 
             VStack(alignment: .leading) {
-                Text("자기소개")
+                Text(userProfile.introduction ?? "")
                     .font(.regular14)
                     .foregroundColor(.black)
                 Spacer()
@@ -60,7 +61,7 @@ struct SocialMarkDetailView: View {
 
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(userProfile.routines, id: \.self) { routine in
+                    ForEach(routines, id: \.self) { routine in
                         if !routine.routineTask.isEmpty {
                             RoutineDetailCardView2(routine: routine) // 각 할 일 목록 카드
                         }
@@ -72,9 +73,18 @@ struct SocialMarkDetailView: View {
             }
         }
         .onAppear {
+            Task {
+                 await loadRoutines()
+             }
             isStarred = viewModel.isUserFavorited(userID: userProfile.documentId!)
         }
         .customNavigationBar(title: userProfile.nickname)
+    }
+    
+    /// Firestore에서 루틴 데이터 로드
+    private func loadRoutines() async {
+        guard let userId = userProfile.documentId else { return }
+        routines = await viewModel.fetchRoutines(for: userId)
     }
 }
 

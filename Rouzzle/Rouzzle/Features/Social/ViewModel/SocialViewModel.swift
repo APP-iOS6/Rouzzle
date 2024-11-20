@@ -10,6 +10,7 @@ import Observation
 import Factory
 import FirebaseAuth
 import AlgoliaSearchClient
+import FirebaseFirestore
 
 @Observable
 class SocialViewModel {
@@ -124,6 +125,23 @@ class SocialViewModel {
                     self.searchResults = []
                 }
             }
+        }
+    }
+    
+    func fetchRoutines(for userId: String) async -> [Routine] {
+        do {
+            let snapshot = try await Firestore.firestore()
+                .collection("Routine")
+                .whereField("userId", isEqualTo: userId)
+                .getDocuments()
+            
+            let routines = snapshot.documents.compactMap { document -> Routine? in
+                try? document.data(as: Routine.self)
+            }
+            return routines
+        } catch {
+            print("Error fetching routines for user \(userId): \(error.localizedDescription)")
+            return []
         }
     }
 }

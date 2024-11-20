@@ -35,19 +35,31 @@ struct SocialView: View {
                         if !viewModel.searchResults.isEmpty {
                             VStack(alignment: .leading) {
                                 ForEach(viewModel.searchResults, id: \.id) { user in
-                                    HStack {
-                                        ProfileCachedImage(imageUrl: user.profileUrlString)
-                                            .frame(width: 44, height: 44)
-                                            .clipShape(Circle())
-                                        Text(user.name)
-                                            .font(.semibold16)
-                                        
-                                        Text(user.introduction)
-                                            .foregroundStyle(.gray)
-                                            .font(.regular12)
+                                    NavigationLink {
+                                        SocialMarkDetailView(userProfile: UserProfile(
+                                            documentId: user.id,
+                                            nickname: user.name,
+                                            profileImageUrl: user.profileUrlString,
+                                            introduction: user.introduction,
+                                            routines: []
+                                        ), isStarred: false)
+                                    } label: {
+                                        HStack {
+                                            ProfileCachedImage(imageUrl: user.profileUrlString)
+                                                .frame(width: 44, height: 44)
+                                                .clipShape(Circle())
+                                            Text(user.name)
+                                                .font(.semibold16)
+                                                .foregroundStyle(.black)
+                                            
+                                            Text(user.introduction)
+                                                .foregroundStyle(.gray)
+                                                .font(.regular12)
+                                        }
                                     }
                                 }
                             }
+                            .padding(.top, 20)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         } else {
                             VStack(alignment: .leading) {
