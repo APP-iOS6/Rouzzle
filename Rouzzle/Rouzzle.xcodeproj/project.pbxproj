@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		237BBD8B2CE9973E00D4A44F /* RoutineDetailStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */; };
-		237BBDB72CEA358400D4A44F /* CalendarViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */; };
 		238AE1EB2CEC82F500FF918C /* PuzzleGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238AE1EA2CEC82F500FF918C /* PuzzleGuideOverlay.swift */; };
 		23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */; };
 		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
@@ -42,6 +40,8 @@
 		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
 		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
 		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
+		23F8C8BC2CEDC613009D7C16 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8C8BB2CEDC613009D7C16 /* AchievementView.swift */; };
+		23F8C8BE2CEDC6EB009D7C16 /* AchievementStart.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */; };
 		4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */; };
 		4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */; };
 		4B596ACA2CEDA5AE004FBA15 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */; };
@@ -191,8 +191,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		237BBD8A2CE9973E00D4A44F /* RoutineDetailStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailStatsView.swift; sourceTree = "<group>"; };
-		237BBDB62CEA358400D4A44F /* CalendarViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewStateManager.swift; sourceTree = "<group>"; };
 		238AE1EA2CEC82F500FF918C /* PuzzleGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleGuideOverlay.swift; sourceTree = "<group>"; };
 		23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleLogin.riv; sourceTree = "<group>"; };
 		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
@@ -225,6 +223,8 @@
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
+		23F8C8BB2CEDC613009D7C16 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
+		23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = AchievementStart.riv; sourceTree = "<group>"; };
 		4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLabelView.swift; sourceTree = "<group>"; };
 		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
 		4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -431,6 +431,7 @@
 				23BC99BF2CE6E033009BE074 /* PuzzleGame.swift */,
 				23BC99C92CE70400009BE074 /* PuzzleInfoBox.swift */,
 				238AE1EA2CEC82F500FF918C /* PuzzleGuideOverlay.swift */,
+				23F8C8BB2CEDC613009D7C16 /* AchievementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,6 +493,7 @@
 				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
 				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
 				23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */,
+				23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */,
 			);
 			path = RiveAnimation;
 			sourceTree = "<group>";
@@ -1101,6 +1103,7 @@
 				23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */,
 				BD1545282CD856490098AD7B /* Pretendard-Bold.otf in Resources */,
 				BD1545292CD856490098AD7B /* Pretendard-Medium.otf in Resources */,
+				23F8C8BE2CEDC6EB009D7C16 /* AchievementStart.riv in Resources */,
 				BD15452A2CD856490098AD7B /* Pretendard-Black.otf in Resources */,
 				BD15452B2CD856490098AD7B /* Pretendard-Regular.otf in Resources */,
 				BD15452C2CD856490098AD7B /* Pretendard-ExtraLight.otf in Resources */,
@@ -1273,6 +1276,7 @@
 				FBDC52FC2CED61E30038243D /* RoutineCompletionOverlay.swift in Sources */,
 				23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */,
 				23BC99EA2CE82C11009BE074 /* StatisticGuideOverlay.swift in Sources */,
+				23F8C8BC2CEDC613009D7C16 /* AchievementView.swift in Sources */,
 				BDAC7C482CE09D5200BF0379 /* SampleData.swift in Sources */,
 				97E5755C2CE6521D0070FC84 /* AccountManagementView.swift in Sources */,
 				FB2A5AC62CD9D5B500CB981A /* NewTaskSheet.swift in Sources */,
