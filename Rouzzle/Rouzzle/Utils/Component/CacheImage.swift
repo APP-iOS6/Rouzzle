@@ -44,6 +44,7 @@ struct ProfileCachedImage: View {
                 .scaledToFill()
                 .frame(width: frameSize, height: frameSize)
                 .clipShape(Circle())
+                .background(Circle().fill(.white))
                 .overlay(
                     Circle()
                         .stroke(Color.accentColor, lineWidth: 2)

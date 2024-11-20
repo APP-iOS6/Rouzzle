@@ -23,7 +23,6 @@ struct SocialView: View {
                                 .foregroundStyle(.basic)
                             Spacer()
                         }
-                        .padding(.top, 20)
                         
                         SearchBarView(text: $query)
                             .animation(.easeInOut, value: query)
@@ -63,6 +62,7 @@ struct SocialView: View {
                                 }
                             }
                             .padding(.top, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             
                             VStack(alignment: .leading) {
                                 Text("루즐러 둘러보기")

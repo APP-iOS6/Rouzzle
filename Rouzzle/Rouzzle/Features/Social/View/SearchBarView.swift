@@ -16,7 +16,7 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
-            TextField("", text: $text, prompt: Text("루즐러 닉네임 검색").font(.regular16))
+            TextField("", text: $text, prompt: Text("루즐러를 검색해보세요.").font(.regular16))
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer() // 오른쪽 정렬을 위해 Spacer 사용
@@ -32,7 +32,7 @@ struct SearchBarView: View {
                 }
                 .padding(7)
                 .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
+                .background(Color(.graylittlelight))
                 .cornerRadius(8)
 //                .padding(.horizontal, 10)
                 .overlay {

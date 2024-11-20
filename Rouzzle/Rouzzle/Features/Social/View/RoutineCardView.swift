@@ -95,7 +95,7 @@ struct RoutineCardView: View {
                 }
             }
             .padding()
-            .background(Color(.systemGray6).opacity(0.6))
+            .background(Color(.graylittlelight))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .buttonStyle(PlainButtonStyle()) // 기본 버튼 스타일 제거
