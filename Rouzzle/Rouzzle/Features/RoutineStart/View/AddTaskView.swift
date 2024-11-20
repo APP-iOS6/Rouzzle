@@ -20,8 +20,8 @@ struct AddTaskView: View {
     @State var isShowingDeleteAlert = false
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+
     @Environment(\.dismiss) private var dismiss
-    @State private var taskManager = CalendarTaskManager()
     let completeAction: (String) -> Void
     @State var viewModel = AddTaskViewModel()
     
@@ -131,8 +131,7 @@ struct AddTaskView: View {
                 .fullScreenCover(isPresented: $isShowingTimerView) {
                     RoutineStartView(
                         viewModel: RoutineStartViewModel(
-                            routineItem: store.routineItem,
-                            taskManager: taskManager  // taskManager 전달
+                            routineItem: store.routineItem
                         ), path: $path
                     )
                 }

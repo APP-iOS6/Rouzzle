@@ -95,8 +95,6 @@ class SocialService: SocialServiceType {
                 }
                 return user
             }
-            
-            print("Fetched user profiles: \(completeUserProfiles)")
             return completeUserProfiles
         } catch {
             throw DBError.firebaseError(error)

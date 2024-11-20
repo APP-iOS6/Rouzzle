@@ -15,6 +15,13 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    /// 05시: 30분 으로 변환하는 함수
+    var formattedToTimeDetail: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH시 mm분" // 24시간 형식 (예: 06:30)
+        return formatter.string(from: self)
+    }
+    
     // Date객채를 시간에 따라 아심, 점심, 저녁, 새벽으로 나누는 함수
     func getTimeCategory() -> TimeCategory {
         let calendar = Calendar.current
@@ -40,5 +47,27 @@ extension Date {
         formatter.dateFormat = "yyyyMMdd"
         return formatter.string(from: self)
     }
-
+    
+    var formattedDateToday: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR") // 한국 로케일// 필요에 따라 타임존 설정
+        formatter.dateFormat = "yyyy년MM월dd일"
+        return formatter.string(from: self)
+    }
+    
+    var extraData: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        
+        formatter.dateFormat = "MM"
+        let month = formatter.string(from: self)
+        formatter.dateFormat = "yyyy"
+        let year = formatter.string(from: self)
+        
+        return "\(year)년 \(month)월"
+    }
+    
+    func startOfDay() -> Date {
+        return Calendar.current.startOfDay(for: self)
+    }
 }
