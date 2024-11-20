@@ -12,7 +12,7 @@ struct PuzzleGuideOverlay: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.5)
+            Color.black.opacity(0.7)
                 .ignoresSafeArea(edges: .all)
                 .onTapGesture {
                     isShowingGuide = false
@@ -22,7 +22,7 @@ struct PuzzleGuideOverlay: View {
             ZStack(alignment: .topTrailing) {
                 VStack(alignment: .center, spacing: 0) {
                     Text("루즐 챌린지 참여 안내")
-                        .font(.bold14)
+                        .font(.bold18)
                         .underline()
                         .padding(.top, 24)
                     
@@ -40,13 +40,13 @@ struct PuzzleGuideOverlay: View {
                         
                         Text("함께 건강한 습관을 만들어봐요! 💪🏻")
                     }
-                    .font(.light14)
+                    .font(.light16)
                     .foregroundStyle(.gray)
                     .multilineTextAlignment(.center)
                     .padding(.top, 32)
                     .padding(.bottom, 24)
                 }
-                .frame(width: 320, height: 247)
+                .frame(width: 361, height: 280)
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 
@@ -55,7 +55,7 @@ struct PuzzleGuideOverlay: View {
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(Color.accent)
-                        .padding(16)
+                        .padding()
                 }
             }
         }
