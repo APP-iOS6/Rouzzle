@@ -32,36 +32,8 @@ struct SocialView: View {
                             }
                         
                         // 검색 결과
-                        if !viewModel.searchResults.isEmpty {
-                            VStack(alignment: .leading) {
-                                ForEach(viewModel.searchResults, id: \.id) { user in
-                                    NavigationLink {
-                                        SocialMarkDetailView(userProfile: UserProfile(
-                                            documentId: user.id,
-                                            nickname: user.name,
-                                            profileImageUrl: user.profileUrlString,
-                                            introduction: user.introduction,
-                                            routines: []
-                                        ), isStarred: false)
-                                    } label: {
-                                        HStack {
-                                            ProfileCachedImage(imageUrl: user.profileUrlString)
-                                                .frame(width: 44, height: 44)
-                                                .clipShape(Circle())
-                                            Text(user.name)
-                                                .font(.semibold16)
-                                                .foregroundStyle(.black)
-                                            
-                                            Text(user.introduction)
-                                                .foregroundStyle(.gray)
-                                                .font(.regular12)
-                                        }
-                                    }
-                                }
-                            }
-                            .padding(.top, 20)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        } else {
+                        if query.isEmpty {
+                            // 기존 뷰 상태
                             VStack(alignment: .leading) {
                                 Text("즐겨찾기")
                                     .font(.semibold18)
@@ -118,6 +90,41 @@ struct SocialView: View {
                                 }
                             }
                             .padding(.top, 20)
+                        } else if !viewModel.searchResults.isEmpty {
+                            // 검색 리스트
+                            VStack(alignment: .leading) {
+                                ForEach(viewModel.searchResults, id: \.id) { user in
+                                    NavigationLink {
+                                        SocialMarkDetailView(userProfile: UserProfile(
+                                            documentId: user.id,
+                                            nickname: user.name,
+                                            profileImageUrl: user.profileUrlString,
+                                            introduction: user.introduction,
+                                            routines: []
+                                        ), isStarred: false)
+                                    } label: {
+                                        HStack {
+                                            ProfileCachedImage(imageUrl: user.profileUrlString)
+                                                .frame(width: 44, height: 44)
+                                                .clipShape(Circle())
+                                            Text(user.name)
+                                                .font(.semibold16)
+                                                .foregroundStyle(.black)
+                                            
+                                            Text(user.introduction)
+                                                .foregroundStyle(.gray)
+                                                .font(.regular12)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.top, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            Text("검색 결과가 없습니다.")
+                                .font(.light16)
+                                .foregroundStyle(.gray)
+                                .padding(.top, 20)
                         }
                     }
                 }

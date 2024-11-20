@@ -100,6 +100,12 @@ class SocialViewModel {
     
     // 검색 수행
     func performSearch(query: String) {
+        // 빈 검색어 처리
+        guard !query.isEmpty else {
+            self.searchResults = [] // 검색 결과 초기화
+            return
+        }
+        
         index.search(query: "\(query)") { result in
             switch result {
             case .failure(let error):
