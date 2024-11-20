@@ -32,6 +32,17 @@ struct AddRoutineView: View {
                         
                         RoutineNotificationView(viewModel: viewModel)
                             .frame(minHeight: proxy.size.height * 0.28, alignment: .top)
+//                            .onChange(of: viewModel.isNotificationEnabled) { _, newValue in
+//                                if newValue {
+//                                    print("알림 활성화됨")
+//                                    viewModel.repeatCount = viewModel.repeatCount ?? 1
+//                                    viewModel.interval = viewModel.interval ?? 1
+//                                    viewModel.scheduleRoutineNotifications()
+//                                } else {
+//                                    print("알림 비활성화됨. 모든 알림 제거")
+//                                    NotificationManager.shared.removeAllNotifications()
+//                                }
+//                            }
                         
                         RouzzleButton(buttonType: .next, disabled: viewModel.disabled, action: {
                             viewModel.getRecommendTask()
@@ -149,8 +160,7 @@ struct RoutineBasicSettingView: View {
 struct RoutineNotificationView: View {
     @Bindable var viewModel: AddRoutineViewModel
     @State private var isOneAlarm: Bool = false
-    let minutes = [1, 3, 5, 7, 10]
-    let counts = [1, 2, 3, 4, 5]
+    
     var body: some View {
         VStack(spacing: 20) {
             HStack {
@@ -183,9 +193,15 @@ struct RoutineNotificationView: View {
                     // 분 선택
                     CustomPicker2(
                         unit: "분",
-                        isDisabled: isOneAlarm,
-                        options: minutes,
-                        selection: $viewModel.interval
+                        isDisabled: !viewModel.isNotificationEnabled, // 알림이 활성화되어야 사용 가능
+                        options: [1, 3, 5, 7, 10], // 선택 가능한 간격
+                        selection: Binding(
+                            get: { viewModel.interval ?? 1 },
+                            set: { newValue in
+                                viewModel.interval = newValue
+                                print("Interval 선택됨: \(viewModel.interval ?? 0)")
+                            }
+                        )
                     )
                     
                     Text("간격으로")
@@ -194,9 +210,15 @@ struct RoutineNotificationView: View {
                     // 횟수 선택
                     CustomPicker2(
                         unit: "횟수",
-                        isDisabled: isOneAlarm,
-                        options: counts,
-                        selection: $viewModel.repeatCount
+                        isDisabled: !viewModel.isNotificationEnabled, // 알림이 활성화되어야 사용 가능
+                        options: [1, 2, 3, 4, 5], // 선택 가능한 횟수
+                        selection: Binding(
+                            get: { viewModel.repeatCount ?? 1 },
+                            set: { newValue in
+                                viewModel.repeatCount = newValue
+                                print("Repeat Count 선택됨: \(viewModel.repeatCount ?? 0)")
+                            }
+                        )
                     )
                     
                     Text("알려드릴게요")
@@ -206,15 +228,6 @@ struct RoutineNotificationView: View {
                 }
             }
         }
-        .onChange(of: viewModel.isNotificationEnabled, { _, newValue in
-            if newValue {
-                viewModel.repeatCount = 1
-                viewModel.interval = 1
-            } else {
-                viewModel.repeatCount = nil
-                viewModel.interval = nil
-            }
-        })
         .animation(.smooth, value: viewModel.isNotificationEnabled)
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
@@ -255,6 +268,7 @@ struct CustomPicker2: View {
             ForEach(options, id: \.self) { value in
                 Button {
                     selection = value
+                    print("\(unit) 선택됨: \(value)")
                 } label: {
                     Text("\(value)\(unit)")
                 }

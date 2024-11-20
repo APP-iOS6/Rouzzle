@@ -38,7 +38,23 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        
+        // NotificationManager 설정
+        UNUserNotificationCenter.current().delegate = NotificationManager.shared // delegate 설정
+        requestNotificationPermissions() // 알림 권한 요청
+        
         return true
+    }
+    
+    // 알림 권한 요청
+    private func requestNotificationPermissions() {
+        NotificationManager.shared.requestNotificationPermission { granted in
+            if granted {
+                print("알림 권한이 허용되었습니다.")
+            } else {
+                print("알림 권한이 거부되었습니다.")
+            }
+        }
     }
     
     // 카카오 로그인 open url 받기 위해

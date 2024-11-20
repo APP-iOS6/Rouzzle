@@ -13,7 +13,6 @@ import SwiftData
 
 @Observable
 class AddRoutineViewModel {
-    
     enum Step: Double {
         case info = 0.5
         case task = 1.0
@@ -129,5 +128,69 @@ class AddRoutineViewModel {
                 self.toastMessage = "루틴을 저장하지 못했습니다."
             }
         }
+    }
+    
+    // notification 함수
+    func handleNotificationToggle() {
+        if isNotificationEnabled {
+            // 알림 켜기 - 권한 요청 확인
+            NotificationManager.shared.checkNotificationSettings { status in
+                switch status {
+                case .authorized:
+                    // 이미 권한이 있음 - 알람 스케줄
+                    self.scheduleRoutineNotifications()
+                case .denied:
+                    self.isNotificationEnabled = false
+                    self.toastMessage = "알림 권한이 꺼져 있습니다. 설정에서 권한을 활성화해주세요."
+                case .notDetermined:
+                    NotificationManager.shared.requestNotificationPermission { granted in
+                        if granted {
+                            self.scheduleRoutineNotifications()
+                        } else {
+                            self.isNotificationEnabled = false
+                            self.toastMessage = "알림 권한이 거부되었습니다."
+                        }
+                    }
+                default:
+                    break
+                }
+            }
+        } else {
+            // 알림 끄기 - 기존 알림 제거
+            NotificationManager.shared.removeAllNotifications()
+        }
+    }
+    
+    func scheduleRoutineNotifications() {
+        guard let startDate = selectedDateWithTime.values.first else {
+            print("알림 시작 시간이 설정되지 않았습니다.")
+            return
+        }
+        
+        // 기본값 확인: repeatCount와 interval이 설정되지 않은 경우 기본값 적용
+        let validRepeatCount = repeatCount ?? 1
+        let validInterval = interval ?? 1
+        
+        // 유효성 검사 추가
+        guard validRepeatCount > 0 else {
+            print("repeatCount가 유효하지 않아 알림을 설정하지 않습니다. 값: \(validRepeatCount)")
+            return
+        }
+        
+        NotificationManager.shared.removeAllNotifications()
+        
+        // 디버깅: 설정된 값 확인
+        print("scheduleRoutineNotifications 호출됨")
+        print("Start Date: \(startDate)")
+        print("Repeat Count: \(validRepeatCount)")
+        print("Interval Minutes: \(validInterval)")
+        
+        NotificationManager.shared.scheduleMultipleNotifications(
+            id: UUID().uuidString,
+            title: title,
+            startDate: startDate,
+            intervalMinutes: validInterval, // 기본값 1분
+            repeatCount: validRepeatCount // 기본값 0회 반복
+        )
     }
 }

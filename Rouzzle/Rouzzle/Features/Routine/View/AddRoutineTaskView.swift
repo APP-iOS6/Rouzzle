@@ -84,6 +84,9 @@ struct AddRoutineTaskView: View {
                 
                 RouzzleButton(buttonType: .save) {
                     viewModel.uploadRoutine(context: context)
+                    if viewModel.isNotificationEnabled {
+                            viewModel.scheduleRoutineNotifications()
+                        }
                 }
                 .padding(.horizontal)
             }
