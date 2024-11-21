@@ -22,6 +22,10 @@ class RoutineItem: Identifiable {
     @Relationship(deleteRule: .cascade)
     var taskList: [TaskList] = []
     
+    var isCompleted: Bool {
+        return taskList.allSatisfy { $0.isCompleted }
+    }
+    
     init(
         id: String = "",
         title: String,

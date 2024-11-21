@@ -33,67 +33,106 @@ struct RoutineListView: View {
             return routinesQuery
         }
     }
-
+    
     init() {
         _currentQuote = State(initialValue: QuotesProvider.randomQuote())
     }
-
+    
     var body: some View {
         NavigationStack(path: $path) { // NavigationStack에 path 바인딩
-            ZStack {
-                ScrollView {
-                    VStack(spacing: 20) {
-                        Spacer().frame(height: 5)
-                        TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
-                            .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
-                    }
-
-                    // 토글, 루틴 등록 버튼
-                    HStack {
-                        RoutineFilterToggle(selectedFilter: $selectedFilter)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Button {
-                            isShowingAddRoutineSheet.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                                .font(.title)
-                        }
-
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom, 5)
-
-                    // 루틴 목록
-                    ForEach(filterRoutineItem) { routine in
-                        Button {
-                            routineStore.routineItem = routine
-                            routineStore.taskList = routine.taskList
-                            path.append(NavigationDestination.addTaskView)
-                        } label: {
-                            RoutineStatusPuzzle(routineItem: routine)
-                                .padding(.horizontal)
-                        }
-                    }
-
-                    // 루틴을 등록해 주세요 버튼
+            ScrollView {
+                VStack(spacing: 20) {
+                    Spacer().frame(height: 5)
+                    TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
+                }
+                
+                // 토글, 루틴 등록 버튼
+                HStack {
+                    RoutineFilterToggle(selectedFilter: $selectedFilter)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     Button {
                         isShowingAddRoutineSheet.toggle()
                     } label: {
-                        Image(.requestRoutine)
-                            .resizable()
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(contentMode: .fit)
-                            .padding(.horizontal)
+                        Image(systemName: "plus")
+                            .font(.title)
+                    }
+                    
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 5)
+                
+                // 루틴 목록
+                ForEach(filterRoutineItem, id: \.id) { routine in
+                    Button {
+                        routineStore.selectedRoutineItem(routine)
+                        path.append(NavigationDestination.addTaskView)
+                    } label: {
+                        let status = returnRoutineStatus(routine.taskList)
+                        ZStack {
+                            status.image
+                                .resizable()
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(370 / 137, contentMode: .fit)
+                            
+                            HStack {
+                                Text("\(routine.emoji)")
+                                    .font(.bold40)
+                                    .padding(.trailing, 10)
+                                    .padding(.bottom, 7)
+                                
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(routine.title)
+                                        .font(.semibold18)
+                                        .foregroundStyle(.black)
+                                        .bold()
+                                        .strikethrough(status == .completed)
+                                    
+                                    Text(inProgressCount(routine.taskList))
+                                        .font(.regular14)
+                                        .foregroundStyle(Color.subHeadlineFontColor)
+                                }
+                                
+                                Spacer()
+                                
+                                VStack(alignment: .trailing, spacing: 5) {
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "xmark") // 알림 이미지 동적으로 업데이트
+                                        Text(todayStartTime(routine.dayStartTime))
+                                    }
+                                    .font(.regular14)
+                                    Text(convertDaysToString(days: routine.dayStartTime.keys.sorted()))
+                                        .font(.regular14)
+                                }
+                                .foregroundStyle(Color.subHeadlineFontColor)
+                            }
+                            .padding(.horizontal, 20)
+                            .offset(y: -7)
+                        }
+                        .padding(.horizontal)
+                        .opacity(status == .pending ? 1 : 0.6)
                     }
                 }
-                .refreshable {
-                    currentQuote = QuotesProvider.randomQuote()
-                }
-                .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
-                    AddRoutineContainerView()
+                
+                // 루틴을 등록해 주세요 버튼
+                Button {
+                    isShowingAddRoutineSheet.toggle()
+                } label: {
+                    Image(.requestRoutine)
+                        .resizable()
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.horizontal)
                 }
             }
+            .refreshable {
+                currentQuote = QuotesProvider.randomQuote()
+            }
+            .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
+                AddRoutineContainerView()
+            }
+            
             .toastView(toast: $toast)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

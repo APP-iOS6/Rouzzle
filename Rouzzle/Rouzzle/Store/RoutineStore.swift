@@ -42,6 +42,12 @@ class RoutineStore {
         guard let routineItem = routineItem else { return }
         self.taskList = routineItem.taskList
     }
+    
+    func selectedRoutineItem(_ routine: RoutineItem) {
+        routineItem = routine
+        taskList = routine.taskList
+    }
+    
     /// 모든 루틴 데이터를 Firestore에서 가져오기
     func fetchAllRoutines() {
         Task {
@@ -111,7 +117,7 @@ class RoutineStore {
     func addTaskSwiftData(_ todoTask: RecommendTodoTask, context: ModelContext) {
         loadState = .loading
         guard let routineItem = routineItem  else { return }
-
+        
         do {
             try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
             loadState = .completed
@@ -125,7 +131,7 @@ class RoutineStore {
     /// 추천 할 일 가져오는 함수
     func getRecommendTask() {
         guard let routineItem = routineItem  else { return }
-
+        
         guard let firstTime = routineItem.dayStartTime.first?.value, let time = firstTime.toDate() else {
             return
         }
@@ -165,7 +171,7 @@ class RoutineStore {
                 loadState = .failed
                 return
             }
-
+            
             // SwiftData에서 삭제
             do {
                 try SwiftDataService.deleteRoutine(routine: routineItem, context: modelContext)
