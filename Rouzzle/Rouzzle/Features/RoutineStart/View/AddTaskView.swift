@@ -78,15 +78,8 @@ struct AddTaskView: View {
                         }
                     }
  
-                    Button {
+                    RouzzleButton(buttonType: .timerStart, disabled: store.taskList.isEmpty) {
                         isShowingTimerView.toggle()
-                    } label: {
-                        Text("START")
-                            .frame(maxWidth: .infinity, minHeight: 60)
-                            .background(.accent)
-                            .foregroundStyle(.white)
-                            .font(.bold20)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .padding(.top)
                     
