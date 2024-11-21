@@ -139,11 +139,14 @@ struct PuzzleView: View {
                     Image(uiImage: referenceImage)
                         .resizable()
                         .frame(width: imageSize.width, height: imageSize.height)
-                        .opacity(0.2)
+                        .opacity(0.5)
                         .position(
                             x: screenSize.width / 2,
                             y: (screenSize.height - getPuzzleAreaHeight()) * 0.7 + 1
                         )
+                } else {
+                    Text("배경 이미지를 찾을 수 없습니다")
+                        .foregroundColor(.red)
                 }
                 
                 ForEach(pieces.filter { $0.isPlaced }) { piece in
@@ -258,8 +261,20 @@ struct PuzzleView: View {
             let xOffset = CGFloat(index) * (scaledFrame.width + 15) + 20
             let yOffset = screenSize.height - getPuzzleAreaHeight()/2
             
+            // 이미지 로딩 시 에러 처리 추가
+            guard let pieceImage = UIImage(named: data.imageName) else {
+                print("⚠️ 이미지를 찾을 수 없습니다: \(data.imageName)")
+                return PuzzlePiece(
+                    image: Image(systemName: "questionmark.square"),
+                    correctFrame: scaledFrame,
+                    currentPosition: CGPoint(x: xOffset, y: yOffset),
+                    isPlaced: false,
+                    isSelected: false
+                )
+            }
+            
             return PuzzlePiece(
-                image: Image(uiImage: UIImage(named: data.imageName) ?? UIImage()),
+                image: Image(uiImage: pieceImage),
                 correctFrame: scaledFrame,
                 currentPosition: CGPoint(x: xOffset, y: yOffset),
                 isPlaced: false,
@@ -269,32 +284,38 @@ struct PuzzleView: View {
     }
     
     private func loadPuzzleData() -> [(imageName: String, frame: CGRect)] {
-        return [
-            ("tuna01", CGRect(x: 16, y: 397, width: 65, height: 93)),
-            ("tuna02", CGRect(x: 56, y: 397, width: 105, height: 73)),
-            ("tuna03", CGRect(x: 136, y: 397, width: 68, height: 93)),
-            ("tuna04", CGRect(x: 180, y: 397, width: 104, height: 73)),
-            ("tuna05", CGRect(x: 260, y: 397, width: 67, height: 93)),
-            ("tuna06", CGRect(x: 303, y: 397, width: 83, height: 73)),
-            ("tuna07", CGRect(x: 16, y: 464, width: 83, height: 75)),
-            ("tuna08", CGRect(x: 75, y: 443, width: 68, height: 117)),
-            ("tuna09", CGRect(x: 118, y: 464, width: 105, height: 75)),
-            ("tuna10", CGRect(x: 198, y: 443, width: 68, height: 117)),
-            ("tuna11", CGRect(x: 241, y: 464, width: 105, height: 75)),
-            ("tuna12", CGRect(x: 321, y: 443, width: 65, height: 117)),
-            ("tuna13", CGRect(x: 16, y: 512, width: 65, height: 117)),
-            ("tuna14", CGRect(x: 56, y: 533, width: 105, height: 76)),
-            ("tuna15", CGRect(x: 136, y: 512, width: 68, height: 117)),
-            ("tuna16", CGRect(x: 180, y: 533, width: 104, height: 76)),
-            ("tuna17", CGRect(x: 260, y: 512, width: 67, height: 117)),
-            ("tuna18", CGRect(x: 303, y: 533, width: 83, height: 76)),
-            ("tuna19", CGRect(x: 16, y: 603, width: 83, height: 72)),
-            ("tuna20", CGRect(x: 75, y: 582, width: 68, height: 93)),
-            ("tuna21", CGRect(x: 118, y: 603, width: 105, height: 72)),
-            ("tuna22", CGRect(x: 198, y: 582, width: 68, height: 93)),
-            ("tuna23", CGRect(x: 241, y: 603, width: 105, height: 72)),
-            ("tuna24", CGRect(x: 321, y: 582, width: 65, height: 93))
+        // 프레임 데이터 정의 (위에서 제공한 x, y, width, height 값 사용)
+        let frameData: [CGRect] = [
+            CGRect(x: 16, y: 404, width: 61, height: 89),
+            CGRect(x: 58, y: 404, width: 100, height: 68),
+            CGRect(x: 139, y: 404, width: 62, height: 89),
+            CGRect(x: 183, y: 404, width: 98, height: 68),
+            CGRect(x: 263, y: 404, width: 62, height: 89),
+            CGRect(x: 307, y: 404, width: 79, height: 68),
+            CGRect(x: 16, y: 472, width: 79, height: 71),
+            CGRect(x: 77, y: 452, width: 62, height: 112),
+            CGRect(x: 121, y: 472, width: 98, height: 71),
+            CGRect(x: 201, y: 452, width: 62, height: 112),
+            CGRect(x: 244, y: 472, width: 100, height: 71),
+            CGRect(x: 325, y: 452, width: 61, height: 112),
+            CGRect(x: 16, y: 522, width: 61, height: 111),
+            CGRect(x: 58, y: 543, width: 100, height: 70),
+            CGRect(x: 139, y: 522, width: 62, height: 111),
+            CGRect(x: 183, y: 543, width: 98, height: 70),
+            CGRect(x: 262, y: 522, width: 63, height: 111),
+            CGRect(x: 307, y: 543, width: 79, height: 70),
+            CGRect(x: 16, y: 613, width: 79, height: 69),
+            CGRect(x: 77, y: 592, width: 62, height: 90),
+            CGRect(x: 121, y: 613, width: 98, height: 69),
+            CGRect(x: 201, y: 592, width: 62, height: 90),
+            CGRect(x: 244, y: 613, width: 100, height: 69),
+            CGRect(x: 325, y: 592, width: 61, height: 90)
         ]
+        
+        // 각 프레임에 대해 현재 퍼즐 타입에 맞는 이미지 이름 생성
+        return frameData.enumerated().map { (index, frame) in
+            (imageName: puzzleGame.puzzleType.getPieceImageName(index: index), frame: frame)
+        }
     }
     
     private func checkCompletion() {

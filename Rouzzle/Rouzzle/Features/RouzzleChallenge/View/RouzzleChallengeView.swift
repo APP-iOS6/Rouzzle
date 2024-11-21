@@ -142,7 +142,7 @@ struct RouzzleChallengeView: View {
                             }
                         }
                     }
-                    .padding(.vertical, 30)
+                    .padding(.vertical)
                     
                     Text("새로운 퍼즐이 곧 업데이트될 예정입니다.\n많이 기대해 주세요! 😆")
                         .font(.regular16)
