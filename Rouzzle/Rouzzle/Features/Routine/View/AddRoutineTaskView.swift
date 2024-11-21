@@ -60,7 +60,7 @@ struct AddRoutineTaskView: View {
                                     Text(category.rawValue)
                                         .font(.semibold16)
                                         .foregroundStyle(.black)
-                                        .frame(width: 82, height: 67)
+                                        .frame(width: 82, height: 46)
                                         .background(
                                             RoundedRectangle(cornerRadius: 10)
                                                 .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
@@ -188,13 +188,7 @@ struct RecommendTaskListView: View {
                 refreshRecommend()
             } label: {
                 Image(systemName: "arrow.clockwise")
-                    .frame(width: 25, height: 25)
-                    .foregroundStyle(.white)
-                    .font(.caption)
-                    .background(
-                        Circle()
-                            .fill(Color.subHeadlineFontColor)
-                    )
+                    .font(.title3)
             }
         }
         

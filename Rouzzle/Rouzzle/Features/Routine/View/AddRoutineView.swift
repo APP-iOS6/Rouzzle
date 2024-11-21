@@ -207,7 +207,7 @@ struct RoutineNotificationView: View {
                     
                     // 횟수 선택
                     CustomPicker2(
-                        unit: "횟수",
+                        unit: "번",
                         isDisabled: !viewModel.isNotificationEnabled, // 알림이 활성화되어야 사용 가능
                         options: [1, 2, 3, 4, 5], // 선택 가능한 횟수
                         selection: Binding(
