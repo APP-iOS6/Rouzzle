@@ -68,6 +68,7 @@ class RoutineStore {
                 try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
                 taskList.append(todoTask.toTaskList())
                 loadState = .completed
+                getRecommendTask()
             case .failure:
                 toastMessage = "할일 추가에 실패했습니다"
                 loadState = .failed
