@@ -36,7 +36,8 @@ struct SummaryView: View {
                         .font(.medium16)
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom, 32)
             .frame(maxWidth: .infinity)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .background(
