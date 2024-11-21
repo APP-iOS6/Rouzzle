@@ -55,7 +55,7 @@ struct ToastModifier: ViewModifier {
                     ToastView(
                         message: toast.message,
                         icon: Image(systemName: toast.type.iconFileName),
-                        backgroundColor: toast.type.themeColor.opacity(0.8),
+                        backgroundColor: toast.type.themeColor,
                         textColor: .white,
                         duration: toast.duration,
                         isShowing: Binding(

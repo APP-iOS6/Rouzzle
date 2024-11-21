@@ -193,7 +193,7 @@ struct RoutineNotificationView: View {
                     
                     // 횟수 선택
                     CustomPicker2(
-                        unit: "횟수",
+                        unit: "번",
                         isDisabled: isOneAlarm,
                         options: counts,
                         selection: $viewModel.repeatCount
