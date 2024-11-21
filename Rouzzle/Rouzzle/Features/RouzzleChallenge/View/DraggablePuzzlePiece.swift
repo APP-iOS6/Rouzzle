@@ -109,7 +109,7 @@ struct DraggablePuzzlePiece: View {
             
             Text(debugInfo)
                 .font(.system(size: 10))
-                .foregroundColor(.black)
+                .foregroundStyle(.black)
                 .background(Color.white.opacity(0.8))
                 .offset(y: -50)
         }
