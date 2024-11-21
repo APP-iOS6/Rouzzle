@@ -27,7 +27,7 @@ struct RoutineFilterToggle: View {
                         isActive: selectedFilter == filterOption(at: index),
                         isAll: isAll,
                         content: Text(filterOptions[index])
-                            .font(.regular14)
+                            .font(.semibold14)
                             .frame(width: 40, height: 31)
                             .padding(.horizontal, 8)
                             .foregroundColor(selectedFilter == filterOption(at: index) ? .accentColor : .gray)

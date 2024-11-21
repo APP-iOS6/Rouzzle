@@ -51,6 +51,7 @@ struct CalendarView: View {
                 ForEach(store.days) { value in
                     if value.day != -1 {
                         let completionStatus = store.getDayCompleteState(value.date, routineId: routine.id)
+                        let isToday = Calendar.current.isDateInToday(value.date)
                         CalendarDayView(
                             completionStatus: completionStatus,
                             value: value
@@ -59,7 +60,10 @@ struct CalendarView: View {
                                 store.puzzleTapped(value.date, routineId: routine.id)
                             }
                         }
-                            .id(value.id)
+                        .id(value.id)
+                        .overlay {
+                            isToday ? Circle().stroke(.black, lineWidth: 1).frame(width: 34) : nil
+                        }
                     } else {
                         Color.clear
                             .frame(height: 40)

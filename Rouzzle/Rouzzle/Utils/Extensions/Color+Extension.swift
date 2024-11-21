@@ -28,11 +28,19 @@ extension Color {
     
     /// BFDF8F
     static var partiallyCompletePuzzle: Color {
-        return .fromRGB(r: 191, g: 223, b: 143)
+        return .fromRGB(r: 217, g: 255, b: 160)
     }
     
     /// 121212
     static var subBlack: Color {
         return .fromRGB(r: 18, g: 18, b: 18)
+    }
+    
+    static var chart: Color {
+        return .fromRGB(r: 143, g: 191, b: 71)
+    }
+    
+    static var calendarCompleted: Color {
+        return .fromRGB(r: 157, g: 210, b: 78)
     }
 }

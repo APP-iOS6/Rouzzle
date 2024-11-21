@@ -31,24 +31,64 @@ struct AddTaskView: View {
         ZStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    Label(store.todayStartTime, systemImage: "clock")
-                        .font(.regular14)
-                        .foregroundStyle(Color.subHeadlineFontColor)
-                        .padding(.top, 15)
+                    HStack(alignment: .bottom) {
+                        Label(store.todayStartTime, systemImage: "clock")
+                            .font(.medium16)
+                            .foregroundStyle(Color.subHeadlineFontColor)
+                            .padding(.top, 15)
+                        
+                        Spacer()
+                        
+                        Button {
+                            isShowingAddTaskSheet.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title)
+                        }
+                    }
+                    .padding(.bottom, 5)
                     
+                    if store.taskList .isEmpty {
+                        HStack {
+                            Text("🧩")
+                                .font(.bold40)
+                            
+                            Text("할 일을 추가해 보세요")
+                                .font(.medium16)
+                                .padding(.leading, 10)
+                            
+                            Spacer()
+                            
+                            Text("example")
+                                .font(.medium14)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .background(RoundedRectangle(cornerRadius: 15).fill(.secondcolor))
+                        }
+                        .padding(.horizontal, 25)
+                        .padding(.vertical, 8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(style: StrokeStyle(lineWidth: 1))
+                                .foregroundStyle(.grayborderline)
+                        )
+                    } else {
+                        ForEach(store.taskList) { task in
+                            TaskStatusPuzzle(task: task)
+                        }
+                    }
+ 
                     Button {
                         isShowingTimerView.toggle()
                     } label: {
-                        Image(.routineStart)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                        Text("START")
+                            .frame(maxWidth: .infinity, minHeight: 60)
+                            .background(.accent)
+                            .foregroundStyle(.white)
+                            .font(.bold20)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
-                    .padding(.top, -2)
-                    
-                    ForEach(store.taskList) { task in
-                        TaskStatusPuzzle(task: task)
-                            .padding(.vertical, 6)
-                    }
+                    .padding(.top)
                     
                     HStack {
                         Text("추천 할 일")
@@ -60,13 +100,7 @@ struct AddTaskView: View {
                             store.getRecommendTask()
                         } label: {
                             Image(systemName: "arrow.clockwise")
-                                .frame(width: 25, height: 25)
-                                .foregroundStyle(.white)
-                                .font(.caption)
-                                .background(
-                                    Circle()
-                                        .fill(Color.subHeadlineFontColor)
-                                )
+                                .font(.title3)
                         }
                     }
                     .padding(.top, 30)
@@ -93,7 +127,7 @@ struct AddTaskView: View {
                             .font(.regular12)
                             .foregroundStyle(Color.subHeadlineFontColor)
                     }
-                    .padding(.top, 10)
+                    .padding(.top, 30)
                     
                     HStack(spacing: 14) {
                         ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
@@ -103,7 +137,7 @@ struct AddTaskView: View {
                                 Text(category.rawValue)
                                     .font(.semibold16)
                                     .foregroundStyle(.black)
-                                    .frame(width: 82, height: 67)
+                                    .frame(width: 82, height: 46)
                                     .background(
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
@@ -113,7 +147,7 @@ struct AddTaskView: View {
                     }
                     .padding(.top, 10)
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, 20)
                 .customNavigationBar(title: "\(store.routineItem.emoji) \(store.routineItem.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -125,10 +159,6 @@ struct AddTaskView: View {
                         }
                     }
                 }
-            }
-            
-            FloatingButton {
-                isShowingAddTaskSheet.toggle()
             }
             .padding()
         }

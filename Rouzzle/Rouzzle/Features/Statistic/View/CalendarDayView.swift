@@ -17,13 +17,13 @@ struct CalendarDayView: View {
         ZStack {
             switch completionStatus {
             case .completed:
-                Image(systemName: "puzzlepiece.extension.fill")
-                    .font(.system(size: 35))
-                    .foregroundStyle(Color.accentColor)
+                Circle()
+                    .frame(width: 34)
+                    .foregroundStyle(Color.calendarCompleted)
                     .transition(.opacity)
             case .halfCompleted:
-                Image(systemName: "puzzlepiece.extension.fill")
-                    .font(.system(size: 35))
+                Circle()
+                    .frame(width: 34)
                     .foregroundStyle(Color.partiallyCompletePuzzle)
                     .transition(.opacity)
             case .failed:
@@ -35,7 +35,7 @@ struct CalendarDayView: View {
             } label: {
                 Text("\(value.day)")
                     .font(.medium16)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(completionStatus == .completed ? .white : .black)
                     .frame(width: 35, height: 35)
             }
         }
@@ -44,5 +44,5 @@ struct CalendarDayView: View {
 }
 
 #Preview {
-    CalendarDayView(completionStatus: .completed, value: .init(day: 1, date: Date())) {}
+    CalendarDayView(completionStatus: .completed, value: .init(day: 28, date: Date())) {}
 }

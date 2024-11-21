@@ -92,7 +92,7 @@ struct SocialView: View {
                             .padding(.top, 20)
                         } else if !viewModel.searchResults.isEmpty {
                             // 검색 리스트
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 20) {
                                 ForEach(viewModel.searchResults, id: \.id) { user in
                                     NavigationLink {
                                         SocialMarkDetailView(userProfile: UserProfile(
@@ -114,11 +114,11 @@ struct SocialView: View {
                                                 .foregroundStyle(.gray)
                                                 .font(.regular12)
                                         }
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                 }
                             }
                             .padding(.top, 20)
-                            .frame(maxWidth: .infinity, alignment: .leading)
                         } else {
                             Text("검색 결과가 없습니다.")
                                 .font(.light16)
