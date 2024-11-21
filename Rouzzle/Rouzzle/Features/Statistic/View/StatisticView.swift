@@ -26,6 +26,8 @@ struct StatisticView: View {
                             
                             PieceCounter(count: 9)
                         }
+                        .padding(.top, 2)
+                        .padding(.trailing, 2)
                         
                         if routinesQuery.isEmpty {
                             // 루틴이 없을 때 보여주는 화면
@@ -40,8 +42,8 @@ struct StatisticView: View {
                         }
                     }
                     .animation(.easeInOut, value: routinesQuery)
+                    .padding()
                 }
-                .padding()
             }
             .overlay {
                 if store.isShowingGuide {
@@ -94,11 +96,17 @@ struct StatisticDetailView: View {
                 selectedCategory: $selectedCategory,
                 routines: routines
             )
-            .padding(.vertical, 20)
+            .padding(.bottom, 20)
+            .padding(.trailing, -16)
             
             if selectedCategory == "요약" {
                 SummaryView(store: store, routines: routines)
             } else if let selectedRoutine = routines.first(where: { "\($0.emoji) \($0.title)" == selectedCategory }) {
+                
+                let routineStatistic = store.getRoutineStatistic(routineId: selectedRoutine.id)
+                RoutineStatisticView(routineStatistic: routineStatistic, proxy: proxy)
+                    .padding(.bottom, 24)
+
                 CalendarView(
                     store: store,
                     routine: selectedRoutine

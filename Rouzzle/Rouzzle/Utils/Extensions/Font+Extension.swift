@@ -87,6 +87,10 @@ extension Font {
     }
 
     /// Medium Fonts
+    static var medium18: Font {
+        return Font.custom("Pretendard-Medium", size: 18)
+    }
+    
     static var medium16: Font {
         return Font.custom("Pretendard-Medium", size: 16)
     }

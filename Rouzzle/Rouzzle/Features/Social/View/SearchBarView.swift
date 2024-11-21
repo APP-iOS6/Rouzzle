@@ -16,7 +16,7 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
-            TextField("Search ...", text: $text)
+            TextField("", text: $text, prompt: Text("루즐러를 검색해보세요.").font(.regular16))
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer() // 오른쪽 정렬을 위해 Spacer 사용
@@ -32,7 +32,7 @@ struct SearchBarView: View {
                 }
                 .padding(7)
                 .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
+                .background(Color(.graylittlelight))
                 .cornerRadius(8)
 //                .padding(.horizontal, 10)
                 .overlay {
@@ -42,21 +42,16 @@ struct SearchBarView: View {
                         .padding(.leading, 8)
                 }
             if !text.isEmpty {
-                if !text.isEmpty {
-                    Button {
-                        withAnimation {
-                            text = ""
-                        }
-                    } label: {
-                        Text("Cancel")
-                            .font(.regular16)
+                Button {
+                    withAnimation {
+                        text = ""
                     }
+                } label: {
+                    Text("Cancel")
+                        .font(.regular16)
                 }
             }
         }
-    }
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

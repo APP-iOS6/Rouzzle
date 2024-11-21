@@ -33,21 +33,21 @@ struct StatisticGuideOverlay: View {
                         .padding(.bottom, 20)
                 }
                 
-                VStack(spacing: 12) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "puzzlepiece.extension.fill")
-                            .font(.system(size: 24))
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack(spacing: 5) {
+                        Circle()
+                            .frame(width: 30, height: 30)
                             .foregroundStyle(Color.partiallyCompletePuzzle)
-                        Text("할 일 일부만 완료")
-                            .font(.medium11)
+                        Text(": 할 일 일부만 완료")
+                            .font(.medium14)
                     }
                     
-                    HStack(spacing: 8) {
-                        Image(systemName: "puzzlepiece.extension.fill")
-                            .font(.system(size: 24))
-                            .foregroundStyle(Color.accent)
-                        Text("할 일 전부 완료")
-                            .font(.medium11)
+                    HStack(spacing: 5) {
+                        Circle()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color.calendarCompleted)
+                        Text(": 할 일 전부 완료")
+                            .font(.medium14)
                     }
                 }
                 
@@ -65,12 +65,11 @@ struct StatisticGuideOverlay: View {
                         .background(Color.accentColor)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
-                .padding(.bottom, 20)
+                .padding(.bottom, 30)
             }
             .frame(width: 250, height: 286)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .shadow(radius: 10)
         }
     }
 }
