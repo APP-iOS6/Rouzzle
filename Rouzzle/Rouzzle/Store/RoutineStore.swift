@@ -41,7 +41,6 @@ class RoutineStore {
     func fetchViewTask() {
         guard let routineItem = routineItem else { return }
         self.taskList = routineItem.taskList
-        getRecommendTask()
     }
     /// 모든 루틴 데이터를 Firestore에서 가져오기
     func fetchAllRoutines() {

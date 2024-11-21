@@ -78,7 +78,7 @@ struct AddTaskView: View {
                         }
                     }
  
-                    RouzzleButton(buttonType: .timerStart, disabled: store.taskList.isEmpty) {
+                    RouzzleButton(buttonType: .timerStart, disabled: routineStore.taskList.isEmpty) {
                         isShowingTimerView.toggle()
                     }
                     .padding(.top)
@@ -99,24 +99,25 @@ struct AddTaskView: View {
                     .padding(.top, 30)
                     
                     // 추천 리스트
-                    if store.recommendTodoTask.isEmpty {
+                    if routineStore.recommendTodoTask.isEmpty {
                         Text("추천 할 일을 모두 등록했습니다!")
                             .font(.regular16)
                             .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.vertical, 20)
                     } else {
-                    VStack(spacing: 10) {
-                        ForEach(routineStore.recommendTodoTask, id: \.self) { recommend in
-                            TaskRecommendPuzzle(recommendTask: recommend) {
-                                routineStore.getRecommendTask()
-                                Task {
-                                    await routineStore.addTask(recommend, context: modelContext)
+                        VStack(spacing: 10) {
+                            ForEach(routineStore.recommendTodoTask, id: \.self) { recommend in
+                                TaskRecommendPuzzle(recommendTask: recommend) {
+                                    Task {
+                                        routineStore.getRecommendTask()
+                                        await routineStore.addTask(recommend, context: modelContext)
+                                    }
                                 }
                             }
                         }
-                        .animation(.smooth, value: store.recommendTodoTask)
-                    }                    
+                        .animation(.smooth, value: routineStore.recommendTodoTask)
+                    }
                     HStack(alignment: .bottom) {
                         Text("추천 세트")
                             .font(.bold18)
@@ -229,6 +230,9 @@ struct AddTaskView: View {
                 toast = ToastModel(type: .warning, message: new)
                 routineStore.toastMessage = nil
             }
+        }
+        .onAppear {
+            routineStore.getRecommendTask()
         }
         .animation(.smooth, value: routineStore.taskList)
     }
