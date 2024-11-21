@@ -167,6 +167,7 @@
 		FB4174F22CDC3FF70084BC19 /* DBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F12CDC3FF70084BC19 /* DBError.swift */; };
 		FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */; };
 		FB4174FC2CDDCABB0084BC19 /* AddRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */; };
+		FB5E94EC2CEF746000EA6679 /* RoutineStatusFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5E94EB2CEF746000EA6679 /* RoutineStatusFunc.swift */; };
 		FBDC52CB2CE067420038243D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */; };
 		FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CC2CE088780038243D /* TimeCategory.swift */; };
 		FBDC52D02CE1BA500038243D /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52CF2CE1BA500038243D /* DummyData.swift */; };
@@ -339,6 +340,7 @@
 		FB4174F12CDC3FF70084BC19 /* DBError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBError.swift; sourceTree = "<group>"; };
 		FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheetViewModel.swift; sourceTree = "<group>"; };
 		FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
+		FB5E94EB2CEF746000EA6679 /* RoutineStatusFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatusFunc.swift; sourceTree = "<group>"; };
 		FBDC52CA2CE067420038243D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		FBDC52CC2CE088780038243D /* TimeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCategory.swift; sourceTree = "<group>"; };
 		FBDC52CF2CE1BA500038243D /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 				FB2A5AB52CD912CD00CB981A /* Utils.swift */,
 				BD6301B72CDE73550000203C /* ConvertDays.swift */,
 				BDFBC3362CE6369B00ED8A81 /* ImageCache.swift */,
+				FB5E94EB2CEF746000EA6679 /* RoutineStatusFunc.swift */,
 			);
 			path = Function;
 			sourceTree = "<group>";
@@ -1206,6 +1209,7 @@
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
 				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
 				FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */,
+				FB5E94EC2CEF746000EA6679 /* RoutineStatusFunc.swift in Sources */,
 				23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */,
 				23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */,
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
