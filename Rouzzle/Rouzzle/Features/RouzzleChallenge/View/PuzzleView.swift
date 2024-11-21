@@ -67,27 +67,27 @@ struct PuzzleView: View {
         let deviceAdjustment: CGFloat
         switch (screenWidth, screenHeight) {
         case (440, 821...822): // iPhone 16 Pro Max
-            deviceAdjustment = -455
+            deviceAdjustment = -463
         case (402, 739...740): // iPhone 16 Pro
-            deviceAdjustment = -412
+            deviceAdjustment = -419
         case (430, 800...801): // iPhone 14 Pro Max, iPhone 15 Plus
-            deviceAdjustment = -444.3
+            deviceAdjustment = -452
         case (393, 720...721): // iPhone 14 Pro, iPhone 15, iPhone 15 Pro
-            deviceAdjustment = -402.35
+            deviceAdjustment = -409.25
         case (428, 801): // iPhone 12 Pro Max, iPhone 13 Pro Max, iPhone 14 Plus
-            deviceAdjustment = -441.4
+            deviceAdjustment = -448.7
         case (390, 719): // iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14
-            deviceAdjustment = -396.7
+            deviceAdjustment = -403.5
         case (375, 684): // iPhone 13 mini, iPhone 12 mini
-            deviceAdjustment = -381
+            deviceAdjustment = -387.5
         case (414, 770): // iPhone XR, iPhone 11
-            deviceAdjustment = -424.5
+            deviceAdjustment = -431
         case (414, 774): // iPhone Xs Max, iPhone 11 Pro Max
-            deviceAdjustment = -423.8
+            deviceAdjustment = -431
         case (375, 690): // iPhone Xs, iPhone 11 Pro, iPhone 12
-            deviceAdjustment = -380
+            deviceAdjustment = -386.2
         case (375, 603): // iPhone SE
-            deviceAdjustment = -397
+            deviceAdjustment = -403.5
         default:
             deviceAdjustment = -400
         }

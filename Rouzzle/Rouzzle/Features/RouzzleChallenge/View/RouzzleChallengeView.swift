@@ -14,6 +14,7 @@ struct RouzzleChallengeView: View {
     @State private var isShowingGuide: Bool = false
     @State private var showFirstPlayToast: Bool = false
     @State private var toast: ToastModel?
+    @State private var achievementTimer: Timer?
     let riveViewModel = RiveViewModel(fileName: "AchievementStart")
     
     private let hasShownFirstPlayToastKey = "hasShownFirstPlayToastKey"
@@ -28,12 +29,18 @@ struct RouzzleChallengeView: View {
     private func handlePlayButton(puzzleType: PuzzleType) {
         selectedPuzzleType = puzzleType
         
+        // 진행 중인 타이머가 있다면 취소
+        achievementTimer?.invalidate()
+        achievementTimer = nil
+        
         if !UserDefaults.standard.bool(forKey: hasShownFirstPlayToastKey) {
             showFirstPlayToast = true
             UserDefaults.standard.set(true, forKey: hasShownFirstPlayToastKey)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            // 타이머 생성 및 저장
+            achievementTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
                 showPuzzle = true
+                achievementTimer = nil // 타이머 참조 제거
             }
         } else {
             showPuzzle = true
@@ -187,5 +194,19 @@ struct RouzzleChallengeView: View {
         }
         .toastView(toast: $toast)
         .hideTabBar(true)
+        .onDisappear {
+            // 화면을 벗어날 때 타이머와 토스트를 모두 정리
+            achievementTimer?.invalidate()
+            achievementTimer = nil
+            showFirstPlayToast = false
+        }
+        .onChange(of: showPuzzle) { _, newValue in
+            if newValue {
+                // 퍼즐 뷰로 이동할 때 타이머와 토스트를 정리
+                achievementTimer?.invalidate()
+                achievementTimer = nil
+                showFirstPlayToast = false
+            }
+        }
     }
 }
