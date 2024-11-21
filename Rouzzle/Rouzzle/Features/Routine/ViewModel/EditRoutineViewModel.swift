@@ -34,6 +34,8 @@ class EditRoutineViewModel {
         self.tempdayStartTime = routine.dayStartTime.toDayDateDictionary()
         self.isNotificationEnabled = routine.repeatCount != nil
         self.editRoutine = routine.toRoutineEditData()
+        self.editRoutine.interval = routine.interval ?? 1
+        self.editRoutine.repeatCount = routine.repeatCount ?? 1
         updateAlarmIDs()
     }
     

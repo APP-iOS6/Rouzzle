@@ -28,6 +28,13 @@ class AddRoutineViewModel {
     var isDaily: Bool = false
     var isNotificationEnabled: Bool = false {
         didSet {
+            if isNotificationEnabled {
+                interval = interval ?? 1 // 기본값: 1분
+                repeatCount = repeatCount ?? 1 // 기본값: 1번
+            } else {
+                interval = nil
+                repeatCount = nil
+            }
             updateAlarmIDs()
         }
     }
@@ -122,6 +129,9 @@ class AddRoutineViewModel {
     
     @MainActor
     func uploadRoutine(context: ModelContext) {
+        let _ = interval ?? 1
+        let _ = repeatCount ?? 1
+        
         let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
         // TODO: AlarmIds 추가
