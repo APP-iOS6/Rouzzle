@@ -41,9 +41,22 @@ enum PuzzleType {
         case .tuna:
             return "tunapuzzle"
         case .ned:
-            return "tunapuzzle" // 임시로 tuna 이미지 사용
+            return "nedpuzzle"
         case .chan:
-            return "tunapuzzle" // 임시로 tuna 이미지 사용
+            return "chanpuzzle"
+        }
+    }
+    
+    // 퍼즐 조각 이미지 이름 생성 함수 추가
+    func getPieceImageName(index: Int) -> String {
+        let paddedIndex = String(format: "%02d", index + 1)
+        switch self {
+        case .tuna:
+            return "tuna\(paddedIndex)"
+        case .ned:
+            return "ned\(paddedIndex)"
+        case .chan:
+            return "chan\(paddedIndex)"
         }
     }
 }
