@@ -20,6 +20,7 @@ class RoutineStore {
     var routineItem: RoutineItem?
     var taskList: [TaskList] = [] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
+    var toast: ToastModel?
     var toastMessage: String?
     var recommendTodoTask: [RecommendTodoTask] = []
     var todayStartTime: String {
@@ -93,6 +94,7 @@ class RoutineStore {
             do {
                 for task in todoTasks {
                     try SwiftDataService.addTask(to: routineItem, task.toTaskList(), context: context)
+                    taskList.append(task.toTaskList())
                 }
                 loadState = .completed
             } catch {
@@ -130,6 +132,53 @@ class RoutineStore {
         let timeSet = time.getTimeCategory()
         let routineTitles = routineItem.taskList.map { $0.title }
         recommendTodoTask = DummyData.getRecommendedTasks(for: timeSet, excluding: routineTitles)
+    }
+    
+    func deleteRoutine(
+        modelContext: ModelContext,
+        completeAction: @escaping (String) -> Void,
+        dismiss: @escaping () -> Void
+    ) {
+        guard let routineItem = routineItem else { return }
+        Task {
+            loadState = .loading
+            let routineToDelete = routineItem.toRoutine()
+            
+            // RoutineCompletion 삭제
+            let completionDeleteResult = await routineService.removeRoutineCompletions(for: routineToDelete.documentId ?? "")
+            switch completionDeleteResult {
+            case .success:
+                print("✅ RoutineCompletion 삭제 성공")
+            case .failure(let error):
+                print("❌ RoutineCompletion 삭제 실패: \(error.localizedDescription)")
+                loadState = .failed
+                return
+            }
+            
+            // Firestore 루틴 삭제
+            let firebaseResult = await routineService.removeRoutine(routineToDelete)
+            switch firebaseResult {
+            case .success:
+                print("✅ 파이어베이스 루틴 삭제 성공")
+            case .failure(let error):
+                print("❌ 파이어베이스 루틴 삭제 실패: \(error.localizedDescription)")
+                loadState = .failed
+                return
+            }
+
+            // SwiftData에서 삭제
+            do {
+                try SwiftDataService.deleteRoutine(routine: routineItem, context: modelContext)
+                print("✅ 스위프트 데이터 루틴 삭제 성공")
+                completeAction("루틴이 삭제되었습니다.")
+            } catch {
+                print("❌ 스위프트 데이터 루틴 삭제 실패: \(error.localizedDescription)")
+                loadState = .failed
+                return
+            }
+            loadState = .completed
+            dismiss()
+        }
     }
     
     // 리팩 예정

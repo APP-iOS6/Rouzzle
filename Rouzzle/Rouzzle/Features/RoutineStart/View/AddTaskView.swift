@@ -23,7 +23,6 @@ struct AddTaskView: View {
     @State var selectedCategory: RoutineCategoryByTime?
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-    @State private var viewModel = AddTaskViewModel()
     
     @Environment(\.dismiss) private var dismiss
     let completeAction: (String) -> Void
@@ -110,6 +109,7 @@ struct AddTaskView: View {
                     VStack(spacing: 10) {
                         ForEach(routineStore.recommendTodoTask, id: \.self) { recommend in
                             TaskRecommendPuzzle(recommendTask: recommend) {
+                                routineStore.getRecommendTask()
                                 Task {
                                     await routineStore.addTask(recommend, context: modelContext)
                                 }
@@ -170,8 +170,7 @@ struct AddTaskView: View {
             message: "삭제 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.",
             primaryButtonTitle: "삭제",
             primaryAction: {
-                viewModel.deleteRoutine(
-                    routineItem: routineStore.routineItem!,
+                routineStore.deleteRoutine(
                     modelContext: modelContext,
                     completeAction: completeAction,
                     dismiss: { dismiss() }
