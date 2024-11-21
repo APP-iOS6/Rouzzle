@@ -14,9 +14,10 @@ struct RouzzleChallengeView: View {
     @State private var isShowingGuide: Bool = false
     @State private var showFirstPlayToast: Bool = false
     @State private var toast: ToastModel?
+    @State private var achievementTimer: Timer?
     let riveViewModel = RiveViewModel(fileName: "AchievementStart")
     
-    private let hasShownFirstPlayToastKey = "hasShownFirstPlayToast"
+    private let hasShownFirstPlayToastKey = "hasShownFirstPlayToastKey"
     
     private var gridItemSize: CGFloat {
         let screenWidth = UIScreen.main.bounds.width
@@ -28,16 +29,20 @@ struct RouzzleChallengeView: View {
     private func handlePlayButton(puzzleType: PuzzleType) {
         selectedPuzzleType = puzzleType
         
-        // 첫 실행 체크
+        // 진행 중인 타이머가 있다면 취소
+        achievementTimer?.invalidate()
+        achievementTimer = nil
+        
         if !UserDefaults.standard.bool(forKey: hasShownFirstPlayToastKey) {
             showFirstPlayToast = true
             UserDefaults.standard.set(true, forKey: hasShownFirstPlayToastKey)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            // 타이머 생성 및 저장
+            achievementTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
                 showPuzzle = true
+                achievementTimer = nil // 타이머 참조 제거
             }
         } else {
-            // 이미 한 번 실행했던 경우 바로 다음 화면으로
             showPuzzle = true
         }
     }
@@ -115,6 +120,7 @@ struct RouzzleChallengeView: View {
                                             .aspectRatio(1, contentMode: .fit)
                                             .frame(width: gridItemSize, height: gridItemSize)
                                             .opacity(opacity)
+                                            .drawingGroup() // 이미지 렌더링 최적화
                                         
                                         RouzzleChallengePlayButton(style: .small)
                                             .padding([.bottom, .trailing], 8)
@@ -122,7 +128,6 @@ struct RouzzleChallengeView: View {
                                 }
                             } else {
                                 Button {
-                                    // 잠긴 퍼즐 클릭 시 토스트 메시지 표시
                                     toast = ToastModel(
                                         type: .info,
                                         message: "이전 챌린지를 완료해야 진행 가능합니다."
@@ -134,6 +139,7 @@ struct RouzzleChallengeView: View {
                                             .aspectRatio(1, contentMode: .fit)
                                             .frame(width: gridItemSize, height: gridItemSize)
                                             .opacity(opacity)
+                                            .drawingGroup() // 이미지 렌더링 최적화
                                         
                                         PuzzleLockButton()
                                             .padding([.bottom, .trailing], 8)
@@ -142,7 +148,7 @@ struct RouzzleChallengeView: View {
                             }
                         }
                     }
-                    .padding(.vertical, 30)
+                    .padding(.vertical)
                     
                     Text("새로운 퍼즐이 곧 업데이트될 예정입니다.\n많이 기대해 주세요! 😆")
                         .font(.regular16)
@@ -188,5 +194,19 @@ struct RouzzleChallengeView: View {
         }
         .toastView(toast: $toast)
         .hideTabBar(true)
+        .onDisappear {
+            // 화면을 벗어날 때 타이머와 토스트를 모두 정리
+            achievementTimer?.invalidate()
+            achievementTimer = nil
+            showFirstPlayToast = false
+        }
+        .onChange(of: showPuzzle) { _, newValue in
+            if newValue {
+                // 퍼즐 뷰로 이동할 때 타이머와 토스트를 정리
+                achievementTimer?.invalidate()
+                achievementTimer = nil
+                showFirstPlayToast = false
+            }
+        }
     }
 }
