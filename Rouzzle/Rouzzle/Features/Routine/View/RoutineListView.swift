@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftData
 
 enum NavigationDestination: Hashable {
-    case addTaskView(routineItem: RoutineItem)
-    case routineCompleteView(routineItem: RoutineItem)
+    case addTaskView
+    case routineCompleteView
 }
 
 struct RoutineListView: View {
@@ -22,7 +22,7 @@ struct RoutineListView: View {
     @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
-    
+    @Environment(RoutineStore.self) private var routineStore
     var filterRoutineItem: [RoutineItem] {
         if selectedFilter == .today {
             let todayWeekday = Calendar.current.component(.weekday, from: Date())
@@ -67,7 +67,9 @@ struct RoutineListView: View {
                     // 루틴 목록
                     ForEach(filterRoutineItem) { routine in
                         Button {
-                            path.append(NavigationDestination.addTaskView(routineItem: routine))
+                            routineStore.routineItem = routine
+                            routineStore.taskList = routine.taskList
+                            path.append(NavigationDestination.addTaskView)
                         } label: {
                             RoutineStatusPuzzle(routineItem: routine)
                                 .padding(.horizontal)
@@ -123,17 +125,16 @@ struct RoutineListView: View {
             }
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
-                case .addTaskView(let routineItem):
+                case .addTaskView:
                     AddTaskView(
-                        store: RoutineStore(routineItem: routineItem),
                         path: $path,
                         completeAction: { message in
                             toast = ToastModel(type: .success, message: message)
                         }
                     )
-                case .routineCompleteView(let routineItem):
+                case .routineCompleteView:
                     RoutineCompleteView(
-                        path: $path, routineItem: routineItem
+                        path: $path
                     )
                 }
             }

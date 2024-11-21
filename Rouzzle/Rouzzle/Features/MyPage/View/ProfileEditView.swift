@@ -71,7 +71,9 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack(alignment: .leading) {
-                TextField("", text: $name, prompt: Text("닉네임을 입력해주세요.").font(.regular16))
+                TextField("닉네임을 입력해 주세요.", text: $name)
+                    .font(.regular16)
+
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(isNameEmpty ? .red : Color.subHeadlineFontColor)
@@ -87,7 +89,9 @@ struct ProfileEditView: View {
                 .padding(.bottom, 5)
             
             VStack {
-                TextField("", text: $introduction, prompt: Text("자기소개를 입력해주세요.").font(.regular16))
+                TextField("자기소개를 입력해 주세요.", text: $introduction)
+                    .font(.regular16)
+
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.subHeadlineFontColor)

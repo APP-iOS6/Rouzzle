@@ -20,7 +20,7 @@ struct AddRoutineContainerView: View {
                    goBack()
                 } label: {
                     Image(systemName: viewModel.step == .info ? "xmark" : "chevron.left")
-                        .font(.semibold18)
+                        .font(.semibold20)
                 }
                 Spacer()
             }

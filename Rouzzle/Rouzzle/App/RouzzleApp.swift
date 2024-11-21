@@ -29,6 +29,7 @@ struct RouzzleApp: App {
             LaunchView()
                 .environment(authStore)
                 .environment(SocialViewModel())
+                .environment(RoutineStore())
                 .modelContainer(for: [RoutineItem.self, TaskList.self])
         }
     }
