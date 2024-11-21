@@ -42,7 +42,7 @@ struct AddRoutineTaskView: View {
                         // 추천 세트 할일 섹션
                         HStack {
                             Text("추천 세트")
-                                .font(.bold18)
+                                .font(.semibold18)
                             
                             Spacer()
                             
@@ -52,7 +52,7 @@ struct AddRoutineTaskView: View {
                         }
                         .padding(.top, 20)
                         
-                        HStack(spacing: 14) {
+                        HStack {
                             ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
                                 Button {
                                     routineByTime = category
@@ -67,16 +67,17 @@ struct AddRoutineTaskView: View {
                                         )
                                 }
                             }
-                            .padding(.top, 10)
                         }
                         .padding(.bottom, 20)
                     }
                     .padding()
+                    .frame(maxWidth: proxy.size.width, alignment: .center)
                 }
+                
                 Button {
                     isCustomTaskSheet.toggle()
                 } label: {
-                    Text("추가")
+                    Text("나만의 할 일 추가하기")
                         .font(.bold20)
                         .modifier(BorderButtonModifier())
                 }
@@ -117,11 +118,11 @@ struct SelectedTaskListView: View {
                 Text("할 일을 추가해 주세요!")
                     .frame(maxWidth: .infinity, minHeight: minHeight, alignment: .center)
                     .foregroundStyle(.gray)
+                    .font(.regular16)
             } else {
                 HStack {
                     Text("목록 수정")
-                        .font(.semibold18)
-                        .padding(.leading, 14)
+                        .font(.bold18)
                     
                     Spacer()
                     
@@ -133,7 +134,6 @@ struct SelectedTaskListView: View {
                         Image(systemName: showDeleteIcon ? "arrow.up.arrow.down" : "trash")
                             .foregroundColor(.gray)
                     }
-                    .padding(.trailing, 14)
                 }
                 
                 ForEach(selectedTask, id: \.self) { task in
@@ -179,7 +179,7 @@ struct RecommendTaskListView: View {
     var body: some View {
         HStack {
             Text("추천 할 일")
-                .font(.semibold18)
+                .font(.bold18)
             Spacer()
             Button {
                 refreshRecommend()
@@ -189,15 +189,22 @@ struct RecommendTaskListView: View {
             }
         }
         
-        VStack(spacing: 10) {
-            ForEach(recommendTask, id: \.self) { recommend in
-                TaskRecommendPuzzle(recommendTask: recommend) {
-                    taskAppend(recommend.toRoutineTask())
+        if recommendTask.isEmpty {
+            Text("추천 할 일을 모두 등록했습니다!")
+                .font(.regular16)
+                .foregroundStyle(.gray)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.vertical, 20)
+        } else {
+            VStack(spacing: 10) {
+                ForEach(recommendTask, id: \.self) { recommend in
+                    TaskRecommendPuzzle(recommendTask: recommend) {
+                        taskAppend(recommend.toRoutineTask())
+                    }
                 }
             }
+            .animation(.smooth, value: recommendTask)
         }
-        .animation(.smooth, value: recommendTask)
-        
     }
 }
 

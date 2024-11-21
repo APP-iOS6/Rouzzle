@@ -259,6 +259,9 @@ class StatisticStore: ObservableObject {
         
         // 최대 연속일이 가장 큰 routineId 찾기
         if let (routineId, maxStreak) = routineStreaks.max(by: { $0.value < $1.value }) {
+            if maxStreak == 0 {
+                return nil
+            }
             return (routineId, maxStreak)
         }
         
