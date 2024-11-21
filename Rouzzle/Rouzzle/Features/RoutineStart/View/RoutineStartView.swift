@@ -15,6 +15,7 @@ struct RoutineStartView: View {
     @State var isShowingTaskListSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
     @Binding var path: NavigationPath
+    
     var body: some View {
         ZStack(alignment: .top) {
             // MARK: 그라데이션 배경
@@ -92,7 +93,7 @@ struct RoutineStartView: View {
                     // 할일 완료 버튼
                     Button {
                         viewModel.markTaskAsCompleted()
-                        viewModel.toggleTimer()
+
                     } label: {
                         Image(.checkIcon)
                             .frame(width: 72, height: 72)
@@ -101,7 +102,6 @@ struct RoutineStartView: View {
                     // 건너뛰기 버튼
                     Button {
                         viewModel.skipTask()
-                        viewModel.toggleTimer()
                     } label: {
                         Image(.skipIcon)
                             .frame(width: 64, height: 64)
@@ -152,6 +152,7 @@ struct RoutineStartView: View {
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
             viewModel.resetTask()
+            viewModel.initializeCurrentTaskIndex()
             viewModel.startTimer()
         }
         .onDisappear {

@@ -16,15 +16,17 @@ struct AddTaskView: View {
     @State private var isShowingAddTaskSheet: Bool = false
     @State private var isShowingTimerView: Bool = false
     @State private var isShowingRoutineSettingsSheet: Bool = false
-    @State var isShowingEditRoutineSheet: Bool = false
-    @State var isShowingDeleteAlert = false
+    @State private var isShowingEditRoutineSheet: Bool = false
+    @State private var isShowingDeleteAlert = false
+    @State private var isShowingTimeBasedView: Bool = false
+    @State var selectedCategory: RoutineCategoryByTime?
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-
+    @State private var viewModel = AddTaskViewModel()
+    
     @Environment(\.dismiss) private var dismiss
     let completeAction: (String) -> Void
-    @State var viewModel = AddTaskViewModel()
-    
+
     var body: some View {
         ZStack {
             ScrollView {
@@ -129,12 +131,8 @@ struct AddTaskView: View {
                     
                     HStack(spacing: 14) {
                         ForEach(RoutineCategoryByTime.allCases, id: \.self) { category in
-                            NavigationLink {
-                                TimeBasedRecommendSetView(category: category) { tasks in
-                                    Task {
-                                        await store.addTasks(tasks, context: modelContext)
-                                    }
-                                }
+                            Button {
+                                selectedCategory = category
                             } label: {
                                 Text(category.rawValue)
                                     .font(.semibold16)
@@ -145,7 +143,6 @@ struct AddTaskView: View {
                                             .stroke(Color.fromRGB(r: 239, g: 239, b: 239), lineWidth: 1)
                                     )
                             }
-                            
                         }
                     }
                     .padding(.top, 10)
@@ -162,48 +159,67 @@ struct AddTaskView: View {
                         }
                     }
                 }
-                .fullScreenCover(isPresented: $isShowingTimerView) {
-                    RoutineStartView(
-                        viewModel: RoutineStartViewModel(
-                            routineItem: store.routineItem
-                        ), path: $path
-                    )
-                }
-                .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-                    EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem)) { _ in
-                        store.loadState = .completed
-                        store.toastMessage = "수정에 성공했습니다."
-                    }
-                }
-                .sheet(isPresented: $isShowingAddTaskSheet) {
-                    NewTaskSheet(detents: $detents) { task in
-                        Task {
-                            await store.addTask(task, context: modelContext)
-                        }
-                    }
-                    .presentationDetents(detents)
-                }
-                .sheet(isPresented: $isShowingRoutineSettingsSheet) {
-                    RoutineSettingsSheet(isShowingEditRoutineSheet: $isShowingEditRoutineSheet, isShowingDeleteAlert: $isShowingDeleteAlert)
-                        .presentationDetents([.fraction(0.25)])
-                }
             }
             .padding()
         }
         .toastView(toast: $toast) // ToastModifier 적용
-        .customAlert(isPresented: $isShowingDeleteAlert, title: "해당 루틴을 삭제합니다", message: "삭제 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.", primaryButtonTitle: "삭제", primaryAction: {
-            viewModel.deleteRoutine(routineItem: store.routineItem,
-                                    modelContext: modelContext,
-                                    completeAction: completeAction,
-                                    dismiss: { dismiss() })
-            dismiss()
-        })
+        .customAlert(
+            isPresented: $isShowingDeleteAlert,
+            title: "해당 루틴을 삭제합니다",
+            message: "삭제 버튼 선택 시, 루틴 데이터는\n삭제되며 복구되지 않습니다.",
+            primaryButtonTitle: "삭제",
+            primaryAction: {
+                viewModel.deleteRoutine(
+                    routineItem: store.routineItem,
+                    modelContext: modelContext,
+                    completeAction: completeAction,
+                    dismiss: { dismiss() }
+                )
+                dismiss()
+            }
+        )
+        .fullScreenCover(item: $selectedCategory) { category in
+            TimeBasedRecommendSetView(category: category) { tasks in
+                Task {
+                    await store.addTasks(tasks, context: modelContext)
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $isShowingTimerView) {
+            RoutineStartView(
+                viewModel: RoutineStartViewModel(
+                    routineItem: store.routineItem
+                ),
+                path: $path
+            )
+        }
+        .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
+            EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem)) { _ in
+                store.loadState = .completed
+                store.toastMessage = "수정에 성공했습니다."
+            }
+        }
+        .sheet(isPresented: $isShowingAddTaskSheet) {
+            NewTaskSheet(detents: $detents) { task in
+                Task {
+                    await store.addTask(task, context: modelContext)
+                }
+            }
+            .presentationDetents(detents)
+        }
+        .sheet(isPresented: $isShowingRoutineSettingsSheet) {
+            RoutineSettingsSheet(
+                isShowingEditRoutineSheet: $isShowingEditRoutineSheet,
+                isShowingDeleteAlert: $isShowingDeleteAlert
+            )
+            .presentationDetents([.fraction(0.25)])
+        }
         .overlay {
             if store.loadState == .loading {
                 ProgressView()
             }
         }
-        .onChange(of: store.toastMessage, { _, new in
+        .onChange(of: store.toastMessage) { _, new in
             guard let new else {
                 return
             }
@@ -214,7 +230,7 @@ struct AddTaskView: View {
                 toast = ToastModel(type: .warning, message: new)
                 store.toastMessage = nil
             }
-        })
+        }
         .animation(.smooth, value: store.taskList)
     }
 }
