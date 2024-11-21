@@ -10,7 +10,6 @@ import SwiftData
 import Factory
 
 struct AddTaskView: View {
-    // var store: RoutineStore
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     @Environment(\.modelContext) private var modelContext
     @Environment(RoutineStore.self) private var routineStore
