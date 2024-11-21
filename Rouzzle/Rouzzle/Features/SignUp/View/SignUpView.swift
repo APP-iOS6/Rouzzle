@@ -52,8 +52,9 @@ struct SignUpView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                         
-                        TextField("똑똑한 컴퓨터", text: $vm.user.name)
+                        TextField("닉네임을 입력해 주세요.", text: $vm.user.name)
                             .modifier(StrokeTextFieldModifier())
+                            .font(.regular16)
                         
                         Spacer().frame(height: 18)
                         
