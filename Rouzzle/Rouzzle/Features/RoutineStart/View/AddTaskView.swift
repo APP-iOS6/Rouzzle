@@ -10,9 +10,10 @@ import SwiftData
 import Factory
 
 struct AddTaskView: View {
-    var store: RoutineStore
+   // var store: RoutineStore
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     @Environment(\.modelContext) private var modelContext
+    @Environment(RoutineStore.self) private var routineStore
     @State private var isShowingAddTaskSheet: Bool = false
     @State private var isShowingTimerView: Bool = false
     @State private var isShowingRoutineSettingsSheet: Bool = false
@@ -32,7 +33,7 @@ struct AddTaskView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack(alignment: .bottom) {
-                        Label(store.todayStartTime, systemImage: "clock")
+                        Label(routineStore.todayStartTime, systemImage: "clock")
                             .font(.medium16)
                             .foregroundStyle(Color.subHeadlineFontColor)
                             .padding(.top, 15)
@@ -48,7 +49,7 @@ struct AddTaskView: View {
                     }
                     .padding(.bottom, 5)
                     
-                    if store.taskList .isEmpty {
+                    if routineStore.taskList.isEmpty {
                         HStack {
                             Text("🧩")
                                 .font(.bold40)
@@ -73,7 +74,7 @@ struct AddTaskView: View {
                                 .foregroundStyle(.grayborderline)
                         )
                     } else {
-                        ForEach(store.taskList) { task in
+                        ForEach(routineStore.taskList) { task in
                             TaskStatusPuzzle(task: task)
                         }
                     }
@@ -97,7 +98,7 @@ struct AddTaskView: View {
                         Spacer()
                         
                         Button {
-                            store.getRecommendTask()
+                            routineStore.getRecommendTask()
                         } label: {
                             Image(systemName: "arrow.clockwise")
                                 .font(.title3)
@@ -107,15 +108,15 @@ struct AddTaskView: View {
                     
                     // 추천 리스트
                     VStack(spacing: 10) {
-                        ForEach(store.recommendTodoTask, id: \.self) { recommend in
+                        ForEach(routineStore.recommendTodoTask, id: \.self) { recommend in
                             TaskRecommendPuzzle(recommendTask: recommend) {
                                 Task {
-                                    await store.addTask(recommend, context: modelContext)
+                                    await routineStore.addTask(recommend, context: modelContext)
                                 }
                             }
                         }
                     }
-                    .animation(.smooth, value: store.recommendTodoTask)
+                    .animation(.smooth, value: routineStore.recommendTodoTask)
                     
                     HStack(alignment: .bottom) {
                         Text("추천 세트")
@@ -148,7 +149,7 @@ struct AddTaskView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 20)
-                .customNavigationBar(title: "\(store.routineItem.emoji) \(store.routineItem.title)")
+                .customNavigationBar(title: "\(routineStore.routineItem!.emoji) \(routineStore.routineItem!.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -170,7 +171,7 @@ struct AddTaskView: View {
             primaryButtonTitle: "삭제",
             primaryAction: {
                 viewModel.deleteRoutine(
-                    routineItem: store.routineItem,
+                    routineItem: routineStore.routineItem!,
                     modelContext: modelContext,
                     completeAction: completeAction,
                     dismiss: { dismiss() }
@@ -181,28 +182,28 @@ struct AddTaskView: View {
         .fullScreenCover(item: $selectedCategory) { category in
             TimeBasedRecommendSetView(category: category) { tasks in
                 Task {
-                    await store.addTasks(tasks, context: modelContext)
+                    await routineStore.addTasks(tasks, context: modelContext)
                 }
             }
         }
         .fullScreenCover(isPresented: $isShowingTimerView) {
             RoutineStartView(
                 viewModel: RoutineStartViewModel(
-                    routineItem: store.routineItem
+                    routineItem: routineStore.routineItem!
                 ),
                 path: $path
             )
         }
         .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-            EditRoutineView(viewModel: EditRoutineViewModel(routine: store.routineItem)) { _ in
-                store.loadState = .completed
-                store.toastMessage = "수정에 성공했습니다."
+            EditRoutineView(viewModel: EditRoutineViewModel(routine: routineStore.routineItem!)) { _ in
+                routineStore.loadState = .completed
+                routineStore.toastMessage = "수정에 성공했습니다."
             }
         }
         .sheet(isPresented: $isShowingAddTaskSheet) {
             NewTaskSheet(detents: $detents) { task in
                 Task {
-                    await store.addTask(task, context: modelContext)
+                    await routineStore.addTask(task, context: modelContext)
                 }
             }
             .presentationDetents(detents)
@@ -215,29 +216,30 @@ struct AddTaskView: View {
             .presentationDetents([.fraction(0.25)])
         }
         .overlay {
-            if store.loadState == .loading {
+            if routineStore.loadState == .loading {
                 ProgressView()
             }
         }
-        .onChange(of: store.toastMessage) { _, new in
+        .onChange(of: routineStore.toastMessage) { _, new in
             guard let new else {
                 return
             }
-            if store.loadState == .completed {
+            if routineStore.loadState == .completed {
                 toast = ToastModel(type: .success, message: new)
-                store.toastMessage = nil
+                routineStore.toastMessage = nil
             } else {
                 toast = ToastModel(type: .warning, message: new)
-                store.toastMessage = nil
+                routineStore.toastMessage = nil
             }
         }
-        .animation(.smooth, value: store.taskList)
+        .animation(.smooth, value: routineStore.taskList)
     }
 }
 
 #Preview {
     NavigationStack {
-        AddTaskView(store: RoutineStore(routineItem: RoutineItem.sampleData[0]), path: .constant(NavigationPath()), completeAction: {_ in })
+        AddTaskView(path: .constant(NavigationPath()), completeAction: {_ in })
             .modelContainer(SampleData.shared.modelContainer)
+            .environment(RoutineStore())
     }
 }

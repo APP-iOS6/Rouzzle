@@ -9,19 +9,19 @@ import SwiftUI
 
 struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(RoutineStore.self) private var routineStore
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
 
-    var routineItem: RoutineItem
     var tasks: [TaskList] {
-        routineItem.taskList
+        routineStore.routineItem!.taskList
     }
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\(routineItem.emoji)")
+                Text("\(routineStore.routineItem!.emoji)")
                     .font(.bold30)
                 
-                Text("\(routineItem.title)")
+                Text("\(routineStore.routineItem!.title)")
                     .font(.bold24)
             }
             .padding(.top, 60)
@@ -100,6 +100,6 @@ struct RoutineCompleteView: View {
 
 #Preview {
     RoutineCompleteView(
-        path: .constant(NavigationPath()), routineItem: RoutineItem.sampleData[0]
+        path: .constant(NavigationPath())
     )
 }
