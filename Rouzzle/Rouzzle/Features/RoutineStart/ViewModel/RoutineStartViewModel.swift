@@ -9,6 +9,7 @@ import Factory
 import Foundation
 import Observation
 import SwiftUI
+import SwiftData
 import FirebaseFirestore
 
 @Observable
@@ -51,6 +52,7 @@ class RoutineStartViewModel {
         self.viewTasks = routineItem.taskList
     }
     // MARK: - 타이머 관련 메서드
+    
     func startTimer() {
         guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
@@ -89,7 +91,7 @@ class RoutineStartViewModel {
     }
     
     // MARK: - 테스크 관리 메서드
-    func markTaskAsCompleted() {
+    func markTaskAsCompleted(_ context: ModelContext) {
         guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
             timer?.invalidate()
@@ -101,6 +103,11 @@ class RoutineStartViewModel {
         if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == currentTask.id }) {
             routineItem.taskList[modelIndex].isCompleted = true
             viewTasks[currentTaskIndex].isCompleted = true
+            do {
+                try context.save()
+            } catch {
+                print("활일 완료에 실패했다구")
+            }
         }
         
         timer?.invalidate()
