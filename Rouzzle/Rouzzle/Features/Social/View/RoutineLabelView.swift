@@ -15,13 +15,13 @@ struct RoutineLabelView: View {
     var body: some View {
         Text(text)
             .font(.semibold12)
-            .foregroundColor(isSelected ? .black : .gray)
+            .foregroundColor(isSelected ? .black : .graymedium)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(isSelected ? Color.white : Color.clear)
-                    .stroke(isSelected ? Color.accentColor : Color.gray, lineWidth: 1)
+                    .fill(Color.white)
+                    .stroke(isSelected ? Color.accentColor : Color.grayborderline, lineWidth: 1)
             )
             .onTapGesture {
                 onTap()

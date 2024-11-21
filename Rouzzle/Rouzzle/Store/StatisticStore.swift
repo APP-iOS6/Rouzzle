@@ -149,6 +149,122 @@ class StatisticStore: ObservableObject {
         selectedTask = routine
     }
     
+    // 선택된 루틴의 현재 연속일, 최대 연속일, 누적일 을 반환하는 함수
+    func getRoutineStatistic(routineId: String) -> RoutineStatistic {
+        let calendar = Calendar.current
+        // 해당 루틴의 완료된 날짜 추출
+        let completedDatesSet: Set<Date> = Set(
+            completionData.compactMap { (date, completions) in
+                // 해당 날짜에 해당 루틴의 완료된 항목이 있는지 확인
+                let isCompleted = completions.contains { $0.routineId == routineId && $0.isCompleted }
+                return isCompleted ? calendar.startOfDay(for: date) : nil
+            }
+        )
+        
+        let sortedCompletedDates = completedDatesSet.sorted()
+        // 누적 완료일
+        let totalCompletedDays = sortedCompletedDates.count
+        
+        // 최대 연속일 계산
+        var maxStreak = 0
+        var currentStreak = 0
+        var previousDate: Date?
+        
+        for date in sortedCompletedDates {
+            if let last = previousDate {
+                // 이전 날짜의 다음 날과 현재 날짜가 같은지 확인
+                if let nextDay = calendar.date(byAdding: .day, value: 1, to: last),
+                   calendar.isDate(nextDay, inSameDayAs: date) {
+                    currentStreak += 1
+                } else {
+                    currentStreak = 1
+                }
+            } else {
+                currentStreak = 1
+            }
+            
+            // 최대 연속일 업데이트
+            if currentStreak > maxStreak {
+                maxStreak = currentStreak
+            }
+            
+            previousDate = date
+        }
+        // 현재 연속일 계산 (오늘부터 역순으로)
+        var calculatedCurrentStreak = 0
+        var checkDate = calendar.startOfDay(for: Date())
+        
+        while completedDatesSet.contains(checkDate) {
+            calculatedCurrentStreak += 1
+            if let previousDay = calendar.date(byAdding: .day, value: -1, to: checkDate) {
+                checkDate = previousDay
+            } else {
+                break
+            }
+        }
+        return RoutineStatistic(
+            currentStreak: calculatedCurrentStreak,
+            maxStreak: maxStreak,
+            totalCompletedDays: totalCompletedDays
+        )
+    }
+    
+    // 가져온 루틴들 중에서 최대 연속일이 가장 높은 루틴id와 연속을일 뽑아 반환하는 함수 O(n log n)
+    func findRoutineWithMaxStreak() -> (routineId: String, maxStreak: Int)? {
+        let calendar = Calendar.current
+        
+        // 모든 RoutineCompletion 데이터를 하나의 배열로 평탄화
+        let allCompletions = completionData.values.flatMap { $0 }
+        
+        // routineId별로 그룹화
+        let groupedByRoutineId = Dictionary(grouping: allCompletions, by: { $0.routineId })
+        
+        var routineStreaks: [String: Int] = [:]
+        
+        //  각 routineId에 대해 최대 연속일 계산
+        for (routineId, completions) in groupedByRoutineId {
+            // 완료된 날짜 추출
+            let completedDatesSet: Set<Date> = Set(
+                completions.filter { $0.isCompleted }.map { calendar.startOfDay(for: $0.date) }
+            )
+            
+            // 완료된 날짜 정렬
+            let sortedCompletedDates = completedDatesSet.sorted()
+            
+            var maxStreak = 0
+            var currentStreak = 0
+            var previousDate: Date?
+            
+            for date in sortedCompletedDates {
+                if let last = previousDate {
+                    if let nextDay = calendar.date(byAdding: .day, value: 1, to: last),
+                       calendar.isDate(nextDay, inSameDayAs: date) {
+                        currentStreak += 1
+                    } else {
+                        currentStreak = 1
+                    }
+                } else {
+                    currentStreak = 1
+                }
+                
+                if currentStreak > maxStreak {
+                    maxStreak = currentStreak
+                }
+                
+                previousDate = date
+            }
+            
+            routineStreaks[routineId] = maxStreak
+        }
+        
+        // 최대 연속일이 가장 큰 routineId 찾기
+        if let (routineId, maxStreak) = routineStreaks.max(by: { $0.value < $1.value }) {
+            return (routineId, maxStreak)
+        }
+        
+        return nil
+    }
+    
     deinit {
         self.listener?.remove()
     }
