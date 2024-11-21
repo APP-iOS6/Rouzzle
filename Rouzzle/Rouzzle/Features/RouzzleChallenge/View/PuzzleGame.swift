@@ -15,7 +15,7 @@ class PuzzleGame {
     
     let puzzleType: PuzzleType
     
-    init(puzzleType: PuzzleType, initialPieceCount: Int = 23) {
+    init(puzzleType: PuzzleType, initialPieceCount: Int = 22) {
         self.puzzleType = puzzleType
         self.puzzlePieceCount = initialPieceCount
     }
