@@ -17,27 +17,31 @@ class RoutineStore {
     @Injected(\.routineService) private var routineService
     
     var allRoutines: [RoutineItem] = [] // 모든 루틴 목록
-    var routineItem: RoutineItem
-    var taskList: [TaskList] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
+    var routineItem: RoutineItem?
+    var taskList: [TaskList] = [] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
+    var toast: ToastModel?
     var toastMessage: String?
     var recommendTodoTask: [RecommendTodoTask] = []
     var todayStartTime: String {
-        let today = Date()
-        let calendar = Calendar.current
-        let weekdayNumber = calendar.component(.weekday, from: today)
-        let value = routineItem.dayStartTime[weekdayNumber] ?? routineItem.dayStartTime.first?.value ?? ""
-        return value.to12HourPeriod() + " " +  value.to12HourFormattedTime()
+        if let routineItem = routineItem {
+            let today = Date()
+            let calendar = Calendar.current
+            let weekdayNumber = calendar.component(.weekday, from: today)
+            let value = routineItem.dayStartTime[weekdayNumber] ?? routineItem.dayStartTime.first?.value ?? ""
+            return value.to12HourPeriod() + " " +  value.to12HourFormattedTime()
+        }
+        return ""
     }
     
-    init(routineItem: RoutineItem) {
-        print("\(routineItem.title) test")
-        self.routineItem = routineItem
+    init() {
+        fetchAllRoutines()
+    }
+    
+    func fetchViewTask() {
+        guard let routineItem = routineItem else { return }
         self.taskList = routineItem.taskList
-        fetchAllRoutines() // 모든 루틴 로드
-        getRecommendTask()
     }
-    
     /// 모든 루틴 데이터를 Firestore에서 가져오기
     func fetchAllRoutines() {
         Task {
@@ -54,6 +58,7 @@ class RoutineStore {
     @MainActor
     func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) async {
         loadState = .loading
+        guard let routineItem = routineItem  else { return }
         do {
             var routine = routineItem.toRoutine()
             routine.routineTask.append(todoTask.toRoutineTask())
@@ -77,6 +82,7 @@ class RoutineStore {
     @MainActor
     func addTasks(_ todoTasks: [RecommendTodoTask], context: ModelContext) async {
         loadState = .loading
+        guard let routineItem = routineItem  else { return }
         var routine = routineItem.toRoutine()
         for task in todoTasks {
             routine.routineTask.append(task.toRoutineTask())
@@ -87,6 +93,7 @@ class RoutineStore {
             do {
                 for task in todoTasks {
                     try SwiftDataService.addTask(to: routineItem, task.toTaskList(), context: context)
+                    taskList.append(task.toTaskList())
                 }
                 loadState = .completed
             } catch {
@@ -102,6 +109,8 @@ class RoutineStore {
     /// 스위프트 데이터에만 추가하는 함수, 시트쪽에서 파베 업데이트 하므로 스데만 업데이트 하는 함수
     func addTaskSwiftData(_ todoTask: RecommendTodoTask, context: ModelContext) {
         loadState = .loading
+        guard let routineItem = routineItem  else { return }
+
         do {
             try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
             loadState = .completed
@@ -114,12 +123,61 @@ class RoutineStore {
     
     /// 추천 할 일 가져오는 함수
     func getRecommendTask() {
+        guard let routineItem = routineItem  else { return }
+
         guard let firstTime = routineItem.dayStartTime.first?.value, let time = firstTime.toDate() else {
             return
         }
         let timeSet = time.getTimeCategory()
         let routineTitles = routineItem.taskList.map { $0.title }
         recommendTodoTask = DummyData.getRecommendedTasks(for: timeSet, excluding: routineTitles)
+    }
+    
+    func deleteRoutine(
+        modelContext: ModelContext,
+        completeAction: @escaping (String) -> Void,
+        dismiss: @escaping () -> Void
+    ) {
+        guard let routineItem = routineItem else { return }
+        Task {
+            loadState = .loading
+            let routineToDelete = routineItem.toRoutine()
+            
+            // RoutineCompletion 삭제
+            let completionDeleteResult = await routineService.removeRoutineCompletions(for: routineToDelete.documentId ?? "")
+            switch completionDeleteResult {
+            case .success:
+                print("✅ RoutineCompletion 삭제 성공")
+            case .failure(let error):
+                print("❌ RoutineCompletion 삭제 실패: \(error.localizedDescription)")
+                loadState = .failed
+                return
+            }
+            
+            // Firestore 루틴 삭제
+            let firebaseResult = await routineService.removeRoutine(routineToDelete)
+            switch firebaseResult {
+            case .success:
+                print("✅ 파이어베이스 루틴 삭제 성공")
+            case .failure(let error):
+                print("❌ 파이어베이스 루틴 삭제 실패: \(error.localizedDescription)")
+                loadState = .failed
+                return
+            }
+
+            // SwiftData에서 삭제
+            do {
+                try SwiftDataService.deleteRoutine(routine: routineItem, context: modelContext)
+                print("✅ 스위프트 데이터 루틴 삭제 성공")
+                completeAction("루틴이 삭제되었습니다.")
+            } catch {
+                print("❌ 스위프트 데이터 루틴 삭제 실패: \(error.localizedDescription)")
+                loadState = .failed
+                return
+            }
+            loadState = .completed
+            dismiss()
+        }
     }
     
     // 리팩 예정

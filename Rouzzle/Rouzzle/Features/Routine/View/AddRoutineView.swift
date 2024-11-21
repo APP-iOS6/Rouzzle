@@ -83,7 +83,8 @@ struct RoutineBasicSettingView: View {
     @Binding var weekSetTimeView: Bool
     var body: some View {
         VStack(spacing: 20) {
-            RouzzleTextField(text: $viewModel.title, placeholder: "제목을 입력해주세요")
+            RouzzleTextField(text: $viewModel.title, placeholder: "제목을 입력해주세요.")
+                .font(.regular16)
             
             HStack {
                 Text("반복 요일")

@@ -30,6 +30,10 @@ struct SummaryView: View {
                         }
                         Spacer()
                     }
+                } else {
+                    Text("아직 연속 루틴 기록이 없습니다.")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.medium16)
                 }
             }
             .padding()
@@ -41,7 +45,6 @@ struct SummaryView: View {
             )
             
             HStack {
-                
                 Text("월간 성공률")
                     .font(.bold16)
                 
@@ -54,6 +57,7 @@ struct SummaryView: View {
                     store.moveMonth(direction: value)
                 }
             }
+            .padding(.top, 20)
             VStack {
                 ForEach(routines, id: \.id) { routine in
                     let targetDay: Set<Int> = Set(routine.dayStartTime.keys)
@@ -69,12 +73,7 @@ struct SummaryView: View {
                 Spacer()
                     .frame(height: 12)
             }
-            .padding(.horizontal)
             .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.backgroundLightGray)
-            )
         }
     }
 }

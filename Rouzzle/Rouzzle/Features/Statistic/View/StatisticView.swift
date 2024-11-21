@@ -97,7 +97,6 @@ struct StatisticDetailView: View {
                 routines: routines
             )
             .padding(.bottom, 20)
-            .padding(.trailing, -16)
             
             if selectedCategory == "요약" {
                 SummaryView(store: store, routines: routines)
@@ -135,13 +134,8 @@ struct StatisticDetailView: View {
                     Spacer()
                         .frame(height: 12)
                 }
-                .padding(.horizontal)
                 .frame(maxWidth: .infinity)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.backgroundLightGray)
-                )
+                .padding(.bottom, 32)
                 
             } else {
                 Text("선택된 루틴이 없습니다.")

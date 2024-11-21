@@ -25,7 +25,7 @@ struct NavigationBackButtonModifier: ViewModifier {
                 }
                 ToolbarItem(placement: .principal) { // 중앙에 타이틀을 추가
                     Text(title)
-                        .font(.regular16) // 원하는 폰트 스타일 설정
+                        .font(.semibold18) // 원하는 폰트 스타일 설정
                         .foregroundColor(.primary) // 원하는 색상으로 설정 가능
                 }
             }

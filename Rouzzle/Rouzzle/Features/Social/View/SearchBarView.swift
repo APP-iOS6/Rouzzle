@@ -16,7 +16,8 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
-            TextField("", text: $text, prompt: Text("루즐러를 검색해보세요.").font(.regular16))
+            TextField("루즐러를 검색해보세요.", text: $text)
+                .font(.regular16)
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer() // 오른쪽 정렬을 위해 Spacer 사용
