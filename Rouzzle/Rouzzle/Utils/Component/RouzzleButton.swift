@@ -15,6 +15,7 @@ enum ButtonType: String {
     case complete = "완료"
     case next = "다음"
     case addtoroutine = "내 루틴에 추가하기"
+    case timerStart = "START"
 }
 
 /// 버튼은 type 만을 넘겨주고 동일하게 사용할 수 있도록
@@ -38,7 +39,7 @@ struct RouzzleButton: View {
                 .font(.bold20)
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: .infinity)
-                .frame(height: 61)
+                .frame(height: 60)
                 .background(disabled ? Color.gray.opacity(0.3) : .accent)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }

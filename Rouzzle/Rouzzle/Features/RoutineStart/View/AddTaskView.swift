@@ -78,15 +78,8 @@ struct AddTaskView: View {
                         }
                     }
  
-                    Button {
+                    RouzzleButton(buttonType: .timerStart, disabled: store.taskList.isEmpty) {
                         isShowingTimerView.toggle()
-                    } label: {
-                        Text("START")
-                            .frame(maxWidth: .infinity, minHeight: 60)
-                            .background(.accent)
-                            .foregroundStyle(.white)
-                            .font(.bold20)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .padding(.top)
                     
@@ -106,16 +99,24 @@ struct AddTaskView: View {
                     .padding(.top, 30)
                     
                     // 추천 리스트
-                    VStack(spacing: 10) {
-                        ForEach(store.recommendTodoTask, id: \.self) { recommend in
-                            TaskRecommendPuzzle(recommendTask: recommend) {
-                                Task {
-                                    await store.addTask(recommend, context: modelContext)
+                    if store.recommendTodoTask.isEmpty {
+                        Text("추천 할 일을 모두 등록했습니다!")
+                            .font(.regular16)
+                            .foregroundStyle(.gray)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.vertical, 20)
+                    } else {
+                        VStack(spacing: 10) {
+                            ForEach(store.recommendTodoTask, id: \.self) { recommend in
+                                TaskRecommendPuzzle(recommendTask: recommend) {
+                                    Task {
+                                        await store.addTask(recommend, context: modelContext)
+                                    }
                                 }
                             }
                         }
+                        .animation(.smooth, value: store.recommendTodoTask)
                     }
-                    .animation(.smooth, value: store.recommendTodoTask)
                     
                     HStack(alignment: .bottom) {
                         Text("추천 세트")
