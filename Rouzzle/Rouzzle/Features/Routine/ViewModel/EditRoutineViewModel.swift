@@ -118,7 +118,7 @@ class EditRoutineViewModel {
                 try context.save()
                 // 알림 설정 로직 추가
                 if isNotificationEnabled {
-                    scheduleNotifications()
+                    scheduleNotifications(isRoutineRunning: false)
                 } else {
                     NotificationManager.shared.removeAllNotifications()
                 }
@@ -152,7 +152,7 @@ class EditRoutineViewModel {
                 }
                 // 알림 설정 로직 추가
                 if isNotificationEnabled {
-                    scheduleNotifications()
+                    scheduleNotifications(isRoutineRunning: false)
                 } else {
                     NotificationManager.shared.removeAllNotifications()
                 }
@@ -178,7 +178,7 @@ class EditRoutineViewModel {
     }
     
     // 알림 스케줄링
-    func scheduleNotifications() {
+    func scheduleNotifications(isRoutineRunning: Bool) {
         guard let interval = editRoutine.interval,
               let repeatCount = editRoutine.repeatCount,
               !tempdayStartTime.isEmpty else {
@@ -198,7 +198,8 @@ class EditRoutineViewModel {
                 title: editRoutine.title,
                 startDate: routineStartDate,
                 intervalMinutes: interval,
-                repeatCount: repeatCount
+                repeatCount: repeatCount,
+                isRoutineRunning: isRoutineRunning
             )
         }
     }

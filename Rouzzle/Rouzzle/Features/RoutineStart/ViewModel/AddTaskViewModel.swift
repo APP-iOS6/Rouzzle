@@ -15,6 +15,21 @@ class AddTaskViewModel {
     @Injected(\.routineService) @ObservationIgnored private var routineService
     var toast: ToastModel?
     var loadState: LoadState = .none
+    
+    var isRoutineRunning: Bool = false
+    
+    func startRoutine() {
+        isRoutineRunning = true
+        print("루틴이 시작되었습니다. 실행 상태: \(isRoutineRunning)")
+        
+        // 기존 알림 제거
+        NotificationManager.shared.removeAllNotifications()
+    }
+    
+    func stopRoutine() {
+        isRoutineRunning = false
+        print("루틴이 종료되었습니다. 실행 상태: \(isRoutineRunning)")
+    }
 
     /// 루틴 삭제 함수
     func deleteRoutine(

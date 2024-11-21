@@ -79,6 +79,7 @@ struct AddTaskView: View {
                     }
  
                     Button {
+                        viewModel.startRoutine()
                         isShowingTimerView.toggle()
                     } label: {
                         Text("START")

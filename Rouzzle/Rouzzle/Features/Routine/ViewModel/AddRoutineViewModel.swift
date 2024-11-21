@@ -167,14 +167,14 @@ class AddRoutineViewModel {
                 switch status {
                 case .authorized:
                     // 이미 권한이 있음 - 알람 스케줄
-                    self.scheduleRoutineNotifications()
+                    self.scheduleRoutineNotifications(isRoutineRunning: false)
                 case .denied:
                     self.isNotificationEnabled = false
                     self.toastMessage = "알림 권한이 꺼져 있습니다. 설정에서 권한을 활성화해주세요."
                 case .notDetermined:
                     NotificationManager.shared.requestNotificationPermission { granted in
                         if granted {
-                            self.scheduleRoutineNotifications()
+                            self.scheduleRoutineNotifications(isRoutineRunning: false)
                         } else {
                             self.isNotificationEnabled = false
                             self.toastMessage = "알림 권한이 거부되었습니다."
@@ -190,7 +190,7 @@ class AddRoutineViewModel {
         }
     }
     
-    func scheduleRoutineNotifications() {
+    func scheduleRoutineNotifications(isRoutineRunning: Bool) {
         guard let startDate = selectedDateWithTime.values.first else {
             print("알림 시작 시간이 설정되지 않았습니다.")
             return
@@ -219,7 +219,19 @@ class AddRoutineViewModel {
             title: title,
             startDate: startDate,
             intervalMinutes: validInterval, // 기본값 1분
-            repeatCount: validRepeatCount // 기본값 0회 반복
+            repeatCount: validRepeatCount, // 기본값 0회 반복
+            isRoutineRunning: isRoutineRunning
         )
+    }
+    
+    @MainActor
+    func startRoutine() {
+        guard let alarmPrefix = alarmIDs?.values.first else {
+            print("알람 ID가 없습니다.")
+            return
+        }
+        // 이후 알림 취소
+        NotificationManager.shared.removeNotifications(withPrefix: alarmPrefix)
+        print("루틴 실행 시작으로 이후 알림 취소")
     }
 }

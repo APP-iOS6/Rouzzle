@@ -24,7 +24,12 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
     
     // 알림 스케줄 추가
-    func scheduleNotification(id: String, title: String, body: String, date: Date) {
+    func scheduleNotification(id: String, title: String, body: String, date: Date, isRoutineRunning: Bool) {
+        if isRoutineRunning {
+            print("루틴 실행 중: 알림을 스케줄링하지 않습니다.")
+            return
+        }
+        
         print("Scheduling Notification: \(id), Title: \(title), Date: \(date)")
         
         let content = UNMutableNotificationContent()
@@ -47,9 +52,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     // 다중 알람 스케줄 설정 (반복)
     // repeatCount 만큼 반복하여, intervalMinutes 간격으로 알림 추가하기
-    func scheduleMultipleNotifications(id: String, title: String, startDate: Date, intervalMinutes: Int, repeatCount: Int) {
-        guard repeatCount > 0 else {
-            print("Invalid repeatCount: \(repeatCount). 반복 알림이 설정되지 않습니다.")
+    func scheduleMultipleNotifications(id: String, title: String, startDate: Date, intervalMinutes: Int, repeatCount: Int, isRoutineRunning: Bool) {
+//        guard repeatCount > 0 else {
+//            print("Invalid repeatCount: \(repeatCount). 반복 알림이 설정되지 않습니다.")
+//            return
+//        }
+        guard !isRoutineRunning else {
+            print("루틴 실행 중: 반복 알림을 스케줄링하지 않습니다.")
             return
         }
         
@@ -63,7 +72,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         
         // 첫 번째 알림 메시지
         let initialBody = "\(title)을 하러 갈 시간이에요!"
-        scheduleNotification(id: "\(id)_initial", title: title, body: initialBody, date: startDate)
+        scheduleNotification(id: "\(id)_initial", title: title, body: initialBody, date: startDate, isRoutineRunning: isRoutineRunning)
         
         // 반복 알림
         for i in 1...repeatCount {
@@ -80,7 +89,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             
             // 반복 알림 스케줄링
             let newId = "\(id)_repeat_\(i)"
-            scheduleNotification(id: newId, title: title, body: repeatBody, date: notificationDate)
+            scheduleNotification(id: newId, title: title, body: repeatBody, date: notificationDate, isRoutineRunning: isRoutineRunning)
         }
     }
     
@@ -93,6 +102,18 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     func removeAllNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         print("기존 알림이 모두 제거되었습니다.")
+    }
+    
+    // 특정 알림 ID를 기반으로 알림 취소
+    func removeNotifications(withPrefix prefix: String) {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            let idsToRemove = requests
+                .filter { $0.identifier.hasPrefix(prefix) }
+                .map { $0.identifier }
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: idsToRemove)
+            print("\(idsToRemove.count)개의 알림이 취소되었습니다. (Prefix: \(prefix))")
+        }
     }
     
     // 알림 상태 확인
