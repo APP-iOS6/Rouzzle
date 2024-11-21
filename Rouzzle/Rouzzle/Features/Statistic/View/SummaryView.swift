@@ -36,8 +36,7 @@ struct SummaryView: View {
                         .font(.medium16)
                 }
             }
-            .padding(.horizontal)
-            .padding(.bottom, 32)
+            .padding()
             .frame(maxWidth: .infinity)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .background(
@@ -46,7 +45,6 @@ struct SummaryView: View {
             )
             
             HStack {
-                
                 Text("월간 성공률")
                     .font(.bold16)
                 
@@ -59,6 +57,7 @@ struct SummaryView: View {
                     store.moveMonth(direction: value)
                 }
             }
+            .padding(.top, 20)
             VStack {
                 ForEach(routines, id: \.id) { routine in
                     let targetDay: Set<Int> = Set(routine.dayStartTime.keys)

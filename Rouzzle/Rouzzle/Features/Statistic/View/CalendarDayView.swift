@@ -32,16 +32,16 @@ struct CalendarDayView: View {
             switch completionStatus {
             case .completed:
                 Circle()
-                    .frame(width: 12, height: 12)
+                    .frame(width: 6, height: 6)
                     .foregroundStyle(Color.calendarCompleted)
                     .transition(.opacity)
-                    .offset(y: 8)
+                    .offset(y: 6)
             case .halfCompleted:
                 Circle()
-                    .frame(width: 12, height: 12)
+                    .frame(width: 6, height: 6)
                     .foregroundStyle(Color.partiallyCompletePuzzle)
                     .transition(.opacity)
-                    .offset(y: 8)
+                    .offset(y: 6)
             case .failed:
                 EmptyView()
             }
