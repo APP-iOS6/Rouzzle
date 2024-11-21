@@ -16,48 +16,42 @@ struct RoutineSuccessRateChart: View {
     @State private var animatedValue: Double = 0
     
     var body: some View {
-        GeometryReader { proxy in
+        GeometryReader { _ in
             HStack(alignment: .center) {
-                HStack {
-                    Text(emoji)
-                        .font(.system(size: 16))
-                    
-                    Text(title)
-                        .font(.regular14)
-                        .lineLimit(1)
-                        .frame(maxWidth: proxy.size.width * 0.16, alignment: .leading)
-                        .padding(.leading, 3)
-                        .overlay(
-                            Text(title.count > 5 ? String(title.prefix(5)) + "..." : title)
-                                .font(.regular16)
-                                .lineLimit(1)
-                                .opacity(0)
-                        )
-                }
-                .padding(.trailing, 8)
+                Text(emoji)
+                    .font(.system(size: 20))
+                    .padding(.trailing, 8)
                 
-                Chart {
-                    BarMark(
-                        x: .value("성공률", min(animatedValue, 100)),
-                        y: .value("Label", "성공률")
-                    )
-                    .foregroundStyle(getColor(for: animatedValue))
-                    .annotation(position: .trailing) {
-                        Text("\(Int(percentage))%")
-                            .font(.medium11)
-                            .foregroundStyle(.gray.opacity(0.7))
-                            .padding(.leading, -2)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.chart.opacity(0.1))
+                        .frame(height: 26)
+                    Chart {
+                        BarMark(
+                            x: .value("성공률", min(animatedValue, 100)),
+                            y: .value("Label", "성공률")
+                        )                        .foregroundStyle(getColor(for: animatedValue))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                    }
+                    .frame(height: 32)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .chartXAxis(.hidden)
+                    .chartYAxis(.hidden)
+                    .chartXScale(domain: 0...100)
+                    .chartPlotStyle { plotArea in
+                        plotArea
+                            .background(.clear)
+                            .border(.clear, width: 0)
                     }
                 }
-                .frame(height: 20)
-                .chartXAxis(.hidden)
-                .chartYAxis(.hidden)
-                .chartXScale(domain: 0...100)
-                .chartPlotStyle { plotArea in
-                    plotArea
-                        .background(.clear)
-                        .border(.clear, width: 0)
+                .overlay(alignment: .leading) {
+                    Text(title)
+                        .font(.medium12)
+                        .offset(x: 12)
                 }
+                Text("\(Int(percentage))%")
+                    .font(.regular12)
+                    .frame(width: 25)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .onChange(of: percentage) {
@@ -88,7 +82,11 @@ struct RoutineSuccessRateChart: View {
         case 50...:
             return Color.chart.opacity(0.7)
         default:
-            return Color.chart.opacity(0.36)
+            return Color.chart.opacity(0.4)
         }
     }
+}
+
+#Preview {
+    RoutineSuccessRateChart(percentage: 25, emoji: "😀", title: "요시를 패기")
 }
