@@ -16,7 +16,7 @@ struct RouzzleChallengeView: View {
     @State private var toast: ToastModel?
     let riveViewModel = RiveViewModel(fileName: "AchievementStart")
     
-    private let hasShownFirstPlayToastKey = "hasShownFirstPlayToast"
+    private let hasShownFirstPlayToastKey = "hasShownFirstPlayToastKey"
     
     private var gridItemSize: CGFloat {
         let screenWidth = UIScreen.main.bounds.width
@@ -28,7 +28,6 @@ struct RouzzleChallengeView: View {
     private func handlePlayButton(puzzleType: PuzzleType) {
         selectedPuzzleType = puzzleType
         
-        // 첫 실행 체크
         if !UserDefaults.standard.bool(forKey: hasShownFirstPlayToastKey) {
             showFirstPlayToast = true
             UserDefaults.standard.set(true, forKey: hasShownFirstPlayToastKey)
@@ -37,7 +36,6 @@ struct RouzzleChallengeView: View {
                 showPuzzle = true
             }
         } else {
-            // 이미 한 번 실행했던 경우 바로 다음 화면으로
             showPuzzle = true
         }
     }
@@ -115,6 +113,7 @@ struct RouzzleChallengeView: View {
                                             .aspectRatio(1, contentMode: .fit)
                                             .frame(width: gridItemSize, height: gridItemSize)
                                             .opacity(opacity)
+                                            .drawingGroup() // 이미지 렌더링 최적화
                                         
                                         RouzzleChallengePlayButton(style: .small)
                                             .padding([.bottom, .trailing], 8)
@@ -122,7 +121,6 @@ struct RouzzleChallengeView: View {
                                 }
                             } else {
                                 Button {
-                                    // 잠긴 퍼즐 클릭 시 토스트 메시지 표시
                                     toast = ToastModel(
                                         type: .info,
                                         message: "이전 챌린지를 완료해야 진행 가능합니다."
@@ -134,6 +132,7 @@ struct RouzzleChallengeView: View {
                                             .aspectRatio(1, contentMode: .fit)
                                             .frame(width: gridItemSize, height: gridItemSize)
                                             .opacity(opacity)
+                                            .drawingGroup() // 이미지 렌더링 최적화
                                         
                                         PuzzleLockButton()
                                             .padding([.bottom, .trailing], 8)
