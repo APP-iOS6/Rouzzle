@@ -54,7 +54,7 @@ struct RouzzleChallengePuzzleView: View {
            }
        }
        .padding(.horizontal, -16)
-       .customNavigationBar(title: "루즐 퍼즐테스트")
+       .customNavigationBar(title: "루즐 챌린지")
        .toolbar {
            ToolbarItem(placement: .topBarTrailing) {
                PieceCounter(count: puzzleGame.puzzlePieceCount)

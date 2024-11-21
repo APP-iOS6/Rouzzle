@@ -39,11 +39,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         FirebaseApp.configure()
         
-#if DEBUG
-        // 테스트를 위해 First Play 상태 초기화
-        UserDefaults.standard.removeObject(forKey: "hasShownFirstPlayToast")
-        print("Debug: First Play 상태가 초기화되었습니다.")
-#endif
         return true
     }
     
