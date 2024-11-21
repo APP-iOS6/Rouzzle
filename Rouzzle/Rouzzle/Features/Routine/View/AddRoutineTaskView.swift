@@ -42,7 +42,7 @@ struct AddRoutineTaskView: View {
                         // 추천 세트 할일 섹션
                         HStack {
                             Text("추천 세트")
-                                .font(.bold18)
+                                .font(.semibold18)
                             
                             Spacer()
                             

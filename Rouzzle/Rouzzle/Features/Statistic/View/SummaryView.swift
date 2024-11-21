@@ -30,6 +30,10 @@ struct SummaryView: View {
                         }
                         Spacer()
                     }
+                } else {
+                    Text("아직 연속 루틴 기록이 없습니다.")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.medium16)
                 }
             }
             .padding()
@@ -69,12 +73,7 @@ struct SummaryView: View {
                 Spacer()
                     .frame(height: 12)
             }
-            .padding(.horizontal)
             .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.backgroundLightGray)
-            )
         }
     }
 }

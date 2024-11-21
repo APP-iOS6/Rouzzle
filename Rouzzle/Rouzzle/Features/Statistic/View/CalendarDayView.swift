@@ -14,32 +14,38 @@ struct CalendarDayView: View {
     let action: () -> Void
     
     var body: some View {
-        ZStack {
-            switch completionStatus {
-            case .completed:
-                Circle()
-                    .frame(width: 34)
-                    .foregroundStyle(Color.calendarCompleted)
-                    .transition(.opacity)
-            case .halfCompleted:
-                Circle()
-                    .frame(width: 34)
-                    .foregroundStyle(Color.partiallyCompletePuzzle)
-                    .transition(.opacity)
-            case .failed:
-                EmptyView()
-            }
- 
+        let isToday = Calendar.current.isDateInToday(value.date)
+        VStack {
             Button {
                 action()
             } label: {
                 Text("\(value.day)")
+                    .padding(4)
                     .font(.medium16)
-                    .foregroundStyle(completionStatus == .completed ? .white : .black)
+                    .background(isToday ? Color(uiColor: .systemGray5) : .clear)
+                    .clipShape(.circle)
+                    .foregroundStyle(.black)
                     .frame(width: 35, height: 35)
             }
         }
-        .frame(height: 40)
+        .overlay(alignment: .bottom) {
+            switch completionStatus {
+            case .completed:
+                Circle()
+                    .frame(width: 12, height: 12)
+                    .foregroundStyle(Color.calendarCompleted)
+                    .transition(.opacity)
+                    .offset(y: 8)
+            case .halfCompleted:
+                Circle()
+                    .frame(width: 12, height: 12)
+                    .foregroundStyle(Color.partiallyCompletePuzzle)
+                    .transition(.opacity)
+                    .offset(y: 8)
+            case .failed:
+                EmptyView()
+            }
+        }
     }
 }
 
