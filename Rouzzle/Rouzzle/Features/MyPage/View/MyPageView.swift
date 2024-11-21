@@ -37,13 +37,7 @@ struct MyPageView: View {
                                     .padding(.top, -2)
                             } else {
                                 // 변경된 이미지가 없으면 ProfileCachedImage 사용
-                                ProfileCachedImage(imageUrl: viewModel.profileUrl)
-                                    .frame(width: 53, height: 53)
-                                    .clipShape(Circle())
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.accentColor, lineWidth: 2)
-                                    )
+                                ProfileCachedImage(frameSize: 53, imageUrl: viewModel.profileUrl)
                                     .padding(.trailing, 12)
                                     .padding(.top, -2)
                             }
@@ -134,7 +128,7 @@ struct MyPageView: View {
                                     }
                                 }
                             }
-                            .frame(width: 370, height: 104)
+                            .frame(maxWidth: .infinity, minHeight: 104)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(.white)
@@ -151,7 +145,7 @@ struct MyPageView: View {
                                     .foregroundStyle(Color.subHeadlineFontColor)
                                     .font(.regular14)
                             }
-                            .frame(width: 370, height: 104)
+                            .frame(maxWidth: .infinity, minHeight: 104)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(.white)
@@ -173,7 +167,7 @@ struct MyPageView: View {
                             
                             Image(systemName: "chevron.right")
                         }
-                        .frame(width: 370, height: 45)
+                        .frame(minHeight: 45)
                     }
                     
                     NavigationLink {
@@ -188,7 +182,7 @@ struct MyPageView: View {
                             
                             Image(systemName: "chevron.right")
                         }
-                        .frame(width: 370, height: 45)
+                        .frame(minHeight: 45)
                     }
                     
                     Button {
@@ -203,7 +197,7 @@ struct MyPageView: View {
                             
                             Image(systemName: "chevron.right")
                         }
-                        .frame(width: 370, height: 45)
+                        .frame(minHeight: 45)
                     }
                     
                     Button {
@@ -218,7 +212,7 @@ struct MyPageView: View {
                             
                             Image(systemName: "chevron.right")
                         }
-                        .frame(width: 370, height: 45)
+                        .frame(minHeight: 45)
                     }
                     
                     HStack {
@@ -230,8 +224,8 @@ struct MyPageView: View {
                         Text(viewModel.appVersion)
                             .font(.regular16)
                     }
-                    .frame(width: 370, height: 45)
-                    
+                    .frame(minHeight: 45)
+
                     Button {
                         isShowingLogoutAlert.toggle()
                     } label: {
@@ -240,7 +234,7 @@ struct MyPageView: View {
                                 .font(.medium16)
                                 .foregroundStyle(.red)
                         }
-                        .frame(width: 370, height: 45, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: 45, alignment: .leading)
                     }
                     .padding(.bottom) // 탭바와 너무 붙어서 버튼 잘못 눌리는 거 방지용
                 }

@@ -14,6 +14,32 @@ struct SummaryView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            VStack(spacing: 20) {
+                if let (routineId, count) = store.findRoutineWithMaxStreak() {
+                    Text("나의 최대 연속 기록이에요!")
+                        .font(.medium16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    HStack(alignment: .center) {
+                        Text("\(count)회")
+                            .font(.semibold24)
+                        if let routine = routines.first(where: { $0.id == routineId }) {
+                            Text(routine.title)
+                                .font(.regular14)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                    }
+                }
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.backgroundLightGray)
+            )
+            
             HStack {
                 
                 Text("월간 성공률")

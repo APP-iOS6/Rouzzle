@@ -20,7 +20,11 @@ class EditRoutineViewModel {
     var editRoutine: RoutineEditData
     var tempdayStartTime: [Day: Date] = [:]
     var isDaily: Bool = false
-    var isNotificationEnabled: Bool = false
+    var isNotificationEnabled: Bool = false {
+        didSet {
+            updateAlarmIDs() // 알림 상태 변경 시 알림 ID 업데이트
+        }
+    }
     var deleteTasks: [TaskEditData] = []
     var loadState: LoadState = .none
     var errorMessage: String?
@@ -30,6 +34,25 @@ class EditRoutineViewModel {
         self.tempdayStartTime = routine.dayStartTime.toDayDateDictionary()
         self.isNotificationEnabled = routine.repeatCount != nil
         self.editRoutine = routine.toRoutineEditData()
+        updateAlarmIDs()
+    }
+    
+    // 알림 id 생성/초기화
+    private func updateAlarmIDs() {
+        if isNotificationEnabled {
+            editRoutine.alarmIDs = generateAlarmIDs(for: tempdayStartTime)
+        } else {
+            editRoutine.alarmIDs = nil
+        }
+    }
+    
+    private func generateAlarmIDs(for dates: [Day: Date]) -> [Int: String] {
+        var alarmIDs: [Int: String] = [:]
+        for (day, _) in dates {
+            // UUID 기반 고유 ID 생성
+            alarmIDs[day.rawValue] = UUID().uuidString
+        }
+        return alarmIDs
     }
     
     // 개별 요일 토글
@@ -40,6 +63,7 @@ class EditRoutineViewModel {
             tempdayStartTime[day] = Date()
         }
         isDaily = tempdayStartTime.keys.count == Day.allCases.count
+        updateAlarmIDs()
     }
     
     func toggleDaily() {
@@ -55,6 +79,7 @@ class EditRoutineViewModel {
             }
             isDaily = true
         }
+        updateAlarmIDs()
     }
     
     // 요일 시간 한번에 수정했을 때 불리는 함수
@@ -62,6 +87,7 @@ class EditRoutineViewModel {
         for day in tempdayStartTime.keys {
             tempdayStartTime[day] = date
         }
+        updateAlarmIDs()
     }
     
     // 특정 요일이 선택되어 있는지 확인하는 함수

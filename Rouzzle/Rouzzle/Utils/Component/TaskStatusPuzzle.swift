@@ -54,7 +54,7 @@ struct TaskStatusPuzzle: View {
             
             HStack(spacing: 10) {
                 Text(task.title)
-                    .font(.semibold18)
+                    .font(.medium16)
                     .strikethrough(taskStatus == .completed)
                     .lineLimit(1)
             }
@@ -66,23 +66,19 @@ struct TaskStatusPuzzle: View {
                 .font(.regular14)
                 .foregroundColor(Color.subHeadlineFontColor)
                 .padding(.trailing, 25)
-            
         }
-        .padding()
-        .overlay {
-            ZStack {
-                if taskStatus == .completed {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.grayborderline)
-                        .opacity(0.5)
-
-                }
+        .padding(.vertical, 8)
+        .background {
+            if taskStatus == .completed {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(style: StrokeStyle(lineWidth: 1))
-                    .foregroundStyle(.grayborderline)
+                    .fill(.grayborderline)
+                    .opacity(0.5)
             }
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(style: StrokeStyle(lineWidth: 1))
+                .foregroundStyle(.grayborderline)
         }
-        .opacity(taskStatus == .completed ? 0.7 : 1)
+        .opacity(taskStatus == .completed ? 0.5 : 1)
     }
 }
 
@@ -145,11 +141,11 @@ struct TaskRecommendPuzzle: View {
             
             HStack(spacing: 10) {
                 Text(recommendTask.title)
-                    .font(.semibold18)
+                    .font(.medium16)
                     .lineLimit(1)
                 
                 Text(recommendTask.timer.formattedTimer)
-                    .font(.regular12)
+                    .font(.regular14)
                     .foregroundColor(Color.subHeadlineFontColor)
                 
             }
@@ -170,7 +166,7 @@ struct TaskRecommendPuzzle: View {
         .padding(.vertical, 8)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: [10, 5]))
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [6, 3]))
                 .foregroundStyle(.grayborderline)
         )
         
@@ -209,7 +205,7 @@ struct TaskStatusRow: View {
                 .padding(.horizontal, 8)
             
             Text(title)
-                .font(.semibold18)
+                .font(.medium16)
                 .strikethrough(taskStatus == .completed)
                 .padding(.trailing, 12)
             
@@ -268,4 +264,9 @@ struct TaskStatusRow: View {
 
 #Preview("TaskStatusRow") {
     TaskStatusRow(taskStatus: .pending, showEditIcon: .constant(false), showDeleteIcon: .constant(false))
+}
+
+#Preview("TaskStatusPuzzle") {
+    let sampleTask = TaskList(title: "테스트 작업", emoji: "✅", timer: 25, isCompleted: false)
+    TaskStatusPuzzle(task: sampleTask)
 }

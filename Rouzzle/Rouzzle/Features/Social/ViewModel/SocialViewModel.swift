@@ -9,6 +9,8 @@ import Foundation
 import Observation
 import Factory
 import FirebaseAuth
+import AlgoliaSearchClient
+import FirebaseFirestore
 
 @Observable
 class SocialViewModel {
@@ -20,7 +22,15 @@ class SocialViewModel {
     var error: DBError?
     var currentUserProfile: UserProfile?
     
+    // 알고리아 클라이언트 및 인덱스 설정
+    private let client: SearchClient
+    private let index: Index
+    
+    var searchResults: [RoutineUser] = [] // 검색 결과 저장
+    
     init() {
+        self.client = SearchClient(appID: "DZ28XG6P3C", apiKey: "cc69c3a6cc67b834103ad7d1aa312a50")
+        self.index = client.index(withName: "User")
         Task {
             await fetchUserProfiles()
         }
@@ -73,7 +83,7 @@ class SocialViewModel {
                 userFavorites.remove(otherUserProfiles.filter({ $0.documentId == userID }).first!)
                 print("User \(userID) removed from favorites.")
             } else {
-
+                
                 try await socialService.addFavoriteUser(userID: userID)
                 userFavorites.insert(otherUserProfiles.filter({ $0.documentId == userID }).first!)
                 print("User \(userID) added to favorites.")
@@ -86,5 +96,58 @@ class SocialViewModel {
     // 즐겨찾기 여부 확인
     func isUserFavorited(userID: String) -> Bool {
         return userFavorites.contains(where: { $0.documentId == userID })
+    }
+    
+    // 검색 수행
+    func performSearch(query: String) {
+        // 빈 검색어 처리
+        guard !query.isEmpty else {
+            self.searchResults = [] // 검색 결과 초기화
+            return
+        }
+        
+        index.search(query: "\(query)") { result in
+            switch result {
+            case .failure(let error):
+                print("Error: \(error)")
+            case .success(let response):
+                print("Response: \(response.hits)")
+                do {
+                    // Algolia 결과를 AlgoliaUser로 디코딩
+                    let algoliaResults = try response.extractHits() as [AlgoliaUser]
+                    
+                    // AlgoliaUser를 RoutineUser로 변환
+                    self.searchResults = algoliaResults.map { algoliaUser in
+                        RoutineUser(
+                            id: algoliaUser.id,
+                            name: algoliaUser.name,
+                            profileUrlString: algoliaUser.profileUrlString,
+                            introduction: algoliaUser.introduction
+                        )
+                    }
+                    print("✅ Updated searchResults: \(self.searchResults)")
+                } catch let error {
+                    print("⛔️ Contact parsing error: \(error)")
+                    self.searchResults = []
+                }
+            }
+        }
+    }
+    
+    func fetchRoutines(for userId: String) async -> [Routine] {
+        do {
+            let snapshot = try await Firestore.firestore()
+                .collection("Routine")
+                .whereField("userId", isEqualTo: userId)
+                .getDocuments()
+            
+            let routines = snapshot.documents.compactMap { document -> Routine? in
+                try? document.data(as: Routine.self)
+            }
+            return routines
+        } catch {
+            print("Error fetching routines for user \(userId): \(error.localizedDescription)")
+            return []
+        }
     }
 }

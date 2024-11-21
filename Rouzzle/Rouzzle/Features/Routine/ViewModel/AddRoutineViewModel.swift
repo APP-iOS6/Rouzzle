@@ -26,9 +26,14 @@ class AddRoutineViewModel {
     var selectedEmoji: String? = "🧩"
     var selectedDateWithTime: [Day: Date] = [:]
     var isDaily: Bool = false
-    var isNotificationEnabled: Bool = false
+    var isNotificationEnabled: Bool = false {
+        didSet {
+            updateAlarmIDs()
+        }
+    }
     var repeatCount: Int?  // 예: 1, 3, 5
     var interval: Int?  // 분 단위, 예: 1, 3, 5
+    var alarmIDs: [Int: String]?
     var routineTask: [RoutineTask] = []
     var recommendTodoTask: [RecommendTodoTask] = [] // 추천 할일 리스트 목록
     var toastMessage: String?
@@ -36,6 +41,26 @@ class AddRoutineViewModel {
 
     var disabled: Bool {
         selectedDateWithTime.isEmpty || title.isEmpty
+    }
+    
+    // 알림 ID 생성/초기화 로직
+    private func updateAlarmIDs() {
+        if isNotificationEnabled {
+            // 알림 ID 생성
+            alarmIDs = generateAlarmIDs(for: selectedDateWithTime)
+        } else {
+            // 알림 비활성화 시 초기화
+            alarmIDs = nil
+        }
+    }
+    
+    private func generateAlarmIDs(for dates: [Day: Date]) -> [Int: String] {
+        var alarmIDs: [Int: String] = [:]
+        for (day, _) in dates {
+            // UUID 기반 고유 ID 생성
+            alarmIDs[day.rawValue] = UUID().uuidString
+        }
+        return alarmIDs
     }
     
     // 개별 요일 토글
@@ -46,6 +71,7 @@ class AddRoutineViewModel {
             selectedDateWithTime[day] = Date()
         }
         isDaily = selectedDateWithTime.keys.count == Day.allCases.count
+        updateAlarmIDs()
     }
     
     // 매일 토글 버튼 누를 시 동작하는 함수
@@ -62,6 +88,7 @@ class AddRoutineViewModel {
             }
             isDaily = true
         }
+        updateAlarmIDs()
     }
     
     // 특정 요일이 선택되어 있는지 확인하는 함수
@@ -74,6 +101,7 @@ class AddRoutineViewModel {
         for day in selectedDateWithTime.keys {
             selectedDateWithTime[day] = date
         }
+        updateAlarmIDs()
     }
     
     // 데이터 저장에는 딕셔너리 타입이 Int: String이기 때문에 selectedDateWithTime의 타입을 변환하는 함수(Extension 사용)
@@ -104,6 +132,7 @@ class AddRoutineViewModel {
             repeatCount: repeatCount,
             interval: interval,
             dayStartTime: selectedDateWithTimeTypeChange(),
+            alarmIDs: alarmIDs,
             userId: userUid
         )
 
