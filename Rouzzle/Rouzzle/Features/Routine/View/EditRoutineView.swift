@@ -152,7 +152,7 @@ struct EditRoutineBasicSettingView: View {
             RouzzleTextField(text: $viewModel.editRoutine.title, placeholder: "제목을 입력해 주세요.")
                 .font(.regular16)
 
-            
+
             HStack {
                 Text("반복 요일")
                     .font(.semibold18)
