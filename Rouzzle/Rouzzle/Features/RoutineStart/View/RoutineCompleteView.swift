@@ -89,7 +89,7 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
-                path.removeLast(path.count) // 네비게이션 스택 초기화
+                path.removeLast() // 네비게이션 스택 초기화
             }
             .padding(.bottom)
             .padding()

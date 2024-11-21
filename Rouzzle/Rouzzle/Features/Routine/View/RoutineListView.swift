@@ -68,7 +68,7 @@ struct RoutineListView: View {
                     ForEach(filterRoutineItem) { routine in
                         Button {
                             routineStore.routineItem = routine
-                            routineStore.fetchViewTask()
+                            routineStore.taskList = routine.taskList
                             path.append(NavigationDestination.addTaskView)
                         } label: {
                             RoutineStatusPuzzle(routineItem: routine)

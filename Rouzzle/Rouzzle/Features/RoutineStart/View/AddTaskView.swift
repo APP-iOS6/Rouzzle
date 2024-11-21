@@ -109,8 +109,8 @@ struct AddTaskView: View {
                         VStack(spacing: 10) {
                             ForEach(routineStore.recommendTodoTask, id: \.self) { recommend in
                                 TaskRecommendPuzzle(recommendTask: recommend) {
+                                    routineStore.getRecommendTask()
                                     Task {
-                                        routineStore.getRecommendTask()
                                         await routineStore.addTask(recommend, context: modelContext)
                                     }
                                 }
