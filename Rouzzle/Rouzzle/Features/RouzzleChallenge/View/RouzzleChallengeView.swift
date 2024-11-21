@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import RiveRuntime
 
 struct RouzzleChallengeView: View {
     @State private var selectedPuzzleType: PuzzleType?
     @State private var showPuzzle: Bool = false
+    @State private var isShowingGuide: Bool = false
+    @State private var showFirstPlayToast: Bool = false
+    @State private var toast: ToastModel?
+    let riveViewModel = RiveViewModel(fileName: "AchievementStart")
+    
+    private let hasShownFirstPlayToastKey = "hasShownFirstPlayToast"
     
     private var gridItemSize: CGFloat {
         let screenWidth = UIScreen.main.bounds.width
@@ -18,8 +25,26 @@ struct RouzzleChallengeView: View {
         return (screenWidth - horizontalPadding - middleSpacing) / 2
     }
     
+    private func handlePlayButton(puzzleType: PuzzleType) {
+        selectedPuzzleType = puzzleType
+        
+        // 첫 실행 체크
+        if !UserDefaults.standard.bool(forKey: hasShownFirstPlayToastKey) {
+            showFirstPlayToast = true
+            UserDefaults.standard.set(true, forKey: hasShownFirstPlayToastKey)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                showPuzzle = true
+            }
+        } else {
+            // 이미 한 번 실행했던 경우 바로 다음 화면으로
+            showPuzzle = true
+        }
+    }
+    
     var body: some View {
-        ZStack(alignment: .top) {
+        ZStack {
+            // 메인 콘텐츠
             LinearGradient(
                 colors: [.white, Color.fromRGB(r: 252, g: 255, b: 240)],
                 startPoint: .top,
@@ -39,15 +64,14 @@ struct RouzzleChallengeView: View {
                             .underline()
                             .foregroundStyle(.gray)
                     }
-                    .padding(.top, 20)
+                    .padding(.top, 30)
                     .onTapGesture {
-                        print("참여 안내 탭눌림")
+                        isShowingGuide = true
                     }
                     
                     // 메인 챌린지
                     Button {
-                        selectedPuzzleType = .tuna
-                        showPuzzle = true
+                        handlePlayButton(puzzleType: .tuna)
                     } label: {
                         ZStack(alignment: .bottomTrailing) {
                             Image(.tuna)
@@ -83,8 +107,7 @@ struct RouzzleChallengeView: View {
                         ForEach(puzzleImages, id: \.0) { (imageName, opacity, puzzleType) in
                             if let puzzleType = puzzleType {
                                 Button {
-                                    selectedPuzzleType = puzzleType
-                                    showPuzzle = true
+                                    handlePlayButton(puzzleType: puzzleType)
                                 } label: {
                                     ZStack(alignment: .bottomTrailing) {
                                         Image(imageName)
@@ -98,15 +121,23 @@ struct RouzzleChallengeView: View {
                                     }
                                 }
                             } else {
-                                ZStack(alignment: .bottomTrailing) {
-                                    Image(imageName)
-                                        .resizable()
-                                        .aspectRatio(1, contentMode: .fit)
-                                        .frame(width: gridItemSize, height: gridItemSize)
-                                        .opacity(opacity)
-                                    
-                                    PuzzleLockButton()
-                                        .padding([.bottom, .trailing], 8)
+                                Button {
+                                    // 잠긴 퍼즐 클릭 시 토스트 메시지 표시
+                                    toast = ToastModel(
+                                        type: .info,
+                                        message: "이전 챌린지를 완료해야 진행 가능합니다."
+                                    )
+                                } label: {
+                                    ZStack(alignment: .bottomTrailing) {
+                                        Image(imageName)
+                                            .resizable()
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .frame(width: gridItemSize, height: gridItemSize)
+                                            .opacity(opacity)
+                                        
+                                        PuzzleLockButton()
+                                            .padding([.bottom, .trailing], 8)
+                                    }
                                 }
                             }
                         }
@@ -128,12 +159,34 @@ struct RouzzleChallengeView: View {
                 }
             }
             .customNavigationBar(title: "루즐 챌린지")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+            
+            VStack {
+                HStack {
+                    Spacer()
                     PieceCounter(count: 9)
+                        .padding(.top, -35)
+                        .padding(.trailing, 16)
+                        .background(Color.clear)
+                        .zIndex(1)
                 }
+                Spacer()
             }
+            
+            if isShowingGuide {
+                PuzzleGuideOverlay(isShowingGuide: $isShowingGuide)
+                    .ignoresSafeArea()
+                    .zIndex(1)
+            }
+            
+            // Achievement 토스트 뷰
+            AchievementView(
+                message: "＂시작이 반이다!＂",
+                riveViewModel: riveViewModel,
+                isShowing: $showFirstPlayToast
+            )
+            .animation(.easeInOut, value: showFirstPlayToast)
         }
+        .toastView(toast: $toast)
         .hideTabBar(true)
     }
 }
