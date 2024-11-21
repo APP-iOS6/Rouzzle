@@ -186,7 +186,7 @@ class EditRoutineViewModel {
             return
         }
         
-        for (day, time) in tempdayStartTime {
+        for (_, time) in tempdayStartTime {
             guard let routineStartDate = Calendar.current.nextDate(
                 after: Date(),
                 matching: Calendar.current.dateComponents([.hour, .minute], from: time),
