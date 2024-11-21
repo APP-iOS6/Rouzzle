@@ -220,6 +220,7 @@ class AddRoutineViewModel {
             startDate: startDate,
             intervalMinutes: validInterval, // 기본값 1분
             repeatCount: validRepeatCount, // 기본값 0회 반복
+            repeats: true,
             isRoutineRunning: isRoutineRunning
         )
     }

@@ -24,7 +24,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
     
     // 알림 스케줄 추가
-    func scheduleNotification(id: String, title: String, body: String, date: Date, isRoutineRunning: Bool) {
+    func scheduleNotification(id: String, title: String, body: String, date: Date, repeats: Bool = false, isRoutineRunning: Bool) {
         if isRoutineRunning {
             print("루틴 실행 중: 알림을 스케줄링하지 않습니다.")
             return
@@ -37,7 +37,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         content.body = body
         content.sound = .default
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.hour, .minute], from: date), repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.hour, .minute], from: date), repeats: repeats)
         
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
@@ -52,11 +52,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     // 다중 알람 스케줄 설정 (반복)
     // repeatCount 만큼 반복하여, intervalMinutes 간격으로 알림 추가하기
-    func scheduleMultipleNotifications(id: String, title: String, startDate: Date, intervalMinutes: Int, repeatCount: Int, isRoutineRunning: Bool) {
-//        guard repeatCount > 0 else {
-//            print("Invalid repeatCount: \(repeatCount). 반복 알림이 설정되지 않습니다.")
-//            return
-//        }
+    func scheduleMultipleNotifications(id: String, title: String, startDate: Date, intervalMinutes: Int, repeatCount: Int, repeats: Bool = false, isRoutineRunning: Bool) {
         guard !isRoutineRunning else {
             print("루틴 실행 중: 반복 알림을 스케줄링하지 않습니다.")
             return
@@ -72,7 +68,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         
         // 첫 번째 알림 메시지
         let initialBody = "\(title)을 하러 갈 시간이에요!"
-        scheduleNotification(id: "\(id)_initial", title: title, body: initialBody, date: startDate, isRoutineRunning: isRoutineRunning)
+        scheduleNotification(id: "\(id)_initial", title: title, body: initialBody, date: startDate, repeats: repeats, isRoutineRunning: isRoutineRunning)
         
         // 반복 알림
         for i in 1...repeatCount {
