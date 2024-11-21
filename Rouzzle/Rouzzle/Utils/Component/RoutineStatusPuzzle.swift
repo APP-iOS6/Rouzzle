@@ -24,8 +24,7 @@ enum RoutineStatus {
 
 struct RoutineStatusPuzzle: View {
     
-    @Bindable var routineItem: RoutineItem
-    @Environment(\.modelContext) private var modelContext
+    var routineItem: RoutineItem
     
     var todayStartTime: String {
         let today = Date()
