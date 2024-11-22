@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct PassView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var purchaseStore = PurchaseStore()
+    @State private var selectedProduct: Product? // 선택된 상품
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -34,52 +37,58 @@ struct PassView: View {
                     .lineSpacing(4)
                     .padding(.vertical, 40)
                 
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("월간 루즐 패스 구독")
-                            .font(.semibold16)
+                if purchaseStore.products.isEmpty {
+                    VStack(alignment: .center) {
+                        ProgressView()
+                            .font(.medium18)
                         
-                        Text("매월 결제")
+                        Text("상품을 불러오는 중입니다...")
                             .font(.regular14)
+                            .foregroundStyle(.gray)
                     }
-                    
-                    Spacer()
-                    
-                    Text("₩2,500")
-                        .font(.bold16)
-                        .foregroundStyle(.accent)
-                }
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.white)
-                )
-                .padding(.horizontal, 2)
-                .shadow(color: .black.opacity(0.1), radius: 2)
-                
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("연간 루즐 패스 구독")
-                            .font(.semibold16)
-                        
-                        Text("매년 결제")
-                            .font(.regular14)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top)
+                } else {
+                    ForEach(purchaseStore.sortedProducts, id: \.id) { product in
+                        Button {
+                            selectedProduct = product // 선택된 상품 업데이트
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(product.displayName)
+                                        .font(.semibold16)
+                                        .foregroundStyle(.black)
+                                    
+                                    Text(product.description)
+                                        .font(.regular14)
+                                        .foregroundStyle(.black)
+                                }
+                                
+                                Spacer()
+                                
+                                Text(product.displayPrice)
+                                    .font(.bold16)
+                                    .foregroundStyle(.accent)
+                            }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.white)
+                            )
+                            .overlay(
+                                // 선택된 상품에 스트로크 표시
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(
+                                        selectedProduct == product ? Color.accent : Color.clear,
+                                        lineWidth: 2
+                                    )
+                            )
+                            .padding(.horizontal, 2)
+                            .shadow(color: .black.opacity(0.1), radius: 2)
+                        }
                     }
-                    
-                    Spacer()
-                    
-                    Text("₩15,500")
-                        .font(.bold16)
-                        .foregroundStyle(.accent)
+                    .padding(.top)
                 }
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.white)
-                )
-                .padding(.horizontal, 2)
-                .shadow(color: .black.opacity(0.1), radius: 2)
-                .padding(.top)
                 
                 Text("구독 혜택")
                     .font(.bold16)
@@ -131,15 +140,22 @@ struct PassView: View {
                         .font(.regular14)
                         .foregroundStyle(.accent)
                         .padding(.top)
-                    
+
                     Button {
-                        
+                        if let product = selectedProduct {
+                            Task {
+                                do {
+                                    try await purchaseStore.purchase(product) // 선택된 상품 구매
+                                }
+                            }
+                        }
                     } label: {
-                        Text("월 구독으로 시작하기")
+                        Text(selectedProduct != nil ? "\(selectedProduct!.displayName)하기" : "상품을 선택해 주세요")
                             .frame(maxWidth: .infinity, minHeight: 45)
                             .font(.bold20)
                         
                     }
+                    .disabled(selectedProduct == nil) // 선택된 상품이 없을 때 비활성화
                     .padding(.horizontal)
                     .padding(.bottom, 18)
                     .buttonStyle(.borderedProminent)
@@ -150,6 +166,13 @@ struct PassView: View {
                         .ignoresSafeArea(edges: .bottom)
                         .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: -2)
                 )
+            }
+        }
+        .onAppear {
+            Task {
+                do {
+                    try await purchaseStore.loadSubsProducts()
+                }
             }
         }
     }
