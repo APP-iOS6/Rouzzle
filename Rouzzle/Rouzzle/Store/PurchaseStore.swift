@@ -67,6 +67,7 @@ class PurchaseStore {
                 print("퍼즐 조각 구매 성공")
                 toastMessage = "퍼즐 조각 구매에 성공했습니다."
                 await updatePuzzleCount(for: product)
+                toastMessage = nil // 초기화
             } else {
                 print("구독 상품 구매 성공")
                 toastMessage = "구독 상품 구매에 성공했습니다."
