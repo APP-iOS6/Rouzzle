@@ -136,7 +136,10 @@ struct RoutineListView: View {
             .toastView(toast: $toast)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    PieceCounter(count: 9)
+                    PieceCounter(
+                        count: routineStore.myPuzzle,
+                        isButtonEnabled: routineStore.puzzleLoad == .loading || routineStore.puzzleLoad == .failed
+                    )
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
@@ -178,7 +181,7 @@ struct RoutineListView: View {
                 }
             }
             .navigationDestination(isPresented: $isShowingChallengeView) {
-                RouzzleChallengeView()
+                RouzzleChallengeView(puzzleCount: routineStore.myPuzzle)
             }
         }
     }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ShopView: View {
+    
+    @Environment(RoutineStore.self) private var routineStore
+
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
@@ -54,7 +57,10 @@ struct ShopView: View {
         .customNavigationBar(title: "SHOP")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                PieceCounter(count: 9, isButtonEnabled: false)
+                PieceCounter(
+                    count: routineStore.myPuzzle,
+                    isButtonEnabled: routineStore.puzzleLoad == .loading || routineStore.puzzleLoad == .failed
+                )
             }
         }
     }

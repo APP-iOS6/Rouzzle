@@ -89,6 +89,9 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
+                Task {
+                    await routineStore.checkTodayPuzzleReward()
+                }
                 path.removeLast(path.count) // 네비게이션 스택 초기화
             }
             .padding(.bottom)

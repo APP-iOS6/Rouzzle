@@ -12,6 +12,7 @@ struct RoutineUser: Codable, Equatable {
     var name: String
     var profileUrlString: String?
     var introduction = ""
+    var puzzleCount: Int = 0
 }
 
 struct AlgoliaUser: Codable {
