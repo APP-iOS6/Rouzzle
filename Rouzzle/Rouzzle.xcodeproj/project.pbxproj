@@ -44,6 +44,8 @@
 		23F8C8BE2CEDC6EB009D7C16 /* AchievementStart.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */; };
 		4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */; };
 		4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */; };
+		4B48416B2CEF750C00516270 /* RoutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B48416A2CEF750700516270 /* RoutineManager.swift */; };
+		4B596ACA2CEDA5AE004FBA15 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */; };
 		4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */; };
 		4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */; };
 		4BAE5DB22CE4866E00F01153 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE5DAC2CE4866E00F01153 /* ToastMessageView.swift */; };
@@ -227,6 +229,8 @@
 		23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = AchievementStart.riv; sourceTree = "<group>"; };
 		4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLabelView.swift; sourceTree = "<group>"; };
 		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
+		4B48416A2CEF750700516270 /* RoutineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManager.swift; sourceTree = "<group>"; };
+		4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSetTimeView.swift; sourceTree = "<group>"; };
 		4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
 		4BAE5DAC2CE4866E00F01153 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
@@ -498,6 +502,14 @@
 			path = RiveAnimation;
 			sourceTree = "<group>";
 		};
+		4B596AC82CEDA59F004FBA15 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		4BAE5DB12CE4866E00F01153 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +595,7 @@
 		BD1186F72CD553BB00FF4180 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				4B596AC82CEDA59F004FBA15 /* Notification */,
 				4BAE5DB12CE4866E00F01153 /* Toast */,
 				BD1545C42CD928FA0098AD7B /* ComponentView.swift */,
 				BD1186FD2CD5FC5500FF4180 /* RouzzleButton.swift */,
@@ -982,6 +995,7 @@
 		FB4174F62CDCB6070084BC19 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4B48416A2CEF750700516270 /* RoutineManager.swift */,
 				FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */,
 				FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */,
 				FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */,
@@ -1230,6 +1244,7 @@
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
 				BDFBC31F2CE3AAAB00ED8A81 /* SocialService.swift in Sources */,
+				4B48416B2CEF750C00516270 /* RoutineManager.swift in Sources */,
 				974596E12CE2978C004C346B /* PieceCounter.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */,
@@ -1287,6 +1302,7 @@
 				23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */,
 				23BC98D52CE1D56E009BE074 /* RecommendCard.swift in Sources */,
 				FB4174F02CDBCD7F0084BC19 /* RoutineStore.swift in Sources */,
+				4B596ACA2CEDA5AE004FBA15 /* NotificationManager.swift in Sources */,
 				BD11870B2CD6011400FF4180 /* LoginViewModel.swift in Sources */,
 				23BC99C02CE6E033009BE074 /* PuzzleGame.swift in Sources */,
 			);

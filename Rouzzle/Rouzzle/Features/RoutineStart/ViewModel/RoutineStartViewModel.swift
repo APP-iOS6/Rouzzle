@@ -26,7 +26,9 @@ class RoutineStartViewModel {
     var currentTaskIndex: Int = 0
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     private var isResuming = false // 일시정지 후 재개 상태를 추적
-    
+    var startTime: Date?
+    var endTime: Date?
+
     var inProgressTask: TaskList? {
         if viewTasks.isEmpty || isRoutineCompleted {
             return nil
@@ -62,6 +64,10 @@ class RoutineStartViewModel {
             return
         }
 
+        if startTime == nil {
+            startTime = Date()
+        }
+        
         let currentTask = viewTasks[currentTaskIndex]
 
         if !isResuming {
@@ -78,7 +84,18 @@ class RoutineStartViewModel {
             if self.timeRemaining < 0 {
                 self.timerState = .overtime
             }
+            if self.isRoutineCompleted {
+                endRoutine()
+            }
         }
+    }
+    
+    // MARK: - 루틴 종료
+    func endRoutine() {
+        timer?.invalidate()
+        timer = nil
+        endTime = Date() // 종료 시간 설정
+        isRoutineCompleted = true
     }
     
     func toggleTimer() {
@@ -96,8 +113,7 @@ class RoutineStartViewModel {
     // MARK: - 테스크 관리 메서드
     func markTaskAsCompleted(_ context: ModelContext) {
         guard currentTaskIndex < viewTasks.count else {
-            isRoutineCompleted = true
-            timer?.invalidate()
+            endRoutine()
             return
         }
         
@@ -120,10 +136,7 @@ class RoutineStartViewModel {
             timerState = .running
             startTimer()
         } else {
-            initializeCurrentTaskIndex()
-            if currentTaskIndex == viewTasks.count {
-                isRoutineCompleted = true
-            }
+            endRoutine()
         }
     }
     
@@ -141,6 +154,8 @@ class RoutineStartViewModel {
             timerState = .running
             isResuming = false
             startTimer()
+        } else {
+            endRoutine()
         }
     }
     
@@ -168,7 +183,7 @@ class RoutineStartViewModel {
         }
         
         if !foundIncompleteTask {
-            isRoutineCompleted = true
+            endRoutine()
         }
     }
     
@@ -204,5 +219,12 @@ class RoutineStartViewModel {
     
     deinit {
         timer?.invalidate()
+    }
+    
+    @MainActor
+    func startRoutine() {
+        // 루틴 실행 시작 시 알림 취소 호출
+        NotificationManager.shared.removeNotifications(withPrefix: routineItem.id)
+        print("루틴 실행 시작됨. 알림 취소 완료.")
     }
 }

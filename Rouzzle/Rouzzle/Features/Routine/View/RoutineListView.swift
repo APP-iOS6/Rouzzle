@@ -35,7 +35,7 @@ struct RoutineListView: View {
     }
     
     init() {
-        _currentQuote = State(initialValue: QuotesProvider.randomQuote())
+        _currentQuote = State(initialValue: QuotesProvider.shared.nextQuote())
     }
     
     var body: some View {
@@ -98,7 +98,7 @@ struct RoutineListView: View {
                                 
                                 VStack(alignment: .trailing, spacing: 5) {
                                     HStack(spacing: 5) {
-                                        Image(systemName: "xmark") // 알림 이미지 동적으로 업데이트
+                                        Image(systemName: getAlarmImageName(routine)) // 알림 이미지 동적으로 업데이트
                                         Text(todayStartTime(routine.dayStartTime))
                                     }
                                     .font(.regular14)
@@ -124,10 +124,12 @@ struct RoutineListView: View {
                         .frame(maxWidth: .infinity)
                         .aspectRatio(contentMode: .fit)
                         .padding(.horizontal)
+
+                        Spacer()
                 }
             }
             .refreshable {
-                currentQuote = QuotesProvider.randomQuote()
+                currentQuote = QuotesProvider.shared.nextQuote()
             }
             .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                 AddRoutineContainerView()

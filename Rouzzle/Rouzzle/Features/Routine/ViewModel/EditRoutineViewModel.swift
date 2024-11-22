@@ -34,6 +34,8 @@ class EditRoutineViewModel {
         self.tempdayStartTime = routine.dayStartTime.toDayDateDictionary()
         self.isNotificationEnabled = routine.repeatCount != nil
         self.editRoutine = routine.toRoutineEditData()
+        self.editRoutine.interval = routine.interval ?? 1
+        self.editRoutine.repeatCount = routine.repeatCount ?? 1
         updateAlarmIDs()
     }
     
@@ -116,6 +118,12 @@ class EditRoutineViewModel {
                 }
                 saveRoutine()
                 try context.save()
+                // 알림 설정 로직 추가
+                if isNotificationEnabled {
+                    scheduleNotifications(isRoutineRunning: false, repeats: true)
+                } else {
+                    NotificationManager.shared.removeAllNotifications()
+                }
                 loadState = .completed
             } catch {
                 loadState = .failed
@@ -144,13 +152,19 @@ class EditRoutineViewModel {
                 for task in uploadRoutine.routineTask.map({ $0.toTaskList() }) {
                     try SwiftDataService.addTask(to: routineItem, task, context: context)
                 }
+                // 알림 설정 로직 추가
+                if isNotificationEnabled {
+                    scheduleNotifications(isRoutineRunning: false, repeats: true)
+                } else {
+                    NotificationManager.shared.removeAllNotifications()
+                }
                 loadState = .completed
             } catch {
-                errorMessage = "루틴 등록에 실패했습니디."
+                errorMessage = "루틴 등록에 실패했습니다."
                 loadState = .failed
             }
         case .failure:
-            errorMessage = "루틴 등록에 실패했습니디."
+            errorMessage = "루틴 등록에 실패했습니다."
             loadState = .failed
         }
     }
@@ -163,5 +177,38 @@ class EditRoutineViewModel {
         routine.interval = editRoutine.interval
         routine.repeatCount = editRoutine.repeatCount
         routine.alarmIDs = editRoutine.alarmIDs
+    }
+    
+    // 알림 스케줄링
+    func scheduleNotifications(isRoutineRunning: Bool, repeats: Bool = false) {
+        guard let interval = editRoutine.interval,
+              let repeatCount = editRoutine.repeatCount,
+              !tempdayStartTime.isEmpty else {
+            print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았거나 시작 시간이 없음")
+            return
+        }
+
+        let weekdays = tempdayStartTime.keys.map { $0.rawValue }
+
+        for (day, time) in tempdayStartTime {
+            guard let routineStartDate = Calendar.current.nextDate(
+                after: Date(),
+                matching: Calendar.current.dateComponents([.hour, .minute], from: time),
+                matchingPolicy: .nextTime
+            ) else { continue }
+            
+            // 요일별 알림 설정
+            NotificationManager.shared.scheduleNotification(
+                id: "\(UUID().uuidString)_day_\(day.rawValue)",
+                title: editRoutine.title,
+                body: "\(editRoutine.title)을 시작하세요!",
+                date: routineStartDate,
+                repeats: repeats,
+                weekdays: [day.rawValue],
+                isRoutineRunning: isRoutineRunning
+            )
+        }
+
+        print("요일별 알림이 스케줄링되었습니다: \(weekdays)")
     }
 }

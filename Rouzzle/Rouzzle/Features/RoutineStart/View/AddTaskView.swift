@@ -22,6 +22,7 @@ struct AddTaskView: View {
     @State var selectedCategory: RoutineCategoryByTime?
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
+    @State private var viewModel = RoutineManager()
     
     @Environment(\.dismiss) private var dismiss
     let completeAction: (String) -> Void

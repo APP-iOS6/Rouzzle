@@ -146,7 +146,7 @@ struct RoutineStartView: View {
             .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
-            RoutineCompleteView(path: $path)
+            RoutineCompleteView(path: $path, routineTakeTime: (viewModel.startTime, viewModel.endTime))
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
@@ -165,8 +165,8 @@ struct RoutineStartView: View {
 #Preview {
     RoutineStartView(
         viewModel: RoutineStartViewModel(
-            routineItem: RoutineItem.sampleData[0]),
-        path: .constant(NavigationPath())
+            routineItem: RoutineItem.sampleData[0]
+        ), path: .constant(NavigationPath())
     )
     .modelContainer(SampleData.shared.modelContainer)
 }
