@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-struct PuzzlePiece: Identifiable {
-    var id = UUID()
-    var image: Image
-    var correctFrame: CGRect
-    var currentPosition: CGPoint
-    var isPlaced: Bool = false
-    var isSelected: Bool = false
-}
-
 // swiftlint:disable type_body_length
 struct PuzzleView: View {
     let puzzleGame: PuzzleGame
@@ -248,9 +239,11 @@ struct PuzzleView: View {
         let puzzleData = loadPuzzleData()
         let scale = imageSize.width / 370
         
-        let shuffledData = puzzleData.shuffled()
+        // 저장된 상태 불러오기
+        let savedPiecesInfo = puzzleGame.getPlacedPiecesInfo()
         
-        pieces = shuffledData.enumerated().map { index, data in
+        // 1. 모든 조각 생성
+        let allPieces = puzzleData.enumerated().map { index, data in
             let scaledFrame = CGRect(
                 x: data.frame.origin.x * scale,
                 y: data.frame.origin.y * scale,
@@ -258,29 +251,61 @@ struct PuzzleView: View {
                 height: data.frame.height * scale
             )
             
-            let xOffset = CGFloat(index) * (scaledFrame.width + 15) + 20
-            let yOffset = screenSize.height - getPuzzleAreaHeight()/2
+            // 현재 인덱스로 조각 이름 생성
+            let pieceName = puzzleGame.puzzleType.getPieceImageName(index: index)
+            // 저장된 정보에서 현재 조각 찾기
+            let savedInfo = savedPiecesInfo.first { $0.pieceName == pieceName }
             
-            // 이미지 로딩 시 에러 처리 추가
-            guard let pieceImage = UIImage(named: data.imageName) else {
-                print("⚠️ 이미지를 찾을 수 없습니다: \(data.imageName)")
+            guard let pieceImage = UIImage(named: pieceName) else {
+                print("⚠️ 이미지를 찾을 수 없습니다: \(pieceName)")
                 return PuzzlePiece(
                     image: Image(systemName: "questionmark.square"),
                     correctFrame: scaledFrame,
-                    currentPosition: CGPoint(x: xOffset, y: yOffset),
+                    currentPosition: .zero,
                     isPlaced: false,
-                    isSelected: false
+                    isSelected: false,
+                    index: index  // 인덱스 추가
                 )
             }
             
-            return PuzzlePiece(
-                image: Image(uiImage: pieceImage),
-                correctFrame: scaledFrame,
-                currentPosition: CGPoint(x: xOffset, y: yOffset),
-                isPlaced: false,
-                isSelected: false
-            )
+            if let savedInfo = savedInfo, savedInfo.isPlaced {
+                // 저장된 위치에 조각 복원
+                return PuzzlePiece(
+                    image: Image(uiImage: pieceImage),
+                    correctFrame: scaledFrame,
+                    currentPosition: savedInfo.position.toCGPoint(),
+                    isPlaced: true,
+                    isSelected: false,
+                    index: index  // 인덱스 추가
+                )
+            } else {
+                // 미배치 조각
+                return PuzzlePiece(
+                    image: Image(uiImage: pieceImage),
+                    correctFrame: scaledFrame,
+                    currentPosition: .zero,
+                    isPlaced: false,
+                    isSelected: false,
+                    index: index  // 인덱스 추가
+                )
+            }
         }
+        
+        // 2. 배치된 조각과 미배치 조각 분리
+        let placedPieces = allPieces.filter { $0.isPlaced }
+        let unplacedPieces = allPieces.filter { !$0.isPlaced }.shuffled()
+        
+        // 3. 미배치 조각들 하단에 배치
+        let adjustedUnplacedPieces = unplacedPieces.enumerated().map { _, piece in
+            var adjustedPiece = piece
+            let xOffset = CGFloat(unplacedPieces.firstIndex(where: { $0.id == piece.id }) ?? 0) * (piece.correctFrame.width + 15) + 20
+            let yOffset = screenSize.height - getPuzzleAreaHeight()/2
+            adjustedPiece.currentPosition = CGPoint(x: xOffset, y: yOffset)
+            return adjustedPiece
+        }
+        
+        // 4. 최종 배열 설정
+        pieces = placedPieces + adjustedUnplacedPieces
     }
     
     private func loadPuzzleData() -> [(imageName: String, frame: CGRect)] {
@@ -321,6 +346,8 @@ struct PuzzleView: View {
     private func checkCompletion() {
         if pieces.allSatisfy({ $0.isPlaced }) {
             puzzleGame.isCompleted = true
+            // 완성 상태 저장
+            puzzleGame.savePuzzleProgress(pieces: pieces)  // 변경된 부분 - pieces 배열 전체를 전달
         }
     }
 }
