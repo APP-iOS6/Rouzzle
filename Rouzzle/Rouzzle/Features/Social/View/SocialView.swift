@@ -11,28 +11,25 @@ struct SocialView: View {
     @Environment(SocialViewModel.self) private var viewModel
     @State private var query: String = ""
     @State private var expandedRoutineIndex: Int?
-
+    
     var body: some View {
         NavigationStack {
-            Color.white
-                .frame(height: 0.1)
-            
-            ScrollView {
-                VStack(alignment: .leading, spacing: 40) {
-                    VStack {
-                        HStack {
-                            Text("소셜")
-                                .font(.semibold18)
-                                .foregroundStyle(.basic)
-                            Spacer()
+            VStack(alignment: .leading, spacing: 40) {
+                VStack {
+                    HStack {
+                        Text("소셜")
+                            .font(.semibold18)
+                            .foregroundStyle(.basic)
+                        Spacer()
+                    }
+                    
+                    SearchBarView(text: $query)
+                        .animation(.easeInOut, value: query)
+                        .onChange(of: query) { _, newQuery in
+                            viewModel.performSearch(query: newQuery)
                         }
-                        
-                        SearchBarView(text: $query)
-                            .animation(.easeInOut, value: query)
-                            .onChange(of: query) { _, newQuery in
-                                viewModel.performSearch(query: newQuery)
-                            }
-                        
+                    
+                    ScrollView {
                         // 검색 결과
                         if query.isEmpty {
                             // 기존 뷰 상태
@@ -108,7 +105,7 @@ struct SocialView: View {
                                     } label: {
                                         HStack {
                                             ProfileCachedImage(frameSize: 44, imageUrl: user.profileUrlString)
-
+                                            
                                             Text(user.name)
                                                 .font(.semibold16)
                                                 .foregroundStyle(.black)

@@ -20,7 +20,7 @@ struct MyPageView: View {
     var body: some View {
         NavigationStack {
             Color.white
-                .frame(height: 0.1)
+                .frame(height: 0)
             
             ScrollView {
                 VStack(alignment: .leading) {
