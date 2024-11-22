@@ -11,7 +11,6 @@
 		23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */; };
 		23B7CC1C2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */; };
 		23B7CC1E2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */; };
-		23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */; };
 		23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */; };
 		23BC98D52CE1D56E009BE074 /* RecommendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D42CE1D56E009BE074 /* RecommendCard.swift */; };
 		23BC98D82CE1D65B009BE074 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */; };
@@ -198,7 +197,6 @@
 		23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleLogin.riv; sourceTree = "<group>"; };
 		23B7CC1B2CDC0C0D00C4C44A /* RoutineCategoryByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryByTime.swift; sourceTree = "<group>"; };
 		23B7CC1D2CDC0CA800C4C44A /* TimeBasedRecommendSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBasedRecommendSetView.swift; sourceTree = "<group>"; };
-		23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskByTime.swift; sourceTree = "<group>"; };
 		23BC98CF2CE1C45F009BE074 /* RecommendCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCategoryView.swift; sourceTree = "<group>"; };
 		23BC98D42CE1D56E009BE074 /* RecommendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCard.swift; sourceTree = "<group>"; };
 		23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
@@ -608,7 +606,6 @@
 				BD912EF72CDB3857007B8503 /* RecommendTask.swift */,
 				BD1545162CD7BEF40098AD7B /* RoutineStatusPuzzle.swift */,
 				23BC99C72CE6ECC4009BE074 /* TabBarModifier.swift */,
-				23B7CC1F2CDC0F4800C4C44A /* RecommendTaskByTime.swift */,
 				BD1545CC2CD93AA00098AD7B /* NavigationBackButtonModifier.swift */,
 				BD1546652CD9D70D0098AD7B /* EmojiView.swift */,
 				9791BB812CDDCB00007BD566 /* FloatingButton.swift */,
@@ -1161,7 +1158,6 @@
 				974596D32CE1C892004C346B /* ProfileEditView.swift in Sources */,
 				97370D1E2CDA8C2100E90D65 /* RoutineStatusPuzzle.swift in Sources */,
 				970BC6AC2CF02DAE00BB1382 /* PurchaseStore.swift in Sources */,
-				23B7CC202CDC0F4800C4C44A /* RecommendTaskByTime.swift in Sources */,
 				23BC99792CE46370009BE074 /* CalendarTask.swift in Sources */,
 				FB2A5AA92CD7F1F200CB981A /* sha256.swift in Sources */,
 				9736FA792CDB41A0009C2E60 /* AddTaskView.swift in Sources */,
