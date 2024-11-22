@@ -98,7 +98,7 @@ struct RoutineListView: View {
                                 
                                 VStack(alignment: .trailing, spacing: 5) {
                                     HStack(spacing: 5) {
-                                        Image(systemName: "xmark") // 알림 이미지 동적으로 업데이트
+                                        Image(systemName: getAlarmImageName(routine)) // 알림 이미지 동적으로 업데이트
                                         Text(todayStartTime(routine.dayStartTime))
                                     }
                                     .font(.regular14)
