@@ -29,7 +29,7 @@ enum PuzzleType: String, Codable {
 
 // MARK: - 퍼즐의 전체 상태를 저장(각 퍼즐 타입별로 독립적으로 저장됨)
 struct PuzzleState: Codable {
-    var placedPieces: [PlacedPieceInfo]  // 배치된 퍼즐 조각들의 정보
+    var placedPieces: [PlacedPieceInfo]  // 배열로 배치된 퍼즐 조각들의 정보 관리
     var completionDate: Date?            // 퍼즐 완성 시점
     var remainingPieces: Int            // 남은 사용 가능한 퍼즐 조각 수
 }
