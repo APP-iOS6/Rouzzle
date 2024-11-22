@@ -16,6 +16,9 @@ struct StatisticView: View {
     var body: some View {
         GeometryReader { proxy in
             NavigationStack {
+                Color.white
+                    .frame(height: 0.1)
+                
                 ScrollView {
                     VStack(spacing: 20) {
                         HStack {

@@ -20,6 +20,9 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
+            Color.white
+                .frame(height: 0.1)
+            
             ScrollView {
                 VStack(alignment: .leading) {
                     Text("마이페이지")

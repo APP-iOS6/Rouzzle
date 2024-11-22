@@ -14,6 +14,9 @@ struct SocialView: View {
 
     var body: some View {
         NavigationStack {
+            Color.white
+                .frame(height: 0.1)
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 40) {
                     VStack {

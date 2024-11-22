@@ -126,8 +126,6 @@ struct RoutineListView: View {
                         .frame(maxWidth: .infinity)
                         .aspectRatio(contentMode: .fit)
                         .padding(.horizontal)
-
-                        Spacer()
                 }
             }
             .refreshable {
