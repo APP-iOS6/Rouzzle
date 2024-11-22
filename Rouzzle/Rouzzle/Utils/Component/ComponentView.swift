@@ -34,8 +34,6 @@ struct ComponentView: View {
                 
               //  RoutineStatusPuzzle(status: .pending)
                 
-                RecommendTaskByTime(category: .morning)
-                
                 RecommendTask(isPlus: $isPlus) {}
                 
                 FloatingButton(action: {})

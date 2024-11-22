@@ -22,8 +22,9 @@ struct TimeBasedRecommendSetView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .center, spacing: 10) {
-                        RecommendTaskByTime(category: category)
-                            .frame(maxWidth: .infinity)
+                        Text(category.description)
+                            .font(.bold20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 20)
                             .padding(.bottom, 20)
                         
