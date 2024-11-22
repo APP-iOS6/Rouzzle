@@ -30,7 +30,7 @@ struct TaskListSheet: View {
                                 taskStatus: task.isCompleted ? .completed : .pending,
                                 emojiText: task.emoji,
                                 title: task.title,
-                                timeInterval: task.timer,
+                                timeInterval: task.elapsedTime ?? task.timer,
                                 showEditIcon: $showEditIcon,
                                 showDeleteIcon: .constant(false),
                                 onDelete: {
@@ -56,7 +56,7 @@ struct TaskListSheet: View {
                                     (task.isCompleted ? .completed : .pending),
                                 emojiText: task.emoji,
                                 title: task.title,
-                                timeInterval: task.timer,
+                                timeInterval: task.elapsedTime ?? task.timer,
                                 showEditIcon: $showEditIcon,
                                 showDeleteIcon: .constant(false)
                             )

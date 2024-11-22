@@ -548,7 +548,7 @@
 		970042812CDA096300777F43 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				9700427F2CDA095E00777F43 /* RoutineStartViewModel.swift */,
+				9700427F2CDA095E00777F43 /* RoutineStartStore.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1249,7 +1249,7 @@
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */,
 				BDFBC33E2CE71F6400ED8A81 /* RoutineCardView.swift in Sources */,
-				970042802CDA095E00777F43 /* RoutineStartViewModel.swift in Sources */,
+				970042802CDA095E00777F43 /* RoutineStartStore.swift in Sources */,
 				9711587C2CDCAC25008854B0 /* RoutineCompleteView.swift in Sources */,
 				BD1546662CD9D70D0098AD7B /* EmojiView.swift in Sources */,
 				23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */,

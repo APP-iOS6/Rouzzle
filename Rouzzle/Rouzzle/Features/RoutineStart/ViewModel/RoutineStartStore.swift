@@ -13,7 +13,7 @@ import SwiftData
 import FirebaseFirestore
 
 @Observable
-class RoutineStartViewModel {
+class RoutineStartStore {
     
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
@@ -25,9 +25,11 @@ class RoutineStartViewModel {
     var viewTasks: [TaskList]
     var currentTaskIndex: Int = 0
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
+    var isAllCompleted = false
     private var isResuming = false // 일시정지 후 재개 상태를 추적
-    var startTime: Date?
-    var endTime: Date?
+    var routineTakeTime: (Date?, Date?)
+    private var startTime: Date?
+    private var endTime: Date?
 
     var inProgressTask: TaskList? {
         if viewTasks.isEmpty || isRoutineCompleted {
@@ -64,9 +66,11 @@ class RoutineStartViewModel {
             return
         }
 
-        if startTime == nil {
-            startTime = Date()
+        if routineTakeTime.0 == nil {
+            routineTakeTime.0 = Date()
         }
+        
+        startTime = Date()
         
         let currentTask = viewTasks[currentTaskIndex]
 
@@ -94,7 +98,7 @@ class RoutineStartViewModel {
     func endRoutine() {
         timer?.invalidate()
         timer = nil
-        endTime = Date() // 종료 시간 설정
+        routineTakeTime.1 = Date() // 종료 시간 설정
         isRoutineCompleted = true
     }
     
@@ -116,16 +120,20 @@ class RoutineStartViewModel {
             endRoutine()
             return
         }
+        endTime = Date()
+        let elapsedTime = Int(endTime?.timeIntervalSince(startTime ?? Date()) ?? 0)
         
-        let currentTask = viewTasks[currentTaskIndex]
-        currentTask.isCompleted = true
-        if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == currentTask.id }) {
+        viewTasks[currentTaskIndex].elapsedTime = elapsedTime
+
+        if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == viewTasks[currentTaskIndex].id }) {
             routineItem.taskList[modelIndex].isCompleted = true
             viewTasks[currentTaskIndex].isCompleted = true
             do {
                 try context.save()
+                startTime = nil
+                endTime = nil
             } catch {
-                print("활일 완료에 실패했다구")
+                print("할일 완료에 실패했다구")
             }
         }
         
@@ -165,6 +173,7 @@ class RoutineStartViewModel {
         if routineItem.taskList.filter({!$0.isCompleted}).isEmpty && !routineItem.taskList.isEmpty { // 모든일이 완료되었다면 초기화 시켜준다.
             for task in routineItem.taskList {
                 task.isCompleted = false
+                task.elapsedTime = nil
             }
         }
     }
