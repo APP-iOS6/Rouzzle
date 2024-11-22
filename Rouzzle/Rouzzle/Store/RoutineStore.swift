@@ -227,6 +227,11 @@ class RoutineStore {
                         self.toast = ToastModel(type: .warning, message: "퍼즐 부여에 실패했습니다. 루틴을 다시 시도해주세요.")
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    self.puzzleLoad = .completed
+                }
+                self.fetchMyData()
             }
         case .failure:
             DispatchQueue.main.async {
