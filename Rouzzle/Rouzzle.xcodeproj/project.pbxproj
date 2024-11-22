@@ -29,6 +29,7 @@
 		23BC99C82CE6ECC4009BE074 /* TabBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99C72CE6ECC4009BE074 /* TabBarModifier.swift */; };
 		23BC99CA2CE70400009BE074 /* PuzzleInfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99C92CE70400009BE074 /* PuzzleInfoBox.swift */; };
 		23BC99EA2CE82C11009BE074 /* StatisticGuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC99E92CE82C11009BE074 /* StatisticGuideOverlay.swift */; };
+		23D7980E2CF0914A007C0443 /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23D7980D2CF0914A007C0443 /* RouzzleSplash.riv */; };
 		23D7BD252CDD329E000B3DD9 /* EmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 23D7BD242CDD329E000B3DD9 /* EmojiPicker */; };
 		23D7BD2B2CDD3496000B3DD9 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */; };
 		23D7BD2D2CDD35C1000B3DD9 /* EmojiCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */; };
@@ -37,7 +38,6 @@
 		23D7BD332CDD3830000B3DD9 /* Emoji+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */; };
 		23D7BD372CDD3957000B3DD9 /* EmojiComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */; };
 		23DBE7722CDA675C0029D4DA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23DBE7712CDA675C0029D4DA /* SplashView.swift */; };
-		23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */; };
 		23DBE77B2CDA6B7F0029D4DA /* RouzzleOnboarding.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */; };
 		23F8C8BC2CEDC613009D7C16 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8C8BB2CEDC613009D7C16 /* AchievementView.swift */; };
 		23F8C8BE2CEDC6EB009D7C16 /* AchievementStart.riv in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */; };
@@ -215,6 +215,7 @@
 		23BC99C72CE6ECC4009BE074 /* TabBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModifier.swift; sourceTree = "<group>"; };
 		23BC99C92CE70400009BE074 /* PuzzleInfoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleInfoBox.swift; sourceTree = "<group>"; };
 		23BC99E92CE82C11009BE074 /* StatisticGuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticGuideOverlay.swift; sourceTree = "<group>"; };
+		23D7980D2CF0914A007C0443 /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23D7BD2A2CDD3496000B3DD9 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		23D7BD2C2CDD35C1000B3DD9 /* EmojiCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCategory.swift; sourceTree = "<group>"; };
 		23D7BD2E2CDD360A000B3DD9 /* EmojiSearchKeywords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiSearchKeywords.swift; sourceTree = "<group>"; };
@@ -222,7 +223,6 @@
 		23D7BD322CDD3830000B3DD9 /* Emoji+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Emoji+Extension.swift"; sourceTree = "<group>"; };
 		23D7BD362CDD3957000B3DD9 /* EmojiComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiComponents.swift; sourceTree = "<group>"; };
 		23DBE7712CDA675C0029D4DA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleSplash.riv; sourceTree = "<group>"; };
 		23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = RouzzleOnboarding.riv; sourceTree = "<group>"; };
 		23F8C8BB2CEDC613009D7C16 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
 		23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = AchievementStart.riv; sourceTree = "<group>"; };
@@ -495,7 +495,7 @@
 		23DBE7752CDA6A060029D4DA /* RiveAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				23DBE7762CDA6A180029D4DA /* RouzzleSplash.riv */,
+				23D7980D2CF0914A007C0443 /* RouzzleSplash.riv */,
 				23DBE77A2CDA6B7F0029D4DA /* RouzzleOnboarding.riv */,
 				23B7CC182CDB6FF100C4C44A /* RouzzleLogin.riv */,
 				23F8C8BD2CEDC6EB009D7C16 /* AchievementStart.riv */,
@@ -1103,6 +1103,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D7980E2CF0914A007C0443 /* RouzzleSplash.riv in Resources */,
 				FB2A5A9C2CD7CDE000CB981A /* Config.xcconfig in Resources */,
 				BDD719E62CD4A8E100AE0977 /* .swiftlint.yml in Resources */,
 				23B7CC192CDB6FF100C4C44A /* RouzzleLogin.riv in Resources */,
@@ -1115,7 +1116,6 @@
 				BD15452C2CD856490098AD7B /* Pretendard-ExtraLight.otf in Resources */,
 				BD15452D2CD856490098AD7B /* Pretendard-SemiBold.otf in Resources */,
 				BD15452E2CD856490098AD7B /* Pretendard-Light.otf in Resources */,
-				23DBE7772CDA6A180029D4DA /* RouzzleSplash.riv in Resources */,
 				BD15452F2CD856490098AD7B /* Pretendard-ExtraBold.otf in Resources */,
 				BD1545302CD856490098AD7B /* Pretendard-Thin.otf in Resources */,
 				FB2A5AB12CD909E400CB981A /* Halo Dek.otf in Resources */,
