@@ -66,7 +66,7 @@ class PuzzleGame {
         "puzzle_state_\(puzzleType.rawValue)" // 예: puzzle_state_tuna
     }
     
-    init(puzzleType: PuzzleType, initialPieceCount: Int = 22) {
+    init(puzzleType: PuzzleType, initialPieceCount: Int = 30) { // 임시로 넣어둔 퍼즐 조각
         self.puzzleType = puzzleType
         
         if let savedState = Self.loadState(for: puzzleType) {

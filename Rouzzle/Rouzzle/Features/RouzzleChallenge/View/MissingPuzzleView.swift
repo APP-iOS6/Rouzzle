@@ -13,9 +13,6 @@ struct MissingPuzzleView: View {
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.7)
-                .ignoresSafeArea()
-            
             VStack(spacing: 24) {
                 Text("사용 가능한 퍼즐이 없습니다. 😢")
                     .font(.medium16)
