@@ -41,12 +41,14 @@ struct ShopView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ForEach(Array(purchaseStore.sortedProducts.enumerated()), id: \.element.id) { index, product in
-                            ShopRow(quantity: product.displayName,
+                            ShopRow(purchaseStore: purchaseStore,
+                                    quantity: product.displayName,
                                     price: product.displayPrice,
-                                    buttonAction: {
+                                    buttonAction: { completion in
                                 Task {
                                     do {
                                         try await purchaseStore.purchase(product)
+                                        completion() // 구매 완료 시 로딩 상태 해제
                                     }
                                 }
                             })
@@ -97,10 +99,12 @@ struct ShopView: View {
 }
 
 struct ShopRow: View {
+    @State var purchaseStore: PurchaseStore
     let quantity: String
     let price: String
-    let buttonAction: () -> Void
-    
+    let buttonAction: (@escaping () -> Void) -> Void
+    @State private var isLoading: Bool = false
+
     var body: some View {
         HStack(spacing: 7) {
             Image(.piece)
@@ -110,21 +114,38 @@ struct ShopRow: View {
                 .foregroundStyle(.accent)
                 .font(.system(size: 14, weight: .regular))
             
-            Text("\(quantity)")
+            Text(quantity)
                 .font(.system(size: 16, weight: .medium))
             
             Spacer()
             
-            Button(action: buttonAction) {
-                Text(price)
-                    .frame(width: 70, height: 30)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(.accent)
-                    .background(
-                        RoundedRectangle(cornerRadius: 9)
-                            .stroke(Color.accent, lineWidth: 1)
-                    )
+            Button {
+                isLoading = true
+                buttonAction {
+                    isLoading = false
+                }
+            } label: {
+                if isLoading {
+                    ProgressView()
+                        .frame(width: 70, height: 30)
+                        .font(.semibold12)
+                        .foregroundStyle(.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(Color.accent, lineWidth: 1)
+                        )
+                } else {
+                    Text(price)
+                        .frame(width: 70, height: 30)
+                        .font(.semibold12)
+                        .foregroundStyle(.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(Color.accent, lineWidth: 1)
+                        )
+                }
             }
+            .disabled(isLoading)
         }
     }
 }
