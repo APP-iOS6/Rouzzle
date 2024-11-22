@@ -13,7 +13,6 @@ import SwiftData
 
 @Observable
 class AddRoutineViewModel {
-    
     enum Step: Double {
         case info = 0.5
         case task = 1.0
@@ -29,6 +28,13 @@ class AddRoutineViewModel {
     var isDaily: Bool = false
     var isNotificationEnabled: Bool = false {
         didSet {
+            if isNotificationEnabled {
+                interval = interval ?? 1 // 기본값: 1분
+                repeatCount = repeatCount ?? 1 // 기본값: 1번
+            } else {
+                interval = nil
+                repeatCount = nil
+            }
             updateAlarmIDs()
         }
     }
@@ -123,6 +129,9 @@ class AddRoutineViewModel {
     
     @MainActor
     func uploadRoutine(context: ModelContext) {
+        _ = interval ?? 1
+        _ = repeatCount ?? 1
+        
         let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
         // TODO: AlarmIds 추가
@@ -158,5 +167,68 @@ class AddRoutineViewModel {
                 self.toastMessage = "루틴을 저장하지 못했습니다."
             }
         }
+    }
+    
+    // notification 함수
+    func handleNotificationToggle() {
+        if isNotificationEnabled {
+            // 알림 켜기 - 권한 요청 확인
+            NotificationManager.shared.checkNotificationSettings { status in
+                switch status {
+                case .authorized:
+                    // 이미 권한이 있음 - 알람 스케줄
+                    self.scheduleRoutineNotifications(isRoutineRunning: false)
+                case .denied:
+                    self.isNotificationEnabled = false
+                    self.toastMessage = "알림 권한이 꺼져 있습니다. 설정에서 권한을 활성화해주세요."
+                case .notDetermined:
+                    NotificationManager.shared.requestNotificationPermission { granted in
+                        if granted {
+                            self.scheduleRoutineNotifications(isRoutineRunning: false)
+                        } else {
+                            self.isNotificationEnabled = false
+                            self.toastMessage = "알림 권한이 거부되었습니다."
+                        }
+                    }
+                default:
+                    break
+                }
+            }
+        } else {
+            // 알림 끄기 - 기존 알림 제거
+            NotificationManager.shared.removeAllNotifications()
+        }
+    }
+    
+    func scheduleRoutineNotifications(isRoutineRunning: Bool) {
+        guard isNotificationEnabled else { return }
+
+        let weekdays = selectedDateWithTime.keys.map { $0.rawValue }
+        let title = self.title.isEmpty ? "루틴" : self.title
+
+        for (day, time) in selectedDateWithTime {
+            NotificationManager.shared.scheduleNotification(
+                id: "\(UUID().uuidString)_day_\(day.rawValue)",
+                title: title,
+                body: "\(title)을 시작하세요!",
+                date: time,
+                repeats: true,
+                weekdays: [day.rawValue],
+                isRoutineRunning: isRoutineRunning
+            )
+        }
+
+        print("요일별 알림이 스케줄링되었습니다: \(weekdays)")
+    }
+    
+    @MainActor
+    func startRoutine() {
+        guard let alarmPrefix = alarmIDs?.values.first else {
+            print("알람 ID가 없습니다.")
+            return
+        }
+        // 이후 알림 취소
+        NotificationManager.shared.removeNotifications(withPrefix: alarmPrefix)
+        print("루틴 실행 시작으로 이후 알림 취소")
     }
 }

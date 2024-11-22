@@ -165,8 +165,8 @@ struct RoutineStartView: View {
 #Preview {
     RoutineStartView(
         viewModel: RoutineStartViewModel(
-            routineItem: RoutineItem.sampleData[0]),
-        path: .constant(NavigationPath())
+            routineItem: RoutineItem.sampleData[0]
+        ), path: .constant(NavigationPath())
     )
     .modelContainer(SampleData.shared.modelContainer)
 }

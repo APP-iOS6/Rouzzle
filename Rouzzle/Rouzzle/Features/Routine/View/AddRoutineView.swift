@@ -133,9 +133,11 @@ struct RoutineBasicSettingView: View {
                                     .clipShape(.rect(cornerRadius: 8))
                             }
                         }
-                        Text("(요일별로 다름)")
-                            .font(.regular12)
-                            .foregroundStyle(.gray)
+                        if areTimesDifferent(viewModel.selectedDateWithTime) {
+                            Text("(요일별로 다름)")
+                                .font(.regular12)
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
             }
@@ -145,13 +147,19 @@ struct RoutineBasicSettingView: View {
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
         .clipShape(.rect(cornerRadius: 20)) // .cornerRadius 대신 clipShape 사용
     }
+    
+    // 요일별 시간 다른지 체크
+    private func areTimesDifferent(_ times: [Day: Date]) -> Bool {
+        let uniqueTimes = Set(times.values.map { Calendar.current.dateComponents([.hour, .minute], from: $0) })
+        // 서로 다른 시간 있으면 true
+        return uniqueTimes.count > 1
+    }
 }
 
 struct RoutineNotificationView: View {
     @Bindable var viewModel: AddRoutineViewModel
     @State private var isOneAlarm: Bool = false
-    let minutes = [1, 3, 5, 7, 10]
-    let counts = [1, 2, 3, 4, 5]
+    
     var body: some View {
         VStack(spacing: 20) {
             HStack {
@@ -184,9 +192,15 @@ struct RoutineNotificationView: View {
                     // 분 선택
                     CustomPicker2(
                         unit: "분",
-                        isDisabled: isOneAlarm,
-                        options: minutes,
-                        selection: $viewModel.interval
+                        isDisabled: !viewModel.isNotificationEnabled, // 알림이 활성화되어야 사용 가능
+                        options: [1, 3, 5, 7, 10], // 선택 가능한 간격
+                        selection: Binding(
+                            get: { viewModel.interval ?? 1 },
+                            set: { newValue in
+                                viewModel.interval = newValue
+                                print("Interval 선택됨: \(viewModel.interval ?? 0)")
+                            }
+                        )
                     )
                     
                     Text("간격으로")
@@ -195,9 +209,15 @@ struct RoutineNotificationView: View {
                     // 횟수 선택
                     CustomPicker2(
                         unit: "번",
-                        isDisabled: isOneAlarm,
-                        options: counts,
-                        selection: $viewModel.repeatCount
+                        isDisabled: !viewModel.isNotificationEnabled, // 알림이 활성화되어야 사용 가능
+                        options: [1, 2, 3, 4, 5], // 선택 가능한 횟수
+                        selection: Binding(
+                            get: { viewModel.repeatCount ?? 1 },
+                            set: { newValue in
+                                viewModel.repeatCount = newValue
+                                print("Repeat Count 선택됨: \(viewModel.repeatCount ?? 0)")
+                            }
+                        )
                     )
                     
                     Text("알려드릴게요")
@@ -207,15 +227,6 @@ struct RoutineNotificationView: View {
                 }
             }
         }
-        .onChange(of: viewModel.isNotificationEnabled, { _, newValue in
-            if newValue {
-                viewModel.repeatCount = 1
-                viewModel.interval = 1
-            } else {
-                viewModel.repeatCount = nil
-                viewModel.interval = nil
-            }
-        })
         .animation(.smooth, value: viewModel.isNotificationEnabled)
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
@@ -256,6 +267,7 @@ struct CustomPicker2: View {
             ForEach(options, id: \.self) { value in
                 Button {
                     selection = value
+                    print("\(unit) 선택됨: \(value)")
                 } label: {
                     Text("\(value)\(unit)")
                 }

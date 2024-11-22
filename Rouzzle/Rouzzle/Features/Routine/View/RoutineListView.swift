@@ -35,7 +35,7 @@ struct RoutineListView: View {
     }
     
     init() {
-        _currentQuote = State(initialValue: QuotesProvider.randomQuote())
+        _currentQuote = State(initialValue: QuotesProvider.shared.nextQuote())
     }
     
     var body: some View {
@@ -124,10 +124,12 @@ struct RoutineListView: View {
                         .frame(maxWidth: .infinity)
                         .aspectRatio(contentMode: .fit)
                         .padding(.horizontal)
+
+                        Spacer()
                 }
             }
             .refreshable {
-                currentQuote = QuotesProvider.randomQuote()
+                currentQuote = QuotesProvider.shared.nextQuote()
             }
             .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                 AddRoutineContainerView()
