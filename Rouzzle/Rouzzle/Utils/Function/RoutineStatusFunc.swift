@@ -48,3 +48,11 @@ func convertDaysToString(days: [Int]) -> String {
         return dayStrings.joined(separator: " ")
     }
 }
+
+func getAlarmImageName(_ routine: RoutineItem) -> String {
+    if let alarmIDs = routine.alarmIDs, !alarmIDs.isEmpty {
+        return "bell"
+    } else {
+        return "bell.slash"
+    }
+}
