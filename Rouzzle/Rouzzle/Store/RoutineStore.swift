@@ -41,7 +41,6 @@ class RoutineStore {
     var myPuzzle: Int = 0
     
     init() {
-        fetchAllRoutines()
         fetchMyData()
     }
     
@@ -53,19 +52,6 @@ class RoutineStore {
     func selectedRoutineItem(_ routine: RoutineItem) {
         routineItem = routine
         taskList = routine.taskList
-    }
-    
-    /// 모든 루틴 데이터를 Firestore에서 가져오기
-    func fetchAllRoutines() {
-        Task {
-            do {
-                let routines = try await routineService.getAllRoutines()
-                allRoutines = routines.map { RoutineItem(from: $0) } // 변환 적용
-            } catch {
-                toastMessage = "루틴 데이터를 가져오는 데 실패했습니다."
-                print(error.localizedDescription)
-            }
-        }
     }
     
     func fetchMyData() {
@@ -81,7 +67,7 @@ class RoutineStore {
                 }
             case .failure:
                 DispatchQueue.main.async {
-                    self.homeToastMessage = "퍼즐 조각 로드에 실패했습니다 다시 시도해 주세요."
+                    self.toast = ToastModel(type: .warning, message: "퍼즐 조각 로드에 실패했습니다 다시 시도해 주세요.")
                     self.puzzleLoad = .failed
                 }
             }
@@ -232,20 +218,20 @@ class RoutineStore {
                 case .success:
                     DispatchQueue.main.async {
                         self.puzzleLoad = .completed
-                        self.homeToastMessage = "퍼즐 조각을 획득하였습니다."
+                        self.toast = ToastModel(type: .getOnePuzzle)
                         self.fetchMyData()
                     }
                 case .failure:
                     DispatchQueue.main.async {
                         self.puzzleLoad = .none
-                        self.homeToastMessage = "퍼즐 부여에 실패했습니다. 루틴을 다시 시도해주세요."
+                        self.toast = ToastModel(type: .warning, message: "퍼즐 부여에 실패했습니다. 루틴을 다시 시도해주세요.")
                     }
                 }
             }
         case .failure:
             DispatchQueue.main.async {
                 self.puzzleLoad = .failed
-                self.homeToastMessage = "리워드 정보를 불러오지 못했습니다. 다시 시도해 주세요."
+                self.toast = ToastModel(type: .warning, message: "리워드 정보를 불러오지 못했습니다. 다시 시도해 주세요.")
             }
         }
     }

@@ -18,7 +18,7 @@ class PurchaseStore {
     
     private let puzzleProductIDs: [String] = ["techit.Rouzzle.6", "techit.Rouzzle.12", "techit.Rouzzle.24", "techit.Rouzzle.48"]
     private let subsProductIDs: [String] = ["techit.Rouzzle.Monthly", "techit.Rouzzle.Yearly"]
-    
+    var toastMessage: String?
     // 정렬된 상품 리스트
     var sortedProducts: [Product] {
         products.sorted { lhs, rhs in
@@ -55,6 +55,8 @@ class PurchaseStore {
         switch result {
         case let .success(.verified(transaction)):
             await transaction.finish()
+            print("퍼즐 조각 잘 샀음")
+            toastMessage = "퍼즐 구매에 성공했습니다"
         case .success(.unverified):
             // 구매를 성공했으나, verified 실패
             break

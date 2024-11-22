@@ -22,6 +22,7 @@ struct RoutineListView: View {
     @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
+
     @Environment(RoutineStore.self) private var routineStore
     var filterRoutineItem: [RoutineItem] {
         if selectedFilter == .today {
@@ -39,6 +40,7 @@ struct RoutineListView: View {
     }
     
     var body: some View {
+        @Bindable var rs = routineStore
         NavigationStack(path: $path) { // NavigationStack에 path 바인딩
             ScrollView {
                 VStack(spacing: 20) {
@@ -134,8 +136,7 @@ struct RoutineListView: View {
             .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                 AddRoutineContainerView()
             }
-            
-            .toastView(toast: $toast)
+            .toastView(toast: $rs.toast)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     PieceCounter(
@@ -173,7 +174,7 @@ struct RoutineListView: View {
                     AddTaskView(
                         path: $path,
                         completeAction: { message in
-                            toast = ToastModel(type: .success, message: message)
+                            rs.toast = ToastModel(type: .success, message: message)
                         }
                     )
                 case .routineCompleteView:
