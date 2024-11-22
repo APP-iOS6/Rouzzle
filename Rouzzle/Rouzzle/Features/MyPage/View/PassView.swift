@@ -10,7 +10,7 @@ import StoreKit
 
 struct PassView: View {
     @Environment(\.dismiss) private var dismiss
-    private var purchaseStore = PurchaseStore()
+    @State private var purchaseStore = PurchaseStore()
     @State private var selectedProduct: Product? // 선택된 상품
 
     var body: some View {
@@ -37,7 +37,7 @@ struct PassView: View {
                     .lineSpacing(4)
                     .padding(.vertical, 40)
                 
-                ForEach(purchaseStore.products, id: \.id) { product in
+                ForEach(purchaseStore.sortedProducts, id: \.id) { product in
                     Button {
                         selectedProduct = product // 선택된 상품 업데이트
                     } label: {
