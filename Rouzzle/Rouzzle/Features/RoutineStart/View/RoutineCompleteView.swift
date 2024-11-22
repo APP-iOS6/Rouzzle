@@ -11,7 +11,7 @@ struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(RoutineStore.self) private var routineStore
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
-
+    var routineTakeTime: (Date?, Date?)
     var tasks: [TaskList] {
         routineStore.routineItem!.taskList
     }
@@ -26,7 +26,7 @@ struct RoutineCompleteView: View {
             }
             .padding(.top, 60)
             
-            Text("1:46 PM ~ 2:06 PM")
+            Text("\(routineTakeTime.0?.toTimeString() ?? "") ~ \(routineTakeTime.1?.toTimeString() ?? "")")
                 .font(.regular16)
                 .foregroundStyle(Color.subHeadlineFontColor)
                 .padding(.top)
@@ -89,7 +89,7 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
-                path.removeLast() // 네비게이션 스택 초기화
+                path.removeLast(path.count) // 네비게이션 스택 초기화
             }
             .padding(.bottom)
             .padding()

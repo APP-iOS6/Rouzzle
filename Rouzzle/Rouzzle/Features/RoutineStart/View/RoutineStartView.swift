@@ -92,8 +92,7 @@ struct RoutineStartView: View {
                     
                     // 할일 완료 버튼
                     Button {
-                        viewModel.markTaskAsCompleted()
-
+                        viewModel.markTaskAsCompleted(modelContext)
                     } label: {
                         Image(.checkIcon)
                             .frame(width: 72, height: 72)
@@ -147,7 +146,7 @@ struct RoutineStartView: View {
             .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
-            RoutineCompleteView(path: $path)
+            RoutineCompleteView(path: $path, routineTakeTime: (viewModel.startTime, viewModel.endTime))
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {

@@ -9,6 +9,7 @@ import Factory
 import Foundation
 import Observation
 import SwiftUI
+import SwiftData
 import FirebaseFirestore
 
 @Observable
@@ -25,38 +26,48 @@ class RoutineStartViewModel {
     var currentTaskIndex: Int = 0
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     private var isResuming = false // 일시정지 후 재개 상태를 추적
-    
-    // 기존 computed properties 유지
+    var startTime: Date?
+    var endTime: Date?
+
     var inProgressTask: TaskList? {
-        if currentTaskIndex < viewTasks.count {
-            return viewTasks[currentTaskIndex]
-        } else {
+        if viewTasks.isEmpty || isRoutineCompleted {
             return nil
         }
+        return viewTasks[currentTaskIndex]
     }
     
     var nextPendingTask: TaskList? {
-        let nextIndex = currentTaskIndex + 1
-        if nextIndex < viewTasks.count {
-            return viewTasks[nextIndex]
-        } else {
-            return nil
+        let totalTasks = viewTasks.count
+        var nextIndex = currentTaskIndex
+        var checkedTasks = 0
+
+        while checkedTasks < totalTasks {
+            nextIndex = (nextIndex + 1) % totalTasks
+            checkedTasks += 1
+            if !viewTasks[nextIndex].isCompleted && nextIndex != currentTaskIndex {
+                return viewTasks[nextIndex]
+            }
         }
+        return nil
     }
     
-    // taskManager 파라미터 추가
     init(routineItem: RoutineItem) {
         print("타이머 뷰모델 생성")
         self.routineItem = routineItem
         self.viewTasks = routineItem.taskList
     }
     // MARK: - 타이머 관련 메서드
+    
     func startTimer() {
         guard currentTaskIndex < viewTasks.count else {
             isRoutineCompleted = true
             return
         }
 
+        if startTime == nil {
+            startTime = Date()
+        }
+        
         let currentTask = viewTasks[currentTaskIndex]
 
         if !isResuming {
@@ -73,7 +84,18 @@ class RoutineStartViewModel {
             if self.timeRemaining < 0 {
                 self.timerState = .overtime
             }
+            if self.isRoutineCompleted {
+                endRoutine()
+            }
         }
+    }
+    
+    // MARK: - 루틴 종료
+    func endRoutine() {
+        timer?.invalidate()
+        timer = nil
+        endTime = Date() // 종료 시간 설정
+        isRoutineCompleted = true
     }
     
     func toggleTimer() {
@@ -89,10 +111,9 @@ class RoutineStartViewModel {
     }
     
     // MARK: - 테스크 관리 메서드
-    func markTaskAsCompleted() {
+    func markTaskAsCompleted(_ context: ModelContext) {
         guard currentTaskIndex < viewTasks.count else {
-            isRoutineCompleted = true
-            timer?.invalidate()
+            endRoutine()
             return
         }
         
@@ -101,6 +122,11 @@ class RoutineStartViewModel {
         if let modelIndex = routineItem.taskList.firstIndex(where: { $0.id == currentTask.id }) {
             routineItem.taskList[modelIndex].isCompleted = true
             viewTasks[currentTaskIndex].isCompleted = true
+            do {
+                try context.save()
+            } catch {
+                print("활일 완료에 실패했다구")
+            }
         }
         
         timer?.invalidate()
@@ -110,30 +136,26 @@ class RoutineStartViewModel {
             timerState = .running
             startTimer()
         } else {
-            initializeCurrentTaskIndex()
-            if currentTaskIndex == viewTasks.count {
-                isRoutineCompleted = true
-            }
+            endRoutine()
         }
     }
     
     // 스킵 버튼 로직(inProgress 상태에서 pending으로 변경)
     func skipTask() {
-        guard currentTaskIndex < viewTasks.count else {
-            isRoutineCompleted = true
+        guard !isRoutineCompleted else {
             timer?.invalidate()
             return
         }
         
         timer?.invalidate()
         moveToNextIncompleteTask()
-        // 현재 작업을 건너뛰고 다음 작업으로 이동
-        if currentTaskIndex < viewTasks.count {
+        
+        if !isRoutineCompleted {
             timerState = .running
             isResuming = false
             startTimer()
         } else {
-            initializeCurrentTaskIndex()
+            endRoutine()
         }
     }
     
@@ -148,14 +170,20 @@ class RoutineStartViewModel {
     }
     
     func moveToNextIncompleteTask() {
-        currentTaskIndex += 1
-
-        while currentTaskIndex < viewTasks.count && viewTasks[currentTaskIndex].isCompleted {
-            currentTaskIndex += 1
+        var foundIncompleteTask = false
+        var checkedTasks = 0
+        
+        while checkedTasks < viewTasks.count {
+            currentTaskIndex = (currentTaskIndex + 1) % viewTasks.count
+            checkedTasks += 1
+            if !viewTasks[currentTaskIndex].isCompleted {
+                foundIncompleteTask = true
+                break
+            }
         }
-
-        if currentTaskIndex >= viewTasks.count {
-            isRoutineCompleted = true
+        
+        if !foundIncompleteTask {
+            endRoutine()
         }
     }
     
