@@ -35,6 +35,7 @@ struct ShopView: View {
                                 .font(.regular14)
                                 .foregroundStyle(.gray)
                         }
+                        .frame(maxWidth: .infinity, alignment: .center)
                     } else {
                         ForEach(Array(purchaseStore.sortedProducts.enumerated()), id: \.element.id) { index, product in
                             ShopRow(quantity: product.displayName,

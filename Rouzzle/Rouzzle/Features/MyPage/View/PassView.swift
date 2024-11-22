@@ -37,45 +37,58 @@ struct PassView: View {
                     .lineSpacing(4)
                     .padding(.vertical, 40)
                 
-                ForEach(purchaseStore.sortedProducts, id: \.id) { product in
-                    Button {
-                        selectedProduct = product // 선택된 상품 업데이트
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text(product.displayName)
-                                    .font(.semibold16)
-                                    .foregroundStyle(.black)
-                                
-                                Text(product.description)
-                                    .font(.regular14)
-                                    .foregroundStyle(.black)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(product.displayPrice)
-                                .font(.bold16)
-                                .foregroundStyle(.accent)
-                        }
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(.white)
-                        )
-                        .overlay(
-                            // 선택된 상품에 스트로크 표시
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(
-                                    selectedProduct == product ? Color.accent : Color.clear,
-                                    lineWidth: 2
-                                )
-                        )
-                        .padding(.horizontal, 2)
-                        .shadow(color: .black.opacity(0.1), radius: 2)
+                if purchaseStore.products.isEmpty {
+                    VStack(alignment: .center) {
+                        ProgressView()
+                            .font(.medium18)
+                        
+                        Text("상품을 불러오는 중입니다...")
+                            .font(.regular14)
+                            .foregroundStyle(.gray)
                     }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top)
+                } else {
+                    ForEach(purchaseStore.sortedProducts, id: \.id) { product in
+                        Button {
+                            selectedProduct = product // 선택된 상품 업데이트
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(product.displayName)
+                                        .font(.semibold16)
+                                        .foregroundStyle(.black)
+                                    
+                                    Text(product.description)
+                                        .font(.regular14)
+                                        .foregroundStyle(.black)
+                                }
+                                
+                                Spacer()
+                                
+                                Text(product.displayPrice)
+                                    .font(.bold16)
+                                    .foregroundStyle(.accent)
+                            }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.white)
+                            )
+                            .overlay(
+                                // 선택된 상품에 스트로크 표시
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(
+                                        selectedProduct == product ? Color.accent : Color.clear,
+                                        lineWidth: 2
+                                    )
+                            )
+                            .padding(.horizontal, 2)
+                            .shadow(color: .black.opacity(0.1), radius: 2)
+                        }
+                    }
+                    .padding(.top)
                 }
-                .padding(.top)
                 
                 Text("구독 혜택")
                     .font(.bold16)
