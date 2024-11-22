@@ -147,6 +147,7 @@ struct EditRoutineView: View {
 
 struct EditRoutineBasicSettingView: View {
     @Bindable var viewModel: EditRoutineViewModel
+    
     var body: some View {
         VStack(spacing: 20) {
             RouzzleTextField(text: $viewModel.editRoutine.title, placeholder: "제목을 입력해 주세요.")
@@ -201,9 +202,11 @@ struct EditRoutineBasicSettingView: View {
                                     .clipShape(.rect(cornerRadius: 8))
                             }
                         }
-                        Text("(요일별로 다름)")
-                            .font(.regular12)
-                            .foregroundStyle(.gray)
+                        if areTimesDifferent(viewModel.tempdayStartTime) {
+                            Text("(요일별로 다름)")
+                                .font(.regular12)
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
             }
@@ -212,6 +215,11 @@ struct EditRoutineBasicSettingView: View {
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
         .clipShape(.rect(cornerRadius: 20)) // .cornerRadius 대신 clipShape 사용
+    }
+    
+    private func areTimesDifferent(_ times: [Day: Date]) -> Bool {
+        let uniqueTimes = Set(times.values.map { Calendar.current.dateComponents([.hour, .minute], from: $0) })
+        return uniqueTimes.count > 1 // 서로 다른 시간이 있으면 true
     }
 }
 

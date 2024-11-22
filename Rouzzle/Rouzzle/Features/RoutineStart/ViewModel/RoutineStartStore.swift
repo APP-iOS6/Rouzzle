@@ -229,4 +229,11 @@ class RoutineStartStore {
     deinit {
         timer?.invalidate()
     }
+    
+    @MainActor
+    func startRoutine() {
+        // 루틴 실행 시작 시 알림 취소 호출
+        NotificationManager.shared.removeNotifications(withPrefix: routineItem.id)
+        print("루틴 실행 시작됨. 알림 취소 완료.")
+    }
 }
