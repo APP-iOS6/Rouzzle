@@ -8,6 +8,15 @@
 import Foundation
 
 extension Date {
+    /// 날짜를 "h:mm a" 형식(예: "1:36 PM")으로 반환
+    func toTimeString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a" // 시간과 분, AM/PM 형식
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        return formatter.string(from: self)
+    }
+    
     /// 06:30 식으로 변환하는 함수
     func formattedToTime() -> String {
         let formatter = DateFormatter()
