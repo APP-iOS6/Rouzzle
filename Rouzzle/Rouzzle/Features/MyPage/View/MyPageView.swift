@@ -227,6 +227,21 @@ struct MyPageView: View {
                             .font(.regular16)
                     }
                     .frame(minHeight: 45)
+                    
+                    NavigationLink {
+                        DevInfoView()
+                    } label: {
+                        HStack {
+                            Text("개발자 정보")
+                                .font(.semibold16)
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                    .frame(minHeight: 45)
                     .padding(.bottom) // 탭바와 너무 붙어서 버튼 잘못 눌리는 거 방지용
                 }
                 .padding(.horizontal)
