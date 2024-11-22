@@ -10,6 +10,7 @@ import SwiftUI
 struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(RoutineStore.self) private var routineStore
+    @Environment(RoutineStartStore.self) private var routineStartViewModel
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     var routineTakeTime: (Date?, Date?)
     var tasks: [TaskList] {
@@ -75,11 +76,13 @@ struct RoutineCompleteView: View {
                                 .strikethrough()
                             
                             Spacer()
+                            if let elapsedTime = task.elapsedTime {
+                                Text(elapsedTime == 0 ? "없음" :
+                                    (elapsedTime < 60 ? "\(elapsedTime)초" : "\(elapsedTime / 60)분"))
+                                    .font(.regular14)
+                                    .foregroundStyle(Color.subHeadlineFontColor)
+                            }
                             
-                            Text(task.timer == 0 ? "없음" :
-                                (task.timer < 60 ? "\(task.timer)초" : "\(task.timer / 60)분"))
-                                .font(.regular14)
-                                .foregroundStyle(Color.subHeadlineFontColor)
                         }
                         
                     }
@@ -90,6 +93,7 @@ struct RoutineCompleteView: View {
             
             RouzzleButton(buttonType: .complete) {
                 path.removeLast(path.count) // 네비게이션 스택 초기화
+                routineStartViewModel.isAllCompleted = true
             }
             .padding(.bottom)
             .padding()
