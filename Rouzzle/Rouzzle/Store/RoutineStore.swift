@@ -15,13 +15,17 @@ class RoutineStore {
     
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
+    @ObservationIgnored
+    @Injected(\.userService) private var userService
     
     var allRoutines: [RoutineItem] = [] // 모든 루틴 목록
     var routineItem: RoutineItem?
     var taskList: [TaskList] = [] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
+    var puzzleLoad: LoadState = .none
     var toast: ToastModel?
     var toastMessage: String?
+    var homeToastMessage: String? // 루틴 리스트(홈) 에서 보여질 토스트 메시지
     var recommendTodoTask: [RecommendTodoTask] = []
     var todayStartTime: String {
         if let routineItem = routineItem {
@@ -33,9 +37,11 @@ class RoutineStore {
         }
         return ""
     }
+    // 내 퍼즐 조각 개수
+    var myPuzzle: Int = 0
     
     init() {
-        fetchAllRoutines()
+        fetchMyData()
     }
     
     func fetchViewTask() {
@@ -48,15 +54,22 @@ class RoutineStore {
         taskList = routine.taskList
     }
     
-    /// 모든 루틴 데이터를 Firestore에서 가져오기
-    func fetchAllRoutines() {
+    func fetchMyData() {
+        self.puzzleLoad = .loading
         Task {
-            do {
-                let routines = try await routineService.getAllRoutines()
-                allRoutines = routines.map { RoutineItem(from: $0) } // 변환 적용
-            } catch {
-                toastMessage = "루틴 데이터를 가져오는 데 실패했습니다."
-                print(error.localizedDescription)
+            let userUid = Utils.getUserUUID()
+            let result = await userService.fetchUserData(userUid)
+            switch result {
+            case let .success(user):
+                DispatchQueue.main.async {
+                    self.myPuzzle = user.puzzleCount
+                    self.puzzleLoad = .completed
+                }
+            case .failure:
+                DispatchQueue.main.async {
+                    self.toast = ToastModel(type: .warning, message: "퍼즐 조각 로드에 실패했습니다 다시 시도해 주세요.")
+                    self.puzzleLoad = .failed
+                }
             }
         }
     }
@@ -184,6 +197,47 @@ class RoutineStore {
             }
             loadState = .completed
             dismiss()
+        }
+    }
+    
+    /// 오늘 보상을 받았다면 true 아직 안받았다면 false -> 안받았따면 퍼즐 부여
+    func checkTodayPuzzleReward() async {
+        DispatchQueue.main.async {
+            self.puzzleLoad = .loading
+        }
+        let userUid = Utils.getUserUUID()
+        let now = Date()
+        let calendar = Calendar.current
+        let date = calendar.startOfDay(for: now)
+        let result = await userService.checkTodayPuzzleReward(userUid, date: date)
+        
+        switch result {
+        case let .success(check):
+            if !check {
+                switch await userService.uploadTodayPuzzleReward(userUid, date: date) {
+                case .success:
+                    DispatchQueue.main.async {
+                        self.puzzleLoad = .completed
+                        self.toast = ToastModel(type: .getOnePuzzle)
+                        self.fetchMyData()
+                    }
+                case .failure:
+                    DispatchQueue.main.async {
+                        self.puzzleLoad = .none
+                        self.toast = ToastModel(type: .warning, message: "퍼즐 부여에 실패했습니다. 루틴을 다시 시도해주세요.")
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.puzzleLoad = .completed
+                }
+                self.fetchMyData()
+            }
+        case .failure:
+            DispatchQueue.main.async {
+                self.puzzleLoad = .failed
+                self.toast = ToastModel(type: .warning, message: "리워드 정보를 불러오지 못했습니다. 다시 시도해 주세요.")
+            }
         }
     }
     

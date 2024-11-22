@@ -14,13 +14,19 @@ protocol UserServiceType {
     func fetchUserData(_ userUid: String) async -> Result<RoutineUser, Error>
     func uploadProfileImage(_ image: UIImage, userUid: String) async -> Result<String, Error>
     func loadProfileImage(from urlString: String) async -> Result<UIImage, Error>
+    /// 오늘 루틴 퍼즐 조각 받았는지 확인하는 함수
+    func checkTodayPuzzleReward(_ userUid: String, date: Date) async -> Result<Bool, DBError>
+    /// 오늘 퍼즐 리워드 받았음을 올리는 함수
+    func uploadTodayPuzzleReward(_ userUid: String, date: Date) async -> Result<Void, DBError>
+    /// 내 퍼즐조각 1개 차감하는 함수
+    func decreaseMyPuzzle(_ userUid: String) async -> Result<Void, DBError>
 }
 
 class UserService: UserServiceType {
     
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-
+    
     /// 유저 데이터를 FireStore User컬렉션에 등록하는 함수
     func uploadUserData(_ userUid: String, user: RoutineUser) async -> Result<Void, Error> {
         do {
@@ -77,6 +83,35 @@ class UserService: UserServiceType {
             }
         } catch {
             return .failure(error)
+        }
+    }
+    
+    func checkTodayPuzzleReward(_ userUid: String, date: Date) async -> Result<Bool, DBError> {
+        do {
+            let reward = try await db.collection("User").document(userUid).collection("Reward").document(date.formattedDateToString).getDocument()
+            return .success(reward.exists)
+        } catch {
+            return .failure(.firebaseError(error))
+        }
+    }
+    
+    func uploadTodayPuzzleReward(_ userUid: String, date: Date) async -> Result<Void, DBError> {
+        do {
+            try await db.collection("User").document(userUid).collection("Reward").document(date.formattedDateToString)
+                .setData([:])
+            try await db.collection("User").document(userUid).updateData(["puzzleCount": FieldValue.increment(Int64(1))])
+            return .success(())
+        } catch {
+            return .failure(.firebaseError(error))
+        }
+    }
+    
+    func decreaseMyPuzzle(_ userUid: String) async -> Result<Void, DBError> {
+        do {
+            try await db.collection("User").document(userUid).updateData(["puzzleCount": FieldValue.increment(Int64(-1))])
+            return .success(())
+        } catch {
+            return .failure(.firebaseError(error))
         }
     }
 }
