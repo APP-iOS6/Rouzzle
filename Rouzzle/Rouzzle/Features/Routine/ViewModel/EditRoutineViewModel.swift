@@ -187,23 +187,28 @@ class EditRoutineViewModel {
             print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았거나 시작 시간이 없음")
             return
         }
-        
-        for (_, time) in tempdayStartTime {
+
+        let weekdays = tempdayStartTime.keys.map { $0.rawValue }
+
+        for (day, time) in tempdayStartTime {
             guard let routineStartDate = Calendar.current.nextDate(
                 after: Date(),
                 matching: Calendar.current.dateComponents([.hour, .minute], from: time),
                 matchingPolicy: .nextTime
             ) else { continue }
             
-            NotificationManager.shared.scheduleMultipleNotifications(
-                id: UUID().uuidString,
+            // 요일별 알림 설정
+            NotificationManager.shared.scheduleNotification(
+                id: "\(UUID().uuidString)_day_\(day.rawValue)",
                 title: editRoutine.title,
-                startDate: routineStartDate,
-                intervalMinutes: interval,
-                repeatCount: repeatCount,
-                repeats: true,
+                body: "\(editRoutine.title)을 시작하세요!",
+                date: routineStartDate,
+                repeats: repeats,
+                weekdays: [day.rawValue],
                 isRoutineRunning: isRoutineRunning
             )
         }
+
+        print("요일별 알림이 스케줄링되었습니다: \(weekdays)")
     }
 }
