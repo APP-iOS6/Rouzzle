@@ -107,6 +107,7 @@ class TaskList: Identifiable {
     var title: String
     var emoji: String
     var timer: Int
+    var elapsedTime: Int?
     var isCompleted: Bool = false
     
     @Relationship(inverse: \RoutineItem.taskList)
@@ -148,7 +149,7 @@ class TaskList: Identifiable {
         return TaskCompletion(
             title: title,
             emoji: emoji,
-            timer: timer,
+            timer: elapsedTime ?? timer,
             isComplete: isCompleted
         )
     }

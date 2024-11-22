@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct ShopView: View {
     
     @Environment(RoutineStore.self) private var routineStore
-
+    @State private var purchaseStore = PurchaseStore()
+    
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
@@ -26,22 +28,34 @@ struct ShopView: View {
                     .padding(.top, 27)
                 
                 VStack {
-                    ShopRow(quantity: 6, price: "₩ 1,500", buttonAction: {})
-                    
-                    Divider()
-                        .padding(.vertical, 5)
-                    
-                    ShopRow(quantity: 12, price: "₩ 3,000", buttonAction: {})
-                    
-                    Divider()
-                        .padding(.vertical, 5)
-                    
-                    ShopRow(quantity: 24, price: "₩ 4,000", buttonAction: {})
-                    
-                    Divider()
-                        .padding(.vertical, 5)
-                    
-                    ShopRow(quantity: 48, price: "₩ 5,000", buttonAction: {})
+                    if purchaseStore.products.isEmpty {
+                        VStack(alignment: .center) {
+                            ProgressView()
+                                .font(.medium18)
+                            
+                            Text("상품을 불러오는 중입니다...")
+                                .font(.regular14)
+                                .foregroundStyle(.gray)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        ForEach(Array(purchaseStore.sortedProducts.enumerated()), id: \.element.id) { index, product in
+                            ShopRow(quantity: product.displayName,
+                                    price: product.displayPrice,
+                                    buttonAction: {
+                                Task {
+                                    do {
+                                        try await purchaseStore.purchase(product)
+                                    }
+                                }
+                            })
+                            
+                            if index < purchaseStore.products.count - 1 {
+                                Divider()
+                                    .padding(.vertical, 5)
+                            }
+                        }
+                    }
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -52,6 +66,13 @@ struct ShopView: View {
                 )
             }
             .padding(.horizontal)
+        }
+        .onAppear {
+            Task {
+                do {
+                    try await purchaseStore.loadPuzzleProducts()
+                }
+            }
         }
         .padding(.horizontal, -16)
         .customNavigationBar(title: "SHOP")
@@ -64,13 +85,15 @@ struct ShopView: View {
             }
         }
     }
+    
+    
 }
 
 struct ShopRow: View {
-    let quantity: Int
+    let quantity: String
     let price: String
     let buttonAction: () -> Void
-
+    
     var body: some View {
         HStack(spacing: 7) {
             Image(.piece)
