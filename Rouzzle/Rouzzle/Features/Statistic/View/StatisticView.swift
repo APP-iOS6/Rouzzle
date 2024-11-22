@@ -23,8 +23,7 @@ struct StatisticView: View {
                                 .font(.semibold18)
                             
                             Spacer()
-                            
-                            PieceCounter(count: 9)
+
                         }
                         .padding(.top, 2)
                         .padding(.trailing, 2)

@@ -9,8 +9,11 @@ import SwiftUI
 import StoreKit
 
 struct ShopView: View {
-    @State private var purchaseStore = PurchaseStore()
     
+    @Environment(RoutineStore.self) private var routineStore
+    @State private var purchaseStore = PurchaseStore()
+    @State private var toast: ToastModel?
+
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
@@ -73,15 +76,24 @@ struct ShopView: View {
             }
         }
         .padding(.horizontal, -16)
+        .toastView(toast: $toast)
+        .onChange(of: purchaseStore.toastMessage, { _, new in
+            guard let msg = new else {
+                return
+            }
+            toast = ToastModel(type: .success, message: msg)
+            routineStore.fetchMyData()
+        })
         .customNavigationBar(title: "SHOP")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                PieceCounter(count: 9, isButtonEnabled: false)
+                PieceCounter(
+                    count: routineStore.myPuzzle,
+                    isButtonEnabled: routineStore.puzzleLoad == .loading || routineStore.puzzleLoad == .failed
+                )
             }
         }
     }
-    
-    
 }
 
 struct ShopRow: View {
