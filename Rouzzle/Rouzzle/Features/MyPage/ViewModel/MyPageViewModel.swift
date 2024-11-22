@@ -12,6 +12,7 @@ import FirebaseStorage
 import Factory
 
 @Observable
+@MainActor
 final class MyPageViewModel {
     
     @ObservationIgnored

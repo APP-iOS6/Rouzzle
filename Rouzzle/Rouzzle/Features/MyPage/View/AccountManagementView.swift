@@ -11,6 +11,7 @@ import SwiftData
 struct AccountManagementView: View {
     @State private var isShowingDeleteAccountAlert: Bool = false
     @State private var isShowingDeleteRoutineAlert: Bool = false
+    @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingLinkEmailSheet: Bool = false
     @State private var viewModel = AccountManagementViewModel()
     @State private var toast: ToastModel?
@@ -40,7 +41,7 @@ struct AccountManagementView: View {
             }
             .foregroundStyle(.black)
             .font(.regular16)
-            .frame(width: 370, height: 45)
+            .frame(minHeight: 45)
             
             Divider()
             
@@ -50,7 +51,20 @@ struct AccountManagementView: View {
                 Text("루틴 초기화")
                     .font(.semibold16)
                     .foregroundStyle(.black)
-                    .frame(width: 370, height: 45, alignment: .leading)
+                    .frame(maxWidth: .infinity, minHeight: 45, alignment: .leading)
+            }
+            
+            Divider()
+            
+            Button {
+                isShowingLogoutAlert.toggle()
+            } label: {
+                HStack {
+                    Text("로그아웃")
+                        .font(.medium16)
+                        .foregroundStyle(.red)
+                }
+                .frame(maxWidth: .infinity, minHeight: 45, alignment: .leading)
             }
             
             Divider()
@@ -63,7 +77,7 @@ struct AccountManagementView: View {
                         .font(.medium16)
                         .foregroundStyle(.red)
                 }
-                .frame(width: 370, height: 45, alignment: .leading)
+                .frame(maxWidth: .infinity, minHeight: 45, alignment: .leading)
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)
@@ -73,6 +87,11 @@ struct AccountManagementView: View {
             }
         }
         .customNavigationBar(title: "계정 관리")
+        .customAlert(isPresented: $isShowingLogoutAlert,
+                     title: "로그아웃하시겠어요?",
+                     message: "",
+                     primaryButtonTitle: "로그아웃",
+                     primaryAction: { authStore.logOut() })
         .customAlert(isPresented: $isShowingDeleteAccountAlert,
                      title: "정말 탈퇴하시겠어요?",
                      message: "탈퇴 버튼 선택 시, 계정은\n삭제되며 복구되지 않습니다.",
