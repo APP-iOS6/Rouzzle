@@ -12,6 +12,7 @@ struct PassView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var purchaseStore = PurchaseStore()
     @State private var selectedProduct: Product? // 선택된 상품
+    @State private var toast: ToastModel?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -150,12 +151,18 @@ struct PassView: View {
                             }
                         }
                     } label: {
-                        Text(selectedProduct != nil ? "\(selectedProduct!.displayName)하기" : "상품을 선택해 주세요")
-                            .frame(maxWidth: .infinity, minHeight: 45)
-                            .font(.bold20)
+                        if purchaseStore.loadState == .loading {
+                            ProgressView()
+                                .frame(maxWidth: .infinity, minHeight: 45)
+                                .font(.bold20)
+                        } else {
+                            Text(selectedProduct != nil ? "\(selectedProduct!.displayName)하기" : "상품을 선택해 주세요")
+                                .frame(maxWidth: .infinity, minHeight: 45)
+                                .font(.bold20)
+                        }
                         
                     }
-                    .disabled(selectedProduct == nil) // 선택된 상품이 없을 때 비활성화
+                    .disabled(selectedProduct == nil || purchaseStore.loadState == .loading) // 선택된 상품이 없거나 로딩 중일 때 비활성화
                     .padding(.horizontal)
                     .padding(.bottom, 18)
                     .buttonStyle(.borderedProminent)
@@ -174,6 +181,13 @@ struct PassView: View {
                     try await purchaseStore.loadSubsProducts()
                 }
             }
+        }
+        .toastView(toast: $toast)
+        .onChange(of: purchaseStore.toastMessage) { _, new in
+            guard let msg = new else {
+                return
+            }
+            toast = ToastModel(type: .success, message: msg)
         }
     }
 }
