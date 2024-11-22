@@ -71,6 +71,9 @@ class PurchaseStore {
             } else {
                 print("구독 상품 구매 성공")
                 toastMessage = "구독 상품 구매에 성공했습니다."
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.toastMessage = nil
+                }
             }
             
         case .success(.unverified):

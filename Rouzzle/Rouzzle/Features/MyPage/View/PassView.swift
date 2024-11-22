@@ -12,6 +12,7 @@ struct PassView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var purchaseStore = PurchaseStore()
     @State private var selectedProduct: Product? // 선택된 상품
+    @State private var toast: ToastModel?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -180,6 +181,13 @@ struct PassView: View {
                     try await purchaseStore.loadSubsProducts()
                 }
             }
+        }
+        .toastView(toast: $toast)
+        .onChange(of: purchaseStore.toastMessage) { _, new in
+            guard let msg = new else {
+                return
+            }
+            toast = ToastModel(type: .success, message: msg)
         }
     }
 }
