@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoutineStartView: View {
-    @State var viewModel: RoutineStartViewModel
+    @State var viewModel: RoutineStartStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
@@ -92,8 +92,7 @@ struct RoutineStartView: View {
                     
                     // 할일 완료 버튼
                     Button {
-                        viewModel.markTaskAsCompleted()
-
+                        viewModel.markTaskAsCompleted(modelContext)
                     } label: {
                         Image(.checkIcon)
                             .frame(width: 72, height: 72)
@@ -147,7 +146,7 @@ struct RoutineStartView: View {
             .presentationDetents(detents)
         }
         .fullScreenCover(isPresented: $viewModel.isRoutineCompleted) {
-            RoutineCompleteView(path: $path, routineItem: viewModel.routineItem)
+            RoutineCompleteView(path: $path, routineTakeTime: viewModel.routineTakeTime)
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
@@ -158,6 +157,11 @@ struct RoutineStartView: View {
         .onDisappear {
             Task {
                 await viewModel.saveRoutineCompletion()
+                if viewModel.isAllCompleted {
+                    for task in viewModel.viewTasks {
+                        task.elapsedTime = nil
+                    }
+                }
             }
         }
     }
@@ -165,9 +169,9 @@ struct RoutineStartView: View {
 
 #Preview {
     RoutineStartView(
-        viewModel: RoutineStartViewModel(
-            routineItem: RoutineItem.sampleData[0]
-        ), path: .constant(NavigationPath())
+        viewModel: RoutineStartStore(
+            routineItem: RoutineItem.sampleData[0]),
+        path: .constant(NavigationPath())
     )
     .modelContainer(SampleData.shared.modelContainer)
 }

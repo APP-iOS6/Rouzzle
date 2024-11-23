@@ -113,7 +113,7 @@ struct EmojiPickerView: View {
             .background(Color(uiColor: .systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
-        .presentationDetents([.fraction(0.66)])
+        .presentationDetents([.fraction(0.66), .large])
         .presentationCornerRadius(30)
         .presentationDragIndicator(.visible)
     }

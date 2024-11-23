@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct PuzzleLockButton: View {
-   var body: some View {
-       Image(systemName: "lock.circle.fill")
-           .resizable()
-           .frame(width: 29, height: 29)
-           .foregroundStyle(.white, .darkgray)
-           .symbolRenderingMode(.palette)
-   }
-}
-
-#Preview {
-   PuzzleLockButton()
+    private let lockImage = Image(systemName: "lock.circle.fill")
+    
+    var body: some View {
+        lockImage
+            .resizable()
+            .frame(width: 29, height: 29)
+            .foregroundStyle(.white, .darkgray)
+            .symbolRenderingMode(.palette)
+            .drawingGroup()
+    }
 }

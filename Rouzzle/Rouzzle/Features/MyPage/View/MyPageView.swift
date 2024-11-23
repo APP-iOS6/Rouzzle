@@ -10,7 +10,6 @@ import SwiftUI
 struct MyPageView: View {
     @State private var viewModel = MyPageViewModel()
     private let subLightGray = Color.fromRGB(r: 237, g: 237, b: 237) // EDEDED
-    @Environment(AuthStore.self) private var authStore
     @State private var isShowingLogoutAlert: Bool = false
     @State private var isShowingPassView: Bool = false
     @State private var tempProfileImage: UIImage? // 변경된 이미지 임시 저장
@@ -20,6 +19,9 @@ struct MyPageView: View {
     
     var body: some View {
         NavigationStack {
+            Color.white
+                .frame(height: 0)
+            
             ScrollView {
                 VStack(alignment: .leading) {
                     Text("마이페이지")
@@ -225,26 +227,25 @@ struct MyPageView: View {
                             .font(.regular16)
                     }
                     .frame(minHeight: 45)
-
-                    Button {
-                        isShowingLogoutAlert.toggle()
+                    
+                    NavigationLink {
+                        DevInfoView()
                     } label: {
                         HStack {
-                            Text("로그아웃")
-                                .font(.medium16)
-                                .foregroundStyle(.red)
+                            Text("개발자 정보")
+                                .font(.semibold16)
+                                .foregroundStyle(.black)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
                         }
-                        .frame(maxWidth: .infinity, minHeight: 45, alignment: .leading)
                     }
+                    .frame(minHeight: 45)
                     .padding(.bottom) // 탭바와 너무 붙어서 버튼 잘못 눌리는 거 방지용
                 }
                 .padding(.horizontal)
             }
-            .customAlert(isPresented: $isShowingLogoutAlert,
-                         title: "로그아웃하시겠어요?",
-                         message: "",
-                         primaryButtonTitle: "로그아웃",
-                         primaryAction: { authStore.logOut() })
             .fullScreenCover(isPresented: $isShowingPassView) {
                 PassView()
             }
@@ -267,6 +268,5 @@ struct MyPageView: View {
 #Preview {
     NavigationStack {
         MyPageView()
-            .environment(AuthStore())
     }
 }

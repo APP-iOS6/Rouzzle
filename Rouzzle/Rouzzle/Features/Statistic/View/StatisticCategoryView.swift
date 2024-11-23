@@ -30,6 +30,7 @@ struct StatisticCategoryView: View {
                     .onTapGesture {
                         selectedCategory = "요약"
                     }
+                    .padding(.leading, 4)
                 ForEach(routines, id: \.id) { routine in
                     let title = "\(routine.emoji) \(routine.title)"
                     let isSelected = title == selectedCategory
@@ -51,9 +52,7 @@ struct StatisticCategoryView: View {
                         }
                 }
             }
-            .padding(.horizontal, 6)
             .padding(.vertical, 1)
-            .padding(.trailing, 16)
         }
     }
 }

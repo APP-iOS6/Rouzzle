@@ -9,24 +9,25 @@ import SwiftUI
 
 struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(RoutineStore.self) private var routineStore
+    @Environment(RoutineStartStore.self) private var routineStartViewModel
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
-
-    var routineItem: RoutineItem
+    var routineTakeTime: (Date?, Date?)
     var tasks: [TaskList] {
-        routineItem.taskList
+        routineStore.routineItem!.taskList
     }
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\(routineItem.emoji)")
+                Text("\(routineStore.routineItem!.emoji)")
                     .font(.bold30)
                 
-                Text("\(routineItem.title)")
+                Text("\(routineStore.routineItem!.title)")
                     .font(.bold24)
             }
             .padding(.top, 60)
             
-            Text("1:46 PM ~ 2:06 PM")
+            Text("\(routineTakeTime.0?.toTimeString() ?? "") ~ \(routineTakeTime.1?.toTimeString() ?? "")")
                 .font(.regular16)
                 .foregroundStyle(Color.subHeadlineFontColor)
                 .padding(.top)
@@ -75,11 +76,13 @@ struct RoutineCompleteView: View {
                                 .strikethrough()
                             
                             Spacer()
+                            if let elapsedTime = task.elapsedTime {
+                                Text(elapsedTime == 0 ? "없음" :
+                                    (elapsedTime < 60 ? "\(elapsedTime)초" : "\(elapsedTime / 60)분"))
+                                    .font(.regular14)
+                                    .foregroundStyle(Color.subHeadlineFontColor)
+                            }
                             
-                            Text(task.timer == 0 ? "없음" :
-                                (task.timer < 60 ? "\(task.timer)초" : "\(task.timer / 60)분"))
-                                .font(.regular14)
-                                .foregroundStyle(Color.subHeadlineFontColor)
                         }
                         
                     }
@@ -89,7 +92,11 @@ struct RoutineCompleteView: View {
             .padding(.top, 51)
             
             RouzzleButton(buttonType: .complete) {
+                Task {
+                    await routineStore.checkTodayPuzzleReward()
+                }
                 path.removeLast(path.count) // 네비게이션 스택 초기화
+                routineStartViewModel.isAllCompleted = true
             }
             .padding(.bottom)
             .padding()
@@ -100,6 +107,6 @@ struct RoutineCompleteView: View {
 
 #Preview {
     RoutineCompleteView(
-        path: .constant(NavigationPath()), routineItem: RoutineItem.sampleData[0]
+        path: .constant(NavigationPath())
     )
 }

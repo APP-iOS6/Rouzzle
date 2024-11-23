@@ -13,7 +13,7 @@ struct CalendarView: View {
     let routine: RoutineItem
     
     var body: some View {
-        VStack(spacing: 35) {
+        VStack {
             HStack {
                 Text("월간 요약")
                     .font(.bold16)
@@ -34,6 +34,7 @@ struct CalendarView: View {
                     store.moveMonth(direction: value)
                 }
             }
+            .padding(.bottom, 20)
             
             // 요일 헤더 표시
             HStack(spacing: 0) {
@@ -44,14 +45,14 @@ struct CalendarView: View {
                         .foregroundStyle(store.getDayColor(for: index))
                 }
             }
+            .padding(.bottom, 20)
             
             let columns = Array(repeating: GridItem(.flexible()), count: 7)
             
-            LazyVGrid(columns: columns, spacing: 5) {
+            LazyVGrid(columns: columns) {
                 ForEach(store.days) { value in
                     if value.day != -1 {
                         let completionStatus = store.getDayCompleteState(value.date, routineId: routine.id)
-                        let isToday = Calendar.current.isDateInToday(value.date)
                         CalendarDayView(
                             completionStatus: completionStatus,
                             value: value
@@ -61,16 +62,13 @@ struct CalendarView: View {
                             }
                         }
                         .id(value.id)
-                        .overlay {
-                            isToday ? Circle().stroke(.black, lineWidth: 1).frame(width: 34) : nil
-                        }
                     } else {
                         Color.clear
                             .frame(height: 40)
                     }
                 }
             }
-            .animation(.none, value: store.days)
+            .animation(.none, value: store.currentDate)
         }
     }
 }

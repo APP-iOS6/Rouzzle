@@ -14,6 +14,11 @@ struct SignUpView: View {
     
     @State private var showView = false
     @State private var hideWholeView = false
+    @State private var showPopup = true
+    @State private var showTermsOfService = false
+    @State private var showPrivacyPolicy = false
+    @State private var isPrivacyPolicyAccepted = false
+    @State private var isTermsOfServiceAccepted = false
     
     private let riveAnimation = RiveViewModel(fileName: "RouzzleOnboarding", stateMachineName: "State Machine 1")
     
@@ -48,12 +53,13 @@ struct SignUpView: View {
                     
                     // 닉네임 입력 필드
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("닉네임")
+                        Text("루즐러가 된 것을 축하드려요!")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .bold()
+                            .font(.semibold20)
                         
-                        TextField("똑똑한 컴퓨터", text: $vm.user.name)
+                        TextField("닉네임을 입력해 주세요.", text: $vm.user.name)
                             .modifier(StrokeTextFieldModifier())
+                            .font(.regular16)
                         
                         Spacer().frame(height: 18)
                         
@@ -72,6 +78,90 @@ struct SignUpView: View {
                 .offset(y: hideWholeView ? size.height : 0)
                 .animation(.spring(response: 2, dampingFraction: 0.2), value: hideWholeView)
             }
+            
+            if showPopup {
+                Color.black.opacity(0.5)
+                    .edgesIgnoringSafeArea(.all)
+                    .zIndex(1)
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("약관에 동의해 주세요.")
+                        .font(.semibold24)
+                    
+                    Divider()
+                    
+                    HStack {
+                        Button {
+                            isPrivacyPolicyAccepted.toggle()
+                        } label: {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(isPrivacyPolicyAccepted ? .accent : .graylight)
+                                .bold()
+                        }
+                        
+                        Button {
+                            showPrivacyPolicy.toggle()
+                        } label: {
+                            HStack {
+                                Text("개인정보 처리방침 동의(필수)")
+                                    .font(.regular18)
+                                    .foregroundStyle(.black)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                            }
+                        }
+                    }
+                   
+                    HStack {
+                        Button {
+                            isTermsOfServiceAccepted.toggle()
+                        } label: {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(isTermsOfServiceAccepted ? .accent : .graylight)
+                                .bold()
+                        }
+                        
+                        Button {
+                            showTermsOfService.toggle()
+                        } label: {
+                            HStack {
+                                Text("서비스 이용 약관 동의(필수)")
+                                    .font(.regular18)
+                                    .foregroundStyle(.black)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                            }
+                        }
+                    }
+                    .padding(.bottom)
+                    
+                    Button {
+                        withAnimation {
+                            showPopup = false
+                        }
+                    } label: {
+                        Text("완료")
+                            .font(.medium18)
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(isPrivacyPolicyAccepted == false || isTermsOfServiceAccepted == false)
+                }
+                .padding(30)
+                .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
+                .padding(.horizontal, 30)
+                .zIndex(2)
+            }
+        }
+        .sheet(isPresented: $showTermsOfService) {
+            SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/ae2c4d8c27044967ae9772294f58c428?pvs=74")!)
+        }
+        .sheet(isPresented: $showPrivacyPolicy) {
+            SafariView(url: URL(string: "https://overjoyed-garden-c10.notion.site/1358843116e6463c805fda45dac76ce0?pvs=4")!)
         }
         .overlay {
             if viewModel.loadState == .loading {

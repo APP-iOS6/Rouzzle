@@ -129,8 +129,8 @@ class AddRoutineViewModel {
     
     @MainActor
     func uploadRoutine(context: ModelContext) {
-        let _ = interval ?? 1
-        let _ = repeatCount ?? 1
+        _ = interval ?? 1
+        _ = repeatCount ?? 1
         
         let userUid = Auth.auth().currentUser?.uid ?? Utils.getDeviceUUID()
         loadState = .loading
@@ -201,39 +201,28 @@ class AddRoutineViewModel {
     }
     
     func scheduleRoutineNotifications(isRoutineRunning: Bool) {
-        guard let startDate = selectedDateWithTime.values.first else {
-            print("알림 시작 시간이 설정되지 않았습니다.")
-            return
-        }
-        
-        // 기본값 확인: repeatCount와 interval이 설정되지 않은 경우 기본값 적용
-        let validRepeatCount = repeatCount ?? 1
-        let validInterval = interval ?? 1
-        
-        // 유효성 검사 추가
-        guard validRepeatCount > 0 else {
-            print("repeatCount가 유효하지 않아 알림을 설정하지 않습니다. 값: \(validRepeatCount)")
-            return
-        }
-        
-        NotificationManager.shared.removeAllNotifications()
+        guard let interval = interval, let repeatCount = repeatCount else {
+                print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았습니다.")
+                return
+            }
+//        NotificationManager.shared.removeAllNotifications()
         
         // 디버깅: 설정된 값 확인
         print("scheduleRoutineNotifications 호출됨")
         print("알림 설정 시간: \(selectedDateWithTime)")
-        print("시작 날짜: \(startDate)")
-        print("Repeat Count: \(validRepeatCount)")
-        print("Interval Minutes: \(validInterval)")
+//        print("시작 날짜: \(startDate)")
+        print("Repeat Count: \(repeatCount)")
+        print("Interval Minutes: \(interval)")
         
-        NotificationManager.shared.scheduleMultipleNotifications(
-            id: UUID().uuidString,
-            title: title,
-            startDate: startDate,
-            intervalMinutes: validInterval, // 기본값 1분
-            repeatCount: validRepeatCount, // 기본값 0회 반복
-            repeats: true,
-            isRoutineRunning: isRoutineRunning
-        )
+        NotificationManager.shared.scheduleRoutineNotifications(
+                idPrefix: UUID().uuidString,
+                title: title,
+                dayStartTime: selectedDateWithTime,
+                intervalMinutes: interval,
+                repeatCount: repeatCount,
+                repeats: true,
+                isRoutineRunning: isRoutineRunning
+            )
     }
     
     @MainActor

@@ -17,7 +17,7 @@ struct StrokeTextFieldModifier: ViewModifier {
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(.gray, lineWidth: 1)
+                    .stroke(.graymedium, lineWidth: 1)
             }
     }
 }

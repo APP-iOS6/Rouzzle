@@ -6,8 +6,14 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct ShopView: View {
+    
+    @Environment(RoutineStore.self) private var routineStore
+    @State private var purchaseStore = PurchaseStore()
+    @State private var toast: ToastModel?
+
     var body: some View {
         ZStack(alignment: .top) {
             LinearGradient(
@@ -23,22 +29,36 @@ struct ShopView: View {
                     .padding(.top, 27)
                 
                 VStack {
-                    ShopRow(quantity: 6, price: "₩ 1,500", buttonAction: {})
-                    
-                    Divider()
-                        .padding(.vertical, 5)
-                    
-                    ShopRow(quantity: 12, price: "₩ 3,000", buttonAction: {})
-                    
-                    Divider()
-                        .padding(.vertical, 5)
-                    
-                    ShopRow(quantity: 24, price: "₩ 4,000", buttonAction: {})
-                    
-                    Divider()
-                        .padding(.vertical, 5)
-                    
-                    ShopRow(quantity: 48, price: "₩ 5,000", buttonAction: {})
+                    if purchaseStore.products.isEmpty {
+                        VStack(alignment: .center) {
+                            ProgressView()
+                                .font(.medium18)
+                            
+                            Text("상품을 불러오는 중입니다...")
+                                .font(.regular14)
+                                .foregroundStyle(.gray)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    } else {
+                        ForEach(Array(purchaseStore.sortedProducts.enumerated()), id: \.element.id) { index, product in
+                            ShopRow(purchaseStore: purchaseStore,
+                                    quantity: product.displayName,
+                                    price: product.displayPrice,
+                                    buttonAction: { completion in
+                                Task {
+                                    do {
+                                        try await purchaseStore.purchase(product)
+                                        completion() // 구매 완료 시 로딩 상태 해제
+                                    }
+                                }
+                            })
+                            
+                            if index < purchaseStore.products.count - 1 {
+                                Divider()
+                                    .padding(.vertical, 5)
+                            }
+                        }
+                    }
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,20 +70,40 @@ struct ShopView: View {
             }
             .padding(.horizontal)
         }
+        .onAppear {
+            Task {
+                do {
+                    try await purchaseStore.loadPuzzleProducts()
+                }
+            }
+        }
         .padding(.horizontal, -16)
+        .toastView(toast: $toast)
+        .onChange(of: purchaseStore.toastMessage, { _, new in
+            guard let msg = new else {
+                return
+            }
+            toast = ToastModel(type: .success, message: msg)
+            routineStore.fetchMyData()
+        })
         .customNavigationBar(title: "SHOP")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                PieceCounter(count: 9, isButtonEnabled: false)
+                PieceCounter(
+                    count: routineStore.myPuzzle,
+                    isButtonEnabled: routineStore.puzzleLoad == .loading || routineStore.puzzleLoad == .failed
+                )
             }
         }
     }
 }
 
 struct ShopRow: View {
-    let quantity: Int
+    @State var purchaseStore: PurchaseStore
+    let quantity: String
     let price: String
-    let buttonAction: () -> Void
+    let buttonAction: (@escaping () -> Void) -> Void
+    @State private var isLoading: Bool = false
 
     var body: some View {
         HStack(spacing: 7) {
@@ -74,21 +114,38 @@ struct ShopRow: View {
                 .foregroundStyle(.accent)
                 .font(.system(size: 14, weight: .regular))
             
-            Text("\(quantity)")
+            Text(quantity)
                 .font(.system(size: 16, weight: .medium))
             
             Spacer()
             
-            Button(action: buttonAction) {
-                Text(price)
-                    .frame(width: 70, height: 30)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(.accent)
-                    .background(
-                        RoundedRectangle(cornerRadius: 9)
-                            .stroke(Color.accent, lineWidth: 1)
-                    )
+            Button {
+                isLoading = true
+                buttonAction {
+                    isLoading = false
+                }
+            } label: {
+                if isLoading {
+                    ProgressView()
+                        .frame(width: 70, height: 30)
+                        .font(.semibold12)
+                        .foregroundStyle(.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(Color.accent, lineWidth: 1)
+                        )
+                } else {
+                    Text(price)
+                        .frame(width: 70, height: 30)
+                        .font(.semibold12)
+                        .foregroundStyle(.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 9)
+                                .stroke(Color.accent, lineWidth: 1)
+                        )
+                }
             }
+            .disabled(isLoading)
         }
     }
 }
