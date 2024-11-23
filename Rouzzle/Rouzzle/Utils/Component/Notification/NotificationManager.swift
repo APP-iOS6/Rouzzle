@@ -37,7 +37,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         content.body = body
         content.sound = .default
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.hour, .minute], from: date), repeats: repeats)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.weekday, .hour, .minute], from: date), repeats: repeats)
         
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         
@@ -67,12 +67,16 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         removeAllNotifications()
         
         // 첫 번째 알림 메시지
-        let initialBody = "\(title)을 하러 갈 시간이에요!"
+        let initialBody = "지금 바로 시작해볼까요?"
         scheduleNotification(id: "\(id)_initial", title: title, body: initialBody, date: startDate, repeats: repeats, isRoutineRunning: isRoutineRunning)
         
         // 반복 알림
         for i in 1...repeatCount {
             guard let notificationDate = Calendar.current.date(byAdding: .minute, value: intervalMinutes * i, to: startDate) else { continue }
+            
+            // 요일과 시간을 포함한 DateComponents 생성
+            var components = Calendar.current.dateComponents([.hour, .minute], from: notificationDate)
+            components.weekday = Calendar.current.component(.weekday, from: startDate) // 시작 날짜의 요일 가져오기
             
             // 반복 알림 메시지
             let elapsedTime = intervalMinutes * i
@@ -84,8 +88,24 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             print("반복알림 \(i): \(dateFormatter.string(from: notificationDate)), 메시지: \(repeatBody)")
             
             // 반복 알림 스케줄링
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = repeatBody
+            content.sound = .default
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeats)
             let newId = "\(id)_repeat_\(i)"
-            scheduleNotification(id: newId, title: title, body: repeatBody, date: notificationDate, isRoutineRunning: isRoutineRunning)
+            let request = UNNotificationRequest(identifier: newId, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error.localizedDescription)")
+                } else {
+                    print("Scheduled Notification \(newId) with components: \(components)")
+                }
+            }
+//            let newId = "\(id)_repeat_\(i)"
+//            scheduleNotification(id: newId, title: title, body: repeatBody, date: notificationDate, isRoutineRunning: isRoutineRunning)
         }
     }
     

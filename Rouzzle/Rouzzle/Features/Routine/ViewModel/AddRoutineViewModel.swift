@@ -220,7 +220,8 @@ class AddRoutineViewModel {
         
         // 디버깅: 설정된 값 확인
         print("scheduleRoutineNotifications 호출됨")
-        print("Start Date: \(startDate)")
+        print("알림 설정 시간: \(selectedDateWithTime)")
+        print("시작 날짜: \(startDate)")
         print("Repeat Count: \(validRepeatCount)")
         print("Interval Minutes: \(validInterval)")
         
