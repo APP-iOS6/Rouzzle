@@ -45,7 +45,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             if let error = error {
                 print("Error scheduling notification: \(error.localizedDescription)")
             } else {
-                print("Notification scheduled for \(id) at \(date)")
+//                print("Notification scheduled for \(id) at \(date)")
             }
         }
     }
