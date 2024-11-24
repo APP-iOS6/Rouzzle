@@ -36,9 +36,6 @@ struct LoginView: View {
                         viewModel.send(.kakao)
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundStyle(.kakaocolor)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
                             HStack {
                                 Image(.kakaologo)
                                     .padding(.trailing)
@@ -48,6 +45,12 @@ struct LoginView: View {
                             }
                         }
                     }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.kakaocolor)
+                    )
                     .padding(.horizontal)
                     
                     // MARK: 애플 로그인 버튼
