@@ -90,6 +90,7 @@ struct SocialView: View {
                                 }
                             }
                             .padding(.top, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         } else if !viewModel.searchResults.isEmpty {
                             // 검색 리스트
                             VStack(alignment: .leading, spacing: 20) {
