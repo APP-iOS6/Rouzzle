@@ -23,6 +23,7 @@ class RoutineStore {
     var taskList: [TaskList] = [] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
     var puzzleLoad: LoadState = .none
+    var phase: Phase = .loading
     var toast: ToastModel?
     var toastMessage: String?
     var homeToastMessage: String? // 루틴 리스트(홈) 에서 보여질 토스트 메시지
@@ -43,7 +44,7 @@ class RoutineStore {
     init() {
         fetchMyData()
     }
-    
+        
     func fetchViewTask() {
         guard let routineItem = routineItem else { return }
         self.taskList = routineItem.taskList

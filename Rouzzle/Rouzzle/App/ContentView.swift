@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var tabBarState = TabBarState()
     
+    @State private var tabBarState = TabBarState()
+    @Environment(\.modelContext) private var modelContext
+
     var body: some View {
         TabView {
-            RoutineListView()
+            RoutineListView(viewModel: .init(context: modelContext))
                 .tabItem {
                     Text("홈")
                     Image(systemName: "house.fill")
