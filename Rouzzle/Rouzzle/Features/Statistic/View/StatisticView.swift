@@ -67,7 +67,6 @@ struct EmptyStatisticView: View {
     var body: some View {
         VStack {
             Spacer()
-                .frame(minHeight: proxy.size.height * 0.3)
             
             Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                 .font(.system(size: 60))
@@ -76,6 +75,8 @@ struct EmptyStatisticView: View {
             Text("등록된 루틴이 없습니다.")
                 .font(.medium16)
                 .foregroundStyle(.graymedium)
+            
+            Spacer()
         }
     }
 }

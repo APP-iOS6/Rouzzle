@@ -71,9 +71,9 @@ struct RoutineFilterToggle: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        RoutineListView()
-            .modelContainer(SampleData.shared.modelContainer)
-    }
-}
+// #Preview {
+//    NavigationStack {
+//        RoutineListView()
+//            .modelContainer(SampleData.shared.modelContainer)
+//    }
+// }

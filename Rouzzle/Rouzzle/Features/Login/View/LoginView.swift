@@ -11,6 +11,7 @@ import AuthenticationServices
 
 struct LoginView: View {
     @Environment(AuthStore.self) private var authStore
+    @Environment(RoutineStore.self) private var routineStore
     private let viewModel: LoginViewModel = LoginViewModel()
     
     // Rive 애니메이션 추가
@@ -35,9 +36,6 @@ struct LoginView: View {
                         viewModel.send(.kakao)
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundStyle(.kakaocolor)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
                             HStack {
                                 Image(.kakaologo)
                                     .padding(.trailing)
@@ -47,6 +45,12 @@ struct LoginView: View {
                             }
                         }
                     }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.kakaocolor)
+                    )
                     .padding(.horizontal)
                     
                     // MARK: 애플 로그인 버튼
@@ -101,6 +105,7 @@ struct LoginView: View {
             .onChange(of: viewModel.loadState) { _, newValue in
                 if newValue == .completed {
                     authStore.login()
+                    routineStore.fetchMyData()
                 }
             }
         }

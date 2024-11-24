@@ -246,6 +246,7 @@ struct MyPageView: View {
                 }
                 .padding(.horizontal)
             }
+            .scrollIndicators(.hidden)
             .fullScreenCover(isPresented: $isShowingPassView) {
                 PassView()
             }

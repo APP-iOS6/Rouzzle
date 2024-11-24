@@ -90,6 +90,7 @@ struct SocialView: View {
                                 }
                             }
                             .padding(.top, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         } else if !viewModel.searchResults.isEmpty {
                             // 검색 리스트
                             VStack(alignment: .leading, spacing: 20) {
@@ -119,6 +120,7 @@ struct SocialView: View {
                                 }
                             }
                             .padding(.top, 20)
+                            .padding(.leading, 3)
                         } else {
                             Text("검색 결과가 없습니다.")
                                 .font(.light16)
@@ -126,6 +128,7 @@ struct SocialView: View {
                                 .padding(.top, 20)
                         }
                     }
+                    .scrollIndicators(.hidden)
                 }
                 .padding()
             }
