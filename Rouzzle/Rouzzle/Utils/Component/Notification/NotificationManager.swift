@@ -23,112 +23,128 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-    // 알림 스케줄 추가
-    func scheduleNotification(
-        id: String,
-        title: String,
-        body: String,
-        date: Date,
-        repeats: Bool = false,
-        weekdays: [Int]? = nil,
-        isRoutineRunning: Bool
-    ) {
+    // 단일 알림 스케줄
+    func scheduleNotification(id: String, title: String, body: String, date: Date, repeats: Bool = false, isRoutineRunning: Bool) {
         if isRoutineRunning {
             print("루틴 실행 중: 알림을 스케줄링하지 않습니다.")
             return
         }
-
+        
+        print("Scheduling Notification: \(id), Title: \(title), Date: \(date)")
+        
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
         content.sound = .default
-
-        let center = UNUserNotificationCenter.current()
-        let calendar = Calendar.current
-
-        if let weekdays = weekdays, !weekdays.isEmpty {
-            // 요일별 반복 알림
-            for weekday in weekdays {
-                var dateComponents = calendar.dateComponents([.hour, .minute], from: date)
-                dateComponents.weekday = weekday
-
-                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-                let weekdayID = "\(id)_weekday_\(weekday)"
-
-                let request = UNNotificationRequest(identifier: weekdayID, content: content, trigger: trigger)
-
-                center.add(request) { error in
-                    if let error = error {
-                        print("Error scheduling notification for weekday \(weekday): \(error.localizedDescription)")
-                    } else {
-                        print("Notification scheduled for weekday \(weekday)")
-                    }
-                }
-            }
-        } else {
-            // 단일 또는 전체 반복 알림 (기존 동작)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: calendar.dateComponents([.hour, .minute], from: date), repeats: repeats)
-
-            let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
-
-            center.add(request) { error in
-                if let error = error {
-                    print("Error scheduling notification: \(error.localizedDescription)")
-                } else {
-                    print("Notification scheduled at \(date)")
-                }
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.weekday, .hour, .minute], from: date), repeats: repeats)
+        
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+//                print("Notification scheduled for \(id) at \(date)")
             }
         }
     }
 
-    // 다중 알람 스케줄 설정 (반복)
+    // 다중 알람 스케줄 설정 (단일+반복)
     // repeatCount 만큼 반복하여, intervalMinutes 간격으로 알림 추가하기
-    func scheduleMultipleNotifications(
-        id: String,
-        title: String,
-        startDate: Date,
-        intervalMinutes: Int,
-        repeatCount: Int,
-        weekdays: [Int]? = nil,
-        isRoutineRunning: Bool
-    ) {
+    func scheduleMultipleNotifications(id: String, title: String, startDate: Date, intervalMinutes: Int, repeatCount: Int, repeats: Bool = false, isRoutineRunning: Bool) {
         guard !isRoutineRunning else {
             print("루틴 실행 중: 반복 알림을 스케줄링하지 않습니다.")
             return
         }
-
-        if let weekdays = weekdays, !weekdays.isEmpty {
-            // 요일별 반복 알림 설정
-            for weekday in weekdays {
-                guard let notificationDate = Calendar.current.date(byAdding: .minute, value: intervalMinutes, to: startDate) else { continue }
-                scheduleNotification(
-                    id: "\(id)_weekday_\(weekday)",
-                    title: title,
-                    body: "\(title)을 시작하세요!",
-                    date: notificationDate,
-                    repeats: true,
-                    weekdays: [weekday],
-                    isRoutineRunning: false
-                )
-            }
-        } else {
-            // 기존 반복 알림
-            for i in 0..<repeatCount {
-                guard let notificationDate = Calendar.current.date(byAdding: .minute, value: intervalMinutes * i, to: startDate) else { continue }
-
-                let repeatBody = "\(title)을 시작하세요!"
-                scheduleNotification(
-                    id: "\(id)_repeat_\(i)",
-                    title: title,
-                    body: repeatBody,
-                    date: notificationDate,
-                    repeats: false,
-                    isRoutineRunning: false
-                )
+        
+        print("scheduleMultipleNotifications 호출됨")
+//        print("Title: \(title)")
+//        print("Start Date: \(startDate)")
+//        print("Interval: \(intervalMinutes) 분")
+//        print("Repeat Count: \(repeatCount)")
+        
+        removeAllNotifications()
+        
+        // 첫 번째 알림 메시지
+        let initialBody = "지금 바로 시작해볼까요?"
+        scheduleNotification(id: "\(id)_initial", title: title, body: initialBody, date: startDate, repeats: repeats, isRoutineRunning: isRoutineRunning)
+        
+        // 반복 알림
+        for i in 1...repeatCount {
+            guard let notificationDate = Calendar.current.date(byAdding: .minute, value: intervalMinutes * i, to: startDate) else { continue }
+            
+            // 요일과 시간을 포함한 DateComponents 생성
+            var components = Calendar.current.dateComponents([.hour, .minute], from: notificationDate)
+            components.weekday = Calendar.current.component(.weekday, from: startDate) // 시작 날짜의 요일 가져오기
+            
+            // 반복 알림 메시지
+            let elapsedTime = intervalMinutes * i
+            let repeatBody = "\(elapsedTime)분이 지났어요! 지금 시작하세요!"
+            
+            // 디버깅: 각 알림 시간 및 메시지 출력
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            print("반복알림 \(i): \(dateFormatter.string(from: notificationDate)), 메시지: \(repeatBody)")
+            
+            // 반복 알림 스케줄링
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = repeatBody
+            content.sound = .default
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: repeats)
+            let newId = "\(id)_repeat_\(i)"
+            let request = UNNotificationRequest(identifier: newId, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error.localizedDescription)")
+                } /*else {
+                    print("Scheduled Notification \(newId) with components: \(components)")
+                }*/
             }
         }
     }
+    
+    // 단일, 반복 알림 종합 설정
+    func scheduleRoutineNotifications(
+            idPrefix: String,
+            title: String,
+            dayStartTime: [Day: Date],
+            intervalMinutes: Int,
+            repeatCount: Int,
+            repeats: Bool = true,
+            isRoutineRunning: Bool = false
+        ) {
+            guard !dayStartTime.isEmpty else {
+                print("알림 설정 실패: 시작 시간이 설정되지 않았습니다.")
+                return
+            }
 
+            // 모든 알림 제거
+            removeAllNotifications()
+
+            for (day, time) in dayStartTime {
+                guard let routineStartDate = Calendar.current.nextDate(
+                    after: Date(),
+                    matching: Calendar.current.dateComponents([.hour, .minute], from: time),
+                    matchingPolicy: .nextTime
+                ) else { continue }
+
+                let alarmID = "\(idPrefix)_day_\(day.rawValue)"
+                scheduleMultipleNotifications(
+                    id: alarmID,
+                    title: title,
+                    startDate: routineStartDate,
+                    intervalMinutes: intervalMinutes,
+                    repeatCount: repeatCount,
+                    repeats: repeats,
+                    isRoutineRunning: isRoutineRunning
+                )
+            }
+            print("요일별 알림이 스케줄링되었습니다.")
+        }
     
     // 포그라운드때도 알림 표시
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -138,7 +154,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     // 기존 알림 제거
     func removeAllNotifications() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        print("기존 알림이 모두 제거되었습니다.")
+//        print("기존 알림이 모두 제거되었습니다.")
     }
     
     // 특정 알림 ID를 기반으로 알림 취소
@@ -149,7 +165,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
                 .map { $0.identifier }
             
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: idsToRemove)
-            print("\(idsToRemove.count)개의 알림이 취소되었습니다. (Prefix: \(prefix))")
+            print("\(idsToRemove.count)의 알림이 취소되었습니다. (Prefix: \(prefix))")
         }
     }
     

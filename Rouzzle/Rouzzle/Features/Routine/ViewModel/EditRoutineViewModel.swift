@@ -120,9 +120,10 @@ class EditRoutineViewModel {
                 try context.save()
                 // 알림 설정 로직 추가
                 if isNotificationEnabled {
-                    scheduleNotifications(isRoutineRunning: false, repeats: true)
+                    scheduleNotifications(isRoutineRunning: false)
                 } else {
                     NotificationManager.shared.removeAllNotifications()
+                    print("기존 알림이 모두 제거되었습니다.")
                 }
                 loadState = .completed
             } catch {
@@ -154,7 +155,7 @@ class EditRoutineViewModel {
                 }
                 // 알림 설정 로직 추가
                 if isNotificationEnabled {
-                    scheduleNotifications(isRoutineRunning: false, repeats: true)
+                    scheduleNotifications(isRoutineRunning: false)
                 } else {
                     NotificationManager.shared.removeAllNotifications()
                 }
@@ -180,35 +181,20 @@ class EditRoutineViewModel {
     }
     
     // 알림 스케줄링
-    func scheduleNotifications(isRoutineRunning: Bool, repeats: Bool = false) {
-        guard let interval = editRoutine.interval,
-              let repeatCount = editRoutine.repeatCount,
-              !tempdayStartTime.isEmpty else {
-            print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았거나 시작 시간이 없음")
-            return
-        }
+    func scheduleNotifications(isRoutineRunning: Bool) {
+        guard let interval = editRoutine.interval, let repeatCount = editRoutine.repeatCount else {
+                print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았습니다.")
+                return
+            }
 
-        let weekdays = tempdayStartTime.keys.map { $0.rawValue }
-
-        for (day, time) in tempdayStartTime {
-            guard let routineStartDate = Calendar.current.nextDate(
-                after: Date(),
-                matching: Calendar.current.dateComponents([.hour, .minute], from: time),
-                matchingPolicy: .nextTime
-            ) else { continue }
-            
-            // 요일별 알림 설정
-            NotificationManager.shared.scheduleNotification(
-                id: "\(UUID().uuidString)_day_\(day.rawValue)",
+            NotificationManager.shared.scheduleRoutineNotifications(
+                idPrefix: "\(routine.id)",
                 title: editRoutine.title,
-                body: "\(editRoutine.title)을 시작하세요!",
-                date: routineStartDate,
-                repeats: repeats,
-                weekdays: [day.rawValue],
+                dayStartTime: tempdayStartTime,
+                intervalMinutes: interval,
+                repeatCount: repeatCount,
+                repeats: true,
                 isRoutineRunning: isRoutineRunning
             )
-        }
-
-        print("요일별 알림이 스케줄링되었습니다: \(weekdays)")
     }
 }
