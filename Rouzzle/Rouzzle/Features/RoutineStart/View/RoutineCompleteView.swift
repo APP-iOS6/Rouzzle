@@ -11,6 +11,8 @@ struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(RoutineStore.self) private var routineStore
     @Environment(RoutineStartStore.self) private var routineStartViewModel
+    @StateObject private var staticsticStore: StatisticStore = StatisticStore()
+
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     var routineTakeTime: (Date?, Date?)
     var tasks: [TaskList] {
@@ -38,7 +40,7 @@ struct RoutineCompleteView: View {
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
                     
-                    Text("2")
+                    Text("\(staticsticStore.getRoutineStatistic(routineId: routineStore.routineItem!.id).currentStreak)")
                         .font(.bold24)
                 }
                 .frame(maxWidth: .infinity)
@@ -51,7 +53,7 @@ struct RoutineCompleteView: View {
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
                     
-                    Text("4")
+                    Text("\(staticsticStore.getRoutineStatistic(routineId: routineStore.routineItem!.id).totalCompletedDays)")
                         .font(.bold24)
                 }
                 .frame(maxWidth: .infinity)
