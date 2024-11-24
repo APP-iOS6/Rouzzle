@@ -201,24 +201,28 @@ class AddRoutineViewModel {
     }
     
     func scheduleRoutineNotifications(isRoutineRunning: Bool) {
-        guard isNotificationEnabled else { return }
-
-        let weekdays = selectedDateWithTime.keys.map { $0.rawValue }
-        let title = self.title.isEmpty ? "루틴" : self.title
-
-        for (day, time) in selectedDateWithTime {
-            NotificationManager.shared.scheduleNotification(
-                id: "\(UUID().uuidString)_day_\(day.rawValue)",
+        guard let interval = interval, let repeatCount = repeatCount else {
+                print("알림 설정 실패: interval 또는 repeatCount가 설정되지 않았습니다.")
+                return
+            }
+//        NotificationManager.shared.removeAllNotifications()
+        
+        // 디버깅: 설정된 값 확인
+        print("scheduleRoutineNotifications 호출됨")
+        print("알림 설정 시간: \(selectedDateWithTime)")
+//        print("시작 날짜: \(startDate)")
+        print("Repeat Count: \(repeatCount)")
+        print("Interval Minutes: \(interval)")
+        
+        NotificationManager.shared.scheduleRoutineNotifications(
+                idPrefix: UUID().uuidString,
                 title: title,
-                body: "\(title)을 시작하세요!",
-                date: time,
+                dayStartTime: selectedDateWithTime,
+                intervalMinutes: interval,
+                repeatCount: repeatCount,
                 repeats: true,
-                weekdays: [day.rawValue],
                 isRoutineRunning: isRoutineRunning
             )
-        }
-
-        print("요일별 알림이 스케줄링되었습니다: \(weekdays)")
     }
     
     @MainActor
