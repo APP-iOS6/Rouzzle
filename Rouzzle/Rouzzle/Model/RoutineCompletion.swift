@@ -26,4 +26,8 @@ struct TaskCompletion: Codable, Hashable {
     var emoji: String // 이모지
     var timer: Int // 할일 타이머
     var isComplete: Bool // 완성됨?
+    
+    func toTaskList() -> TaskList {
+        return TaskList(title: title, emoji: emoji, timer: timer, isCompleted: isComplete)
+    }
 }

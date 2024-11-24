@@ -11,6 +11,7 @@ import AuthenticationServices
 
 struct LoginView: View {
     @Environment(AuthStore.self) private var authStore
+    @Environment(RoutineStore.self) private var routineStore
     private let viewModel: LoginViewModel = LoginViewModel()
     
     // Rive 애니메이션 추가
@@ -101,6 +102,7 @@ struct LoginView: View {
             .onChange(of: viewModel.loadState) { _, newValue in
                 if newValue == .completed {
                     authStore.login()
+                    routineStore.fetchMyData()
                 }
             }
         }
