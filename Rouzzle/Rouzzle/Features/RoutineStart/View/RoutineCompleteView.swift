@@ -41,8 +41,8 @@ struct RoutineCompleteView: View {
                     Text("연속일")
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
-                    
                     Text("\(currentStreak)")
+
                         .font(.bold24)
                 }
                 .frame(maxWidth: .infinity)
@@ -54,7 +54,6 @@ struct RoutineCompleteView: View {
                     Text("누적일")
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
-                    
                     Text("\(totalCompletedDays)")
                         .font(.bold24)
                 }

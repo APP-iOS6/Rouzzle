@@ -16,13 +16,18 @@ struct AddRoutineContainerView: View {
     var body: some View {
         VStack {
             HStack {
+                if viewModel.step == .info {
+                    Spacer()
+                }
                 Button {
                    goBack()
                 } label: {
                     Image(systemName: viewModel.step == .info ? "xmark" : "chevron.left")
                         .font(.semibold20)
                 }
-                Spacer()
+                if viewModel.step != .info {
+                    Spacer()
+                }
             }
             .overlay {
                 Text(viewModel.step == .info ? "루틴 등록" : "할 일 등록")

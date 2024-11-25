@@ -65,9 +65,7 @@ struct TaskListSheet: View {
                 }
                 .padding()
             }
-            
-            Spacer()
-            
+                        
             if showEditIcon {
                 Button {
                     dismiss()
