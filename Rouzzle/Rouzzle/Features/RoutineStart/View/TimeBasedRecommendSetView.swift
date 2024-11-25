@@ -93,9 +93,8 @@ struct TimeBasedRecommendSetView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                            .font(.bold24)
+                            .font(.semibold20)
                     }
-                    .padding()
                 }
             }
         }
