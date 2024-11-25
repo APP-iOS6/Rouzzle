@@ -306,7 +306,7 @@ struct DayButton: View {
                     .foregroundColor(isSelected ? .black : .gray)
                     .font(.regular16)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity)
         }
     }
 }
