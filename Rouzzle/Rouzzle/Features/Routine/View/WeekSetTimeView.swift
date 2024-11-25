@@ -24,10 +24,9 @@ struct WeekSetTimeView: View {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.semibold24)
+                    .font(.semibold20)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.trailing, 20)
             
             Text("요일별 시간 설정")
                 .font(.semibold20)
@@ -135,7 +134,16 @@ struct ReusableTimePickerSheet: View {
                 .datePickerStyle(WheelDatePickerStyle())
                 .labelsHidden()
         }
-        .presentationDetents([.fraction(0.4)])
+        .presentationDetents([detentForScreenSize()])
+    }
+    
+    private func detentForScreenSize() -> PresentationDetent {
+        let screenHeight = UIScreen.main.bounds.height
+        if screenHeight <= 667 { // iPhone SE 크기 기준
+            return .fraction(0.45)
+        } else {
+            return .fraction(0.4)
+        }
     }
 }
 
