@@ -108,6 +108,7 @@ struct RoutineBasicSettingView: View {
                     DayButton(day: day.name, isSelected: viewModel.isSelected(day)) {
                         viewModel.toggleDay(day)
                     }
+                    .frame(height: 35)
                 }
             }
             

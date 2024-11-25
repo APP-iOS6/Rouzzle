@@ -114,7 +114,6 @@ struct AddTaskView: View {
                                     Task {
                                         await routineStore.addTask(recommend, context: modelContext)
                                     }
-                                    }
                                 }
                             }
                         }
@@ -164,7 +163,6 @@ struct AddTaskView: View {
                 }
             }
         }
-        //.padding()
         .toastView(toast: $toast) // ToastModifier 적용
         .customAlert(
             isPresented: $isShowingDeleteAlert,
