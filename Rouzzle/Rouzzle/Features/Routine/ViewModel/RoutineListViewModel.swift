@@ -40,7 +40,10 @@ class RoutineListViewModel {
                     let routine = data.routine.toRoutineItem()
                     try SwiftDataService.addRoutine(routine, context: context)
                     for task in data.completion.taskCompletions {
-                        try SwiftDataService.addTask(to: routine, task.toTaskList(), context: context)
+                        if let routineTask = data.routine.routineTask.first(where: { $0.title == task.title }) {
+                            let taskList = TaskList(title: routineTask.title, emoji: routineTask.emoji, timer: routineTask.timer, isCompleted: task.isComplete)
+                            try SwiftDataService.addTask(to: routine, taskList, context: context)
+                        }
                     }
                 }
                 print("루초 성공")
@@ -49,10 +52,9 @@ class RoutineListViewModel {
                 print("루초 실패")
                 phase = .failed
             }
-        case .failure(_):
+        case .failure:
             print("루초 실패")
             phase = .failed
         }
     }
 }
-
