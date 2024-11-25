@@ -120,6 +120,7 @@ struct SocialView: View {
                                 }
                             }
                             .padding(.top, 20)
+                            .padding(.leading, 3)
                         } else {
                             Text("검색 결과가 없습니다.")
                                 .font(.light16)
@@ -127,6 +128,7 @@ struct SocialView: View {
                                 .padding(.top, 20)
                         }
                     }
+                    .scrollIndicators(.hidden)
                 }
                 .padding()
             }

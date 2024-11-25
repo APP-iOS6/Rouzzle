@@ -17,6 +17,7 @@ class RoutineManager {
         
         // 기존 알림 제거
         NotificationManager.shared.removeAllNotifications()
+        print("이후 알림 제거")
     }
     
     func stopRoutine() {

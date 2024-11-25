@@ -35,13 +35,13 @@ struct RoutineStartView: View {
                         .font(.bold30)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.trailing, 20)
+                .padding(.trailing)
                 .padding(.top, 10)
                 
                 if let inProgressTask = viewModel.inProgressTask {
                     Text("\(inProgressTask.emoji) \(inProgressTask.title)")
                         .font(.bold24)
-                        .padding(.top, 40)
+                        .padding(.top, 20)
                 }
                 
                 // MARK: 퍼즐 모양 타이머
@@ -111,7 +111,7 @@ struct RoutineStartView: View {
                 Text("다음 할일")
                     .font(.semibold16)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 60)
+                    .padding(.top, 30)
                 
                 if let nextTask = viewModel.nextPendingTask {
                     TaskStatusRow(
@@ -133,7 +133,7 @@ struct RoutineStartView: View {
                     Text("할일 전체 보기")
                         .underline()
                 }
-                .padding(.bottom, 60)
+                .padding(.bottom, 10)
             }
             .padding(.horizontal)
         }

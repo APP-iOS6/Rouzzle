@@ -22,9 +22,9 @@ struct CalendarDayView: View {
                 Text("\(value.day)")
                     .padding(4)
                     .font(.medium16)
-                    .background(isToday ? Color(uiColor: .systemGray5) : .clear)
+                    .background(isToday ? Color.black : .clear)
                     .clipShape(.circle)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(isToday ? .white : .black)
                     .frame(width: 35, height: 35)
             }
         }

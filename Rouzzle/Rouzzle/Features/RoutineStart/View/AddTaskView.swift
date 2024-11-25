@@ -80,6 +80,7 @@ struct AddTaskView: View {
                     
                     RouzzleButton(buttonType: .timerStart, disabled: routineStore.taskList.isEmpty) {
                         isShowingTimerView.toggle()
+                        viewModel.startRoutine()
                     }
                     .padding(.top)
                     
@@ -112,6 +113,7 @@ struct AddTaskView: View {
                                     routineStore.getRecommendTask()
                                     Task {
                                         await routineStore.addTask(recommend, context: modelContext)
+                                    }
                                     }
                                 }
                             }

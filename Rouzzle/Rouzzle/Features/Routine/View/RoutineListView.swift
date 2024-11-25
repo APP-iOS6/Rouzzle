@@ -151,8 +151,10 @@ struct RoutineListView: View {
                     ToolbarItem(placement: .topBarLeading) {
                         PieceCounter(
                             count: routineStore.myPuzzle,
-                            isButtonEnabled: routineStore.puzzleLoad == .loading || routineStore.puzzleLoad == .failed
-                        )
+                            phase: routineStore.puzzlePhase
+                        ) {
+                            routineStore.fetchMyData()
+                        }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button(action: {
@@ -194,7 +196,7 @@ struct RoutineListView: View {
                     }
                 }
                 .navigationDestination(isPresented: $isShowingChallengeView) {
-                    RouzzleChallengeView(puzzleCount: routineStore.myPuzzle)
+                    RouzzleChallengeView()
                 }
             }
         }

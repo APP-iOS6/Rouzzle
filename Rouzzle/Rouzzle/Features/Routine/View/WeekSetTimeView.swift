@@ -128,6 +128,7 @@ struct ReusableTimePickerSheet: View {
                 .foregroundColor(.accent)
             }
             .padding()
+            .padding(.bottom, -16)
             
             DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
                 .datePickerStyle(WheelDatePickerStyle())
