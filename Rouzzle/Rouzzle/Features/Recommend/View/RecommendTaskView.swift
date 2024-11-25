@@ -26,7 +26,7 @@ struct RecommendTaskView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(task.title)
                             .font(.headline)
-                        Text("\(task.timer)분")
+                        Text("\(task.timer.formattedTimer)")
                             .font(.regular12)
                             .foregroundStyle(.gray)
                     }
