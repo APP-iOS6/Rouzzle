@@ -9,15 +9,14 @@ import Foundation
 import SwiftUI
 
 struct RoutineTasksView: View {
-    var tasks: [RoutineTask]
-    
+    var routine: Routine
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text("8:30 AM - 8:50 AM")
+            Text(getRoutineTimeRangeString(routine: routine))
                 .font(.light12)
                 .foregroundColor(.gray)
             
-            ForEach(tasks, id: \.self) { task in
+            ForEach(routine.routineTask, id: \.self) { task in
                 HStack(spacing: 2) {
                     Text(task.emoji)
                     Text(task.title)
