@@ -32,12 +32,10 @@ struct RoutineStartView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
-                        .font(.bold30)
+                        .font(.semibold24)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.trailing)
-                .padding(.top, 10)
-                
+
                 if let inProgressTask = viewModel.inProgressTask {
                     Text("\(inProgressTask.emoji) \(inProgressTask.title)")
                         .font(.bold24)
