@@ -41,7 +41,17 @@ struct RoutineTask: Codable, Hashable {
     func toTaskList() -> TaskList {
         return TaskList(title: title, emoji: emoji, timer: timer)
     }
+    
+    func toTaskCompletion() -> TaskCompletion {
+        return TaskCompletion(title: title, emoji: emoji, timer: timer, isComplete: false)
+    }
 }
+
+struct RoutineWithCompletion: Codable {
+    var routine: Routine
+    var completion: RoutineCompletion
+}
+
 enum Day: Int, Codable, CaseIterable {
     case sunday = 1
     case monday

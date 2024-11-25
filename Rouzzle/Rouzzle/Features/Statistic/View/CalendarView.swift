@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalendarView: View {
     
-    @ObservedObject var store: StatisticStore
+    @EnvironmentObject private var store: StatisticStore
     let routine: RoutineItem
     
     var body: some View {
@@ -74,5 +74,5 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(store: .init(), routine: RoutineItem.sampleData[0])
+    CalendarView(routine: RoutineItem.sampleData[0])
 }

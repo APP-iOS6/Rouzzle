@@ -60,9 +60,7 @@ enum SwiftDataService {
     // 루틴 일괄 삭제
     static func deleteAllRoutines(for userId: String, context: ModelContext) throws {
         // 1. 해당 유저의 모든 루틴 가져오기
-        let fetchDescriptor = FetchDescriptor<RoutineItem>(
-            predicate: #Predicate { $0.userId == userId }
-        )
+        let fetchDescriptor = FetchDescriptor<RoutineItem>()
         
         do {
             let userRoutines = try context.fetch(fetchDescriptor)

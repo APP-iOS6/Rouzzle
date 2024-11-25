@@ -9,7 +9,7 @@ import SwiftUI
 import RiveRuntime
 
 struct RouzzleChallengeView: View {
-    let puzzleCount: Int
+    @Environment(RoutineStore.self) private var routineStore
     @State private var selectedPuzzleType: PuzzleType?
     @State private var showPuzzle: Bool = false
     @State private var isShowingGuide: Bool = false
@@ -170,7 +170,12 @@ struct RouzzleChallengeView: View {
             VStack {
                 HStack {
                     Spacer()
-                    PieceCounter(count: puzzleCount, isButtonEnabled: false)
+                    PieceCounter(
+                        count: routineStore.myPuzzle,
+                        phase: routineStore.puzzlePhase
+                    ) {
+                        routineStore.fetchMyData()
+                    }
                         .padding(.top, -35)
                         .padding(.trailing, 16)
                         .background(Color.clear)

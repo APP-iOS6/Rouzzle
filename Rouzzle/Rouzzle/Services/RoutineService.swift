@@ -23,6 +23,8 @@ protocol RoutineServiceType {
     func updateRoutineCompletion(_ completion: RoutineCompletion) async -> Result<Void, DBError>
     /// 특정 날짜의 모든 루틴 완료 상태 조회 함수
     func getRoutineCompletions(for date: Date) async -> Result<[RoutineCompletion], DBError>
+    /// 내가 생성한 루틴과 오늘 루틴 완료 정보를 가져오는 함수
+    func getMyRoutineInfo(_ userId: String) async -> Result<[RoutineWithCompletion], DBError>
 }
 
 class RoutineService: RoutineServiceType {
@@ -132,6 +134,32 @@ class RoutineService: RoutineServiceType {
                 try doc.data(as: RoutineCompletion.self)
             }
             return .success(completions)
+        } catch {
+            return .failure(.firebaseError(error))
+        }
+    }
+    
+    func getMyRoutineInfo(_ userId: String) async -> Result<[RoutineWithCompletion], DBError> {
+        do {
+            var routineWithCompletion: [RoutineWithCompletion] = []
+            let documents = try await db.collection("Routine").whereField("userId", isEqualTo: userId).getDocuments().documents
+            let routines = try documents.compactMap { try $0.data(as: Routine.self) }
+            // 일단 내가 가지고 있는 루틴 다 가져오기 -> 루틴 돌면서 오늘 completion 데이터 가져오기
+            print("내루틴들 \(routines.count)")
+            for routine in routines {
+                let documentId = "\(Date().formattedDateToString)_\(routine.documentId ?? "")"
+                let documentSnapshot = try await db.collection("RoutineCompletion").document(documentId).getDocument()
+                if documentSnapshot.exists {
+                      let completion = try documentSnapshot.data(as: RoutineCompletion.self)
+                      routineWithCompletion.append(RoutineWithCompletion(routine: routine, completion: completion))
+                  } else {
+                      // 문서가 존재하지 않을 경우의 처리 로직
+                      // 예: 기본값 할당 또는 생략
+                      let completion = RoutineCompletion(routineId: routine.documentId ?? "", userId: routine.userId, date: Date(), taskCompletions: routine.routineTask.map { $0.toTaskCompletion() })
+                      routineWithCompletion.append(RoutineWithCompletion(routine: routine, completion: completion))
+                  }
+            }
+            return .success(routineWithCompletion)
         } catch {
             return .failure(.firebaseError(error))
         }

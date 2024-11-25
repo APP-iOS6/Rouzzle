@@ -15,7 +15,9 @@ struct UserProfile: Codable, Hashable {
     var introduction: String?
     var isFavoriteUser: [String]?
     var routines: [Routine] = [] // 초기값으로 빈 배열 설정
-
+    var totalRoutineDay: Int? = 0
+    var currentStreak: Int? = 0
+    
     enum CodingKeys: String, CodingKey {
         case documentId
         case nickname = "name"

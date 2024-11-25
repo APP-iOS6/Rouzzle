@@ -148,7 +148,7 @@ struct AddTaskView: View {
                 .padding(.top, 10)
             }
             .padding(.bottom, 20)
-            .customNavigationBar(title: "\(routineStore.routineItem!.emoji) \(routineStore.routineItem!.title)")
+            .customNavigationBar(title: "\(routineStore.routineItem?.emoji ?? "") \(routineStore.routineItem?.title ?? "")")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

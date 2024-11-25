@@ -91,8 +91,10 @@ struct ShopView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 PieceCounter(
                     count: routineStore.myPuzzle,
-                    isButtonEnabled: routineStore.puzzleLoad == .loading || routineStore.puzzleLoad == .failed
-                )
+                    phase: routineStore.puzzlePhase
+                ) {
+                    routineStore.fetchMyData()
+                }
             }
         }
     }

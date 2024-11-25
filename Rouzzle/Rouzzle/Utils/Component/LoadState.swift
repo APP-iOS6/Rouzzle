@@ -13,3 +13,9 @@ enum LoadState {
     case completed
     case failed
 }
+
+enum Phase {
+    case loading
+    case completed
+    case failed
+}

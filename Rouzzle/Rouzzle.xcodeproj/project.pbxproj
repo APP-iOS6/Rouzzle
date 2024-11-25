@@ -191,6 +191,7 @@
 		FBDC52FC2CED61E30038243D /* RoutineCompletionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52FB2CED61E30038243D /* RoutineCompletionOverlay.swift */; };
 		FBDC53002CEDA99C0038243D /* RoutineStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC52FF2CEDA99C0038243D /* RoutineStatistic.swift */; };
 		FBDC53022CEDB3B60038243D /* RoutineStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC53012CEDB3B60038243D /* RoutineStatisticView.swift */; };
+		FBDC581E2CF1D37500E99A32 /* RoutineListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDC581D2CF1D37500E99A32 /* RoutineListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -368,6 +369,7 @@
 		FBDC52FB2CED61E30038243D /* RoutineCompletionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCompletionOverlay.swift; sourceTree = "<group>"; };
 		FBDC52FF2CEDA99C0038243D /* RoutineStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatistic.swift; sourceTree = "<group>"; };
 		FBDC53012CEDB3B60038243D /* RoutineStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStatisticView.swift; sourceTree = "<group>"; };
+		FBDC581D2CF1D37500E99A32 /* RoutineListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1002,6 +1004,7 @@
 				FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */,
 				FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */,
 				FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */,
+				FBDC581D2CF1D37500E99A32 /* RoutineListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1229,6 +1232,7 @@
 				FB4174F82CDCB61C0084BC19 /* NewTaskSheetViewModel.swift in Sources */,
 				9700427E2CD9DA3900777F43 /* RoutineStartView.swift in Sources */,
 				BD15451D2CD7D0710098AD7B /* Date+Extension.swift in Sources */,
+				FBDC581E2CF1D37500E99A32 /* RoutineListViewModel.swift in Sources */,
 				BDFBC31D2CE1C89400ED8A81 /* TimerState.swift in Sources */,
 				FBDC52DF2CE594250038243D /* RecommendSheet.swift in Sources */,
 				FB5E94EC2CEF746000EA6679 /* RoutineStatusFunc.swift in Sources */,

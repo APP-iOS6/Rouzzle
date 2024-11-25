@@ -9,13 +9,13 @@ import SwiftUI
 
 struct SummaryView: View {
     
-    @ObservedObject var store: StatisticStore
+    @EnvironmentObject var store: StatisticStore
     let routines: [RoutineItem]
     
     var body: some View {
         VStack(spacing: 20) {
             VStack(spacing: 20) {
-                if let (routineId, count) = store.findRoutineWithMaxStreak() {
+                if let (routineId, count, _) = store.findRoutineWithMaxStreak() {
                     Text("나의 최대 연속 기록이에요!")
                         .font(.medium16)
                         .frame(maxWidth: .infinity, alignment: .leading)
