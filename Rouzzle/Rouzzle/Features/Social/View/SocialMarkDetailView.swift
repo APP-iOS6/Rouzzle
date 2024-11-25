@@ -39,8 +39,8 @@ struct SocialMarkDetailView: View {
                     }
 
                     HStack {
-                        Text("🧩 루틴 10일차")
-                        Text("🔥 연속 성공 5일차")
+                        Text("🧩 루틴 \(userProfile.totalRoutineDay ?? 0)일차")
+                        Text("🔥 연속 성공 \(userProfile.currentStreak ?? 0)일차")
                     }
                     .font(.regular12)
                     .foregroundColor(.gray)

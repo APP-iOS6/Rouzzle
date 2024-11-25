@@ -13,6 +13,8 @@ struct RoutineUser: Codable, Equatable {
     var profileUrlString: String?
     var introduction = ""
     var puzzleCount: Int = 0
+    var totalRoutineDay: Int? = 0
+    var currentStreak: Int? = 0
 }
 
 struct AlgoliaUser: Codable {

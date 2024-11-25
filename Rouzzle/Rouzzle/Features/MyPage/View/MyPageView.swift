@@ -16,7 +16,8 @@ struct MyPageView: View {
     @State private var isImageChanged: Bool = false // 이미지 변경 여부 추적
     @State private var showTermsOfService = false
     @State private var showPrivacyPolicy = false
-    
+    @EnvironmentObject private var statisticStore: StatisticStore
+
     var body: some View {
         NavigationStack {
             Color.white
@@ -62,7 +63,7 @@ struct MyPageView: View {
                                     .font(.semibold16)
                             }
                             
-                            Text("🧩 루틴 10일차 · 🔥 연속 성공 5일차")
+                            Text("🧩 루틴 \(viewModel.maxTotalRoutine ?? 0)일차 · 🔥 연속 성공 \(viewModel.currentStreak ?? 0)일차")
                                 .foregroundStyle(Color.subHeadlineFontColor)
                                 .font(.medium12)
                         }
@@ -250,6 +251,7 @@ struct MyPageView: View {
                 PassView()
             }
             .onAppear {
+                viewModel.loadUserData()
                 if !isImageChanged {
                     tempProfileImage = nil
                 }

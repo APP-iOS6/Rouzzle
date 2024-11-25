@@ -36,6 +36,14 @@ final class MyPageViewModel {
         userInfo.profileUrlString
     }
     
+    var maxTotalRoutine: Int? {
+        userInfo.totalRoutineDay
+    }
+    
+    var currentStreak: Int? {
+        userInfo.currentStreak
+    }
+    
     var loadState: LoadState = .none
     
     // 앱 버전과 빌드 번호

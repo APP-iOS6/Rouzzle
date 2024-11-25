@@ -30,16 +30,14 @@ struct RoutineCardView: View {
                             // 닉네임
                             Text("\(userProfile.nickname)")
                                 .font(.semibold16)
-
-                            // 연속일
-                            Text("23일")
+                            
+                            Text("🧩 \(userProfile.totalRoutineDay ?? 0)일차")
                                 .font(.regular12)
-                                .foregroundColor(.red)
                                 .padding(.leading, 3)
-                            Text("째 루틴 중")
+                            Text("🔥 \(userProfile.currentStreak ?? 0)일차")
                                 .font(.regular12)
-                                .foregroundColor(.gray)
-                                .offset(x: -7)
+                                .padding(.leading, 3)
+
                         }
                         // 자기소개
                         if let introduction = userProfile.introduction {

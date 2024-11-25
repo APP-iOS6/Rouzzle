@@ -49,10 +49,9 @@ class RoutineListViewModel {
                 print("루초 실패")
                 phase = .failed
             }
-        case .failure(_):
+        case .failure:
             print("루초 실패")
             phase = .failed
         }
     }
 }
-

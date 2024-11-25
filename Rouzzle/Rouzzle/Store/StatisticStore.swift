@@ -22,8 +22,7 @@ class StatisticStore: ObservableObject {
     
     // @ObservationIgnored
     private var listener: ListenerRegistration?
-    
-    @Published var completionData: [Date: [RoutineCompletion]] = [:]
+    @Published var completionData: [Date: Set<RoutineCompletion>] = [:]
     @Published var currentDate: Date = Date()
     
     @Published var currentMonth: Int = 0
@@ -57,7 +56,7 @@ class StatisticStore: ObservableObject {
         let filter = completionData.filter { key, _ in
             return key >= start && key <= end
         }
-        statisticData = filter
+        statisticData = filter.mapValues { Array($0) }
     }
     
     /// Completion 데이터 리스너 걸기
@@ -95,22 +94,22 @@ class StatisticStore: ObservableObject {
     }
     
     /// 새로운 Completion 데이터가 들어왔음
-    func updateCompletionData(_ completion: RoutineCompletion) {
+    func updateCompletionData(_ completion: RoutineCompletion, test: Bool = true) {
         let normalizedDate = completion.date.startOfDay()
         if var completions = self.completionData[normalizedDate] {
             if let index = completions.firstIndex(where: { $0.documentId == completion.documentId }) {
-                // 기존 데이터를 업데이트
-                completions[index] = completion
+                completions.remove(at: index)
+                completions.insert(completion)
             } else {
-                // 새로운 데이터를 추가
-                completions.append(completion)
+                completions.insert(completion)
             }
             self.completionData[normalizedDate] = completions
         } else {
-            // 새로운 날짜 키를 추가
             self.completionData[normalizedDate] = [completion]
         }
-        filterCurrentMonthData()
+        if test {
+            filterCurrentMonthData()
+        }
     }
     
     /// 선택된 루틴이 한달 중 총 몇일인지
@@ -210,7 +209,7 @@ class StatisticStore: ObservableObject {
     }
     
     // 가져온 루틴들 중에서 최대 연속일이 가장 높은 루틴id와 연속을일 뽑아 반환하는 함수 O(n log n)
-    func findRoutineWithMaxStreak() -> (routineId: String, maxStreak: Int)? {
+    func findRoutineWithMaxStreak() -> (routineId: String, maxStreak: Int, totalStreak: Int)? {
         let calendar = Calendar.current
         
         // 모든 RoutineCompletion 데이터를 하나의 배열로 평탄화
@@ -220,6 +219,7 @@ class StatisticStore: ObservableObject {
         let groupedByRoutineId = Dictionary(grouping: allCompletions, by: { $0.routineId })
         
         var routineStreaks: [String: Int] = [:]
+        var routineAccumulatedDays: [String: Int] = [:]
         
         //  각 routineId에 대해 최대 연속일 계산
         for (routineId, completions) in groupedByRoutineId {
@@ -228,6 +228,8 @@ class StatisticStore: ObservableObject {
                 completions.filter { $0.isCompleted }.map { calendar.startOfDay(for: $0.date) }
             )
             
+            let totalCompletedDays = completedDatesSet.count
+            routineAccumulatedDays[routineId] = totalCompletedDays
             // 완료된 날짜 정렬
             let sortedCompletedDates = completedDatesSet.sorted()
             
@@ -258,11 +260,8 @@ class StatisticStore: ObservableObject {
         }
         
         // 최대 연속일이 가장 큰 routineId 찾기
-        if let (routineId, maxStreak) = routineStreaks.max(by: { $0.value < $1.value }) {
-            if maxStreak == 0 {
-                return nil
-            }
-            return (routineId, maxStreak)
+        if let (routineId, maxStreak) = routineStreaks.max(by: { $0.value < $1.value }), let routineWithMaxAccumulatedDays = routineAccumulatedDays.max(by: { $0.value < $1.value })?.value {
+            return (routineId, maxStreak, routineWithMaxAccumulatedDays)
         }
         
         return nil

@@ -20,6 +20,8 @@ protocol UserServiceType {
     func uploadTodayPuzzleReward(_ userUid: String, date: Date) async -> Result<Void, DBError>
     /// 내 퍼즐조각 1개 차감하는 함수
     func decreaseMyPuzzle(_ userUid: String) async -> Result<Void, DBError>
+    /// 내 연속루틴 정보들 업데이트
+    func updateUserStreak(current: Int, total: Int, userUid: String) async -> Result<Void, DBError>
 }
 
 class UserService: UserServiceType {
@@ -114,4 +116,14 @@ class UserService: UserServiceType {
             return .failure(.firebaseError(error))
         }
     }
+    
+    func updateUserStreak(current: Int, total: Int, userUid: String) async -> Result<Void, DBError> {
+        do {
+            try await db.collection("User").document(userUid).updateData(["currentStreak": current, "totalRoutineDay": total])
+            return .success(())
+        } catch {
+            return .failure(.firebaseError(error))
+        }
+    }
+
 }

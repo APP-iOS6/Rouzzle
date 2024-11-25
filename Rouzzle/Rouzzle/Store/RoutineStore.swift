@@ -242,8 +242,10 @@ class RoutineStore {
         }
     }
     
-    // 리팩 예정
-    deinit {
-        print("RoutineStore 해제")
+    func updateUserStreak(currentStreak: Int, total: Int) {
+        let userUid = Utils.getUserUUID()
+        Task {
+            _ = await userService.updateUserStreak(current: currentStreak, total: total, userUid: userUid)
+        }
     }
 }

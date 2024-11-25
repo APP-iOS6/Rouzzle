@@ -11,7 +11,7 @@ import SwiftData
 struct StatisticView: View {
     
     @Query private var routinesQuery: [RoutineItem]
-    @StateObject private var store: StatisticStore = StatisticStore()
+    @EnvironmentObject private var store: StatisticStore
     
     var body: some View {
         GeometryReader { proxy in
@@ -102,7 +102,7 @@ struct StatisticDetailView: View {
                         .id("top")
                     
                     if selectedCategory == "요약" {
-                        SummaryView(store: store, routines: routines)
+                        SummaryView(routines: routines)
                     } else if let selectedRoutine = routines.first(where: { "\($0.emoji) \($0.title)" == selectedCategory }) {
                         
                         let routineStatistic = store.getRoutineStatistic(routineId: selectedRoutine.id)
@@ -111,7 +111,6 @@ struct StatisticDetailView: View {
                             .padding(.bottom, 24)
                         
                         CalendarView(
-                            store: store,
                             routine: selectedRoutine
                         )
                         .padding(.bottom, 24)
@@ -162,4 +161,5 @@ struct StatisticDetailView: View {
 
 #Preview {
     StatisticView()
+        .environmentObject(StatisticStore())
 }
