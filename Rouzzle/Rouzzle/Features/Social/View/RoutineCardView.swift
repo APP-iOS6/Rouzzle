@@ -17,7 +17,8 @@ struct RoutineCardView: View {
     }
     var userProfile: UserProfile
     let action: (String) -> Void
-
+    let randomNum: Int
+    
     var body: some View {
         NavigationLink(destination: SocialMarkDetailView(userProfile: userProfile, isStarred: isStarred)) {
             VStack(alignment: .leading, spacing: 10) {
@@ -32,7 +33,7 @@ struct RoutineCardView: View {
                                 .font(.semibold16)
 
                             // 연속일
-                            Text("23일")
+                            Text("\(randomNum)일")
                                 .font(.regular12)
                                 .foregroundColor(.red)
                                 .padding(.leading, 3)
@@ -90,7 +91,7 @@ struct RoutineCardView: View {
 
                 // 선택된 루틴의 세부 정보 표시
                 if let selectedIndex = selectedRoutineIndex, selectedIndex < userProfile.routines.count {
-                    RoutineTasksView(tasks: userProfile.routines[selectedIndex].routineTask)
+                    RoutineTasksView(routine: userProfile.routines[selectedIndex])
                         .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
             }

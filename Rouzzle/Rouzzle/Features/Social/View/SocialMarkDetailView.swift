@@ -91,7 +91,7 @@ struct RoutineDetailCardView2: View {
             HStack {
                 RoutineLabelView(text: "\(routine.emoji) \(routine.title)", isSelected: true, onTap: {})
                 Spacer()
-                Text("8:30 AM ~ 8:50 AM")
+                Text(getRoutineTimeRangeString(routine: routine))
                     .font(.light12)
                     .foregroundColor(.gray)
             }

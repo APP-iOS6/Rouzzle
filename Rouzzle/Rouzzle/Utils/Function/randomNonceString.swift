@@ -28,3 +28,6 @@ func randomNonceString(length: Int = 32) -> String {
     
     return result
 }
+
+/// random 일수 뽑아내려고 만드는것 나중에 지워야함
+let randomNum = Array(1...100).shuffled()
