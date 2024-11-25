@@ -145,7 +145,7 @@ struct RoutineBasicSettingView: View {
         .animation(.smooth, value: viewModel.selectedDateWithTime)
         .padding()
         .background(Color.fromRGB(r: 248, g: 247, b: 247))
-        .clipShape(.rect(cornerRadius: 20)) // .cornerRadius 대신 clipShape 사용
+        .clipShape(.rect(cornerRadius: 20))
     }
     
     // 요일별 시간 다른지 체크
@@ -305,7 +305,7 @@ struct DayButton: View {
                     .foregroundColor(isSelected ? .black : .gray)
                     .font(.regular16)
             }
-            .frame(width: 35, height: 35)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
