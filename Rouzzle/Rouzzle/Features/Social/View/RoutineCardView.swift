@@ -17,7 +17,8 @@ struct RoutineCardView: View {
     }
     var userProfile: UserProfile
     let action: (String) -> Void
-
+    let randomNum: Int
+    
     var body: some View {
         NavigationLink(destination: SocialMarkDetailView(userProfile: userProfile, isStarred: isStarred)) {
             VStack(alignment: .leading, spacing: 10) {
@@ -32,7 +33,7 @@ struct RoutineCardView: View {
                                 .font(.semibold16)
 
                             // 연속일
-                            Text("\((1...100).randomElement()!)일")
+                            Text("\(randomNum)일")
                                 .font(.regular12)
                                 .foregroundColor(.red)
                                 .padding(.leading, 3)

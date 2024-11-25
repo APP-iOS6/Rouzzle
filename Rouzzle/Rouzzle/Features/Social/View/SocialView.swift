@@ -74,16 +74,20 @@ struct SocialView: View {
                                         .foregroundColor(.gray)
                                 } else {
                                     LazyVStack(spacing: 15) {
-                                        ForEach(Array(viewModel.otherUserProfiles).filter { user in
-                                            !viewModel.isUserFavorited(userID: user.documentId ?? "")
-                                        }, id: \.self) { user in
+                                        ForEach(
+                                            Array(viewModel.otherUserProfiles.filter { user in
+                                                !viewModel.isUserFavorited(userID: user.documentId ?? "")
+                                            }).enumerated().map { ($0.offset, $0.element) },
+                                            id: \.1.documentId
+                                        ) { index, user in
                                             RoutineCardView(
                                                 userProfile: user,
                                                 action: { id in
                                                     Task {
                                                         await viewModel.toggleFavoriteUser(userID: id)
                                                     }
-                                                }
+                                                },
+                                                randomNum: randomNum[index]
                                             )
                                         }
                                     }
