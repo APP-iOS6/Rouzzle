@@ -13,8 +13,13 @@
 
 <br />
 
-## Git Convention
 ![git](https://github.com/user-attachments/assets/1d8ed71f-4d90-47cd-b391-9433d47eaa01)
+
+<br />
+
+<img width="1000" alt="Foldering" src="https://github.com/user-attachments/assets/17d68536-7a70-45dc-be1e-c2dbba7b81f0">
+
+<br />
 
 ## 주요기능과 스크린샷
 
@@ -37,6 +42,7 @@
 | 추천 | 소셜 | 마이 |
 | :--------: | :--------: | :--------: |
 | <img src="https://github.com/user-attachments/assets/e261d4b9-6532-4f13-b79d-e0de1ae80415" width="200"> | <img src="https://github.com/user-attachments/assets/118e7854-5f92-49b4-9558-c7bd11fb6a2f" width="200"> | <img src="https://github.com/user-attachments/assets/257afe22-ce7f-4ae9-acf6-6419b61b5dd4" width="200"> |
+
 
 
 ## 🍏 Developers
