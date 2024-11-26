@@ -1,26 +1,26 @@
 <img width="1100" alt="rouzzle readme 001"  src="https://github.com/user-attachments/assets/043b4b38-3c21-4af4-83fa-9938cafe8b93">
 
-<br />
+<br /><br />
 
 # About Rouzzle<img src="https://github.com/user-attachments/assets/e3636367-8ec0-49d1-b127-e1ea445f8d3e" align=left width=100>
 루즐은 자기 계발에 관심은 있지만 루틴 형성이 어려운 사람들을 위해,  
 일상의 작은 할 일을 **퍼즐처럼 재미있게 달성**하며 **나만의 루틴**을 만들어가는 앱입니다.
 
-<br />
+<br /><br />
 
 ## 페르소나
 ![페르소나](https://github.com/user-attachments/assets/019f31ff-4b54-441a-87cd-7bd67fc5a120)
 
-<br />
+<br /><br />
 
 ## Git & Foldering Convention
 ![git](https://github.com/user-attachments/assets/1d8ed71f-4d90-47cd-b391-9433d47eaa01)
 
-<br />
+<br /><br />
 
 <img width="1000" alt="Foldering" src="https://github.com/user-attachments/assets/17d68536-7a70-45dc-be1e-c2dbba7b81f0">
 
-<br />
+<br /><br />
 
 ## 주요기능과 스크린샷
 
@@ -44,7 +44,41 @@
 | :--------: | :--------: | :--------: |
 | <img src="https://github.com/user-attachments/assets/e261d4b9-6532-4f13-b79d-e0de1ae80415" width="200"> | <img src="https://github.com/user-attachments/assets/118e7854-5f92-49b4-9558-c7bd11fb6a2f" width="200"> | <img src="https://github.com/user-attachments/assets/257afe22-ce7f-4ae9-acf6-6419b61b5dd4" width="200"> |
 
+<br /><br />
 
+## 개발 도구 및 활용 기술
+- 개발 언어 : Swift
+- 개발 환경 : XCode 16.0, iOS 17.0, SE ~ iPhone 16 Series, 다크모드 미지원
+- 일정/투두관리 : Notion
+- 기획/디자인 : Figma
+- 프로젝트 이슈 관리 : GitHub
+- 실시간 커뮤니케이션 : Discord
+- 활용한 기술
+    - SwiftData
+    - KakaoSDKAuth, GoogleSignIn, AppleLogin
+    - FirebaseAuth, FiresStore, Firebase Storage
+    - Algolia
+    - Factory
+<p align="leading">
+  <img src="https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=Swift&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SwiftUI-021B97?style=for-the-badge&logo=swift&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SwiftData-B8C3C9?style=for-the-badge&logo=swift&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Xcode-188EE8?style=for-the-badge&logo=xcode&logoColor=white">
+  <img src="https://img.shields.io/badge/Algolia-173CF5?style=for-the-badge&logo=Algolia&logoColor=white">
+<img src="https://img.shields.io/badge/SwiftData-173CF5?style=for-the-badge&logo=SwiftData&logoColor=white">
+<img src="https://img.shields.io/badge/Factory-FFFFFF?style=for-the-badge&logo=Factory&logoColor=white">
+  
+</p>
+
+<p align="leading">
+  <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/Notion-FFFFFF?style=for-the-badge&logo=Notion&logoColor=black">
+  <img src="https://img.shields.io/badge/Figma-000000?style=for-the-badge&logo=figma&logoColor=white">
+  <img src="https://img.shields.io/badge/Discord-737BEF?style=for-the-badge&logo=Discord&logoColor=white">
+</p>
+  
+<br /><br />
 
 ## 🍏 Developers
 
