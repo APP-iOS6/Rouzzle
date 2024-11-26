@@ -16,8 +16,27 @@
 ## Git Convention
 ![git](https://github.com/user-attachments/assets/1d8ed71f-4d90-47cd-b391-9433d47eaa01)
 
-
 ## 주요기능과 스크린샷
+
+| 로그인 | 회원가입 | 홈화면 |
+| :--------: | :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/35a1ae1e-52e3-440b-b109-ceb4f133551c" width="200"> | <img src="https://github.com/user-attachments/assets/7ddae552-1b79-4778-a4a4-1bc1420418db" width="200"> | <img src="https://github.com/user-attachments/assets/79353f2a-8bfd-41e4-aa4a-2e1d76e23c4c" width="200"> |
+
+| 루틴 등록 | 루틴 등록(시작 시간 설정) | 루틴 시작 타이머 |
+| :--------: | :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/6140c855-c08a-4a96-820f-9231d837f891" width="200"> | <img src="https://github.com/user-attachments/assets/2256b341-f10a-46d4-9168-b92c3433d24f" width="200"> | <img src="https://github.com/user-attachments/assets/dc06dd59-b511-4d2f-8b74-14965e2a4107" width="200"> |
+
+| 나만의 할 일 추가 | 추천 할 일 | 추천 세트 |
+| :--------: | :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/9b386409-4969-4d99-add1-d4b144e914d5" width="200"> | <img src="https://github.com/user-attachments/assets/01ad93ed-3982-45e4-a341-a88533b53d85" width="200"> | <img src="https://github.com/user-attachments/assets/655b5473-cb49-45b7-be7f-a733c7ead4a1" width="200"> |
+
+| 루틴 완료 | 루즐 챌린지 | 통계 |
+| :--------: | :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/0e1fcddd-16fe-40b6-ae1c-fb52a2a7d941" width="200"> | <img src="https://github.com/user-attachments/assets/6a319442-8ce8-46bb-9b2d-9f811fda07f7" width="200"> | <img src="https://github.com/user-attachments/assets/a90af1c1-e2da-4860-b915-f3e919db4d08" width="200"> |
+
+| 추천 | 소셜 | 마이 |
+| :--------: | :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/e261d4b9-6532-4f13-b79d-e0de1ae80415" width="200"> | <img src="https://github.com/user-attachments/assets/118e7854-5f92-49b4-9558-c7bd11fb6a2f" width="200"> | <img src="https://github.com/user-attachments/assets/257afe22-ce7f-4ae9-acf6-6419b61b5dd4" width="200"> |
 
 
 ## 🍏 Developers
