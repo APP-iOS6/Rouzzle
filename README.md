@@ -30,9 +30,9 @@
 | :--------: | :--------: | :--------: |
 | <img src="https://github.com/user-attachments/assets/9b386409-4969-4d99-add1-d4b144e914d5" width="200"> | <img src="https://github.com/user-attachments/assets/01ad93ed-3982-45e4-a341-a88533b53d85" width="200"> | <img src="https://github.com/user-attachments/assets/655b5473-cb49-45b7-be7f-a733c7ead4a1" width="200"> |
 
-| 루틴 완료 | 루즐 챌린지 | 통계 |
+| 루틴 알림 | 루즐 챌린지 | 통계 |
 | :--------: | :--------: | :--------: |
-| <img src="https://github.com/user-attachments/assets/0e1fcddd-16fe-40b6-ae1c-fb52a2a7d941" width="200"> | <img src="https://github.com/user-attachments/assets/6a319442-8ce8-46bb-9b2d-9f811fda07f7" width="200"> | <img src="https://github.com/user-attachments/assets/a90af1c1-e2da-4860-b915-f3e919db4d08" width="200"> |
+| <img src="https://github.com/user-attachments/assets/7d9d60a2-0ca3-45ac-b43a-19d0bd626d8b" width="200"> | <img src="https://github.com/user-attachments/assets/6a319442-8ce8-46bb-9b2d-9f811fda07f7" width="200"> | <img src="https://github.com/user-attachments/assets/a90af1c1-e2da-4860-b915-f3e919db4d08" width="200"> |
 
 | 추천 | 소셜 | 마이 |
 | :--------: | :--------: | :--------: |
