@@ -8,6 +8,12 @@
 
 <br />
 
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <img src="https://github.com/user-attachments/assets/504597f4-9dbe-4203-8ee9-f4af371e17f8" alt="Git Flow" style="width: 48%;"/>
+  <img src="https://github.com/user-attachments/assets/338340e4-58ea-4fcf-8244-5567ba4e04be" alt="Commit Convention" style="width: 48%;"/>
+</div>
+
+
 
 ## 🍏 Developers
 
@@ -18,3 +24,5 @@
 | <div style="width:200px; height:200px; text-align:center;"> <img src="https://github.com/user-attachments/assets/85423807-4911-4b82-ad16-f227a85a4a5c" style="width:150px; height:150px; object-fit:cover; margin-bottom:10px;"> </div> | <div style="width:200px; height:200px; text-align:center;"> <img src="https://github.com/user-attachments/assets/a966b5a2-cc18-489b-9ba5-07316c01439a" style="width:150px; height:150px; object-fit:cover; margin-bottom:10px;"> </div> | <div style="width:200px; height:200px; text-align:center;"> <img src="https://github.com/user-attachments/assets/e38df4f7-a152-40e7-9f5d-5e607c89ff53" style="width:150px; height:150px; object-fit:cover; margin-bottom:10px;"> </div> | <div style="width:200px; height:200px; text-align:center;"> <img src="https://github.com/user-attachments/assets/f4c57134-14f5-4701-a2ac-d1d9593d12b1" style="width:150px; height:150px; object-fit:cover; margin-bottom:10px;"> </div> | <div style="width:200px; height:200px; text-align:center;"> <img src="https://github.com/user-attachments/assets/e6178f78-5606-4ba7-a4a2-11c6dd86f5cc" style="width:150px; height:150px; object-fit:cover; margin-bottom:10px;"> </div> |
 
 </div>
+
+
