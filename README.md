@@ -66,7 +66,6 @@
   <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
   <img src="https://img.shields.io/badge/Xcode-188EE8?style=for-the-badge&logo=xcode&logoColor=white">
   <img src="https://img.shields.io/badge/Algolia-173CF5?style=for-the-badge&logo=Algolia&logoColor=white">
-<img src="https://img.shields.io/badge/SwiftData-173CF5?style=for-the-badge&logo=SwiftData&logoColor=white">
 <img src="https://img.shields.io/badge/Factory-FFFFFF?style=for-the-badge&logo=Factory&logoColor=white">
   
 </p>
