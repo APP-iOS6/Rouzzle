@@ -13,6 +13,7 @@
 
 <br />
 
+## Git & Foldering Convention
 ![git](https://github.com/user-attachments/assets/1d8ed71f-4d90-47cd-b391-9433d47eaa01)
 
 <br />
