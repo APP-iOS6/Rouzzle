@@ -59,24 +59,7 @@
     - FirebaseAuth, FiresStore, Firebase Storage
     - Algolia
     - Factory
-<p align="leading">
-  <img src="https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=Swift&logoColor=white"/>
-  <img src="https://img.shields.io/badge/SwiftUI-021B97?style=for-the-badge&logo=swift&logoColor=white"/>
-  <img src="https://img.shields.io/badge/SwiftData-B8C3C9?style=for-the-badge&logo=swift&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Xcode-188EE8?style=for-the-badge&logo=xcode&logoColor=white">
-  <img src="https://img.shields.io/badge/Algolia-173CF5?style=for-the-badge&logo=Algolia&logoColor=white">
-<img src="https://img.shields.io/badge/Factory-FFFFFF?style=for-the-badge&logo=Factory&logoColor=white">
-  
-</p>
-
-<p align="leading">
-  <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white">
-  <img src="https://img.shields.io/badge/Notion-FFFFFF?style=for-the-badge&logo=Notion&logoColor=black">
-  <img src="https://img.shields.io/badge/Figma-000000?style=for-the-badge&logo=figma&logoColor=white">
-  <img src="https://img.shields.io/badge/Discord-737BEF?style=for-the-badge&logo=Discord&logoColor=white">
-</p>
-  
+    - 
 <br /><br />
 
 ## 🍏 Developers
