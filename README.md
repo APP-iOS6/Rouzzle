@@ -4,16 +4,20 @@
 
 # About Rouzzle<img src="https://github.com/user-attachments/assets/e3636367-8ec0-49d1-b127-e1ea445f8d3e" align=left width=100>
 루즐은 자기 계발에 관심은 있지만 루틴 형성이 어려운 사람들을 위해,  
-일상의 작은 할 일을 **퍼즐처럼 재미있게 달성**하며 **나만의 루틴**을 만들어가는 앱 입니다.
+일상의 작은 할 일을 **퍼즐처럼 재미있게 달성**하며 **나만의 루틴**을 만들어가는 앱입니다.
 
 <br />
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="https://github.com/user-attachments/assets/504597f4-9dbe-4203-8ee9-f4af371e17f8" alt="Git Flow" style="width: 48%;"/>
-  <img src="https://github.com/user-attachments/assets/338340e4-58ea-4fcf-8244-5567ba4e04be" alt="Commit Convention" style="width: 48%;"/>
-</div>
+## 페르소나
+![페르소나](https://github.com/user-attachments/assets/019f31ff-4b54-441a-87cd-7bd67fc5a120)
 
-## 📱 주요기능과 스크린샷
+<br />
+
+## Git Convention
+![git](https://github.com/user-attachments/assets/1d8ed71f-4d90-47cd-b391-9433d47eaa01)
+
+
+## 주요기능과 스크린샷
 
 
 ## 🍏 Developers
