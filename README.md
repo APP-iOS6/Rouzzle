@@ -13,6 +13,7 @@
   <img src="https://github.com/user-attachments/assets/338340e4-58ea-4fcf-8244-5567ba4e04be" alt="Commit Convention" style="width: 48%;"/>
 </div>
 
+## 📱 주요기능과 스크린샷
 
 
 ## 🍏 Developers
