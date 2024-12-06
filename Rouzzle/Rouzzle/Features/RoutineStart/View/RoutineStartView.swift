@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoutineStartView: View {
-    @State var viewModel: RoutineStartStore
+    @State var viewModel: RoutineTimerViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Environment(RoutineStore.self) private var routineStore

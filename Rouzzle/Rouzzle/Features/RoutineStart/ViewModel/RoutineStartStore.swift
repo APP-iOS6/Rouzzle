@@ -13,7 +13,7 @@ import SwiftData
 import FirebaseFirestore
 
 @Observable
-class RoutineStartStore {
+class RoutineTimerViewModel {
     
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
