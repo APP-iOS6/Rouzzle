@@ -17,12 +17,13 @@ class RoutineStartStore {
     
     @ObservationIgnored
     @Injected(\.routineService) private var routineService
-
+    
     private var timer: Timer?
+    var routineStore: RoutineStore
     var timerState: TimerState = .running
     var timeRemaining: Int = 0
-    var routineItem: RoutineItem
-    var viewTasks: [TaskList]
+    var routineItem: RoutineItem = RoutineItem.sampleData[0]
+    var viewTasks: [TaskList] = []
     var currentTaskIndex: Int = 0
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     var isAllCompleted = false
@@ -53,10 +54,15 @@ class RoutineStartStore {
         return nil
     }
     
-    init(routineItem: RoutineItem) {
+    init(routineStore: RoutineStore) {
         print("타이머 뷰모델 생성")
-        self.routineItem = routineItem
-        self.viewTasks = routineItem.taskList
+        self.routineStore = routineStore
+        fetchData()
+    }
+    
+    func fetchData() {
+        routineItem = routineStore.routineItem ?? RoutineItem.sampleData[0]
+        viewTasks = routineStore.routineItem?.taskList ?? []
     }
     // MARK: - 타이머 관련 메서드
     

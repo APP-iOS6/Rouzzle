@@ -10,7 +10,6 @@ import SwiftUI
 struct RoutineCompleteView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(RoutineStore.self) private var routineStore
-    @Environment(RoutineStartStore.self) private var routineStartViewModel
     @StateObject private var staticsticStore: StatisticStore = StatisticStore()
 
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
@@ -98,7 +97,6 @@ struct RoutineCompleteView: View {
                     await routineStore.checkTodayPuzzleReward()
                 }
                 path.removeLast(path.count) // 네비게이션 스택 초기화
-                routineStartViewModel.isAllCompleted = true
             }
             .padding(.bottom)
             .padding()
@@ -109,6 +107,6 @@ struct RoutineCompleteView: View {
 
 #Preview {
     RoutineCompleteView(
-        path: .constant(NavigationPath())
+         path: .constant(NavigationPath())
     )
 }

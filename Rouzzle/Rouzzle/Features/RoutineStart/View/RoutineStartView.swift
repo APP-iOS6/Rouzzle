@@ -11,7 +11,7 @@ struct RoutineStartView: View {
     @State var viewModel: RoutineStartStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-    
+    @Environment(RoutineStore.self) private var routineStore
     @State var isShowingTaskListSheet: Bool = false
     @State private var detents: Set<PresentationDetent> = [.fraction(0.5)]
     @Binding var path: NavigationPath
@@ -148,6 +148,7 @@ struct RoutineStartView: View {
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
+            viewModel.routineStore = routineStore
             viewModel.resetTask()
             viewModel.initializeCurrentTaskIndex()
             viewModel.startTimer()
@@ -163,13 +164,4 @@ struct RoutineStartView: View {
             }
         }
     }
-}
-
-#Preview {
-    RoutineStartView(
-        viewModel: RoutineStartStore(
-            routineItem: RoutineItem.sampleData[0]),
-        path: .constant(NavigationPath())
-    )
-    .modelContainer(SampleData.shared.modelContainer)
 }
