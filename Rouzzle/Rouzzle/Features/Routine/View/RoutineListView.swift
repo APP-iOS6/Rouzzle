@@ -191,7 +191,7 @@ struct RoutineListView: View {
                         )
                     case .routineCompleteView:
                         RoutineCompleteView(
-                            path: $path
+                             path: $path
                         )
                     }
                 }
