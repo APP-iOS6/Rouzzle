@@ -1,5 +1,5 @@
 //
-//  RoutineStartView.swift
+//  RoutineTimerView.swift
 //  Rouzzle
 //
 //  Created by Hyojeong on 11/5/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RoutineStartView: View {
+struct RoutineTimerView: View {
     @State var viewModel: RoutineTimerViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
