@@ -18,8 +18,7 @@ class RoutineStore {
     @ObservationIgnored
     @Injected(\.userService) private var userService
     
-    var allRoutines: [RoutineItem] = [] // 모든 루틴 목록
-    var routineItem: RoutineItem?
+    var selectedRoutineItem: RoutineItem?
     var taskList: [TaskList] = [] // 데이터 통신 x 스데에서 set할일 추가시 순서가 적용되지 않아 뷰에서만 사용하는 프로퍼티
     var loadState: LoadState = . none
     var puzzlePhase: Phase = .loading
@@ -29,7 +28,7 @@ class RoutineStore {
     var homeToastMessage: String? // 루틴 리스트(홈) 에서 보여질 토스트 메시지
     var recommendTodoTask: [RecommendTodoTask] = []
     var todayStartTime: String {
-        if let routineItem = routineItem {
+        if let routineItem = selectedRoutineItem {
             let today = Date()
             let calendar = Calendar.current
             let weekdayNumber = calendar.component(.weekday, from: today)
@@ -46,12 +45,12 @@ class RoutineStore {
     }
         
     func fetchViewTask() {
-        guard let routineItem = routineItem else { return }
+        guard let routineItem = selectedRoutineItem else { return }
         self.taskList = routineItem.taskList
     }
     
     func selectedRoutineItem(_ routine: RoutineItem) {
-        routineItem = routine
+        selectedRoutineItem = routine
         taskList = routine.taskList
     }
     
@@ -78,7 +77,7 @@ class RoutineStore {
     @MainActor
     func addTask(_ todoTask: RecommendTodoTask, context: ModelContext) async {
         loadState = .loading
-        guard let routineItem = routineItem  else { return }
+        guard let routineItem = selectedRoutineItem  else { return }
         do {
             var routine = routineItem.toRoutine()
             routine.routineTask.append(todoTask.toRoutineTask())
@@ -103,7 +102,7 @@ class RoutineStore {
     @MainActor
     func addTasks(_ todoTasks: [RecommendTodoTask], context: ModelContext) async {
         loadState = .loading
-        guard let routineItem = routineItem  else { return }
+        guard let routineItem = selectedRoutineItem  else { return }
         var routine = routineItem.toRoutine()
         for task in todoTasks {
             routine.routineTask.append(task.toRoutineTask())
@@ -130,7 +129,7 @@ class RoutineStore {
     /// 스위프트 데이터에만 추가하는 함수, 시트쪽에서 파베 업데이트 하므로 스데만 업데이트 하는 함수
     func addTaskSwiftData(_ todoTask: RecommendTodoTask, context: ModelContext) {
         loadState = .loading
-        guard let routineItem = routineItem  else { return }
+        guard let routineItem = selectedRoutineItem  else { return }
         
         do {
             try SwiftDataService.addTask(to: routineItem, todoTask.toTaskList(), context: context)
@@ -144,7 +143,7 @@ class RoutineStore {
     
     /// 추천 할 일 가져오는 함수
     func getRecommendTask() {
-        guard let routineItem = routineItem  else { return }
+        guard let routineItem = selectedRoutineItem  else { return }
         
         guard let firstTime = routineItem.dayStartTime.first?.value, let time = firstTime.toDate() else {
             return
@@ -159,7 +158,7 @@ class RoutineStore {
         completeAction: @escaping (String) -> Void,
         dismiss: @escaping () -> Void
     ) {
-        guard let routineItem = routineItem else { return }
+        guard let routineItem = selectedRoutineItem else { return }
         Task {
             loadState = .loading
             let routineToDelete = routineItem.toRoutine()

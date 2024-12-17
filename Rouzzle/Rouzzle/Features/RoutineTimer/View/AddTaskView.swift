@@ -150,7 +150,7 @@ struct AddTaskView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 20)
-                .customNavigationBar(title: "\(routineStore.routineItem!.emoji) \(routineStore.routineItem!.title)")
+                .customNavigationBar(title: "\(routineStore.selectedRoutineItem!.emoji) \(routineStore.selectedRoutineItem!.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -192,7 +192,7 @@ struct AddTaskView: View {
             )
         }
         .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-            EditRoutineView(viewModel: EditRoutineViewModel(routine: routineStore.routineItem!)) { _ in
+            EditRoutineView(viewModel: EditRoutineViewModel(routine: routineStore.selectedRoutineItem!)) { _ in
                 routineStore.loadState = .completed
                 routineStore.toastMessage = "수정에 성공했습니다."
                 routineStore.fetchViewTask()

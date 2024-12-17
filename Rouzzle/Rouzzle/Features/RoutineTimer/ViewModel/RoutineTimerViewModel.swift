@@ -61,8 +61,8 @@ class RoutineTimerViewModel {
     }
     
     func fetchData() {
-        routineItem = routineStore.routineItem ?? RoutineItem.sampleData[0]
-        viewTasks = routineStore.routineItem?.taskList ?? []
+        routineItem = routineStore.selectedRoutineItem ?? RoutineItem.sampleData[0]
+        viewTasks = routineStore.selectedRoutineItem?.taskList ?? []
     }
     // MARK: - 타이머 관련 메서드
     

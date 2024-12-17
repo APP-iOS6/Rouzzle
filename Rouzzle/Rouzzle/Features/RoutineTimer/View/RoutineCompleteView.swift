@@ -15,15 +15,15 @@ struct RoutineCompleteView: View {
     @Binding var path: NavigationPath // 상위 뷰로부터 바인딩
     var routineTakeTime: (Date?, Date?)
     var tasks: [TaskList] {
-        routineStore.routineItem!.taskList
+        routineStore.selectedRoutineItem!.taskList
     }
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\(routineStore.routineItem!.emoji)")
+                Text("\(routineStore.selectedRoutineItem!.emoji)")
                     .font(.bold30)
                 
-                Text("\(routineStore.routineItem!.title)")
+                Text("\(routineStore.selectedRoutineItem!.title)")
                     .font(.bold24)
             }
             .padding(.top, 60)
@@ -39,7 +39,7 @@ struct RoutineCompleteView: View {
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
                     
-                    Text("\(staticsticStore.getRoutineStatistic(routineId: routineStore.routineItem!.id).currentStreak)")
+                    Text("\(staticsticStore.getRoutineStatistic(routineId: routineStore.selectedRoutineItem!.id).currentStreak)")
                         .font(.bold24)
                 }
                 .frame(maxWidth: .infinity)
@@ -52,7 +52,7 @@ struct RoutineCompleteView: View {
                         .font(.regular16)
                         .foregroundStyle(Color.subHeadlineFontColor)
                     
-                    Text("\(staticsticStore.getRoutineStatistic(routineId: routineStore.routineItem!.id).totalCompletedDays)")
+                    Text("\(staticsticStore.getRoutineStatistic(routineId: routineStore.selectedRoutineItem!.id).totalCompletedDays)")
                         .font(.bold24)
                 }
                 .frame(maxWidth: .infinity)
