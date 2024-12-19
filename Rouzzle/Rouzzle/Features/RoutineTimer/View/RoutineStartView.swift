@@ -148,7 +148,6 @@ struct RoutineTimerView: View {
         }
         .animation(.smooth, value: viewModel.timerState)
         .onAppear {
-            viewModel.routineStore = routineStore
             viewModel.resetTask()
             viewModel.initializeCurrentTaskIndex()
             viewModel.startTimer()

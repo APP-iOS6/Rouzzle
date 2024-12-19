@@ -187,7 +187,7 @@ struct AddTaskView: View {
         }
         .fullScreenCover(isPresented: $isShowingTimerView) {
             RoutineTimerView(
-                viewModel: RoutineTimerViewModel(routineStore: routineStore),
+                viewModel: RoutineTimerViewModel(routineItem: routineStore.selectedRoutineItem ?? RoutineItem.sampleData[0], viewTasks: routineStore.selectedRoutineItem?.taskList ?? []),
                 path: $path
             )
         }

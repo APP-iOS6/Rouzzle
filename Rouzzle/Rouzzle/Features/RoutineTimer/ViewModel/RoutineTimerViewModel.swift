@@ -19,7 +19,6 @@ class RoutineTimerViewModel {
     @Injected(\.routineService) private var routineService
     
     private var timer: Timer?
-    var routineStore: RoutineStore
     var timerState: TimerState = .running
     var timeRemaining: Int = 0
     var routineItem: RoutineItem = RoutineItem.sampleData[0]
@@ -54,16 +53,11 @@ class RoutineTimerViewModel {
         return nil
     }
     
-    init(routineStore: RoutineStore) {
-        print("타이머 뷰모델 생성")
-        self.routineStore = routineStore
-        fetchData()
+    init(routineItem: RoutineItem, viewTasks: [TaskList]) {
+        self.routineItem = routineItem
+        self.viewTasks = viewTasks
     }
     
-    func fetchData() {
-        routineItem = routineStore.selectedRoutineItem ?? RoutineItem.sampleData[0]
-        viewTasks = routineStore.selectedRoutineItem?.taskList ?? []
-    }
     // MARK: - 타이머 관련 메서드
     
     func startTimer() {
