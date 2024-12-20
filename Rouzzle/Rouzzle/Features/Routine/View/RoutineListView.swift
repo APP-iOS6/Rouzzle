@@ -14,17 +14,21 @@ enum NavigationDestination: Hashable {
 }
 
 struct RoutineListView: View {
-    @State private var userId: String = Utils.getUserUUID()
-    @Query private var routinesQuery: [RoutineItem]
+    
+    @Environment(RoutineStore.self) private var routineStore
     @Environment(\.modelContext) private var modelContext
+    @Query private var routinesQuery: [RoutineItem]
+
+    @State private var userId: String = Utils.getUserUUID()
     @State private var isShowingAddRoutineSheet: Bool = false
     @State private var currentQuote: String = ""
     @State private var selectedFilter: FilterOption = .today
     @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
-    @State private var viewModel: RoutineListViewModel
-    @Environment(RoutineStore.self) private var routineStore
+    @State private var viewModel: RoutineListViewModel = RoutineListViewModel()
+
+
     var filterRoutineItem: [RoutineItem] {
         if selectedFilter == .today {
             let todayWeekday = Calendar.current.component(.weekday, from: Date())
@@ -36,9 +40,8 @@ struct RoutineListView: View {
         }
     }
     
-    init(viewModel: RoutineListViewModel) {
+    init() {
         _currentQuote = State(initialValue: QuotesProvider.shared.nextQuote())
-        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -198,6 +201,11 @@ struct RoutineListView: View {
                 .navigationDestination(isPresented: $isShowingChallengeView) {
                     RouzzleChallengeView()
                 }
+            }
+        }
+        .onAppear {
+            Task {
+               await viewModel.loadUserRoutineData(context: modelContext)
             }
         }
     }
