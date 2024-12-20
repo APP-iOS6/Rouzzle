@@ -21,8 +21,8 @@ class RoutineTimerViewModel {
     private var timer: Timer?
     var timerState: TimerState = .running
     var timeRemaining: Int = 0
-    var routineItem: RoutineItem = RoutineItem.sampleData[0]
-    var viewTasks: [TaskList] = []
+    var routineItem: RoutineItem
+    var viewTasks: [TaskList]
     var currentTaskIndex: Int = 0
     var isRoutineCompleted = false // 모든 작업 완료 여부 체크
     var isAllCompleted = false

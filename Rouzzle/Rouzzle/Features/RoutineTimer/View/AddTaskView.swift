@@ -22,7 +22,6 @@ struct AddTaskView: View {
     @State var selectedCategory: RoutineCategoryByTime?
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-    @State private var viewModel = RoutineManager()
     
     @Environment(\.dismiss) private var dismiss
     let completeAction: (String) -> Void
@@ -80,7 +79,8 @@ struct AddTaskView: View {
                     
                     RouzzleButton(buttonType: .timerStart, disabled: routineStore.taskList.isEmpty) {
                         isShowingTimerView.toggle()
-                        viewModel.startRoutine()
+                        // 기존의 알림을 제거하기 위해서 필요함
+                        NotificationManager.shared.removeAllNotifications()
                     }
                     .padding(.top)
                     
