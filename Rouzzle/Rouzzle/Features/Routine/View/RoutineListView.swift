@@ -46,24 +46,19 @@ struct RoutineListView: View {
             case .loading:
                 ProgressView()
             case .failed:
-                Button {
-                    
-                } label: {
-                    Text("오류 남 다시 시도")
-                }
+                Text("오류 남 다시 시도")
             case .completed:
                 ScrollView {
                     VStack(spacing: 20) {
-                        Spacer().frame(height: 5)
                         QuoteTextView(text: $currentQuote)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
+                            .padding(.top, 5)
                     }
                     
                     // 토글, 루틴 등록 버튼
                     HStack {
                         RoutineFilterToggle(selectedFilter: $selectedFilter)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        
                         Button {
                             isShowingAddRoutineSheet.toggle()
                         } label: {
