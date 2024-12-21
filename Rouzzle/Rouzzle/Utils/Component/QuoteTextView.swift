@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct TypeWriterTextView: View {
+struct QuoteTextView: View {
     @Binding var text: String // 바인딩으로 텍스트 받아옴
-    let font: Font
-    let animationDelay: Double
+    private let animationDelay: Double = 0.05
 
     @State private var displayedText: String = ""
     @State private var currentIndex: Int = 0
@@ -18,7 +17,7 @@ struct TypeWriterTextView: View {
 
     var body: some View {
         Text(displayedText)
-            .font(font)
+            .font(.bold18)
             .onAppear {
                 startTypingAnimation()
             }

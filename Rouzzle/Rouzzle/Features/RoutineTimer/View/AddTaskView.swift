@@ -22,7 +22,6 @@ struct AddTaskView: View {
     @State var selectedCategory: RoutineCategoryByTime?
     @State private var toast: ToastModel?
     @State private var detents: Set<PresentationDetent> = [.fraction(0.12)]
-    @State private var viewModel = RoutineManager()
     
     @Environment(\.dismiss) private var dismiss
     let completeAction: (String) -> Void
@@ -80,7 +79,8 @@ struct AddTaskView: View {
                     
                     RouzzleButton(buttonType: .timerStart, disabled: routineStore.taskList.isEmpty) {
                         isShowingTimerView.toggle()
-                        viewModel.startRoutine()
+                        // 기존의 알림을 제거하기 위해서 필요함
+                        NotificationManager.shared.removeAllNotifications()
                     }
                     .padding(.top)
                     
@@ -150,7 +150,7 @@ struct AddTaskView: View {
                     .padding(.top, 10)
                 }
                 .padding(.bottom, 20)
-                .customNavigationBar(title: "\(routineStore.routineItem!.emoji) \(routineStore.routineItem!.title)")
+                .customNavigationBar(title: "\(routineStore.selectedRoutineItem!.emoji) \(routineStore.selectedRoutineItem!.title)")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
@@ -187,12 +187,12 @@ struct AddTaskView: View {
         }
         .fullScreenCover(isPresented: $isShowingTimerView) {
             RoutineTimerView(
-                viewModel: RoutineTimerViewModel(routineStore: routineStore),
+                viewModel: RoutineTimerViewModel(routineItem: routineStore.selectedRoutineItem ?? RoutineItem.sampleData[0], viewTasks: routineStore.selectedRoutineItem?.taskList ?? []),
                 path: $path
             )
         }
         .fullScreenCover(isPresented: $isShowingEditRoutineSheet) {
-            EditRoutineView(viewModel: EditRoutineViewModel(routine: routineStore.routineItem!)) { _ in
+            EditRoutineView(viewModel: EditRoutineViewModel(routine: routineStore.selectedRoutineItem!)) { _ in
                 routineStore.loadState = .completed
                 routineStore.toastMessage = "수정에 성공했습니다."
                 routineStore.fetchViewTask()

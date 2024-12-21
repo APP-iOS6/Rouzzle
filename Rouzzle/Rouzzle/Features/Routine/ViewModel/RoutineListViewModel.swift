@@ -17,17 +17,9 @@ class RoutineListViewModel {
     @Injected(\.routineService) private var routineService
     
     var phase: Phase = .loading
-    var context: ModelContext
-    
-    init(context: ModelContext) {
-        self.context = context
-        Task {
-            await loadUserRoutineData()
-        }
-    }
     
     @MainActor
-    func loadUserRoutineData() async {
+    func loadUserRoutineData(context: ModelContext) async {
         phase = .loading
         let userUid = Utils.getUserUUID()
         let result =  await routineService.getMyRoutineInfo(userUid)

@@ -16,7 +16,7 @@
 		23BC98D82CE1D65B009BE074 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */; };
 		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
-		23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */; };
+		23BC98EB2CE30CB0009BE074 /* QuoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* QuoteTextView.swift */; };
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
 		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
 		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
@@ -44,7 +44,6 @@
 		23FE6DEE2CEF768400357CBA /* MissingPuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FE6DED2CEF768400357CBA /* MissingPuzzleView.swift */; };
 		4B1348632CE1E09800A957C7 /* RoutineLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */; };
 		4B1348652CE1F42A00A957C7 /* SocialMarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */; };
-		4B48416B2CEF750C00516270 /* RoutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B48416A2CEF750700516270 /* RoutineManager.swift */; };
 		4B596ACA2CEDA5AE004FBA15 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */; };
 		4B5BDA942CDA69F20034DED6 /* WeekSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */; };
 		4B8E2F3D2CDCAC1100C87072 /* RoutineSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */; };
@@ -204,7 +203,7 @@
 		23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
 		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
-		23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeWriterTextView.swift; sourceTree = "<group>"; };
+		23BC98EA2CE30CB0009BE074 /* QuoteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTextView.swift; sourceTree = "<group>"; };
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
 		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
 		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
@@ -231,7 +230,6 @@
 		23FE6DED2CEF768400357CBA /* MissingPuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPuzzleView.swift; sourceTree = "<group>"; };
 		4B1348622CE1E09800A957C7 /* RoutineLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineLabelView.swift; sourceTree = "<group>"; };
 		4B1348642CE1F42A00A957C7 /* SocialMarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMarkDetailView.swift; sourceTree = "<group>"; };
-		4B48416A2CEF750700516270 /* RoutineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManager.swift; sourceTree = "<group>"; };
 		4B596AC92CEDA5A6004FBA15 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		4B5BDA932CDA69F20034DED6 /* WeekSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSetTimeView.swift; sourceTree = "<group>"; };
 		4B8E2F3C2CDCAC1100C87072 /* RoutineSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetTimeView.swift; sourceTree = "<group>"; };
@@ -616,7 +614,7 @@
 				974596D62CE1D61A004C346B /* CustomAlert.swift */,
 				974596E02CE2978C004C346B /* PieceCounter.swift */,
 				972FEC502CE319650041F1A5 /* ProfileImage.swift */,
-				23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */,
+				23BC98EA2CE30CB0009BE074 /* QuoteTextView.swift */,
 				23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */,
 				23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */,
 				BDFBC3382CE638B900ED8A81 /* CacheImage.swift */,
@@ -1000,7 +998,6 @@
 		FB4174F62CDCB6070084BC19 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4B48416A2CEF750700516270 /* RoutineManager.swift */,
 				FB4174F72CDCB61C0084BC19 /* NewTaskSheetViewModel.swift */,
 				FB4174FB2CDDCABB0084BC19 /* AddRoutineViewModel.swift */,
 				FBDC52D12CE2426E0038243D /* EditRoutineViewModel.swift */,
@@ -1241,8 +1238,8 @@
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */,
-				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
-				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* QuoteTextView.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* QuoteTextView.swift in Sources */,
 				97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */,
 				BDFBC3392CE638B900ED8A81 /* CacheImage.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,
@@ -1252,7 +1249,6 @@
 				BD6301B42CDE3FD50000203C /* RoutineSDView.swift in Sources */,
 				23D7BD312CDD37DC000B3DD9 /* EmojiPickerViewModel.swift in Sources */,
 				BDFBC31F2CE3AAAB00ED8A81 /* SocialService.swift in Sources */,
-				4B48416B2CEF750C00516270 /* RoutineManager.swift in Sources */,
 				974596E12CE2978C004C346B /* PieceCounter.swift in Sources */,
 				BD1545C52CD928FA0098AD7B /* ComponentView.swift in Sources */,
 				23BC98D02CE1C45F009BE074 /* RecommendCategoryView.swift in Sources */,

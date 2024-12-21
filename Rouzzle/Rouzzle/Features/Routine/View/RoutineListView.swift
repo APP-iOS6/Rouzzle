@@ -14,17 +14,20 @@ enum NavigationDestination: Hashable {
 }
 
 struct RoutineListView: View {
-    @State private var userId: String = Utils.getUserUUID()
-    @Query private var routinesQuery: [RoutineItem]
+    
+    @Environment(RoutineStore.self) private var routineStore
     @Environment(\.modelContext) private var modelContext
+    @Query private var routinesQuery: [RoutineItem]
+
+    @State private var userId: String = Utils.getUserUUID()
     @State private var isShowingAddRoutineSheet: Bool = false
-    @State private var currentQuote: String = ""
+    @State private var currentQuote: String = QuotesProvider.shared.provideQuote()
     @State private var selectedFilter: FilterOption = .today
     @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
-    @State private var viewModel: RoutineListViewModel
-    @Environment(RoutineStore.self) private var routineStore
+    @State private var viewModel: RoutineListViewModel = RoutineListViewModel()
+
     var filterRoutineItem: [RoutineItem] {
         if selectedFilter == .today {
             let todayWeekday = Calendar.current.component(.weekday, from: Date())
@@ -36,11 +39,6 @@ struct RoutineListView: View {
         }
     }
     
-    init(viewModel: RoutineListViewModel) {
-        _currentQuote = State(initialValue: QuotesProvider.shared.nextQuote())
-        self.viewModel = viewModel
-    }
-    
     var body: some View {
         @Bindable var rs = routineStore
         NavigationStack(path: $path) { // NavigationStack에 path 바인딩
@@ -48,24 +46,19 @@ struct RoutineListView: View {
             case .loading:
                 ProgressView()
             case .failed:
-                Button {
-                    
-                } label: {
-                    Text("오류 남 다시 시도")
-                }
+                Text("오류 남 다시 시도")
             case .completed:
                 ScrollView {
                     VStack(spacing: 20) {
-                        Spacer().frame(height: 5)
-                        TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
+                        QuoteTextView(text: $currentQuote)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
+                            .padding(.top, 5)
                     }
                     
                     // 토글, 루틴 등록 버튼
                     HStack {
                         RoutineFilterToggle(selectedFilter: $selectedFilter)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        
                         Button {
                             isShowingAddRoutineSheet.toggle()
                         } label: {
@@ -141,7 +134,7 @@ struct RoutineListView: View {
                     }
                 }
                 .refreshable {
-                    currentQuote = QuotesProvider.shared.nextQuote()
+                    currentQuote = QuotesProvider.shared.provideQuote()
                 }
                 .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                     AddRoutineContainerView()
@@ -198,6 +191,11 @@ struct RoutineListView: View {
                 .navigationDestination(isPresented: $isShowingChallengeView) {
                     RouzzleChallengeView()
                 }
+            }
+        }
+        .onAppear {
+            Task {
+               await viewModel.loadUserRoutineData(context: modelContext)
             }
         }
     }

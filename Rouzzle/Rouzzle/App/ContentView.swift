@@ -10,11 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var tabBarState = TabBarState()
-    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         TabView {
-            RoutineListView(viewModel: .init(context: modelContext))
+            RoutineListView()
                 .tabItem {
                     Text("홈")
                     Image(systemName: "house.fill")
