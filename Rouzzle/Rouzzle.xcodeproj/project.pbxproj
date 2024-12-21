@@ -16,7 +16,7 @@
 		23BC98D82CE1D65B009BE074 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */; };
 		23BC98DC2CE1E5F0009BE074 /* RecommendCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */; };
 		23BC98E02CE1E92F009BE074 /* RecommendTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */; };
-		23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */; };
+		23BC98EB2CE30CB0009BE074 /* QuoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EA2CE30CB0009BE074 /* QuoteTextView.swift */; };
 		23BC98EF2CE31B99009BE074 /* RouzzleChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */; };
 		23BC98F12CE34398009BE074 /* RouzzleChallengePlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */; };
 		23BC98F32CE3476A009BE074 /* PuzzleLockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */; };
@@ -203,7 +203,7 @@
 		23BC98D72CE1D65B009BE074 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
 		23BC98DB2CE1E5F0009BE074 /* RecommendCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCardListView.swift; sourceTree = "<group>"; };
 		23BC98DF2CE1E92F009BE074 /* RecommendTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTaskView.swift; sourceTree = "<group>"; };
-		23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeWriterTextView.swift; sourceTree = "<group>"; };
+		23BC98EA2CE30CB0009BE074 /* QuoteTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTextView.swift; sourceTree = "<group>"; };
 		23BC98EE2CE31B99009BE074 /* RouzzleChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengeView.swift; sourceTree = "<group>"; };
 		23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouzzleChallengePlayButton.swift; sourceTree = "<group>"; };
 		23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleLockButton.swift; sourceTree = "<group>"; };
@@ -614,7 +614,7 @@
 				974596D62CE1D61A004C346B /* CustomAlert.swift */,
 				974596E02CE2978C004C346B /* PieceCounter.swift */,
 				972FEC502CE319650041F1A5 /* ProfileImage.swift */,
-				23BC98EA2CE30CB0009BE074 /* TypeWriterTextView.swift */,
+				23BC98EA2CE30CB0009BE074 /* QuoteTextView.swift */,
 				23BC98F02CE34398009BE074 /* RouzzleChallengePlayButton.swift */,
 				23BC98F22CE3476A009BE074 /* PuzzleLockButton.swift */,
 				BDFBC3382CE638B900ED8A81 /* CacheImage.swift */,
@@ -1238,8 +1238,8 @@
 				FB4174E72CDB34B50084BC19 /* Routine.swift in Sources */,
 				BD1187112CD7967600FF4180 /* RouzzleTextField.swift in Sources */,
 				FBDC52CD2CE088780038243D /* TimeCategory.swift in Sources */,
-				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
-				23BC98EB2CE30CB0009BE074 /* TypeWriterTextView.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* QuoteTextView.swift in Sources */,
+				23BC98EB2CE30CB0009BE074 /* QuoteTextView.swift in Sources */,
 				97DAF1532CE4E64400D27592 /* ProfileImageSettingSheet.swift in Sources */,
 				BDFBC3392CE638B900ED8A81 /* CacheImage.swift in Sources */,
 				BD11870F2CD7952C00FF4180 /* Color+Extension.swift in Sources */,

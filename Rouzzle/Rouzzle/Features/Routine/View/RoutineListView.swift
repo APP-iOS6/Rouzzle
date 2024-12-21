@@ -21,13 +21,12 @@ struct RoutineListView: View {
 
     @State private var userId: String = Utils.getUserUUID()
     @State private var isShowingAddRoutineSheet: Bool = false
-    @State private var currentQuote: String = ""
+    @State private var currentQuote: String = QuotesProvider.shared.provideQuote()
     @State private var selectedFilter: FilterOption = .today
     @State private var isShowingChallengeView: Bool = false
     @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
     @State private var viewModel: RoutineListViewModel = RoutineListViewModel()
-
 
     var filterRoutineItem: [RoutineItem] {
         if selectedFilter == .today {
@@ -38,10 +37,6 @@ struct RoutineListView: View {
         } else {
             return routinesQuery
         }
-    }
-    
-    init() {
-        _currentQuote = State(initialValue: QuotesProvider.shared.nextQuote())
     }
     
     var body: some View {
@@ -60,7 +55,7 @@ struct RoutineListView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         Spacer().frame(height: 5)
-                        TypeWriterTextView(text: $currentQuote, font: .bold18, animationDelay: 0.05)
+                        QuoteTextView(text: $currentQuote)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
                     }
                     
@@ -144,7 +139,7 @@ struct RoutineListView: View {
                     }
                 }
                 .refreshable {
-                    currentQuote = QuotesProvider.shared.nextQuote()
+                    currentQuote = QuotesProvider.shared.provideQuote()
                 }
                 .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                     AddRoutineContainerView()
