@@ -10,6 +10,8 @@ import SwiftData
 import SwiftUI
 
 enum SwiftDataService {
+    
+    // MARK: - 루틴 관련 메서드
     /// 루틴 추가 관련
     @MainActor
     static func addRoutine(_ routine: RoutineItem, context: ModelContext) throws {
@@ -24,32 +26,6 @@ enum SwiftDataService {
     /// 루틴 삭제 관련
     static func deleteRoutine(routine: RoutineItem, context: ModelContext) throws {
         context.delete(routine)
-        do {
-            try context.save()
-        } catch {
-            throw SwiftDataServiceError.deleteFailed(error)
-        }
-    }
-
-    /// 할 일 관련 추가
-    static func addTask(to routineItem: RoutineItem, _ task: TaskList, context: ModelContext) throws {
-        task.routineItem = routineItem
-        routineItem.taskList.append(task)
-        context.insert(task)
-        do {
-            try context.save()
-        } catch {
-            throw SwiftDataServiceError.saveFailed(error)
-        }
-    }
-
-    /// 개별 할 일 삭제
-    static func deleteTask(from routineItem: RoutineItem, task: TaskList, context: ModelContext) throws {
-        if let index = routineItem.taskList.firstIndex(of: task) {
-            routineItem.taskList.remove(at: index)
-        }
-        context.delete(task)
-        // 변경사항 저장
         do {
             try context.save()
         } catch {
@@ -88,4 +64,33 @@ enum SwiftDataService {
             throw SwiftDataServiceError.deleteFailed(error)
         }
     }
+
+    // MARK: - Task 관련 메서드 
+    /// 할 일 관련 추가
+    static func addTask(to routineItem: RoutineItem, _ task: TaskList, context: ModelContext) throws {
+        task.routineItem = routineItem
+        routineItem.taskList.append(task)
+        context.insert(task)
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.saveFailed(error)
+        }
+    }
+
+    /// 개별 할 일 삭제
+    static func deleteTask(from routineItem: RoutineItem, task: TaskList, context: ModelContext) throws {
+        if let index = routineItem.taskList.firstIndex(of: task) {
+            routineItem.taskList.remove(at: index)
+        }
+        context.delete(task)
+        // 변경사항 저장
+        do {
+            try context.save()
+        } catch {
+            throw SwiftDataServiceError.deleteFailed(error)
+        }
+    }
+    
+   
 }

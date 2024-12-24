@@ -19,25 +19,10 @@ struct RoutineListView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var routinesQuery: [RoutineItem]
 
-    @State private var userId: String = Utils.getUserUUID()
     @State private var isShowingAddRoutineSheet: Bool = false
-    @State private var currentQuote: String = QuotesProvider.shared.provideQuote()
-    @State private var selectedFilter: FilterOption = .today
     @State private var isShowingChallengeView: Bool = false
-    @State private var toast: ToastModel?
     @State private var path = NavigationPath() // NavigationPath 추가
     @State private var viewModel: RoutineListViewModel = RoutineListViewModel()
-
-    var filterRoutineItem: [RoutineItem] {
-        if selectedFilter == .today {
-            let todayWeekday = Calendar.current.component(.weekday, from: Date())
-            return routinesQuery.filter { routine in
-                return routine.dayStartTime.keys.contains(todayWeekday)
-            }
-        } else {
-            return routinesQuery
-        }
-    }
     
     var body: some View {
         @Bindable var rs = routineStore
@@ -50,14 +35,14 @@ struct RoutineListView: View {
             case .completed:
                 ScrollView {
                     VStack(spacing: 20) {
-                        QuoteTextView(text: $currentQuote)
+                        QuoteTextView(text: $viewModel.currentQuote)
                             .frame(maxWidth: .infinity, minHeight: 50, alignment: .top)
                             .padding(.top, 5)
                     }
                     
                     // 토글, 루틴 등록 버튼
                     HStack {
-                        RoutineFilterToggle(selectedFilter: $selectedFilter)
+                        RoutineFilterToggle(selectedFilter: $viewModel.selectedFilter)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Button {
                             isShowingAddRoutineSheet.toggle()
@@ -71,7 +56,7 @@ struct RoutineListView: View {
                     .padding(.bottom, 5)
                     
                     // 루틴 목록
-                    ForEach(filterRoutineItem, id: \.id) { routine in
+                    ForEach(viewModel.filterRoutine(routinesQuery), id: \.id) { routine in
                         Button {
                             routineStore.selectedRoutineItem(routine)
                             path.append(NavigationDestination.addTaskView)
@@ -134,7 +119,7 @@ struct RoutineListView: View {
                     }
                 }
                 .refreshable {
-                    currentQuote = QuotesProvider.shared.provideQuote()
+                    viewModel.currentQuote = QuotesProvider.shared.provideQuote()
                 }
                 .fullScreenCover(isPresented: $isShowingAddRoutineSheet) {
                     AddRoutineContainerView()

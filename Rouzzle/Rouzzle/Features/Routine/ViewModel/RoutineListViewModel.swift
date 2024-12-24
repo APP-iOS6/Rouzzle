@@ -17,6 +17,19 @@ class RoutineListViewModel {
     @Injected(\.routineService) private var routineService
     
     var phase: Phase = .loading
+    var selectedFilter: FilterOption = .today
+    var currentQuote: String = QuotesProvider.shared.provideQuote()
+    
+    func filterRoutine(_ routines: [RoutineItem]) -> [RoutineItem] {
+        if selectedFilter == .today {
+            let todayWeekday = Calendar.current.component(.weekday, from: Date())
+            return routines.filter { routine in
+                return routine.dayStartTime.keys.contains(todayWeekday)
+            }
+        } else {
+            return routines
+        }
+    }
     
     @MainActor
     func loadUserRoutineData(context: ModelContext) async {
