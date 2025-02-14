@@ -24,7 +24,7 @@ protocol RoutineServiceType {
     /// 특정 날짜의 모든 루틴 완료 상태 조회 함수
     func getRoutineCompletions(for date: Date) async -> Result<[RoutineCompletion], DBError>
     /// 내가 생성한 루틴과 오늘 루틴 완료 정보를 가져오는 함수
-    func getMyRoutineInfo(_ userId: String) async -> Result<[RoutineWithCompletion], DBError>
+    func getMyRoutineInfo() async -> Result<[RoutineWithCompletion], DBError>
 }
 
 class RoutineService: RoutineServiceType {
@@ -139,7 +139,8 @@ class RoutineService: RoutineServiceType {
         }
     }
     
-    func getMyRoutineInfo(_ userId: String) async -> Result<[RoutineWithCompletion], DBError> {
+    func getMyRoutineInfo() async -> Result<[RoutineWithCompletion], DBError> {
+        let userId = Utils.getUserUUID()
         do {
             var routineWithCompletion: [RoutineWithCompletion] = []
             let documents = try await db.collection("Routine").whereField("userId", isEqualTo: userId).getDocuments().documents

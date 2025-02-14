@@ -34,7 +34,7 @@ class AccountManagementViewModel {
         guard let user = Auth.auth().currentUser else { return }
         Task {
             do {
-                try SwiftDataService.deleteAllRoutines(for: user.uid, context: context)
+                try SwiftDataService.deleteAllRoutines(context: context)
                 print("✅ 루틴 초기화 성공")
             } catch {
                 print("❌ 루틴 초기화 실패: \(error.localizedDescription)")

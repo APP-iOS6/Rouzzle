@@ -30,9 +30,9 @@ struct RoutineListView: View {
             switch viewModel.phase {
             case .loading:
                 ProgressView()
-            case .failed:
-                Text("오류 남 다시 시도")
-            case .completed:
+//            case .failed:
+//                Text("오류 남 다시 시도")
+            case .completed, .failed:
                 ScrollView {
                     VStack(spacing: 20) {
                         QuoteTextView(text: $viewModel.currentQuote)

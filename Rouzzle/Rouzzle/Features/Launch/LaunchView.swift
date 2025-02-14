@@ -13,22 +13,24 @@ struct LaunchView: View {
     
     var body: some View {
         VStack {
-            switch authStore.authState {
-            case .splash:
-                SplashView()
-                    .transition(.opacity)
-            case .login:
-                LoginView()
-                    .transition(.opacity)
-            case .signup:
-                SignUpView()
-                    .transition(.opacity)
-            case .authenticated:
-                ContentView()
-                    .transition(.opacity)
-            }
+            ContentView()
+
+//            switch authStore.authState {
+//            case .splash:
+//                SplashView()
+//                    .transition(.opacity)
+//            case .login:
+//                LoginView()
+//                    .transition(.opacity)
+//            case .signup:
+//                SignUpView()
+//                    .transition(.opacity)
+//            case .authenticated:
+//                ContentView()
+//                    .transition(.opacity)
+//            }
         }
-        .animation(.smooth, value: authStore.authState)
+       // .animation(.smooth, value: authStore.authState)
     }
 }
 

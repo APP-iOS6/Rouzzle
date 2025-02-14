@@ -14,9 +14,16 @@ enum EmojiButtonType {
     var view: some View {
         switch self {
         case .keyboard:
-            KeyboardEmojiButton()
+            Image(systemName: "circle.dotted")
+                .font(.system(size: 24))
         case .routineEmoji:
-            PrimaryEmojiButton()
+            Circle()
+                .stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round, dash: [2, 5]))
+                .frame(width: 62, height: 62)
+                .overlay {
+                    Image(systemName: "plus")
+                        .font(.largeTitle)
+                }
         }
     }
     

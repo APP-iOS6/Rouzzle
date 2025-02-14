@@ -34,7 +34,7 @@ enum SwiftDataService {
     }
     
     /// 루틴 일괄 삭제
-    static func deleteAllRoutines(for userId: String, context: ModelContext) throws {
+    static func deleteAllRoutines(context: ModelContext) throws {
         // 1. 해당 유저의 모든 루틴 가져오기
         let fetchDescriptor = FetchDescriptor<RoutineItem>()
         
@@ -46,9 +46,8 @@ enum SwiftDataService {
             }
             
             try context.save()
-            print("✅ SwiftData: 모든 루틴 삭제 성공 for userId: \(userId)")
         } catch {
-            print("❌ SwiftData: 루틴 삭제 실패 for userId: \(userId): \(error.localizedDescription)")
+            print("❌ SwiftData: 루틴 삭제 실패: \(error.localizedDescription)")
             throw SwiftDataServiceError.deleteFailed(error)
         }
     }
@@ -92,5 +91,4 @@ enum SwiftDataService {
         }
     }
     
-   
 }

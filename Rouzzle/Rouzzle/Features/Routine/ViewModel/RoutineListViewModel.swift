@@ -34,13 +34,12 @@ class RoutineListViewModel {
     @MainActor
     func loadUserRoutineData(context: ModelContext) async {
         phase = .loading
-        let userUid = Utils.getUserUUID()
-        let result =  await routineService.getMyRoutineInfo(userUid)
+        let result =  await routineService.getMyRoutineInfo()
     
         switch result {
         case let .success(routineWithCompletion):
             do {
-                try SwiftDataService.deleteAllRoutines(for: userUid, context: context)
+                try SwiftDataService.deleteAllRoutines(context: context)
                 for data in routineWithCompletion {
                     let routine = data.routine.toRoutineItem()
                     try SwiftDataService.addRoutine(routine, context: context)
